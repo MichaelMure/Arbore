@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import type { Children } from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 export default class App extends Component {
   props: {
@@ -9,9 +10,9 @@ export default class App extends Component {
 
   render() {
     return (
-      <div>
+      <MuiThemeProvider>
         {this.props.children}
-      </div>
+      </MuiThemeProvider>
     );
   }
 }

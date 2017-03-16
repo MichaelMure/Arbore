@@ -1,14 +1,14 @@
-.container {
-  position: absolute;
-  top: 30%;
-  left: 10px;
-  text-align: center;
+.wrapper {
+  display: flex;
+  flex-flow: row;
+  min-height: 100vh;
 }
 
-.container h2 {
-  font-size: 5rem;
-}
+/*.sidebar {
+  background: red;
+}*/
 
-.container a {
-  font-size: 1.4rem;
+.content {
+  flex: 1;
+  background: #8fee2c;
 }

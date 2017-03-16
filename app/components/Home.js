@@ -2,15 +2,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import styles from './Home.css';
+import MenuBar from './MenuBar.js';
+import MainContainer from './MainContainer.js';
+import { LinearProgress } from 'material-ui/Progress';
 
 
 export default class Home extends Component {
   render() {
     return (
-      <div>
-        <div className={styles.container} data-tid="container">
-          <h2>Home</h2>
-          <Link to="/counter">to Counter</Link>
+      <div className={styles.wrapper}>
+        <div className={styles.sidebar}>
+          <MenuBar />
+        </div>
+        <div className={styles.content}>
+          <MainContainer />
         </div>
       </div>
     );
