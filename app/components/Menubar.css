@@ -2,3 +2,7 @@
   background: orangered;
   align-self: stretch;
 }
+
+.badge {
+  color: red;
+}
