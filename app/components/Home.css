@@ -10,5 +10,6 @@
 
 .content {
   flex: 1;
-  background: #8fee2c;
+  /*background: #8fee2c;*/
+  padding-left: 8px;
 }

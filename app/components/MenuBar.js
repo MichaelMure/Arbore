@@ -1,21 +1,29 @@
 import React, {Component, PropTypes} from 'react';
-import styles from './Menubar.css';
-import { List, ListItem, ListItemText } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
-import FolderIcon from 'material-ui/svg-icons/folder';
+// import styles from './Menubar.css';
+import Layout from 'material-ui/Layout'
+import FontAwesome from 'react-fontawesome';
+import IconButton from 'material-ui/IconButton';
 
 class MenuBar extends Component {
   render() {
     return (
-      <List>
-        <ListItem button><FolderIcon /></ListItem>
-        <Divider />
-        <ListItem button><FolderIcon /></ListItem>
-        <ListItem button><FolderIcon /></ListItem>
-        <ListItem button><FolderIcon /></ListItem>
-        <ListItem button><FolderIcon /></ListItem>
-        <ListItem button><FolderIcon /></ListItem>
-      </List>
+      <Layout container direction="column" gutter={8}>
+        <IconButton accent>
+          <FontAwesome name='user-circle-o' />
+        </IconButton>
+        <IconButton>
+          <FontAwesome name='download' />
+        </IconButton>
+        <IconButton>
+          <FontAwesome name='inbox' />
+        </IconButton>
+        <IconButton>
+          <FontAwesome name='bolt' />
+        </IconButton>
+        <IconButton>
+          <FontAwesome name='upload' />
+        </IconButton>
+      </Layout>
     );
   }
 }
