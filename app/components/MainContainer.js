@@ -14,12 +14,12 @@ class MainContainer extends Component {
     ));
     return (
       <div className={styles.wrapper}>
-        <div className={styles.column} >
+        <div className={styles.list} >
           <TextField label={"Search"} />
           { shares }
         </div>
-        <div className={styles.column}>
-          <ShareDetail share={shareFixtures[1]} />
+        <div className={styles.details}>
+          <ShareDetail share={shareFixtures[5]} />
         </div>
       </div>
     );

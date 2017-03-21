@@ -4,13 +4,18 @@
 }
 
 .header {
-
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
-.avatar {
-
+.stats {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
-.content {
-
+.actions {
+  display: flex;
+  flex-direction: row;
 }

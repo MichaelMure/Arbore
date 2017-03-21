@@ -26,6 +26,9 @@ class MenuBar extends Component {
         <IconButton>
           <FontAwesome name='upload' />
         </IconButton>
+        <IconButton>
+          <FontAwesome name='heart' />
+        </IconButton>
       </Layout>
     );
   }

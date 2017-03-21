@@ -1,6 +1,7 @@
 // @flow
-import Contact from "./Contact";
-import ShareMetadata from "./ShareMetadata";
+import Contact from "./Contact"
+import ShareMetadata from "./ShareMetadata"
+import IpfsObject from './IpfsObject'
 
 export const ShareState = {
   CREATING : 'CREATING', // adding objects
@@ -15,6 +16,7 @@ export default class Share {
   _author: Contact
   _metadata: ShareMetadata
   _status: ShareState
+  _content: Array<IpfsObject>
 
   constructor(author: Contact,
               metadata: ShareMetadata)
@@ -22,13 +24,14 @@ export default class Share {
     this._author = author
     this._metadata = metadata
     this._status = ShareState.READY
+    this._content = []
   }
 
   get author(): Contact {
     return this._author
   }
 
-  get metadata(): ShareData {
+  get metadata(): ShareMetadata {
     return this._metadata
   }
 
@@ -39,5 +42,19 @@ export default class Share {
 
   get status(): ShareState {
     return this._status
+  }
+
+  get content(): Array<IpfsObject> {
+    return this._content;
+  }
+
+  addObject(obj: IpfsObject) {
+    console.assert(
+      this._content.every(
+        (child: IpfsObject) => ! (child.hash.equals(obj.hash))
+      )
+    )
+
+    this._content.push(obj)
   }
 }

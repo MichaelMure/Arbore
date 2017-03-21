@@ -9,3 +9,15 @@
   flex: 1;
   margin: 4px;
 }
+
+.list {
+  flex-direction: column;
+  flex: 2;
+  margin: 4px;
+}
+
+.details {
+  flex-direction: column;
+  flex: 3;
+  margin: 4px;
+}
