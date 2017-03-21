@@ -1,12 +1,11 @@
-/*.wrapper {
-  background: #40d0ff;
-  flex-flow: column;
-}*/
-
-.blah1 {
-  /*background: #e8ff19;*/
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
 }
 
-.blah2 {
-  /*background: #96ffc2;*/
+.column {
+  flex-direction: column;
+  flex: 1;
+  margin: 4px;
 }

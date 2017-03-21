@@ -1,10 +1,14 @@
-import share from '../share'
+import Share from '../Share'
+import contactFxt from './contact'
+import metadataFxt from './shareMetadata'
 
 export default [
-  new share("title", "description", "message"),
-  new share("Share Title",
-    "Share description. Like a very long text with some HIuuuuuUUuuugge words. THe better words evar.",
-    "best message evar"),
-  new share("title", "description"),
-  new share("title", "description", "message"),
+  new Share(contactFxt[0], metadataFxt[2]),
+  new Share(contactFxt[1], metadataFxt[3]),
+  new Share(contactFxt[2], metadataFxt[0]),
+  new Share(contactFxt[3], metadataFxt[3]),
+  new Share(contactFxt[0], metadataFxt[0]),
+  new Share(contactFxt[1], metadataFxt[1]),
+  new Share(contactFxt[2], metadataFxt[2]),
+  new Share(contactFxt[3], metadataFxt[1]),
 ]

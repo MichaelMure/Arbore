@@ -4,35 +4,36 @@ import { Card, CardContent, CardHeader } from 'material-ui/Card'
 import Avatar from 'material-ui/Avatar'
 import Text from 'material-ui/Text'
 import { LinearProgress } from 'material-ui/Progress'
+import Share from "../models/Share";
 
 class CompactShare extends Component {
   render() {
+    const share = this.props.share
     return (
-      <Card>
+      <Card className={styles.card}>
         <CardHeader
           avatar={<Avatar
-            alt={this.props.contact.name}
-            src={this.props.contact.avatar}
+            alt={share.author.name}
+            src={share.author.avatar}
           />}
-          title={this.props.share.title}
-          subhead={this.props.share.description}
+          title={share.metadata.title}
+          subhead={share.metadata.description}
         />
-        { this.props.share.message &&
+        { share.metadata.message &&
           <CardContent>
             <Text>
-              {this.props.share.message}
+              {share.metadata.message}
             </Text>
           </CardContent>
         }
-        <LinearProgress mode="determinate" value={this.props.share.progress}/>
+        <LinearProgress mode="determinate" value={share.progress}/>
       </Card>
     );
   }
 }
 
 CompactShare.propTypes = {
-  share: PropTypes.object.isRequired,
-  contact: PropTypes.object.isRequired
+  share: PropTypes.instanceOf(Share).isRequired
 };
 CompactShare.defaultProps = {};
 

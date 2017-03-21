@@ -1,30 +1,27 @@
 import React, {Component, PropTypes} from 'react';
 import styles from './MainContainer.css';
-import Layout from 'material-ui/Layout'
 import TextField from 'material-ui/TextField';
 import CompactShare from './CompactShare';
 import ShareDetail from './ShareDetail';
 
 import shareFixtures from '../models/fixtures/share'
-import contactFixtures from '../models/fixtures/contact'
 
 class MainContainer extends Component {
   render() {
+    const shares = shareFixtures.map((share, index) => (
+       // TODO: using the index as key is ineficient if reordering can happen
+      <CompactShare key={index} share={share} />
+    ));
     return (
-      <Layout container align={"stretch"}>
-        <Layout item xs className={styles.blah1}>
+      <div className={styles.wrapper}>
+        <div className={styles.column} >
           <TextField label={"Search"} />
-          <Layout container >
-            <Layout item xs={12}><CompactShare share={shareFixtures[0]} contact={contactFixtures[0]}/></Layout>
-            <Layout item xs={12}><CompactShare share={shareFixtures[1]} contact={contactFixtures[1]}/></Layout>
-            <Layout item xs={12}><CompactShare share={shareFixtures[2]} contact={contactFixtures[2]}/></Layout>
-            <Layout item xs={12}><CompactShare share={shareFixtures[1]} contact={contactFixtures[3]}/></Layout>
-          </Layout>
-        </Layout>
-        <Layout item xs className={styles.blah2}>
-          <ShareDetail />
-        </Layout>
-      </Layout>
+          { shares }
+        </div>
+        <div className={styles.column}>
+          <ShareDetail share={shareFixtures[1]} />
+        </div>
+      </div>
     );
   }
 }

@@ -1,4 +1,8 @@
-export default class contact {
+// @flow
+
+export default class Contact {
+  _name: string
+  _avatar: string
 
   constructor(name, avatar) {
     this._name = name
@@ -12,5 +16,4 @@ export default class contact {
   get avatar() {
     return this._avatar
   }
-
 }
