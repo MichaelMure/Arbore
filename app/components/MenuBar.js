@@ -1,15 +1,15 @@
 import React, {Component, PropTypes} from 'react';
-import styles from './Menubar.css';
+import styles from './MenuBar.css';
 import Layout from 'material-ui/Layout'
+import IconButton from 'material-ui/IconButton'
 import FontAwesome from 'react-fontawesome';
-import IconButton from 'material-ui/IconButton';
 import Badge from 'material-ui/Badge';
 
 class MenuBar extends Component {
   render() {
     return (
       <Layout container direction="column" gutter={8}>
-        <IconButton accent>
+        <IconButton accent onClick={this.props.onProfileClick}>
           <FontAwesome name='user-circle-o' />
         </IconButton>
         <IconButton>
@@ -34,7 +34,9 @@ class MenuBar extends Component {
   }
 }
 
-MenuBar.propTypes = {};
+MenuBar.propTypes = {
+  onProfileClick: PropTypes.func.isRequired
+};
 MenuBar.defaultProps = {};
 
 export default MenuBar;

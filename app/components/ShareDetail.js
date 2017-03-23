@@ -11,9 +11,6 @@ import Share from '../models/Share'
 
 class ShareDetail extends Component {
   render() {
-    // TODO: removes
-    console.log(this.props.share)
-
     const share = this.props.share
     const avatar = (
       <Avatar alt={share.author.name} src={share.author.avatar} />

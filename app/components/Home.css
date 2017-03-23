@@ -4,12 +4,13 @@
   min-height: 100vh;
 }
 
-/*.sidebar {
-  background: red;
-}*/
+.sidebar {
+  z-index: 10;
+  background: white;
+}
 
 .content {
   flex: 1;
-  /*background: #8fee2c;*/
   padding-left: 8px;
+  position: relative;
 }
