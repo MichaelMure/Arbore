@@ -2,6 +2,10 @@
 import React, {Component, PropTypes} from 'react';
 import styles from './Profile.css';
 import classNames from 'classnames/bind';
+import Input from 'material-ui/Input'
+import Text from 'material-ui/Text'
+import Avatar from 'material-ui/Avatar'
+import AvatarEditor from 'react-avatar-editor'
 
 const cx = classNames.bind(styles);
 
@@ -23,7 +27,20 @@ class Profile extends Component {
       <div className={styles.wrapper}>
         <div className={overlayClass} onClick={this.props.onBackgroundClick}/>
         <div className={drawerClass}>
-          Profile
+          <Text>Profile</Text>
+          <Avatar
+            src="https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg"
+            className={styles.avatar}
+          />
+          <Input placeholder="Identity" />
+          <AvatarEditor
+            image="https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg"
+            width={200}
+            height={200}
+            borderRadius={5000}
+            color={[255, 255, 255, 1]}
+            style={{margin: '0 auto'}}
+          />
         </div>
       </div>
     );

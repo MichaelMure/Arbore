@@ -6,7 +6,7 @@ import Text from 'material-ui/Text'
 import FontAwesome from 'react-fontawesome';
 import IconButton from 'material-ui/IconButton';
 import { LinearProgress } from 'material-ui/Progress';
-import ShareFiles from './ShareFiles'
+import ShareFiles from './ShareFiles2'
 import Share from '../models/Share'
 
 class ShareDetail extends Component {

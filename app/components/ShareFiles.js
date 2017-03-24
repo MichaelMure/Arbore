@@ -16,7 +16,15 @@ import IpfsDirectory from '../models/IpfsDirectory'
 
 class ShareFiles extends Component {
 
+  // This is not the more elegant code ever
+  // but apparently this is the way to concatenate
+  // jsx elements
   buffer: Array
+
+  // Used to generate react keys
+  // We can't use the ipfs hash because the same content can be in
+  // different part of the tree
+  id: number
 
   renderObject(obj: IpfsObject) {
     switch(obj.type) {
@@ -33,22 +41,24 @@ class ShareFiles extends Component {
 
   renderFile(file: IpfsFile) {
     this.buffer.push(
-      <TableRow key={file.hash.toString()}>
+      <TableRow key={ this.id }>
         <TableCell>{ file.name }</TableCell>
         <TableCell numeric>{ file.sizeTotal }</TableCell>
         <TableCell numeric>{ file.sizeLocal / file.sizeTotal * 100 }%</TableCell>
       </TableRow>
     )
+    this.id++
   }
 
   renderDirectory(dir: IpfsDirectory) {
     this.buffer.push(
-      <TableRow key={dir.hash.toString()}>
+      <TableRow key={ this.id }>
         <TableCell>{ dir.name }</TableCell>
         <TableCell numeric> </TableCell>
         <TableCell numeric> </TableCell>
       </TableRow>
     )
+    this.id++
 
     dir.children.forEach(
       (child) => this.renderObject(child)
@@ -58,10 +68,9 @@ class ShareFiles extends Component {
   render() {
     const content = this.props.share.content
 
-    // This is not the more elegant code ever
-    // but apparently this is the way to concatenate
-    // jsx elements
     this.buffer = []
+    this.id = 1
+
     content.forEach((obj) => this.renderObject(obj))
 
     return (

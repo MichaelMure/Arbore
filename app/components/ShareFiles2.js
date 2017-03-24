@@ -1,6 +1,13 @@
 // @flow
 import React, {Component, PropTypes} from 'react';
 // import styles from './ShareFiles.css';
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell
+} from 'material-ui/Table';
 import Share from "../models/Share";
 import IpfsObject, {ObjectType} from '../models/IpfsObject'
 import IpfsFile from '../models/IpfsFile'
@@ -15,7 +22,7 @@ class ShareFiles extends Component {
 
   indent: number
 
-  renderLevel(level: number) {
+  static renderLevel(level: number) {
     return (level > 0 ? '|' : '') + '--'.repeat(level) + (level > 0 ? '>' : '');
   }
 
@@ -35,22 +42,22 @@ class ShareFiles extends Component {
   renderFile(file: IpfsFile, path: string, level: number) {
     path = path + '/' + file.name
     this.buffer.push(
-      <tr key={path}>
-        <td>{ this.renderLevel(level) }{ file.name }</td>
-        <td>{ file.sizeTotal }</td>
-        <td>{ file.sizeLocal / file.sizeTotal * 100 }%</td>
-      </tr>
+      <TableRow key={path}>
+        <TableCell>{ ShareFiles.renderLevel(level) }{ file.name }</TableCell>
+        <TableCell>{ file.sizeTotal }</TableCell>
+        <TableCell>{ file.sizeLocal / file.sizeTotal * 100 }%</TableCell>
+      </TableRow>
     )
   }
 
   renderDirectory(dir: IpfsDirectory, path: string, level: number) {
     path = path + '/' + dir.name
     this.buffer.push(
-      <tr key={path}>
-        <td>{ this.renderLevel(level) }{ dir.name }</td>
-        <td> </td>
-        <td> </td>
-      </tr>
+      <TableRow key={path}>
+        <TableCell>{ ShareFiles.renderLevel(level) }{ dir.name }</TableCell>
+        <TableCell> </TableCell>
+        <TableCell> </TableCell>
+      </TableRow>
     )
 
     dir.children.forEach(
@@ -67,18 +74,18 @@ class ShareFiles extends Component {
     content.forEach((obj) => this.renderObject(obj, '', 0))
 
     return (
-      <table>
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Size</th>
-            <th>Progress</th>
-          </tr>
-        </thead>
-        <tbody>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell>Name</TableCell>
+            <TableCell>Size</TableCell>
+            <TableCell>Progress</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           { this.buffer }
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     );
   }
 }

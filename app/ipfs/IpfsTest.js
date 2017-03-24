@@ -2,7 +2,6 @@
 
 import { IpfsConnector, ipfsEvents } from '@akashaproject/ipfs-connector';
 
-
 export const start = () => {
   const instance = IpfsConnector.getInstance();
 
