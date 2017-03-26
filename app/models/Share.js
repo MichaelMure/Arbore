@@ -2,8 +2,7 @@
 import { Record, List } from 'immutable'
 import Contact from './Contact'
 import ShareMetadata from './ShareMetadata'
-import type IpfsObject from './IpfsObject'
-import type ObjectTypeType from './IpfsObject'
+import type { ObjectTypeType } from './IpfsObject'
 
 export const ShareState = {
   CREATING : 'CREATING', // adding objects

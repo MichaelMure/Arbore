@@ -1,6 +1,6 @@
 // @flow
 import { ObjectType } from './IpfsObject'
-import type IpfsObject from './IpfsObject'
+import type { IpfsObject } from './IpfsObject'
 import { Record, List } from 'immutable'
 
 import randomHash from '../utils/randomHash'

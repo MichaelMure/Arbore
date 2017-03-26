@@ -11,6 +11,7 @@ export const ShareListFilter = {
   ALL : 'ALL',
   FAV: 'FAV'
 }
+export type ShareListFilterType = $Keys<typeof ShareListFilter>
 
 const ShareListRecord = Record({
   list: List(),

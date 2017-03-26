@@ -10,24 +10,24 @@ class MenuBar extends Component {
     return (
       <Layout container direction="column" gutter={8}>
         <IconButton accent onClick={this.props.onProfileClick}>
-          <FontAwesome name='user-circle-o' />
+          <FontAwesome name='user-circle-o'/>
         </IconButton>
         <IconButton>
           <Badge badgeContent={4} badgeClassName={styles.badge}>
-            <FontAwesome name='download' />
+            <FontAwesome name='download'/>
           </Badge>
         </IconButton>
         <IconButton>
-          <FontAwesome name='inbox' />
+          <FontAwesome name='inbox'/>
         </IconButton>
         <IconButton>
-          <FontAwesome name='bolt' />
+          <FontAwesome name='bolt'/>
         </IconButton>
         <IconButton>
-          <FontAwesome name='upload' />
+          <FontAwesome name='upload'/>
         </IconButton>
-        <IconButton>
-          <FontAwesome name='heart' />
+        <IconButton onClick={this.props.onFavoriteClick}>
+          <FontAwesome name='heart'/>
         </IconButton>
       </Layout>
     );
@@ -35,7 +35,8 @@ class MenuBar extends Component {
 }
 
 MenuBar.propTypes = {
-  onProfileClick: PropTypes.func.isRequired
+  onProfileClick: PropTypes.func.isRequired,
+  onFavoriteClick: PropTypes.func.isRequired
 };
 MenuBar.defaultProps = {};
 
