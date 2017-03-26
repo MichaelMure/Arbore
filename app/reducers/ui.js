@@ -1,25 +1,23 @@
 // @flow
-import * as ui from '../actions/ui';
-import { Map, fromJS } from 'immutable';
+import * as actions from '../actions/ui';
+import UiState, { keys} from '../models/UiState'
 import { handleActions } from 'redux-actions'
 import { Action } from '../utils/types'
 
-const initialState = fromJS({
-  profileOpen: false
-})
+const initialState = new UiState()
 
 export default handleActions({
 
-  [ui.openProfile]: (state: Map, action: Action) => (
-    state.set('profileOpen', true)
+  [actions.openProfile]: (state: UiState, action: Action) => (
+    state.set(keys.profileOpen, true)
   ),
 
-  [ui.closeProfile]: (state: Map, action: Action) => (
-    state.set('profileOpen', false)
+  [actions.closeProfile]: (state: UiState, action: Action) => (
+    state.set(keys.profileOpen, false)
   ),
 
-  [ui.toggleProfile]: (state: Map, action: Action) => (
-    state.set('profileOpen', ! state.get('profileOpen'))
+  [actions.toggleProfile]: (state: UiState, action: Action) => (
+    state.set(keys.profileOpen, ! state.profileOpen)
   ),
 
 }, initialState )

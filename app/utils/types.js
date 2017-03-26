@@ -1,6 +1,7 @@
 // @flow
 
-import { Map } from 'immutable'
+import Profile from '../models/Profile'
+import UiState from '../models/UiState'
 
 export type Action = {
   type: string,
@@ -10,7 +11,7 @@ export type Action = {
 
 export type Store = {
   counter: any,
-  profile: Map,
-  ui: Map,
+  profile: Profile,
+  ui: UiState,
   routing: any
 }

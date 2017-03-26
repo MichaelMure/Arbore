@@ -8,7 +8,7 @@ import { Store } from '../utils/types'
 
 
 const mapStateToProps = (state: Store) => ({
-  open: state.ui.get('profileOpen')
+  open: state.ui.profileOpen
 })
 
 const mapDispatchToProps = dispatch => ({
