@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import styles from './Home.css';
 import MenuBar from '../containers/MenuBar';
 import MainContainer from './MainContainer';
+import ProfileDrawer from '../containers/ProfileDrawer'
 import ProfilePage from '../containers/ProfilePage'
 
 export default class Home extends Component {
@@ -16,7 +17,9 @@ export default class Home extends Component {
         </div>
         <div className={styles.content}>
           <MainContainer />
-          <ProfilePage />
+          <ProfileDrawer>
+            <ProfilePage />
+          </ProfileDrawer>
         </div>
       </div>
     );
