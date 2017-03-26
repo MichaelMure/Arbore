@@ -22,7 +22,10 @@ export default handleActions({
   ),
 
   [actions.setFilter]: (state: ShareList, action: Action<ShareListFilterType>) => (
-    state.set(writable.filter, action.payload)
+    state.merge({
+      [writable.filter]: action.payload,
+      [writable.selectedIndex]: (action.payload != state.filter ? null : state.selectedIndex)
+    })
   ),
 
   [actions.setSelected]: (state: ShareList, action: Action<number>) => (

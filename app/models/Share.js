@@ -4,6 +4,8 @@ import Contact from './Contact'
 import ShareMetadata from './ShareMetadata'
 import type { ObjectTypeType } from './IpfsObject'
 
+import randomBool from '../utils/randomBool'
+
 export const ShareState = {
   CREATING : 'CREATING', // adding objects
   READY : 'READY', // all metadata known
@@ -39,7 +41,7 @@ export default class Share extends ShareRecord {
 
 
   constructor(author: Contact, metadata: ShareMetadata) {
-    super({author, metadata})
+    super({author, metadata, favorite: randomBool()})
   }
 
   get progress() {
