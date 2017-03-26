@@ -9,7 +9,8 @@ import {
   TableCell
 } from 'material-ui/Table';
 import Share from "../models/Share";
-import IpfsObject, {ObjectType} from '../models/IpfsObject'
+import { ObjectType } from '../models/IpfsObject'
+import type { IpfsObject } from '../models/IpfsObject'
 import IpfsFile from '../models/IpfsFile'
 import IpfsDirectory from '../models/IpfsDirectory'
 

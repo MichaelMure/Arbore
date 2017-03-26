@@ -1,6 +1,7 @@
 // @flow
-import { ObjectType } from './IpfsObject'
 import { Record } from 'immutable'
+import { ObjectType } from './IpfsObject'
+import type { ObjectTypeType } from './IpfsObject'
 
 import randomHash from '../utils/randomHash'
 import randomName from '../utils/randomName'
@@ -16,9 +17,8 @@ export const writable = {
 }
 
 const IpfsFileRecord = Record({
-  // TODO: values for test only
-  hash: randomHash(),
-  name: randomName(),
+  hash: null,
+  name: null,
   sizeTotal: 10000,
   sizeLocal: 5432,
   blockTotal: 15,
@@ -35,7 +35,12 @@ export default class IpfsFile extends IpfsFileRecord {
   blockLocal: number
   metadataLocal: boolean
 
-  get type(): ObjectType {
+  // TODO: remove
+  constructor() {
+    super({hash: randomHash(), name: randomName()})
+  }
+
+  get type(): ObjectTypeType {
     return ObjectType.FILE
   }
 

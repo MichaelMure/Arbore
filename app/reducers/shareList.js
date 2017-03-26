@@ -23,6 +23,10 @@ export default handleActions({
 
   [actions.setFilter]: (state: ShareList, action: Action<ShareListFilterType>) => (
     state.set(writable.filter, action.payload)
+  ),
+
+  [actions.setSelected]: (state: ShareList, action: Action<number>) => (
+    state.set(writable.selectedIndex, action.payload)
   )
 
 }, initialState )

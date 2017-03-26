@@ -9,7 +9,7 @@ export default class Drawer extends Component {
 
   render() {
 
-    let overlayClass = cx({
+    const overlayClass = cx({
       overlay: true,
       overlayOpen: this.props.open
     })

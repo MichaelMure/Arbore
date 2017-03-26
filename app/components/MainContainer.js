@@ -9,12 +9,19 @@ import ShareDetail from './ShareDetail';
 class MainContainer extends Component {
   render() {
     const shares = this.props.shares.filtered
-    const selectedShare = this.props.selectedShare
+    const selectedShare = this.props.shares.selected
+    const selectedIndex = this.props.shares.selectedIndex
 
     const sharesComps = shares.map((share, index) => (
-       // TODO: using the index as key is ineficient if reordering can happen
-      <CompactShare key={index} share={share} />
+      // TODO: using the index as key is ineficient if reordering can happen
+      <CompactShare
+        key={index}
+        share={share}
+        selected={index == selectedIndex}
+        onClick={this.props.onClickGenerator(index)}
+      />
     ));
+
     return (
       <div className={styles.wrapper}>
         <div className={styles.list} >
@@ -23,7 +30,7 @@ class MainContainer extends Component {
         </div>
         <div className={styles.details}>
           { selectedShare &&
-          <ShareDetail share={selectedShare} />
+            <ShareDetail share={selectedShare} />
           }
         </div>
       </div>
@@ -33,7 +40,7 @@ class MainContainer extends Component {
 
 MainContainer.propTypes = {
   shares: PropTypes.instanceOf(ShareList).isRequired,
-  selectedShare: PropTypes.instanceOf(Share)
+  onClickGenerator: PropTypes.func.isRequired
 };
 MainContainer.defaultProps = {};
 

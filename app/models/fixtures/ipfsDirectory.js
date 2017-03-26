@@ -11,9 +11,9 @@ d1 = d1.set(writable.children, d1.children.push(f1))
 d1 = d1.set(writable.children, d1.children.push(f2))
 
 let d2 = new IpfsDirectory()
-d2 = d2.set(writable.children, d1.children.push(d1))
-d2 = d2.set(writable.children, d1.children.push(f1))
-d2 = d2.set(writable.children, d1.children.push(f2))
+d2 = d2.set(writable.children, d2.children.push(d1))
+d2 = d2.set(writable.children, d2.children.push(f1))
+d2 = d2.set(writable.children, d2.children.push(f2))
 
 export default d2
 

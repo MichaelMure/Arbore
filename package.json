@@ -195,6 +195,7 @@
     "redux": "^3.6.0",
     "redux-actions": "^2.0.1",
     "redux-thunk": "^2.2.0",
+    "roboto-fontface": "^0.7.0",
     "source-map-support": "^0.4.10"
   },
   "devEngines": {
