@@ -1,6 +1,6 @@
 // @flow
 import * as actions from '../actions/profile';
-import Profile, { keys} from '../models/Profile'
+import Profile, { writable} from '../models/Profile'
 import { handleActions } from 'redux-actions'
 import { Action } from '../utils/types'
 
@@ -13,7 +13,7 @@ export default handleActions({
   ),
 
   [actions.changeAvatar]: (state: Profile, action: Action) => (
-    state.set(keys.avatar, action.payload)
+    state.set(writable.avatar, action.payload)
   ),
 
 }, initialState )

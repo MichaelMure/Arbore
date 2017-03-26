@@ -14,4 +14,8 @@ const ContactRecord = Record({
 export default class Contact extends ContactRecord {
   name: string
   avatar: ?string
+
+  constructor(name : string, avatar: string) {
+    super({name, avatar});
+  }
 }

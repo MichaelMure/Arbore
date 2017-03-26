@@ -10,6 +10,7 @@ export const writable = {
   hash: 'hash',
   name: 'name',
   metadataLocal: '_metadataLocal',
+  children: 'children'
 }
 
 const IpfsDirectoryRecord = Record({
@@ -17,7 +18,7 @@ const IpfsDirectoryRecord = Record({
   hash: randomHash(),
   name: randomName(),
   _metadataLocal: false,
-  _children: List()
+  children: List()
 })
 
 export default class IpfsDirectory extends IpfsDirectoryRecord {
@@ -28,42 +29,38 @@ export default class IpfsDirectory extends IpfsDirectoryRecord {
     return ObjectType.DIRECTORY
   }
 
-  get children(): List<IpfsObject> {
-    return this._children
-  }
-
   get sizeTotal(): number {
-    return this._children.reduce(
+    return this.children.reduce(
       (accu, child : IpfsObject) => accu + child.sizeTotal, 0
     );
   }
 
   get sizeLocal(): number {
-    return this._children.reduce(
+    return this.children.reduce(
       (accu, child : IpfsObject) => accu + child.sizeLocal, 0
     );
   }
 
   get blockTotal(): number {
-    return this._children.reduce(
+    return this.children.reduce(
       (accu, child : IpfsObject) => accu + child.blockTotal, 0
     );
   }
 
   get blockLocal(): number {
-    return this._children.reduce(
+    return this.children.reduce(
       (accu, child : IpfsObject) => accu + child.blockLocal, 0
     );
   }
 
   get fileTotal(): number {
-    return this._children.reduce(
+    return this.children.reduce(
       (accu, child : IpfsObject) => accu + child.fileTotal, 0
     );
   }
 
   get fileLocal(): number {
-    return this._children.reduce(
+    return this.children.reduce(
       (accu, child : IpfsObject) => accu + child.fileLocal, 0
     );
   }
@@ -73,7 +70,7 @@ export default class IpfsDirectory extends IpfsDirectoryRecord {
       return false
     }
 
-    return this._children.every(
+    return this.children.every(
       (child: IpfsObject) => child.metadataLocal
     )
   }

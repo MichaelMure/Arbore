@@ -175,6 +175,7 @@
     "webpack-merge": "^2.4.0"
   },
   "dependencies": {
+    "@akashaproject/ipfs-connector": "^1.7.17",
     "classnames": "^2.2.5",
     "electron-debug": "^1.1.0",
     "extract-text-webpack-plugin": "^2.0.0",

@@ -1,20 +1,19 @@
 // @flow
 
-// import IpfsObject from '../IpfsObject'
 import IpfsFile from '../IpfsFile'
-import IpfsDirectory from '../IpfsDirectory'
+import IpfsDirectory, { writable } from '../IpfsDirectory'
 
 const f1 = new IpfsFile()
 const f2 = new IpfsFile()
 
-const d1 = new IpfsDirectory()
-d1.addChildren(f1)
-d1.addChildren(f2)
+let d1 = new IpfsDirectory()
+d1 = d1.set(writable.children, d1.children.push(f1))
+d1 = d1.set(writable.children, d1.children.push(f2))
 
-const d2 = new IpfsDirectory()
-d2.addChildren(d1)
-d2.addChildren(f1)
-d2.addChildren(f2)
+let d2 = new IpfsDirectory()
+d2 = d2.set(writable.children, d1.children.push(d1))
+d2 = d2.set(writable.children, d1.children.push(f1))
+d2 = d2.set(writable.children, d1.children.push(f2))
 
 export default d2
 

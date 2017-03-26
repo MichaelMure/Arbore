@@ -10,11 +10,16 @@ export const writable = {
 const ShareMetadataRecord = Record({
   title: '',
   description: '',
-  message: '',
+  message: null,
 })
 
 export default class ShareMetadata extends ShareMetadataRecord {
   title: string
   description: string
-  message: string
+  message: ?string
+
+
+  constructor(title: string, description: string, message: ?string) {
+    super({title, description, message})
+  }
 }

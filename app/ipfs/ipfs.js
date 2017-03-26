@@ -24,6 +24,5 @@ export const start = () => {
 
 export const stop = () => {
   const instance = IpfsConnector.getInstance();
-
   instance.stop()
 }

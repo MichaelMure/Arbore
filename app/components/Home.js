@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import styles from './Home.css';
 import MenuBar from '../containers/MenuBar';
-import MainContainer from './MainContainer';
+import MainContainer from '../containers/MainContainer';
 import ProfileDrawer from '../containers/ProfileDrawer'
 import ProfilePage from '../containers/ProfilePage'
 

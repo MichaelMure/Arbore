@@ -1,6 +1,7 @@
 // @flow
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
+import * as ipfs from './ipfs/ipfs'
 
 let mainWindow = null;
 
@@ -17,6 +18,7 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.on('window-all-closed', () => {
+  ipfs.stop()
   if (process.platform !== 'darwin') app.quit();
 });
 
@@ -51,6 +53,8 @@ app.on('ready', async () => {
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
+
+  ipfs.start()
 
   mainWindow.webContents.on('did-finish-load', () => {
     if (!mainWindow) {
