@@ -2,12 +2,12 @@
 
 import { Record } from 'immutable'
 
-export const keys = {
+export const writable = {
   profileOpen: 'profileOpen'
 }
 
 export const UiRecord = Record({
-  [keys.profileOpen]: false,
+  profileOpen: false,
 })
 
 export default class UiState extends UiRecord {

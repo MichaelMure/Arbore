@@ -6,21 +6,23 @@ import { Record, List } from 'immutable'
 import randomHash from '../utils/randomHash'
 import randomName from '../utils/randomName'
 
-export const keys = {
-  hash: '_hash',
-  name: '_name',
+export const writable = {
+  hash: 'hash',
+  name: 'name',
   metadataLocal: '_metadataLocal',
 }
 
 const IpfsDirectoryRecord = Record({
   // TODO: values for test only
-  _hash: randomHash(),
-  _name: randomName(),
-  _metadataLocal: true,
+  hash: randomHash(),
+  name: randomName(),
+  _metadataLocal: false,
   _children: List()
 })
 
 export default class IpfsDirectory extends IpfsDirectoryRecord {
+  hash: Buffer
+  name: string
 
   get type(): ObjectType {
     return ObjectType.DIRECTORY

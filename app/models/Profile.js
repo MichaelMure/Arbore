@@ -1,21 +1,20 @@
 // @flow
-
 import { Record } from 'immutable'
 
-export const keys = {
+export const writable = {
   avatar: 'avatar',
   identity: 'identity',
   bio: 'bio'
 }
 
 const ProfileRecord = Record({
-  avatar: 'https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg',
+  avatar: null,
   identity: '',
   bio: ''
 })
 
 export default class Profile extends ProfileRecord {
-  avatar: string
+  avatar: ?string
   identity: string
   bio: string
 }

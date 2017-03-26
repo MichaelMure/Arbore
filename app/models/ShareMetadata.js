@@ -1,25 +1,20 @@
 // @flow
+import { Record } from 'immutable'
 
-export default class ShareMetadata {
-  _title: string
-  _description: string
-  _message: string
+export const writable = {
+  title: 'title',
+  description: 'description',
+  message: 'message',
+}
 
-  constructor(title: string, description: string, message: string = "") {
-    this._title = title
-    this._description = description
-    this._message = message
-  }
+const ShareMetadataRecord = Record({
+  title: '',
+  description: '',
+  message: '',
+})
 
-  get title(): string {
-    return this._title
-  }
-
-  get description(): string {
-    return this._description
-  }
-
-  get message(): string {
-    return this._message
-  }
+export default class ShareMetadata extends ShareMetadataRecord {
+  title: string
+  description: string
+  message: string
 }

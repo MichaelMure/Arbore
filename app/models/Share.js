@@ -1,7 +1,8 @@
 // @flow
+import { Record, List } from 'immutable'
 import Contact from "./Contact"
 import ShareMetadata from "./ShareMetadata"
-import IpfsObject from './IpfsObject'
+import type IpfsObject from './IpfsObject'
 
 export const ShareState = {
   CREATING : 'CREATING', // adding objects
@@ -12,49 +13,28 @@ export const ShareState = {
   SHARING : 'SHARING'
 }
 
+export const writable = {
+  author: 'author',
+  metadata: 'metadata',
+  status: 'status',
+}
+
+const ShareRecord = Record({
+  author: null,
+  metadata: null,
+  status: ShareState.CREATING,
+  content: List(),
+})
+
 export default class Share {
-  _author: Contact
-  _metadata: ShareMetadata
-  _status: ShareState
-  _content: Array<IpfsObject>
-
-  constructor(author: Contact,
-              metadata: ShareMetadata)
-  {
-    this._author = author
-    this._metadata = metadata
-    this._status = ShareState.READY
-    this._content = []
-  }
-
-  get author(): Contact {
-    return this._author
-  }
-
-  get metadata(): ShareMetadata {
-    return this._metadata
-  }
+  author: ?Contact
+  metadata: ?ShareMetadata
+  status: ShareState
+  content: ?List<IpfsObject>
 
   get progress() {
     // return this._progress
     return Math.floor(Math.random() * (101))
   }
 
-  get status(): ShareState {
-    return this._status
-  }
-
-  get content(): Array<IpfsObject> {
-    return this._content;
-  }
-
-  addObject(obj: IpfsObject) {
-    console.assert(
-      this._content.every(
-        (child: IpfsObject) => ! (child.hash.equals(obj.hash))
-      )
-    )
-
-    this._content.push(obj)
-  }
 }

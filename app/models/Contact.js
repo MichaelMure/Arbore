@@ -1,19 +1,17 @@
 // @flow
+import { Record } from 'immutable'
 
-export default class Contact {
-  _name: string
-  _avatar: string
+export const writable = {
+  name: 'name',
+  avatar: 'avatar',
+}
 
-  constructor(name, avatar) {
-    this._name = name
-    this._avatar = avatar
-  }
+const ContactRecord = Record({
+  name: '',
+  avatar: null
+})
 
-  get name() {
-    return this._name
-  }
-
-  get avatar() {
-    return this._avatar
-  }
+export default class Contact extends ContactRecord {
+  name: string
+  avatar: ?string
 }

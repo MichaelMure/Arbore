@@ -1,41 +1,39 @@
 // @flow
 import { ObjectType } from './IpfsObject'
-import type IpfsObject from './IpfsObject'
 import { Record } from 'immutable'
 
 import randomHash from '../utils/randomHash'
 import randomName from '../utils/randomName'
 
-export const keys = {
-  hash: '_hash',
-  name: '_name',
-  sizeTotal: '_sizeTotal',
-  sizeLocal: '_sizeLocal',
-  blockTotal: '_blockTotal',
-  blockLocal: '_blockLocal',
-  metadataLocal: '_metadataLocal',
+export const writable = {
+  hash: 'hash',
+  name: 'name',
+  sizeTotal: 'sizeTotal',
+  sizeLocal: 'sizeLocal',
+  blockTotal: 'blockTotal',
+  blockLocal: 'blockLocal',
+  metadataLocal: 'metadataLocal',
 }
 
 const IpfsFileRecord = Record({
   // TODO: values for test only
-  _hash: randomHash(),
-  _name: randomName(),
-  _sizeTotal: 10000,
-  _sizeLocal: 5432,
-  _blockTotal: 15,
-  _blockLocal: 7,
-  _metadataLocal: true,
+  hash: randomHash(),
+  name: randomName(),
+  sizeTotal: 10000,
+  sizeLocal: 5432,
+  blockTotal: 15,
+  blockLocal: 7,
+  metadataLocal: false,
 })
 
 export default class IpfsFile extends IpfsFileRecord {
-
-  get hash(): Buffer {
-    return this._hash
-  }
-
-  get name(): string {
-    return this._name
-  }
+  hash: Buffer
+  name: string
+  sizeTotal: number
+  sizeLocal: number
+  blockTotal: number
+  blockLocal: number
+  metadataLocal: boolean
 
   get type(): ObjectType {
     return ObjectType.FILE
@@ -46,26 +44,7 @@ export default class IpfsFile extends IpfsFileRecord {
   }
 
   get fileLocal(): number {
-    return (this._blockTotal === this._blockLocal) ? 1 : 0;
-  }
-
-  get sizeTotal(): number {
-    return this._sizeTotal
-  }
-  get sizeLocal(): number {
-    return this._sizeLocal
-  }
-
-  get blockTotal(): number {
-    return this._blockTotal
-  }
-
-  get blockLocal(): number {
-    return this._blockLocal
-  }
-
-  get metadataLocal(): boolean {
-    return this._metadataLocal
+    return (this.blockTotal === this.blockLocal) ? 1 : 0;
   }
 }
 
