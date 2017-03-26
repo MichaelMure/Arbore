@@ -8,18 +8,14 @@ export const keys = {
   bio: 'bio'
 }
 
-export const ProfileRecord = Record({
-  [keys.avatar]: '',
-  [keys.identity]: '',
-  [keys.bio]: ''
+const ProfileRecord = Record({
+  avatar: 'https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg',
+  identity: '',
+  bio: ''
 })
 
 export default class Profile extends ProfileRecord {
   avatar: string
   identity: string
   bio: string
-
-  pwet() {
-    return this.bio
-  }
 }

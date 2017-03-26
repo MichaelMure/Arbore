@@ -1,44 +1,44 @@
 // @flow
-import IpfsObject, { ObjectType } from './IpfsObject'
+import { ObjectType } from './IpfsObject'
+import type IpfsObject from './IpfsObject'
+import { Record } from 'immutable'
+
 import randomHash from '../utils/randomHash'
 import randomName from '../utils/randomName'
 
-export default class IpfsFile extends IpfsObject {
-  _sizeTotal: number
-  _sizeLocal: number
-  _blockTotal: number
-  _blockLocal: number
-  _metadataLocal: boolean
+export const keys = {
+  hash: '_hash',
+  name: '_name',
+  sizeTotal: '_sizeTotal',
+  sizeLocal: '_sizeLocal',
+  blockTotal: '_blockTotal',
+  blockLocal: '_blockLocal',
+  metadataLocal: '_metadataLocal',
+}
 
-  // For temporary test
-  constructor() {
-    // TODO: for test only
-    super(randomHash(), randomName())
-    this._sizeTotal = 10000;
-    this._sizeLocal = 5432;
-    this._blockTotal = 15;
-    this._blockLocal = 7;
-    this._metadataLocal = true;
+const IpfsFileRecord = Record({
+  // TODO: values for test only
+  _hash: randomHash(),
+  _name: randomName(),
+  _sizeTotal: 10000,
+  _sizeLocal: 5432,
+  _blockTotal: 15,
+  _blockLocal: 7,
+  _metadataLocal: true,
+})
+
+export default class IpfsFile extends IpfsFileRecord {
+
+  get hash(): Buffer {
+    return this._hash
+  }
+
+  get name(): string {
+    return this._name
   }
 
   get type(): ObjectType {
     return ObjectType.FILE
-  }
-
-  get sizeTotal(): number {
-    return this._sizeTotal;
-  }
-
-  get sizeLocal(): number {
-    return this._sizeLocal;
-  }
-
-  get blockTotal(): number {
-    return this._blockTotal;
-  }
-
-  get blockLocal(): number {
-    return this._blockLocal;
   }
 
   get fileTotal(): number {
@@ -46,10 +46,26 @@ export default class IpfsFile extends IpfsObject {
   }
 
   get fileLocal(): number {
-    return (blockTotal() === blockLocal()) ? 1 : 0;
+    return (this._blockTotal === this._blockLocal) ? 1 : 0;
+  }
+
+  get sizeTotal(): number {
+    return this._sizeTotal
+  }
+  get sizeLocal(): number {
+    return this._sizeLocal
+  }
+
+  get blockTotal(): number {
+    return this._blockTotal
+  }
+
+  get blockLocal(): number {
+    return this._blockLocal
   }
 
   get metadataLocal(): boolean {
-    return this._metadataLocal;
+    return this._metadataLocal
   }
 }
+

@@ -1,34 +1,33 @@
 // @flow
-import IpfsObject, { ObjectType } from './IpfsObject'
+import { ObjectType } from './IpfsObject'
+import type IpfsObject from './IpfsObject'
+import { Record, List } from 'immutable'
+
 import randomHash from '../utils/randomHash'
 import randomName from '../utils/randomName'
 
-export default class IpfsDirectory extends IpfsObject {
-  _children: Array<IpfsObject>
-  _metadataLocal: boolean
+export const keys = {
+  hash: '_hash',
+  name: '_name',
+  metadataLocal: '_metadataLocal',
+}
 
-  constructor() {
-    // TODO: for test only
-    super(randomHash(), randomName())
-    this._children = []
-    this._metadataLocal = false
-  }
+const IpfsDirectoryRecord = Record({
+  // TODO: values for test only
+  _hash: randomHash(),
+  _name: randomName(),
+  _metadataLocal: true,
+  _children: List()
+})
+
+export default class IpfsDirectory extends IpfsDirectoryRecord {
 
   get type(): ObjectType {
     return ObjectType.DIRECTORY
   }
 
-  addChildren(obj: IpfsObject) {
-    console.assert(
-      this._children.every(
-        (child: IpfsObject) => ! (child.hash.equals(obj.hash))
-      )
-    )
-    this._children.push(obj)
-  }
-
-  get children(): Array<IpfsObject> {
-    return this._children;
+  get children(): List<IpfsObject> {
+    return this._children
   }
 
   get sizeTotal(): number {
