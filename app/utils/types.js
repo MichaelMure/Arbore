@@ -10,7 +10,6 @@ export type Action = {
 }
 
 export type Store = {
-  counter: any,
   profile: Profile,
   ui: UiState,
   routing: any
