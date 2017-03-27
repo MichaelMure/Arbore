@@ -26,7 +26,9 @@ class MainContainer extends Component {
       <div className={styles.wrapper}>
         <div className={styles.list} >
           <TextField label={"Search"} />
-          { sharesComps }
+          <div className={styles.scroller}>
+            { sharesComps }
+          </div>
         </div>
         <div className={styles.details}>
           { selectedShare && <ShareDetail /> }

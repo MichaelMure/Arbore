@@ -1,7 +1,7 @@
 // @flow
 import { connect } from 'react-redux'
 import { Store } from '../utils/types'
-import component from '../components/MainContainer'
+import MainContainer from '../components/MainContainer'
 import * as sharelist from '../actions/shareList'
 
 const mapStateToProps = (state: Store) => ({
@@ -14,4 +14,4 @@ const mapDispatchToProps = dispatch => ({
   )
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(component)
+export default connect(mapStateToProps, mapDispatchToProps)(MainContainer)
