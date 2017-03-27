@@ -26,7 +26,7 @@ class MainContainer extends Component {
     return (
       <div className={styles.wrapper}>
         <div className={styles.list} >
-          <TextField label={"Search"} />
+          <TextField label={"Search"} onChange={this.props.onSearchChange} />
           <div className={styles.scroller}>
             { sharesComps }
           </div>
@@ -41,7 +41,8 @@ class MainContainer extends Component {
 
 MainContainer.propTypes = {
   shares: PropTypes.instanceOf(ShareList).isRequired,
-  onClickGenerator: PropTypes.func.isRequired
+  onClickGenerator: PropTypes.func.isRequired,
+  onSearchChange: PropTypes.func.isRequired,
 };
 MainContainer.defaultProps = {};
 

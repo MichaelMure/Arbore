@@ -11,7 +11,10 @@ const mapStateToProps = (state: Store) => ({
 const mapDispatchToProps = dispatch => ({
   onClickGenerator: (index) => (
     () => (dispatch(sharelist.setSelected(index)))
-  )
+  ),
+  onSearchChange: (event) => {
+    dispatch(sharelist.setSearch(event.target.value))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainContainer)

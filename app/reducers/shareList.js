@@ -32,6 +32,10 @@ export default handleActions({
     state.set(writable.selectedId, action.payload)
   ),
 
+  [sharelist.setSearch]: (state: ShareList, action: Action<string>) => (
+    state.set(writable.search, action.payload)
+  ),
+
   [combineActions(
     share.setTitle,
     share.toggleFavorite
