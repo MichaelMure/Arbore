@@ -41,4 +41,8 @@ export default class ShareList extends ShareListRecord {
 
     return this.list.find((share: Share) => share.id == this.selectedId)
   }
+
+  idInFiltered(id: number) : boolean {
+    return this.filtered.some((share: Share) => share.id == id)
+  }
 }

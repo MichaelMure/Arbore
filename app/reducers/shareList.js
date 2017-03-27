@@ -25,11 +25,7 @@ export default handleActions({
   ),
 
   [sharelist.setFilter]: (state: ShareList, action: Action<ShareListFilterType>) => (
-    state.merge({
-      [writable.filter]: action.payload,
-      // reset the selected share if we actually change the filter
-      [writable.selectedId]: (action.payload != state.filter ? null : state.selectedId)
-    })
+    state.set(writable.filter, action.payload)
   ),
 
   [sharelist.setSelected]: (state: ShareList, action: Action<number>) => (

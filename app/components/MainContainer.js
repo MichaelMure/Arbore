@@ -8,9 +8,10 @@ import ShareDetail from '../containers/ShareDetail';
 
 class MainContainer extends Component {
   render() {
-    const shares = this.props.shares.filtered
-    const selectedShare = this.props.shares.selected
-    const selectedId = this.props.shares.selectedId
+    const shareList = this.props.shares
+    const shares = shareList.filtered
+    const selectedShare = shareList.selected
+    const selectedId = shareList.selectedId
 
     const sharesComps = shares.map((share : Share) => (
       // TODO: using the index as key is ineficient if reordering can happen
@@ -31,7 +32,7 @@ class MainContainer extends Component {
           </div>
         </div>
         <div className={styles.details}>
-          { selectedShare && <ShareDetail /> }
+          { selectedShare && shareList.idInFiltered(selectedId) && <ShareDetail /> }
         </div>
       </div>
     );
