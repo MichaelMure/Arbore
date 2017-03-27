@@ -4,21 +4,21 @@ import Share from '../models/Share'
 import ShareList from '../models/ShareList'
 import TextField from 'material-ui/TextField';
 import CompactShare from './CompactShare';
-import ShareDetail from './ShareDetail';
+import ShareDetail from '../containers/ShareDetail';
 
 class MainContainer extends Component {
   render() {
     const shares = this.props.shares.filtered
     const selectedShare = this.props.shares.selected
-    const selectedIndex = this.props.shares.selectedIndex
+    const selectedId = this.props.shares.selectedId
 
-    const sharesComps = shares.map((share, index) => (
+    const sharesComps = shares.map((share : Share) => (
       // TODO: using the index as key is ineficient if reordering can happen
       <CompactShare
-        key={index}
+        key={share.id}
         share={share}
-        selected={index == selectedIndex}
-        onClick={this.props.onClickGenerator(index)}
+        selected={share.id == selectedId}
+        onClick={this.props.onClickGenerator(share.id)}
       />
     ));
 
@@ -29,9 +29,7 @@ class MainContainer extends Component {
           { sharesComps }
         </div>
         <div className={styles.details}>
-          { selectedShare &&
-            <ShareDetail share={selectedShare} />
-          }
+          { selectedShare && <ShareDetail /> }
         </div>
       </div>
     );

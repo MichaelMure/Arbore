@@ -25,6 +25,7 @@ export const writable = {
 }
 
 const ShareRecord = Record({
+  id: null,
   author: null,
   metadata: null,
   status: ShareState.CREATING,
@@ -32,16 +33,20 @@ const ShareRecord = Record({
   favorite: false
 })
 
+let idGenerator = 0
+
 export default class Share extends ShareRecord {
+  id: number
   author: ?Contact
   metadata: ?ShareMetadata
-  status: ShareState
+  status: ShareStateType
   content: ?List<ObjectTypeType>
   favorite: boolean
 
 
   constructor(author: Contact, metadata: ShareMetadata) {
-    super({author, metadata, favorite: randomBool()})
+    super({id: idGenerator, author, metadata, favorite: randomBool()})
+    idGenerator++
   }
 
   get progress() {

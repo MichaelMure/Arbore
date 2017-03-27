@@ -23,7 +23,6 @@ class ShareDetail extends Component {
         subhead={share.metadata.description} />
     )
 
-
     return (
       <div className={styles.wrapper}>
         <div className={styles.header}>
@@ -35,7 +34,9 @@ class ShareDetail extends Component {
             <IconButton>
               <FontAwesome name='stop' />
             </IconButton>
-            <IconButton>
+            <IconButton
+              accent={share.favorite}
+              onClick={this.props.onFavoriteClickGenerator(share.id)}>
               <FontAwesome name='heart' />
             </IconButton>
           </div>
@@ -55,7 +56,8 @@ class ShareDetail extends Component {
 }
 
 ShareDetail.propTypes = {
-  share: PropTypes.instanceOf(Share).isRequired
+  share: PropTypes.instanceOf(Share).isRequired,
+  onFavoriteClickGenerator: PropTypes.func.isRequired
 };
 ShareDetail.defaultProps = {};
 

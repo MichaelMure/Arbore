@@ -4,6 +4,8 @@ import Share, { writable } from '../models/Share'
 import type { IpfsObject } from '../models/IpfsObject'
 import { handleActions } from 'redux-actions'
 import { Action } from '../utils/types'
+import metadataReducer from '../reducers/shareMetadata'
+import ShareMetadata from "../models/ShareMetadata";
 
 const initialState = null
 
@@ -19,7 +21,11 @@ export default handleActions({
   },
 
   [actions.toggleFavorite]: (state: Share, action: Action) => (
-    state.update(writable.favorite, ! state.favorite)
-  )
+    state.update(writable.favorite, (x : boolean) => (!x))
+  ),
+
+  [actions.setTitle]: (state: Share, action: Action) => (
+    state.update(writable.metadata, (x: ShareMetadata) => metadataReducer(x, action))
+  ),
 
 }, initialState )

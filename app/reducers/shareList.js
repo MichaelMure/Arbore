@@ -1,10 +1,13 @@
 // @flow
-import * as actions from '../actions/shareList';
+import * as sharelist from '../actions/shareList';
+import * as share from '../actions/share'
 import ShareList, { writable } from '../models/ShareList'
 import type { ShareListFilterType } from '../models/ShareList'
 import Share from '../models/Share'
-import { handleActions } from 'redux-actions'
+import { handleActions, combineActions } from 'redux-actions'
 import { Action } from '../utils/types'
+import shareReducer from './share'
+import { List } from "immutable";
 
 let initialState = new ShareList()
 
@@ -17,19 +20,37 @@ shareFxt.forEach((share) => {
 
 export default handleActions({
 
-  [actions.add]: (state: ShareList, action: Action<Share>) => (
+  [sharelist.add]: (state: ShareList, action: Action<Share>) => (
     state.set(writable.list, state.list.push(action.payload))
   ),
 
-  [actions.setFilter]: (state: ShareList, action: Action<ShareListFilterType>) => (
+  [sharelist.setFilter]: (state: ShareList, action: Action<ShareListFilterType>) => (
     state.merge({
       [writable.filter]: action.payload,
-      [writable.selectedIndex]: (action.payload != state.filter ? null : state.selectedIndex)
+      // reset the selected share if we actually change the filter
+      [writable.selectedId]: (action.payload != state.filter ? null : state.selectedId)
     })
   ),
 
-  [actions.setSelected]: (state: ShareList, action: Action<number>) => (
-    state.set(writable.selectedIndex, action.payload)
-  )
+  [sharelist.setSelected]: (state: ShareList, action: Action<number>) => (
+    state.set(writable.selectedId, action.payload)
+  ),
+
+  [combineActions(
+    share.setTitle,
+    share.toggleFavorite
+  )] : (state: ShareList, action: Action) => (
+    chainToShare(state, action)
+  ),
 
 }, initialState )
+
+function chainToShare(state: ShareList, action: Action) {
+  const id = action.payload.id
+  return state.update(writable.list,
+    (list: List) => list.update(
+      list.findIndex((x: Share) => x.id == id),
+      (share: Share) => shareReducer(share, action)
+    )
+  )
+}

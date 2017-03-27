@@ -11,34 +11,34 @@ export type ShareListFilterType = $Keys<typeof ShareListFilter>
 export const writable = {
   list: 'list',
   filter: 'filter',
-  selectedIndex: 'selectedIndex'
+  selectedId: 'selectedId'
 }
 
 const ShareListRecord = Record({
   list: List(),
   filter: ShareListFilter.ALL,
-  selectedIndex: null
+  selectedId: null
 })
 
 export default class ShareList extends ShareListRecord {
   list: List<Share>
   filter: ShareListFilter
-  selectedIndex: ?number
+  selectedId: ?number
 
-  get filtered() : Array<Share> {
+  get filtered() : List<Share> {
     switch(this.filter) {
       case ShareListFilter.ALL:
-        return this.list.toArray()
+        return this.list
       case ShareListFilter.FAV:
-        return this.list.toSeq().filter((x : Share) => x.favorite).toArray()
+        return this.list.filter((x : Share) => x.favorite)
     }
   }
 
   get selected() : ?Share {
-    if(this.selectedIndex == null) {
+    if(this.selectedId == null) {
       return null
     }
 
-    return this.filtered[this.selectedIndex]
+    return this.list.find((share: Share) => share.id == this.selectedId)
   }
 }
