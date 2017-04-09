@@ -1,28 +1,34 @@
 // @flow
 
-import { IpfsConnector, ipfsEvents } from '@akashaproject/ipfs-connector';
+import { IpfsConnector, ipfsEvents } from '@akashaproject/ipfs-connector'
 
 export const start = () => {
-  const instance = IpfsConnector.getInstance();
-
-  console.log(instance.downloadManager.getPath())
+  const instance = IpfsConnector.getInstance()
 
   // start ipfs daemon and download binaries if needed
   instance.start()
 
-  instance.once(ipfsEvents.SERVICE_STARTED, function () {
+  // install some event listeners
+  instance.on(ipfsEvents.SERVICE_STARTED, onServiceStarted)
+  instance.on(ipfsEvents.SERVICE_STOPPING, onServiceStopping)
+}
 
-    console.log('STARTED')
-    instance.api.apiClient.version((err, version) => {
-      if (err) {
-        throw err
-      }
-      console.log(version)
-    })
-  });
+const onServiceStarted = () => {
+  const instance = IpfsConnector.getInstance()
+
+  instance.api.apiClient.version((err, version) => {
+    if (err) {
+      throw err
+    }
+    console.log(version)
+  })
+}
+
+const onServiceStopping = () => {
+  console.log('Ipfs service stopping')
 }
 
 export const stop = () => {
-  const instance = IpfsConnector.getInstance();
+  const instance = IpfsConnector.getInstance()
   instance.stop()
 }

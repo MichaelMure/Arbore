@@ -1,33 +1,26 @@
 // @flow
 import { ObjectType } from './IpfsObject'
 import type { IpfsObject, ObjectTypeType } from './IpfsObject'
-import { Record, List } from 'immutable'
-
-import randomHash from '../utils/randomHash'
-import randomName from '../utils/randomName'
+import { Record, Map } from 'immutable'
 
 export const writable = {
   hash: 'hash',
-  name: 'name',
   metadataLocal: '_metadataLocal',
-  children: 'children'
+  children: 'children',
 }
 
 const IpfsDirectoryRecord = Record({
   hash: null,
-  name: null,
   _metadataLocal: false,
-  children: List()
+  children: Map()
 })
 
 export default class IpfsDirectory extends IpfsDirectoryRecord {
-  hash: Buffer
-  name: string
-  children: List<IpfsObject>
+  hash: string
+  children: Map<string, IpfsObject>
 
-  // TODO: remove
-  constructor() {
-    super({hash: randomHash(), name: randomName()})
+  constructor(hash: string) {
+    super({hash})
   }
 
   get type(): ObjectTypeType {

@@ -41,7 +41,6 @@ class ShareFiles extends Component {
   }
 
   renderFile(file: IpfsFile, path: string, level: number) {
-    path = path + '/' + file.name
     this.buffer.push(
       <TableRow key={path}>
         <TableCell>{ ShareFiles.renderLevel(level) }{ file.name }</TableCell>
@@ -52,7 +51,6 @@ class ShareFiles extends Component {
   }
 
   renderDirectory(dir: IpfsDirectory, path: string, level: number) {
-    path = path + '/' + dir.name
     this.buffer.push(
       <TableRow key={path}>
         <TableCell>{ ShareFiles.renderLevel(level) }{ dir.name }</TableCell>
@@ -61,18 +59,21 @@ class ShareFiles extends Component {
       </TableRow>
     )
 
-    dir.children.forEach(
-      (child) => this.renderObject(child, path, level + 1)
+    dir.children.entrySeq().forEach(
+      entry => this.renderObject(entry[1], path + '/' + entry[0], level + 1)
     )
   }
 
   render() {
-    const content = this.props.share.content
+    if(! this.props.share.metadataLocal) {
+      return (<div>Waiting for metadata...</div>)
+    }
 
+    const content = this.props.share.content
     this.buffer = []
     this.indent = 0
 
-    content.forEach((obj) => this.renderObject(obj, '', 0))
+    content.entrySeq().forEach(entry => this.renderObject(entry[1], entry[0], 0))
 
     return (
       <Table>

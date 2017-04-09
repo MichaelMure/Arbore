@@ -29,13 +29,16 @@ class ProfileEdit extends Component {
           style={{margin: '0 auto'}}
         />
         <Button accent>Submit</Button>
+
+        <Button onClick={this.props.onTest}>TEST</Button>
       </div>
     );
   }
 }
 
 ProfileEdit.propTypes = {
-  profile: PropTypes.instanceOf(Model).isRequired
+  profile: PropTypes.instanceOf(Model).isRequired,
+  onTest: PropTypes.func.isRequired
 };
 ProfileEdit.defaultProps = {};
 

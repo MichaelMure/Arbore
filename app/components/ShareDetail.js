@@ -47,9 +47,11 @@ class ShareDetail extends Component {
           <Text>3/4 peers</Text>
           <Text>1.03Mo/s</Text>
         </div>
+        <div className={styles.spacer} />
         <Text type="subheading" component="h2">Description</Text>
         <Text component="p">{share.metadata.message}</Text>
-        <ShareFiles share={share} />
+        <div className={styles.spacer} />
+        <ShareFiles share={share} style="margin:30px"/>
       </div>
     );
   }

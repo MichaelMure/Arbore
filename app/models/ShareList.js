@@ -24,12 +24,13 @@ const ShareListRecord = Record({
 
 export default class ShareList extends ShareListRecord {
   list: List<Share>
-  filter: ShareListFilter
+  filter: ShareListFilterType
   selectedId: ?number
   search: string
 
+  // Filter the Share list with the 'search' string pattern
   get searched() : List<Share> {
-    if(this.search == '') {
+    if(this.search === '') {
       return this.list
     }
 
@@ -41,6 +42,7 @@ export default class ShareList extends ShareListRecord {
     ))
   }
 
+  // Return a list of Shares with all the filter applyed
   get filtered() : List<Share> {
     switch(this.filter) {
       case ShareListFilter.ALL:
@@ -50,16 +52,17 @@ export default class ShareList extends ShareListRecord {
     }
   }
 
+  // Return the selected share, if any
   get selected() : ?Share {
-    if(this.selectedId == null) {
+    if(this.selectedId === null) {
       return null
     }
 
-    return this.list.find((share: Share) => share.id == this.selectedId)
+    return this.list.find((share: Share) => share.id === this.selectedId)
   }
 
   idInFiltered(id: number) : boolean {
-    return this.filtered.some((share: Share) => share.id == id)
+    return this.filtered.some((share: Share) => share.id === id)
   }
 }
 
@@ -68,5 +71,5 @@ export default class ShareList extends ShareListRecord {
  * Handle the null string case.
  */
 function strContain(str : ?string, pattern : string) : boolean {
-  return (str != null) && (str.search(new RegExp(pattern, 'i')) != -1)
+  return (!!str) && (str.search(new RegExp(pattern, 'i')) !== -1)
 }

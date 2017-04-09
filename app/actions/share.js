@@ -1,8 +1,9 @@
 // @flow
 import { createAction } from 'redux-actions'
 
-export const addObject = createAction('SHARE_OBJECT_ADD')
-
+export const addEmptyObject = createAction('SHARE_EMPTY_OBJECT_ADD',
+  (id: number, name: string, hash: string) => ({id, name, hash})
+)
 
 export const toggleFavorite = createAction('SHARE_FAVORITE_TOGGLE',
   (id: number) => ({id})

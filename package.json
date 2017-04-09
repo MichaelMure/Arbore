@@ -24,8 +24,7 @@
     "package": "npm run build && build --publish never",
     "package-win": "npm run build && build --win --x64",
     "package-linux": "npm run build && build --linux",
-    "package-all": "npm run build && build -mwl",
-    "cleanup": "mop -v"
+    "package-all": "npm run build && build -mwl"
   },
   "browserslist": "electron 1.4",
   "build": {
@@ -130,7 +129,6 @@
     "babel-preset-stage-0": "^6.22.0",
     "babel-register": "^6.22.0",
     "babili-webpack-plugin": "^0.0.11",
-    "boiler-room-custodian": "^0.6.1",
     "concurrently": "^3.1.0",
     "cross-env": "^3.1.4",
     "cross-spawn": "^5.0.1",
@@ -175,7 +173,6 @@
     "webpack-merge": "^2.4.0"
   },
   "dependencies": {
-    "@akashaproject/ipfs-connector": "^1.7.17",
     "classnames": "^2.2.5",
     "electron-debug": "^1.1.0",
     "extract-text-webpack-plugin": "^2.0.0",

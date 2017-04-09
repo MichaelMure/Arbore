@@ -11,5 +11,6 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@akashaproject/ipfs-connector": "^1.7.17"
   }
 }

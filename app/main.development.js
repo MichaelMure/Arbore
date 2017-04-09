@@ -1,6 +1,5 @@
 // @flow
 import { app, BrowserWindow } from 'electron';
-import MenuBuilder from './menu';
 import * as ipfs from './ipfs/ipfs'
 
 let mainWindow = null;
@@ -49,17 +48,35 @@ app.on('ready', async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
-    height: 728
+    height: 728,
+    toolbar: false
   });
+  mainWindow.setMenu(null)
+
+  let splashScreen = new BrowserWindow({
+    width: 300,
+    height: 300,
+    frame: false,
+    transparent: true
+  });
+  splashScreen.loadURL(`file://${__dirname}/../resources/logo.png`);
+  splashScreen.webContents.on('did-finish-load', () => {
+    if (!splashScreen) {
+      throw new Error('"mainWindow" is not defined');
+    }
+    splashScreen.show();
+  })
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
-
-  ipfs.start()
 
   mainWindow.webContents.on('did-finish-load', () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
+    if(splashScreen) {
+      splashScreen.hide();
+    }
+    splashScreen = null;
     mainWindow.show();
     mainWindow.focus();
   });
@@ -68,6 +85,5 @@ app.on('ready', async () => {
     mainWindow = null;
   });
 
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
+  ipfs.start()
 });

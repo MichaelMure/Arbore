@@ -1,4 +1,5 @@
 // @flow
+import { Record } from 'immutable'
 
 export const ObjectType = {
   INVALID : 'INVALID',
@@ -10,8 +11,7 @@ export const ObjectType = {
 export type ObjectTypeType = $Keys<typeof ObjectType>
 
 export type IpfsObject = {
-  hash: Buffer,
-  name: string,
+  hash: string,
   type: ObjectTypeType,
   sizeTotal: number,
   sizeLocal: number,
@@ -20,4 +20,48 @@ export type IpfsObject = {
   fileTotal: number,
   fileLocal: number,
   metadataLocal: boolean,
+}
+
+const IpfsObjectRecord = Record({
+  hash: null
+})
+
+// This object is used in the redux store to wait for metadata
+export default class EmptyIpfsObject extends IpfsObjectRecord {
+
+  constructor(hash: string) {
+    super({hash})
+  }
+
+  get type(): ObjectTypeType {
+    return ObjectType.INVALID
+  }
+
+  get metadataLocal() : boolean {
+    return false
+  }
+
+  get sizeTotal() {
+    return 0;
+  }
+
+  get sizeLocal() {
+    return 0;
+  }
+
+  get blockTotal() {
+    return 0;
+  }
+
+  get blockLocal() {
+    return 0;
+  }
+
+  get fileTotal() {
+    return 0;
+  }
+
+  get fileLocal() {
+    return 0;
+  }
 }

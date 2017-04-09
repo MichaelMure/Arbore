@@ -1,10 +1,10 @@
 // @flow
-import { Record, List } from 'immutable'
+import { Record, Map } from 'immutable'
 import Contact from './Contact'
 import ShareMetadata from './ShareMetadata'
-import type { ObjectTypeType } from './IpfsObject'
-
-import randomBool from '../utils/randomBool'
+import type IpfsObject from './IpfsObject'
+import * as actions from '../actions/share'
+import * as ipfs from '../actions/ipfs'
 
 export const ShareState = {
   CREATING : 'CREATING', // adding objects
@@ -29,7 +29,7 @@ const ShareRecord = Record({
   author: null,
   metadata: null,
   status: ShareState.CREATING,
-  content: List(),
+  content: Map(),
   favorite: false
 })
 
@@ -40,18 +40,22 @@ export default class Share extends ShareRecord {
   author: ?Contact
   metadata: ?ShareMetadata
   status: ShareStateType
-  content: ?List<ObjectTypeType>
+  content: Map<string,IpfsObject>
   favorite: boolean
 
 
   constructor(author: Contact, metadata: ShareMetadata) {
-    super({id: idGenerator, author, metadata, favorite: randomBool()})
+    super({id: idGenerator, author, metadata})
     idGenerator++
   }
 
   get progress() {
     // return this._progress
     return Math.floor(Math.random() * (101))
+  }
+
+  get metadataLocal() {
+    return this.content.every(object => object.metadataLocal)
   }
 
 }
