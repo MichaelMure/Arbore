@@ -32,7 +32,9 @@ class MainContainer extends Component {
           </div>
         </div>
         <div className={styles.details}>
-          { selectedShare && shareList.idInFiltered(selectedId) && <ShareDetail /> }
+          <div className={styles.scroller}>
+            { selectedShare && shareList.idInFiltered(selectedId) && <ShareDetail /> }
+          </div>
         </div>
       </div>
     );
