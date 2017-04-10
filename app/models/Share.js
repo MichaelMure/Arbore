@@ -3,13 +3,10 @@ import { Record, Map } from 'immutable'
 import Contact from './Contact'
 import ShareMetadata from './ShareMetadata'
 import type IpfsObject from './IpfsObject'
-import * as actions from '../actions/share'
-import * as ipfs from '../actions/ipfs'
 
 export const ShareState = {
-  CREATING : 'CREATING', // adding objects
-  READY : 'READY', // all metadata known
-  WAITING_FOR_DL : 'WAITING_FOR_DL',
+  AUTHOR : 'AUTHOR',
+  AVAILABLE : 'AVAILABLE',
   DOWNLOADING : 'DOWNLOADING',
   PAUSED : 'PAUSED',
   SHARING : 'SHARING'
@@ -28,7 +25,7 @@ const ShareRecord = Record({
   id: null,
   author: null,
   metadata: null,
-  status: ShareState.CREATING,
+  status: null,
   content: Map(),
   favorite: false
 })
@@ -43,9 +40,8 @@ export default class Share extends ShareRecord {
   content: Map<string,IpfsObject>
   favorite: boolean
 
-
   constructor(author: Contact, metadata: ShareMetadata) {
-    super({id: idGenerator, author, metadata})
+    super({id: idGenerator, author, metadata, status: ShareState.AVAILABLE})
     idGenerator++
   }
 

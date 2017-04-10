@@ -9,11 +9,20 @@ import { Store } from '../utils/types'
 
 
 const mapStateToProps = (state: Store) => ({
+  available: state.shareList.available,
+  inbox: state.shareList.inbox,
+  active: state.shareList.active,
+  sharing: state.shareList.sharing,
+  favorite: state.shareList.favorite,
 })
 
 const mapDispatchToProps = dispatch => ({
-  onProfileClick: () => { dispatch(ui.toggleProfile()) },
-  onFavoriteClick: () => { dispatch(sharelist.setFilter(ShareListFilter.FAV)) }
+  onProfileClick:   () => { dispatch(ui.toggleProfile()) },
+  onAvailableClick: () => { dispatch(sharelist.setFilter(ShareListFilter.AVAILABLE)) },
+  onInboxClick:     () => { dispatch(sharelist.setFilter(ShareListFilter.INBOX)) },
+  onActiveClick:    () => { dispatch(sharelist.setFilter(ShareListFilter.ACTIVE)) },
+  onSharingClick:   () => { dispatch(sharelist.setFilter(ShareListFilter.SHARING)) },
+  onFavoriteClick:  () => { dispatch(sharelist.setFilter(ShareListFilter.FAV)) }
 })
 
-export default connect(null, mapDispatchToProps)(MenuBar)
+export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)
