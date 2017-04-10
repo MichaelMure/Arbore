@@ -64,7 +64,7 @@ export default class IpfsDirectory extends IpfsDirectoryRecord {
   }
 
   get metadataLocal(): boolean {
-    if(this._metadataLocal) {
+    if(! this._metadataLocal) {
       return false
     }
 

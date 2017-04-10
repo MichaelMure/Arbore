@@ -27,40 +27,40 @@ class ShareFiles extends Component {
     return (level > 0 ? '|' : '') + '--'.repeat(level) + (level > 0 ? '>' : '');
   }
 
-  renderObject(obj: IpfsObject, path: string, level: number) {
+  renderObject(obj: IpfsObject, name: string, path: string, level: number) {
     switch(obj.type) {
       case ObjectType.DIRECTORY:
-        this.renderDirectory(obj, path, level)
+        this.renderDirectory(obj, name, path, level)
         break
       case ObjectType.FILE:
-        this.renderFile(obj, path, level)
+        this.renderFile(obj, name, path, level)
         break
       default:
         console.assert(false)
     }
   }
 
-  renderFile(file: IpfsFile, path: string, level: number) {
+  renderFile(file: IpfsFile, name: string, path: string, level: number) {
     this.buffer.push(
       <TableRow key={path}>
-        <TableCell>{ ShareFiles.renderLevel(level) }{ file.name }</TableCell>
+        <TableCell>{ ShareFiles.renderLevel(level) }{ name }</TableCell>
         <TableCell>{ file.sizeTotal }</TableCell>
         <TableCell>{ file.sizeLocal / file.sizeTotal * 100 }%</TableCell>
       </TableRow>
     )
   }
 
-  renderDirectory(dir: IpfsDirectory, path: string, level: number) {
+  renderDirectory(dir: IpfsDirectory, name: string, path: string, level: number) {
     this.buffer.push(
       <TableRow key={path}>
-        <TableCell>{ ShareFiles.renderLevel(level) }{ dir.name }</TableCell>
+        <TableCell>{ ShareFiles.renderLevel(level) }{ name }</TableCell>
         <TableCell> </TableCell>
         <TableCell> </TableCell>
       </TableRow>
     )
 
     dir.children.entrySeq().forEach(
-      entry => this.renderObject(entry[1], path + '/' + entry[0], level + 1)
+      ([name, object]) => this.renderObject(object, name, path + '/' + name, level + 1)
     )
   }
 
@@ -73,7 +73,9 @@ class ShareFiles extends Component {
     this.buffer = []
     this.indent = 0
 
-    content.entrySeq().forEach(entry => this.renderObject(entry[1], entry[0], 0))
+    content.entrySeq().forEach(([name, object]) =>
+      this.renderObject(object, name, name, 0)
+    )
 
     return (
       <Table>
