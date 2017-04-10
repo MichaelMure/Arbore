@@ -9,6 +9,9 @@ import metadataReducer from '../reducers/shareMetadata'
 import ShareMetadata from "../models/ShareMetadata";
 import EmptyIpfsObject from '../models/IpfsObject'
 import ipfsObjectReducer from '../reducers/ipfsObject'
+import hashEquals from '../utils/hashEquals'
+import { ObjectType } from '../models/IpfsObject'
+import IpfsDirectory, { writable as dirWritable} from '../models/IpfsDirectory'
 
 const initialState = null
 
@@ -38,10 +41,37 @@ export default handleActions({
 
 }, initialState )
 
+// Apply the IpfsObject reducer on all the childs Share content recursively
 function chainToObjects(state: Share, action: Action) {
   return state.set(writable.content,
     state.content.map(
-      (child: IpfsObject) => ipfsObjectReducer(child, action)
+      (child: IpfsObject) => objectsDfsMutation(child, action)
     )
   )
+}
+
+// Perform a depth-first mutation on the IpfsObject graph with the IpfsObject reducer
+// Note: this function does not detect if there is reused node in the DAG, so the reducer
+// is applied multiple time in this case. For now this is not a problem as we represent
+// those reused node as different object
+function objectsDfsMutation(state: IpfsObject, action: Action) {
+  const { hash } = action.payload
+
+  // Check if we are concerned by the data
+  if(!hashEquals(state.hash, hash)) {
+
+    // Relay to child objects if any
+    if(state.type === ObjectType.DIRECTORY) {
+      return state.set(dirWritable.children,
+        (state: IpfsDirectory).children.map(
+          (child: IpfsObject) => objectsDfsMutation(child, action)
+        )
+      )
+    }
+
+    return state
+  }
+
+  // We found the good object, apply the reducer
+  return ipfsObjectReducer(state, action)
 }
