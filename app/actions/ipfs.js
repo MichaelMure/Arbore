@@ -22,12 +22,12 @@ export function fetchDirectoryMetadata(hash) {
         // Store what we have
         dispatch(receivedDirMetadata(hash, Links))
         // Request more metadata for each child
-        Links.forEach(({Hash, Type}) => {
+        Links.forEach(({Hash, Type, Size}) => {
           if(Type === 1) {
             dispatch(fetchDirectoryMetadata(Hash))
           }
           if(Type === 2) {
-            dispatch(fetchFileMetadata(Hash))
+            dispatch(fetchFileMetadata(Hash, Size))
           }
         })
       })
@@ -38,17 +38,22 @@ export function fetchDirectoryMetadata(hash) {
 }
 
 // Request metadata from ipfs for a file
-export function fetchFileMetadata(hash: string) {
+export function fetchFileMetadata(hash: string, size: number) {
   return function (dispatch) {
+    dispatch(receivedFileMetadata(hash, size))
+    return;
+
+    // TODO: do we need the block detail ?
+
     console.log('FETCH FILE METADATA OF ' + hash)
 
     const instance = IpfsConnector.getInstance()
 
+    // TODO: use ipfs refs --recursive
+
     instance.api.apiClient.object.stat(hash)
       .then(result => {
-        // TODO: for a big file CumulativeSize will account for the child blocks overhead
-        // so this is more than the real size of the file
-        dispatch(receivedFileMetadata(hash, result.CumulativeSize))
+        dispatch(receivedFileMetadata(hash, size))
       })
       .catch(error => {
         console.error(error)
