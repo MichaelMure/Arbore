@@ -28,15 +28,24 @@ class ShareDetail extends Component {
         <div className={styles.header}>
           {header}
           <div className={styles.actions}>
-            <IconButton>
-              <FontAwesome name='pause' />
+            { (share.isAvailable || share.isPaused) &&
+            <IconButton onClick={ this.props.onStartClickGenerator(share) }>
+              <FontAwesome name='play' />
             </IconButton>
-            <IconButton>
-              <FontAwesome name='stop' />
-            </IconButton>
+            }
+            { share.isDownloading &&
+              <IconButton onClick={ this.props.onPauseClickGenerator(share) }>
+                <FontAwesome name='pause' />
+              </IconButton>
+            }
+            { (share.isDownloading || share.isPaused) &&
+              <IconButton onClick={ this.props.onStopClickGenerator(share) }>
+                <FontAwesome name='stop' />
+              </IconButton>
+            }
             <IconButton
-              accent={share.favorite}
-              onClick={this.props.onFavoriteClickGenerator(share.id)}>
+              accent={ share.favorite }
+              onClick={ this.props.onFavoriteClickGenerator(share) }>
               <FontAwesome name='heart' />
             </IconButton>
           </div>
@@ -59,6 +68,9 @@ class ShareDetail extends Component {
 
 ShareDetail.propTypes = {
   share: PropTypes.instanceOf(Share).isRequired,
+  onStartClickGenerator: PropTypes.func.isRequired,
+  onPauseClickGenerator: PropTypes.func.isRequired,
+  onStopClickGenerator: PropTypes.func.isRequired,
   onFavoriteClickGenerator: PropTypes.func.isRequired
 };
 ShareDetail.defaultProps = {};
