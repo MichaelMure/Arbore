@@ -1,6 +1,6 @@
 // @flow
 import { Record, List } from 'immutable'
-import Share, { ShareState } from './Share'
+import Share from './Share'
 
 export const ShareListFilter = {
   AVAILABLE: 'AVAILABLE',
@@ -49,13 +49,13 @@ export default class ShareList extends ShareListRecord {
   get filtered() : List<Share> {
     switch(this.filter) {
       case ShareListFilter.AVAILABLE:
-        return this.searched.filter((x: Share) => x.status === ShareState.AVAILABLE)
+        return this.searched.filter((x: Share) => x.isAvailable)
       case ShareListFilter.INBOX:
-        return this.searched.filter((x: Share) => x.status === ShareState.SHARING)
+        return this.searched.filter((x: Share) => x.isSharing)
       case ShareListFilter.ACTIVE:
-        return this.searched.filter((x: Share) => x.status === ShareState.DOWNLOADING || x.status === ShareState.PAUSED)
+        return this.searched.filter((x: Share) => x.isDownloading || x.isPaused)
       case ShareListFilter.SHARING:
-        return this.searched.filter((x: Share) => x.status === ShareState.AUTHOR || x.status === ShareState.SHARING)
+        return this.searched.filter((x: Share) => x.isAuthor || x.isSharing)
       case ShareListFilter.FAV:
         return this.searched.filter((x : Share) => x.favorite)
     }
@@ -71,19 +71,19 @@ export default class ShareList extends ShareListRecord {
   }
 
   get available() : number {
-    return this.list.filter((x: Share) => x.status === ShareState.AVAILABLE).count()
+    return this.list.filter((x: Share) => x.isAvailable).count()
   }
 
   get inbox() : number {
-    return this.list.filter((x: Share) => x.status === ShareState.SHARING).count()
+    return this.list.filter((x: Share) => x.isSharing).count()
   }
 
   get active() : number {
-    return this.list.filter((x: Share) => x.status === ShareState.DOWNLOADING || x.status === ShareState.PAUSED).count()
+    return this.list.filter((x: Share) => x.isDownloading || x.isPaused).count()
   }
 
   get sharing() : number {
-    return this.list.filter((x: Share) => x.status === ShareState.AUTHOR || x.status === ShareState.SHARING).count()
+    return this.list.filter((x: Share) => x.isAuthor || x.isSharing).count()
   }
 
   get favorite() : number {

@@ -8,10 +8,11 @@ import IconButton from 'material-ui/IconButton';
 import { LinearProgress } from 'material-ui/Progress';
 import ShareFiles from './ShareFiles2'
 import Share from '../models/Share'
+import * as humanize from '../utils/humanize'
 
 class ShareDetail extends Component {
   render() {
-    const share = this.props.share
+    const share: Share = this.props.share
 
     const avatar = (
       <Avatar alt={share.author.name} src={share.author.avatar} />
@@ -50,9 +51,9 @@ class ShareDetail extends Component {
             </IconButton>
           </div>
         </div>
-        <LinearProgress mode="determinate" value={share.progress}/>
+        <LinearProgress mode="determinate" value={share.progress * 100}/>
         <div className={styles.stats}>
-          <Text>1.28 Go of 2.67 Go (47.7%)</Text>
+          <Text>{humanize.filesizeNoUnit(share.sizeLocal)} of {humanize.filesize(share.sizeTotal)} ({share.progress * 100}%)</Text>
           <Text>3/4 peers</Text>
           <Text>1.03Mo/s</Text>
         </div>

@@ -2,7 +2,7 @@
 import { Record, Map } from 'immutable'
 import Contact from './Contact'
 import ShareMetadata from './ShareMetadata'
-import type IpfsObject from './IpfsObject'
+import type { IpfsObject } from './IpfsObject'
 
 export const ShareState = {
   AUTHOR : 'AUTHOR',
@@ -46,12 +46,54 @@ export default class Share extends ShareRecord {
   }
 
   get progress() {
-    // return this._progress
-    return Math.floor(Math.random() * (101))
+    if(this.content.count() === 0) {
+      return 1
+    }
+
+    if(!this.metadataLocal) {
+      return 0
+    }
+
+    const [sumLocal, sumTotal] = this.content
+      .map((x: IpfsObject) => [x.sizeLocal, x.sizeTotal])
+      .reduce((accu, [local, total]) => ([accu[0] + local, accu[1] + total]), [0,0])
+
+    return sumLocal / sumTotal
+  }
+
+  get sizeTotal(): number {
+    return this.content.reduce(
+      (accu, child : IpfsObject) => accu + child.sizeTotal, 0
+    );
+  }
+
+  get sizeLocal(): number {
+    return this.content.reduce(
+      (accu, child : IpfsObject) => accu + child.sizeLocal, 0
+    );
   }
 
   get metadataLocal() {
     return this.content.every(object => object.metadataLocal)
   }
 
+  get isAuthor() {
+    return this.status === ShareState.AUTHOR
+  }
+
+  get isAvailable() {
+    return this.status === ShareState.AVAILABLE
+  }
+
+  get isDownloading() {
+    return this.status === ShareState.DOWNLOADING
+  }
+
+  get isPaused() {
+    return this.status === ShareState.PAUSED
+  }
+
+  get isSharing() {
+    return this.status === ShareState.SHARING
+  }
 }

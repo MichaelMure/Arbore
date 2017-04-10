@@ -177,7 +177,6 @@
     "electron-debug": "^1.1.0",
     "extract-text-webpack-plugin": "^2.0.0",
     "font-awesome": "^4.7.0",
-    "humanize-plus": "^1.8.2",
     "immutable": "^3.8.1",
     "material-ui": "^1.0.0-alpha.7",
     "multihashes": "^0.4.4",

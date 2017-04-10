@@ -35,7 +35,7 @@ class CompactShare extends Component {
             </Text>
           </CardContent>
         }
-        <LinearProgress mode="determinate" value={share.progress}/>
+        <LinearProgress mode="determinate" value={share.progress * 100}/>
       </Card>
     );
   }
