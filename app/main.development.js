@@ -1,6 +1,6 @@
 // @flow
 import { app, BrowserWindow } from 'electron';
-import * as ipfs from './ipfs/ipfs'
+import * as ipfs from './ipfs/ipfsMain'
 
 let mainWindow = null;
 

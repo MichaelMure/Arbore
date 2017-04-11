@@ -6,9 +6,16 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import Root from './containers/Root';
 import configureStore from './store/configureStore';
 import './app.global.css';
+import { setDispatch } from './ipfs/ipfsMain'
+import { fetchLocalObject } from './actions/ipfs'
 
 const store = configureStore();
 const history = syncHistoryWithStore(hashHistory, store);
+
+// Kinda hacky
+setInterval(() => {
+  store.dispatch(fetchLocalObject())
+}, 1000)
 
 render(
   <AppContainer>
