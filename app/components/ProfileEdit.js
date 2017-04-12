@@ -7,8 +7,43 @@ import Text from 'material-ui/Text'
 import Avatar from 'material-ui/Avatar'
 import AvatarEditor from 'react-avatar-editor'
 import Button from 'material-ui/Button'
+import canvasBuffer from 'electron-canvas-to-buffer'
+
+const dialog = require('electron').remote.dialog
 
 class ProfileEdit extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = { image: null, scale: 1 }
+  }
+
+  openFileDialog(){
+    const result = dialog.showOpenDialog({
+      properties: ['openFile'],
+      filters: [
+        {name: 'Images', extensions: ['jpg', 'jpeg', 'png']}
+      ]
+    })
+
+    if(result) {
+      this.setState({image: result[0]})
+    }
+  }
+
+  onZoomChange(e) {
+    const scale = parseFloat(e.target.value)
+    this.setState({ scale })
+  }
+
+  onClickSave () {
+    if(!this.avatarEditor) {
+      return
+    }
+    const canvasScaled = this.avatarEditor.getImageScaledToCanvas()
+    const buffer = canvasBuffer(canvasScaled, 'image/png')
+    this.props.onAvatarChange(buffer)()
+  }
 
   render() {
     const profile = this.props.profile
@@ -16,19 +51,40 @@ class ProfileEdit extends Component {
       <div>
         <Text>Profile</Text>
         <Avatar
-          src={profile.avatar}
+          src={profile.avatarData}
           className={styles.avatar}
         />
         <Input placeholder="Identity" />
-        <AvatarEditor
-          image="https://i.ytimg.com/vi/tntOCGkgt98/maxresdefault.jpg"
-          width={200}
-          height={200}
-          borderRadius={5000}
-          color={[255, 255, 255, 1]}
-          style={{margin: '0 auto'}}
-        />
-        <Button accent>Submit</Button>
+
+        { this.state.image === null ? (
+          <div className={ styles.selectAvatar } onClick={::this.openFileDialog} >
+            Select an avatar
+          </div>
+          ) : (
+          <div>
+            <AvatarEditor
+              image={this.state.image}
+              ref={(editor) => { this.avatarEditor = editor }}
+              width={200}
+              height={200}
+              borderRadius={5000}
+              color={[255, 255, 255, 1]}
+              style={{margin: '0 auto'}}
+              scale={parseFloat(this.state.scale)}
+            />
+            {/* TODO: replace with Slider once material-ui is ready */}
+            <Input
+              type='range'
+              min='1'
+              max='2'
+              step='0.01'
+              defaultValue='1'
+              onChange={::this.onZoomChange}
+            />
+          </div>
+        )}
+
+        <Button accent onClick={::this.onClickSave}>Submit</Button>
 
         <Button onClick={this.props.onTest}>TEST</Button>
       </div>
@@ -38,7 +94,8 @@ class ProfileEdit extends Component {
 
 ProfileEdit.propTypes = {
   profile: PropTypes.instanceOf(Model).isRequired,
-  onTest: PropTypes.func.isRequired
+  onTest: PropTypes.func.isRequired,
+  onAvatarChange: PropTypes.func.isRequired
 };
 ProfileEdit.defaultProps = {};
 

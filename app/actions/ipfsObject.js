@@ -3,6 +3,23 @@ import { createAction } from 'redux-actions'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from '../ipfs/ipfsRenderer'
 
+/*
+ * This is what we use for now:
+ *
+ * Directory metadata: ipfs ls
+ *  -> shortcoming, right now this doesn't tell the object type (dir/file) so we need
+ *     to know beforehand. We use the higher level ipfs ls call to know the type down
+ *     the graph but it doesn't work for the root as we don't have a higher level dir.
+ *
+ * File metadata: nothing for now, maybe ipfs refs --recursive for the blocks details
+ *
+ * Trigger a download: ipfs pin
+ *  -> not sure if it's the best idea
+ *
+ * Track the progress:
+ *  -> TODO
+ */
+
 export const receivedFileMetadata = createAction('FILE_METADATA_RECEIVED',
   (hash: string, size: number) => ({hash, size})
 )

@@ -44,3 +44,14 @@
   width: 100px;
   height: 100px;
 }
+
+.selectAvatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 200px;
+  margin: 25px;
+  border-radius: 5000px;
+  border: 4px dashed gray;
+}

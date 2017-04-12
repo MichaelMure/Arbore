@@ -1,7 +1,7 @@
 // @flow
 import * as sharelist from '../actions/shareList'
 import * as share from '../actions/share'
-import * as ipfs from '../actions/ipfs'
+import * as ipfs from '../actions/ipfsObject'
 import ShareList, { writable } from '../models/ShareList'
 import type { ShareListFilterType } from '../models/ShareList'
 import Share from '../models/Share'

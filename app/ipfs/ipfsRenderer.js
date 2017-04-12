@@ -15,7 +15,6 @@ const start = () => {
   initializing = true
 
   serviceStarted = ipcRenderer.sendSync(isServiceStarted)
-  console.log('Found that serviceStarted is ' + serviceStarted)
 
   ipcRenderer.on(ipfsEvents.SERVICE_STARTED, () => {
     console.log('Renderer: Ipfs service started')

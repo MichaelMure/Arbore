@@ -1,7 +1,7 @@
 // @flow
 import { handleActions } from 'redux-actions'
 import { Action } from '../utils/types'
-import * as ipfs from '../actions/ipfs'
+import * as ipfs from '../actions/ipfsObject'
 import type { IpfsObject } from '../models/IpfsObject'
 import { ObjectType } from '../models/IpfsObject'
 import IpfsDirectory, { writable as dirWritable} from '../models/IpfsDirectory'

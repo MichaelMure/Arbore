@@ -2,19 +2,29 @@
 import { Record } from 'immutable'
 
 export const writable = {
-  avatar: 'avatar',
+  avatarData: 'avatarData',
+  avatarHash: 'avatarHash',
   identity: 'identity',
-  bio: 'bio'
+  bio: 'bio',
+  hash: 'hash'
 }
 
 const ProfileRecord = Record({
-  avatar: null,
+  avatarData: null,
+  avatarHash: null,
   identity: '',
-  bio: ''
+  bio: '',
+  hash: null
 })
 
 export default class Profile extends ProfileRecord {
-  avatar: ?string
+  avatarData: ?string
+  avatarHash: ?string
   identity: string
   bio: string
+  hash: ?string
+
+  constructor(avatar: ?string, identity: string, bio: string) {
+    super({avatar, identity, bio})
+  }
 }
