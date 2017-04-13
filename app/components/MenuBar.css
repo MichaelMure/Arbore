@@ -1,8 +1,16 @@
 .wrapper {
-  background: orangered;
-  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  padding-left: 2px;
 }
 
 .badge {
   color: red;
+}
+
+.spacer {
+  height: 3px;
+  margin: 8px;
+  border-bottom: lightgray 1px solid;
+  border-top: lightgray 1px solid;
 }

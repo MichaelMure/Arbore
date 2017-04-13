@@ -1,44 +1,75 @@
 import React, {Component, PropTypes} from 'react';
 import styles from './MenuBar.css';
-import Layout from 'material-ui/Layout'
 import IconButton from 'material-ui/IconButton'
 import FontAwesome from 'react-fontawesome';
 import Badge from 'material-ui/Badge';
 
 class MenuBar extends Component {
+
+  formatBadge(value: number) {
+    return (value > 0) ? value : ''
+  }
+
   render() {
     return (
-      <Layout container direction="column" gutter={8}>
+      <div className={styles.wrapper}>
         <IconButton accent onClick={this.props.onProfileClick}>
           <FontAwesome name='user-circle-o'/>
         </IconButton>
+
+        <div className={styles.spacer}></div>
+
         <IconButton onClick={this.props.onAvailableClick}>
-          <Badge badgeContent={this.props.available} badgeClassName={styles.badge}>
+          <Badge badgeContent="+">
+            <FontAwesome name='envelope-open-o'/>
+          </Badge>
+        </IconButton>
+
+        <div className={styles.spacer}></div>
+
+        <IconButton onClick={this.props.onAvailableClick}>
+          <Badge badgeContent={this.formatBadge(this.props.available)} badgeClassName={styles.badge}>
             <FontAwesome name='download'/>
           </Badge>
         </IconButton>
         <IconButton onClick={this.props.onInboxClick}>
-          <Badge badgeContent={this.props.inbox} badgeClassName={styles.badge}>
+          <Badge badgeContent={this.formatBadge(this.props.inbox)} badgeClassName={styles.badge}>
             <FontAwesome name='inbox'/>
           </Badge>
         </IconButton>
         <IconButton onClick={this.props.onActiveClick}>
-          <Badge badgeContent={this.props.active} badgeClassName={styles.badge}>
+          <Badge badgeContent={this.formatBadge(this.props.active)} badgeClassName={styles.badge}>
             <FontAwesome name='bolt'/>
           </Badge>
         </IconButton>
         <IconButton onClick={this.props.onSharingClick}>
-          <Badge badgeContent={this.props.sharing} badgeClassName={styles.badge}>
+          <Badge badgeContent={this.formatBadge(this.props.sharing)} badgeClassName={styles.badge}>
             <FontAwesome name='upload'/>
           </Badge>
         </IconButton>
         <IconButton onClick={this.props.onFavoriteClick}>
-          <Badge badgeContent={this.props.favorite} badgeClassName={styles.badge}>
+          <Badge badgeContent={this.formatBadge(this.props.favorite)} badgeClassName={styles.badge}>
             <FontAwesome name='heart'/>
           </Badge>
         </IconButton>
-      </Layout>
-    );
+
+        <div className={styles.spacer}></div>
+
+        <IconButton onClick={this.props.onFavoriteClick}>
+          <Badge badgeContent={this.formatBadge(this.props.favorite)} badgeClassName={styles.badge}>
+            <FontAwesome name='comments'/>
+          </Badge>
+        </IconButton>
+
+        <div className={styles.spacer}></div>
+
+        <IconButton onClick={this.props.onFavoriteClick}>
+          <Badge badgeContent={this.formatBadge(this.props.favorite)} badgeClassName={styles.badge}>
+            <FontAwesome name='users'/>
+          </Badge>
+        </IconButton>
+      </div>
+    )
   }
 }
 
