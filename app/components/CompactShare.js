@@ -28,13 +28,6 @@ class CompactShare extends Component {
           title={share.metadata.title}
           subhead={share.metadata.description}
         />
-        { share.metadata.message &&
-          <CardContent>
-            <Text>
-              {share.metadata.message}
-            </Text>
-          </CardContent>
-        }
         <LinearProgress mode="determinate" value={share.progress * 100}/>
       </Card>
     );
