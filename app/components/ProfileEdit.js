@@ -1,5 +1,5 @@
 // @flow
-import React, {Component, PropTypes} from 'react';
+import React, { Component } from 'react';
 import styles from './Profile.css';
 import Model from '../models/Profile'
 import Input from 'material-ui/Input'
@@ -12,6 +12,12 @@ import canvasBuffer from 'electron-canvas-to-buffer'
 const dialog = require('electron').remote.dialog
 
 class ProfileEdit extends Component {
+
+  props : {
+    profile: Model,
+    onTest: () => void,
+    onAvatarChange: (Buffer) => () => void
+  }
 
   constructor(props) {
     super(props)
@@ -91,12 +97,5 @@ class ProfileEdit extends Component {
     );
   }
 }
-
-ProfileEdit.propTypes = {
-  profile: PropTypes.instanceOf(Model).isRequired,
-  onTest: PropTypes.func.isRequired,
-  onAvatarChange: PropTypes.func.isRequired
-};
-ProfileEdit.defaultProps = {};
 
 export default ProfileEdit;

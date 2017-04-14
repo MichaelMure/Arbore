@@ -1,5 +1,5 @@
 // @flow
-import React, {Component, PropTypes} from 'react';
+import React, { Component } from 'react';
 // import styles from './ShareFiles.css';
 import {
   Table,
@@ -15,6 +15,10 @@ import IpfsFile from '../models/IpfsFile'
 import IpfsDirectory from '../models/IpfsDirectory'
 
 class ShareFiles extends Component {
+
+  props: {
+    share: Share
+  }
 
   // This is not the more elegant code ever
   // but apparently this is the way to concatenate
@@ -93,10 +97,5 @@ class ShareFiles extends Component {
     );
   }
 }
-
-ShareFiles.propTypes = {
-  share: PropTypes.instanceOf(Share).isRequired
-};
-ShareFiles.defaultProps = {};
 
 export default ShareFiles;

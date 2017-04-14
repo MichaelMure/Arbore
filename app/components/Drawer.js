@@ -1,11 +1,20 @@
 // @flow
-import React, {Component, PropTypes} from 'react';
+import React, { Component } from 'react';
 import styles from './Drawer.css';
 import classNames from 'classnames/bind';
 
 const cx = classNames.bind(styles);
 
 export default class Drawer extends Component {
+
+  props: {
+    onBackgroundClick: () => void,
+    open: boolean
+  };
+
+  static defaultProps = {
+    open: false
+  };
 
   render() {
 
@@ -29,11 +38,3 @@ export default class Drawer extends Component {
     );
   }
 }
-
-Drawer.propTypes = {
-  onBackgroundClick: PropTypes.func.isRequired,
-  open: PropTypes.bool
-};
-Drawer.defaultProps = {
-  open: false
-};
