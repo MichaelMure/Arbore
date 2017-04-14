@@ -6,6 +6,23 @@ import Badge from 'material-ui/Badge';
 
 class MenuBar extends Component {
 
+  props: {
+    onProfileClick: () => void,
+    onAvailableClick: () => void,
+    onInboxClick: () => void,
+    onActiveClick: () => void,
+    onSharingClick: () => void,
+    onFavoriteClick: () => void,
+    onContactClick: () => void,
+    onChatClick: () => void,
+
+    available: number,
+    inbox: number,
+    active: number,
+    sharing: number,
+    favorite: number,
+  }
+
   formatBadge(value: number) {
     return (value > 0) ? value : ''
   }
@@ -55,16 +72,16 @@ class MenuBar extends Component {
 
         <div className={styles.spacer}></div>
 
-        <IconButton onClick={this.props.onFavoriteClick}>
-          <Badge badgeContent={this.formatBadge(this.props.favorite)} badgeClassName={styles.badge}>
+        <IconButton onClick={this.props.onChatClick}>
+          <Badge badgeClassName={styles.badge}>
             <FontAwesome name='comments'/>
           </Badge>
         </IconButton>
 
         <div className={styles.spacer}></div>
 
-        <IconButton onClick={this.props.onFavoriteClick}>
-          <Badge badgeContent={this.formatBadge(this.props.favorite)} badgeClassName={styles.badge}>
+        <IconButton onClick={this.props.onContactClick}>
+          <Badge badgeClassName={styles.badge}>
             <FontAwesome name='users'/>
           </Badge>
         </IconButton>
@@ -72,21 +89,5 @@ class MenuBar extends Component {
     )
   }
 }
-
-MenuBar.propTypes = {
-  onProfileClick: PropTypes.func.isRequired,
-  onAvailableClick: PropTypes.func.isRequired,
-  onInboxClick: PropTypes.func.isRequired,
-  onActiveClick: PropTypes.func.isRequired,
-  onSharingClick: PropTypes.func.isRequired,
-  onFavoriteClick: PropTypes.func.isRequired,
-
-  available: PropTypes.number.isRequired,
-  inbox: PropTypes.number.isRequired,
-  active: PropTypes.number.isRequired,
-  sharing: PropTypes.number.isRequired,
-  favorite: PropTypes.number.isRequired,
-};
-MenuBar.defaultProps = {};
 
 export default MenuBar;

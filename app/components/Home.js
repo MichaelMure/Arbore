@@ -1,12 +1,20 @@
 // @flow
-import React, { Component } from 'react';
-import styles from './Home.css';
-import MenuBar from '../containers/MenuBar';
-import MainContainer from '../containers/MainContainer';
+import React, { Component } from 'react'
+import styles from './Home.css'
+import MenuBar from '../containers/MenuBar'
+import SharingPage from '../containers/SharingPage'
+import ContactPage from '../components/ContactPage'
+import ChatPage from '../components/ChatPage'
 import ProfileDrawer from '../containers/ProfileDrawer'
 import ProfilePage from '../containers/ProfilePage'
+import { Page } from '../models/UiState'
+import type { PageType } from '../models/UiState'
 
 export default class Home extends Component {
+
+  props: {
+    page: PageType
+  }
 
   render() {
     return (
@@ -15,7 +23,10 @@ export default class Home extends Component {
           <MenuBar />
         </div>
         <div className={styles.content}>
-          <MainContainer />
+          { this.props.page === Page.SHARING  &&  <SharingPage /> }
+          { this.props.page === Page.CHAT     &&  <ChatPage />    }
+          { this.props.page === Page.CONTACT  &&  <ContactPage /> }
+
           <ProfileDrawer>
             <ProfilePage />
           </ProfileDrawer>

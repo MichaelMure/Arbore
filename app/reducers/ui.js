@@ -1,6 +1,7 @@
 // @flow
 import * as actions from '../actions/ui';
 import UiState, { writable } from '../models/UiState'
+import type { PageType } from '../models/UiState'
 import { handleActions } from 'redux-actions'
 import { Action } from '../utils/types'
 
@@ -18,6 +19,10 @@ export default handleActions({
 
   [actions.toggleProfile]: (state: UiState, action: Action) => (
     state.set(writable.profileOpen, ! state.profileOpen)
+  ),
+
+  [actions.setPage]: (state: UiState, action: Action<PageType>) => (
+    state.set(writable.page, action.payload)
   ),
 
 }, initialState )

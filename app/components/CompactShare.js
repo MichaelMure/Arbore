@@ -15,11 +15,11 @@ class CompactShare extends Component {
     share: Share,
     selected: ?boolean,
     onClick: () => void
-  };
+  }
 
   static defaultProps = {
     selected: false
-  };
+  }
 
   render() {
     const share = this.props.share
