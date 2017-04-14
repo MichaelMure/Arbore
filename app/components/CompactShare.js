@@ -26,7 +26,7 @@ class CompactShare extends Component {
             src={share.author.avatar}
           />}
           title={share.metadata.title}
-          subhead={share.metadata.description}
+          subheader={share.metadata.description}
         />
         <LinearProgress mode="determinate" value={share.progress * 100}/>
       </Card>

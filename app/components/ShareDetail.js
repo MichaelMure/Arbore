@@ -21,7 +21,7 @@ class ShareDetail extends Component {
       <CardHeader
         avatar={avatar}
         title={share.metadata.title}
-        subhead={share.metadata.description} />
+        subheader={share.metadata.description} />
     )
 
     return (
