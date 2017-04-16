@@ -24,6 +24,8 @@ export default class Profile extends ProfileRecord {
   bio: string
   hash: ?string
 
+  // TODO: key id, ipns id
+
   static create(identity: string, bio: string) {
     return new this().withMutations(profile => profile
       .set(writable.identity, identity)

@@ -2,23 +2,35 @@
 import { Record } from 'immutable'
 
 export const writable = {
-  name: 'name',
-  avatar: 'avatar',
+  pubkey: 'pubkey',
+  avatarData: 'avatarData',
+  avatarHash: 'avatarHash',
+  identity: 'identity',
+  bio: 'bio',
+  hash: 'hash'
 }
 
 export const ContactRecord = Record({
-  name: '',
-  avatar: null
+  pubkey: null,
+  avatarData: null,
+  avatarHash: null,
+  identity: '',
+  bio: '',
+  hash: null
 }, 'Contact')
 
 export default class Contact extends ContactRecord {
-  name: string
-  avatar: ?string
+  pubkey: string
+  avatarData: ?string
+  avatarHash: ?string
+  identity: string
+  bio: string
+  hash: ?string
 
-  static create(name : string, avatar: string) : Contact {
+  static create(identity : string, avatarData: string) : Contact {
     return new this().withMutations(contact => contact
-      .set(writable.name, name)
-      .set(writable.avatar, avatar)
+      .set(writable.identity, identity)
+      .set(writable.avatarData, avatarData)
     )
   }
 }

@@ -1,19 +1,21 @@
 // @flow
 import Contact from './Contact'
-import UiState from './UiState'
-import ShareMetadata from './ShareMetadata'
-import ShareList from './ShareList'
-import Profile from './Profile'
+import ContactList from './ContactList'
 import EmptyIpfsObject from './IpfsObject'
 import IpfsFile from './IpfsFile'
 import IpfsDirectory from './IpfsDirectory'
+import Profile from './Profile'
 import Share from './Share'
+import ShareList from './ShareList'
+import ShareMetadata from './ShareMetadata'
+import UiState from './UiState'
 
 export default [
   Contact,
+  ContactList,
+  EmptyIpfsObject,
   IpfsDirectory,
   IpfsFile,
-  EmptyIpfsObject,
   Profile,
   Share,
   ShareList,

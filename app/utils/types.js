@@ -1,5 +1,5 @@
 // @flow
-
+import ContactList from '../models/ContactList'
 import Profile from '../models/Profile'
 import ShareList from '../models/ShareList'
 import UiState from '../models/UiState'
@@ -11,8 +11,8 @@ export type Action<T> = {
 }
 
 export type Store = {
+  contactList: ContactList,
   profile: Profile,
   shareList: ShareList,
-  ui: UiState,
-  routing: any
+  ui: UiState
 }
