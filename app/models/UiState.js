@@ -17,7 +17,7 @@ export const writable = {
 export const UiRecord = Record({
   profileOpen: false,
   page: Page.SHARING
-})
+}, 'UiState')
 
 export default class UiState extends UiRecord {
   profileOpen: boolean

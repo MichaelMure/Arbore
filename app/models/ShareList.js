@@ -18,12 +18,12 @@ export const writable = {
   search: 'search'
 }
 
-const ShareListRecord = Record({
+export const ShareListRecord = Record({
   list: List(),
   filter: ShareListFilter.AVAILABLE,
   selectedId: null,
   search: ''
-})
+}, 'ShareList')
 
 export default class ShareList extends ShareListRecord {
   list: List<Share>

@@ -9,13 +9,13 @@ export const writable = {
   hash: 'hash'
 }
 
-const ProfileRecord = Record({
+export const ProfileRecord = Record({
   avatarData: null,
   avatarHash: null,
   identity: '',
   bio: '',
   hash: null
-})
+}, 'Profile')
 
 export default class Profile extends ProfileRecord {
   avatarData: ?string
@@ -24,7 +24,10 @@ export default class Profile extends ProfileRecord {
   bio: string
   hash: ?string
 
-  constructor(avatar: ?string, identity: string, bio: string) {
-    super({avatar, identity, bio})
+  static create(identity: string, bio: string) {
+    return new this().withMutations(profile => profile
+      .set(writable.identity, identity)
+      .set(writable.bio, bio)
+    )
   }
 }

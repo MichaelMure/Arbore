@@ -36,7 +36,7 @@ class MenuBar extends Component {
 
         <div className={styles.spacer}></div>
 
-        <IconButton onClick={this.props.onAvailableClick}>
+        <IconButton>
           <Badge badgeContent="+">
             <FontAwesome name='envelope-open-o'/>
           </Badge>
@@ -73,7 +73,7 @@ class MenuBar extends Component {
         <div className={styles.spacer}></div>
 
         <IconButton onClick={this.props.onChatClick}>
-          <Badge badgeClassName={styles.badge}>
+          <Badge badgeContent={''} badgeClassName={styles.badge}>
             <FontAwesome name='comments'/>
           </Badge>
         </IconButton>
@@ -81,7 +81,7 @@ class MenuBar extends Component {
         <div className={styles.spacer}></div>
 
         <IconButton onClick={this.props.onContactClick}>
-          <Badge badgeClassName={styles.badge}>
+          <Badge badgeContent={''} badgeClassName={styles.badge}>
             <FontAwesome name='users'/>
           </Badge>
         </IconButton>

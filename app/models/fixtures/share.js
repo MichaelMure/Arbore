@@ -5,14 +5,14 @@ import { webui } from './ipfsDirectory'
 import randomName from '../../utils/randomName'
 
 const shares = [
-  new Share(contactFxt[0], metadataFxt[2]),
-  new Share(contactFxt[1], metadataFxt[3]),
-  new Share(contactFxt[2], metadataFxt[0]),
-  new Share(contactFxt[3], metadataFxt[3]),
-  new Share(contactFxt[0], metadataFxt[0]),
-  new Share(contactFxt[1], metadataFxt[1]),
-  new Share(contactFxt[2], metadataFxt[2]),
-  new Share(contactFxt[3], metadataFxt[1]),
+  Share.create(contactFxt[0], metadataFxt[2]),
+  Share.create(contactFxt[1], metadataFxt[3]),
+  Share.create(contactFxt[2], metadataFxt[0]),
+  Share.create(contactFxt[3], metadataFxt[3]),
+  Share.create(contactFxt[0], metadataFxt[0]),
+  Share.create(contactFxt[1], metadataFxt[1]),
+  Share.create(contactFxt[2], metadataFxt[2]),
+  Share.create(contactFxt[3], metadataFxt[1]),
 ]
 
 shares[0] = shares[0].set(writable.content, shares[0].content.set(randomName(), webui))

@@ -22,15 +22,16 @@ export type IpfsObject = {
   metadataLocal: boolean,
 }
 
-const IpfsObjectRecord = Record({
+export const IpfsObjectRecord = Record({
   hash: null
-})
+}, 'EmptyIpfsObject')
 
 // This object is used in the redux store to wait for metadata
 export default class EmptyIpfsObject extends IpfsObjectRecord {
 
-  constructor(hash: string) {
-    super({hash})
+  static create(hash: string) {
+    return new this()
+      .set('hash', hash)
   }
 
   get type(): ObjectTypeType {

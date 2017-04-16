@@ -9,18 +9,19 @@ export const writable = {
   children: 'children',
 }
 
-const IpfsDirectoryRecord = Record({
+export const IpfsDirectoryRecord = Record({
   hash: null,
   _metadataLocal: false,
   children: Map()
-})
+}, 'IpfsDirectory')
 
 export default class IpfsDirectory extends IpfsDirectoryRecord {
   hash: string
   children: Map<string, IpfsObject>
 
-  constructor(hash: string) {
-    super({hash})
+  static create(hash: string) {
+    return new this()
+      .set(writable.hash, hash)
   }
 
   get type(): ObjectTypeType {

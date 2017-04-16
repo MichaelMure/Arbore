@@ -2,13 +2,14 @@
 import * as sharelist from '../actions/shareList'
 import * as share from '../actions/share'
 import * as ipfs from '../actions/ipfsObject'
-import ShareList, { writable } from '../models/ShareList'
+import ShareList, { ShareListFilter, writable } from '../models/ShareList'
 import type { ShareListFilterType } from '../models/ShareList'
 import Share from '../models/Share'
 import { handleActions, combineActions } from 'redux-actions'
 import { Action } from '../utils/types'
 import shareReducer from './share'
 import { List } from "immutable"
+import { REHYDRATE } from 'redux-persist/constants'
 
 import shareFxt from '../models/fixtures/share'
 let initialState = new ShareList()
@@ -17,6 +18,19 @@ shareFxt.forEach((share) => {
 })
 
 export default handleActions({
+
+  // Reset part of the state app re-launch
+  [REHYDRATE]: (state, action: Action) => {
+    const persisted = action.payload.shareList
+    if(persisted) {
+      return persisted.withMutations(sharelist => sharelist
+        .set(writable.filter, ShareListFilter.AVAILABLE)
+        .set(writable.selectedId, null)
+        .set(writable.search, '')
+      )
+    }
+    return persisted
+  },
 
   [sharelist.addShare]: (state: ShareList, action: Action<Share>) => (
     state.set(writable.list, state.list.push(action.payload))

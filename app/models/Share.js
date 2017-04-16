@@ -21,14 +21,14 @@ export const writable = {
   favorite: 'favorite'
 }
 
-const ShareRecord = Record({
+export const ShareRecord = Record({
   id: null,
   author: null,
   metadata: null,
   status: null,
   content: Map(),
   favorite: false
-})
+}, 'Share')
 
 let idGenerator = 0
 
@@ -40,9 +40,13 @@ export default class Share extends ShareRecord {
   content: Map<string,IpfsObject>
   favorite: boolean
 
-  constructor(author: Contact, metadata: ShareMetadata) {
-    super({id: idGenerator, author, metadata, status: ShareState.AVAILABLE})
-    idGenerator++
+  static create(author: Contact, metadata: ShareMetadata) {
+    return new this().withMutations(share => share
+      .set('id', idGenerator++)
+      .set(writable.author, author)
+      .set(writable.metadata, metadata)
+      .set(writable.status, ShareState.AVAILABLE)
+    )
   }
 
   get progress() {

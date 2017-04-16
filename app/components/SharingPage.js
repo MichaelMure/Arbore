@@ -13,27 +13,33 @@ class SharingPage extends Component {
     onSearchChange: () => void,
   }
 
+  renderShares(shares,  selectedId) {
+    if(shares.count() > 0) {
+      return shares.map((share : Share) => (
+        <CompactShare
+          key={share.id}
+          share={share}
+          selected={share.id === selectedId}
+          onClick={this.props.onClickGenerator(share.id)}
+        />))
+    }
+
+    return (<span>Nothing here yet.</span>)
+  }
+
   render() {
     const shareList = this.props.shares
     const shares = shareList.filtered
     const selectedShare = shareList.selected
     const selectedId = shareList.selectedId
 
-    const sharesComps = shares.map((share : Share) => (
-      <CompactShare
-        key={share.id}
-        share={share}
-        selected={share.id == selectedId}
-        onClick={this.props.onClickGenerator(share.id)}
-      />
-    ));
 
     return (
       <div className={styles.wrapper}>
         <div className={styles.list} >
           <TextField label={"Search"} onChange={this.props.onSearchChange} />
           <div className={styles.scroller}>
-            { sharesComps }
+            { this.renderShares(shares, selectedId) }
           </div>
         </div>
         <div className={styles.details}>

@@ -6,16 +6,19 @@ export const writable = {
   avatar: 'avatar',
 }
 
-const ContactRecord = Record({
+export const ContactRecord = Record({
   name: '',
   avatar: null
-})
+}, 'Contact')
 
 export default class Contact extends ContactRecord {
   name: string
   avatar: ?string
 
-  constructor(name : string, avatar: string) {
-    super({name, avatar});
+  static create(name : string, avatar: string) : Contact {
+    return new this().withMutations(contact => contact
+      .set(writable.name, name)
+      .set(writable.avatar, avatar)
+    )
   }
 }

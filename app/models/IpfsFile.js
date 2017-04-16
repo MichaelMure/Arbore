@@ -12,14 +12,14 @@ export const writable = {
   metadataLocal: 'metadataLocal',
 }
 
-const IpfsFileRecord = Record({
+export const IpfsFileRecord = Record({
   hash: null,
   sizeTotal: 0,
   sizeLocal: 0,
   blockTotal: 1,
   blockLocal: 0,
   metadataLocal: false,
-})
+}, 'IpfsFile')
 
 export default class IpfsFile extends IpfsFileRecord {
   hash: string
@@ -29,8 +29,9 @@ export default class IpfsFile extends IpfsFileRecord {
   blockLocal: number
   metadataLocal: boolean
 
-  constructor(hash: string) {
-    super({hash})
+  static create(hash: string) {
+    return new this()
+      .set(writable.hash, hash)
   }
 
   get type(): ObjectTypeType {
