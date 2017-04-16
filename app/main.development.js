@@ -3,6 +3,7 @@ import { app, BrowserWindow } from 'electron';
 import * as ipfs from './ipfs/ipfsMain'
 
 let mainWindow = null;
+let splashScreen = null
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support'); // eslint-disable-line
@@ -19,17 +20,16 @@ if (process.env.NODE_ENV === 'development') {
 app.on('window-all-closed', () => {
   ipfs.stop()
   if (process.platform !== 'darwin') app.quit();
-});
-
+})
 
 const installExtensions = async () => {
   if (process.env.NODE_ENV === 'development') {
-    const installer = require('electron-devtools-installer'); // eslint-disable-line global-require
+    const installer = require('electron-devtools-installer') // eslint-disable-line global-require
 
     const extensions = [
       'REACT_DEVELOPER_TOOLS',
       'REDUX_DEVTOOLS'
-    ];
+    ]
 
     const forceDownload = !!process.env.UPGRADE_EXTENSIONS;
 
@@ -38,52 +38,54 @@ const installExtensions = async () => {
     //       Promises will fail silently, which isn't what we want in development
     return Promise
       .all(extensions.map(name => installer.default(installer[name], forceDownload)))
-      .catch(console.log);
+      .catch(console.log)
   }
 };
 
 app.on('ready', async () => {
-  await installExtensions();
+  await installExtensions()
+
+  splashScreen = new BrowserWindow({
+    width: 300,
+    height: 300,
+    frame: false,
+    transparent: true
+  })
+
+  splashScreen.webContents.on('did-finish-load', () => {
+    if (splashScreen) {
+      splashScreen.show()
+    }
+  })
+
+  splashScreen.loadURL(`file://${__dirname}/../resources/logo.png`)
 
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
     height: 728,
     toolbar: false
-  });
-  mainWindow.setMenu(null)
-
-  let splashScreen = new BrowserWindow({
-    width: 300,
-    height: 300,
-    frame: false,
-    transparent: true
-  });
-  splashScreen.loadURL(`file://${__dirname}/../resources/logo.png`);
-  splashScreen.webContents.on('did-finish-load', () => {
-    if (!splashScreen) {
-      throw new Error('"mainWindow" is not defined');
-    }
-    splashScreen.show();
   })
-
-  mainWindow.loadURL(`file://${__dirname}/app.html`);
 
   mainWindow.webContents.on('did-finish-load', () => {
     if (!mainWindow) {
-      throw new Error('"mainWindow" is not defined');
+      throw new Error('"mainWindow" is not defined')
     }
     if(splashScreen) {
-      splashScreen.hide();
+      splashScreen.destroy()
     }
-    splashScreen = null;
-    mainWindow.show();
-    mainWindow.focus();
-  });
+    splashScreen = null
+    mainWindow.show()
+    mainWindow.focus()
+  })
+
+  mainWindow.loadURL(`file://${__dirname}/app.html`)
+  mainWindow.openDevTools()
 
   mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
+    mainWindow = null
+  })
 
   ipfs.start()
-});
+})
+
