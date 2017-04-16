@@ -14,9 +14,7 @@ class ContactPage extends Component {
   static defaultProps = {}
 
   render() {
-
-    // TODO: good key id
-    const contacts = this.props.contacts.list
+    const contacts = this.props.contacts.contacts.valueSeq()
       .map((contact: Contact) => (
         <div key={contact.pubkey}>
           <Avatar

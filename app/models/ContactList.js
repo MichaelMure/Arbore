@@ -1,15 +1,15 @@
 // @flow
-import { Record, List } from 'immutable'
+import { Record, Map } from 'immutable'
 import Contact from './Contact'
 
 export const writable = {
-  list: 'list',
+  contacts: 'contacts',
 }
 
 export const ShareListRecord = Record({
-  list: List(),
+  contacts: Map(),
 }, 'ContactList')
 
 export default class ContactList extends ShareListRecord {
-  list: List<Contact>
+  contacts: Map<Contact>
 }
