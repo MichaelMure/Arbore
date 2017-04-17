@@ -1,9 +1,9 @@
 // @flow
-import * as profile from '../actions/profile';
-import Profile, { writable} from '../models/Profile'
+import * as profile from 'actions/profile'
+import Profile, { writable} from 'models/Profile'
 import { handleActions } from 'redux-actions'
-import { Action } from '../utils/types'
-import profileFxt from '../models/fixtures/profile'
+import { Action } from 'utils/types'
+import profileFxt from 'models/fixtures/profile'
 
 // const initialState = new Profile()
 const initialState = profileFxt

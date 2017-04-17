@@ -1,9 +1,9 @@
 // @flow
-import * as actions from '../actions/ui';
-import UiState, { writable } from '../models/UiState'
-import type { PageType } from '../models/UiState'
+import * as actions from 'actions/ui';
+import UiState, { writable } from 'models/UiState'
+import type { PageType } from 'models/UiState'
 import { handleActions } from 'redux-actions'
-import { Action } from '../utils/types'
+import { Action } from 'utils/types'
 
 const initialState = new UiState()
 

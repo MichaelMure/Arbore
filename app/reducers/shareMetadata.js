@@ -1,8 +1,8 @@
 // @flow
-import * as actions from '../actions/share';
-import ShareMetadata, { writable } from '../models/ShareMetadata'
+import * as actions from 'actions/share'
+import ShareMetadata, { writable } from 'models/ShareMetadata'
 import { handleActions } from 'redux-actions'
-import { Action } from '../utils/types'
+import { Action } from 'utils/types'
 
 const initialState = null
 

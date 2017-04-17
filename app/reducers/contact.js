@@ -1,8 +1,8 @@
 // @flow
-import * as contact from '../actions/contact';
+import * as contact from 'actions/contact';
 import { handleActions } from 'redux-actions'
-import { Action } from '../utils/types'
-import Contact, { writable } from '../models/Contact'
+import { Action } from 'utils/types'
+import Contact, { writable } from 'models/Contact'
 
 const initialState = null
 

@@ -1,12 +1,12 @@
 // @flow
 import { handleActions } from 'redux-actions'
-import { Action } from '../utils/types'
-import * as ipfs from '../actions/ipfsObject'
-import type { IpfsObject } from '../models/IpfsObject'
-import { ObjectType } from '../models/IpfsObject'
-import IpfsDirectory, { writable as dirWritable} from '../models/IpfsDirectory'
-import IpfsFile, { writable as fileWritable } from '../models/IpfsFile'
-import EmptyIpfsObject from '../models/IpfsObject'
+import { Action } from 'utils/types'
+import * as ipfs from 'actions/ipfsObject'
+import type { IpfsObject } from 'models/IpfsObject'
+import { ObjectType } from 'models/IpfsObject'
+import IpfsDirectory, { writable as dirWritable} from 'models/IpfsDirectory'
+import IpfsFile, { writable as fileWritable } from 'models/IpfsFile'
+import EmptyIpfsObject from 'models/IpfsObject'
 import { Map } from 'immutable'
 
 const reducer = handleActions({

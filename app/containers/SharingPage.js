@@ -1,8 +1,8 @@
 // @flow
 import { connect } from 'react-redux'
-import { Store } from '../utils/types'
-import SharingPage from '../components/SharingPage'
-import * as sharelist from '../actions/shareList'
+import { Store } from 'utils/types'
+import SharingPage from 'components/sharing/SharingPage'
+import * as sharelist from 'actions/shareList'
 
 const mapStateToProps = (state: Store) => ({
   shares: state.shareList

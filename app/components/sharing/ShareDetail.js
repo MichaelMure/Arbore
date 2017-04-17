@@ -1,14 +1,14 @@
-import React, {Component, PropTypes} from 'react';
-import styles from './ShareDetail.css';
-import { Card, CardContent, CardHeader, CardActions } from 'material-ui/Card';
-import Avatar from 'material-ui/Avatar';
+import Avatar from 'material-ui/Avatar'
+import { CardHeader } from 'material-ui/Card'
+import IconButton from 'material-ui/IconButton'
+import { LinearProgress } from 'material-ui/Progress'
 import Text from 'material-ui/Text'
-import FontAwesome from 'react-fontawesome';
-import IconButton from 'material-ui/IconButton';
-import { LinearProgress } from 'material-ui/Progress';
+import Share from 'models/Share'
+import React, { Component, PropTypes } from 'react'
+import FontAwesome from 'react-fontawesome'
+import * as humanize from 'utils/humanize'
+import styles from './ShareDetail.css'
 import ShareFiles from './ShareFiles2'
-import Share from '../models/Share'
-import * as humanize from '../utils/humanize'
 
 class ShareDetail extends Component {
   render() {

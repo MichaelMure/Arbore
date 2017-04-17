@@ -1,9 +1,9 @@
 // @flow
-import * as contact from '../actions/contact'
-import ContactList, { writable} from '../models/ContactList'
+import * as contact from 'actions/contact'
+import ContactList, { writable} from 'models/ContactList'
 import { handleActions, combineActions } from 'redux-actions'
-import { Action } from '../utils/types'
-import Contact from '../models/Contact'
+import { Action } from 'utils/types'
+import Contact from 'models/Contact'
 import { Map } from 'immutable'
 import contactReducer from './contact'
 

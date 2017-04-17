@@ -3,9 +3,9 @@ import { persistStore, autoRehydrate } from 'redux-persist'
 import immutableTransform from 'redux-persist-transform-immutable'
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
-import rootReducer from '../reducers'
-import allActions from '../actions/allActions'
-import allModels from '../models/allModels'
+import rootReducer from 'reducers'
+import allActions from 'actions/allActions'
+import allModels from 'models/allModels'
 
 const actionCreators = {
   ...allActions

@@ -1,9 +1,9 @@
 // @flow
 import { connect } from 'react-redux'
-import * as ui from '../actions/ui'
+import * as ui from 'actions/ui'
 
-import Drawer from '../components/Drawer'
-import { Store } from '../utils/types'
+import Drawer from 'components/Drawer'
+import { Store } from 'utils/types'
 
 
 const mapStateToProps = (state: Store) => ({

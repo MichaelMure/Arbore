@@ -1,11 +1,11 @@
 // @flow
 import { connect } from 'react-redux'
-import * as ui from '../actions/ui'
-import * as sharelist from '../actions/shareList'
-import { ShareListFilter } from '../models/ShareList'
-import MenuBar from '../components/MenuBar'
-import { Store } from '../utils/types'
-import { Page } from '../models/UiState'
+import * as ui from 'actions/ui'
+import * as sharelist from 'actions/shareList'
+import { ShareListFilter } from 'models/ShareList'
+import MenuBar from 'components/MenuBar'
+import { Store } from 'utils/types'
+import { Page } from 'models/UiState'
 
 
 const mapStateToProps = (state: Store) => ({

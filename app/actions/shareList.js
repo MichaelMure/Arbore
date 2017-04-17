@@ -1,7 +1,7 @@
 // @flow
 import { createAction } from 'redux-actions'
-import Share from '../models/Share'
-import type { ShareListFilterType } from '../models/ShareList'
+import Share from 'models/Share'
+import type { ShareListFilterType } from 'models/ShareList'
 
 export const addShare = createAction('SHARELIST_ADD',
   (share: Share) => (share)

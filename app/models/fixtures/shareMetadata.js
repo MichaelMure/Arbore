@@ -1,4 +1,4 @@
-import ShareMetadata from '../ShareMetadata'
+import ShareMetadata from 'models/ShareMetadata'
 
 export default [
   ShareMetadata.create("title", "description", "message"),

@@ -1,11 +1,11 @@
 // @flow
 import { connect } from 'react-redux'
-import * as ui from '../actions/ui'
-import * as profile from '../actions/profile'
-import * as ipfsObject from '../actions/ipfsObject'
+import * as ui from 'actions/ui'
+import * as profile from 'actions/profile'
+import * as ipfsObject from 'actions/ipfsObject'
 
-import ProfileEdit from '../components/ProfileEdit'
-import { Store } from '../utils/types'
+import ProfileEdit from 'components/profile/ProfileEdit'
+import { Store } from 'utils/types'
 
 const mapStateToProps = (state: Store) => ({
   profile: state.profile

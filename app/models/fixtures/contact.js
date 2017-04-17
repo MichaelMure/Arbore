@@ -1,4 +1,4 @@
-import Contact from '../Contact'
+import Contact from 'models/Contact'
 
 export default [
   Contact.create("Name", "https://s3.amazonaws.com/uifaces/faces/twitter/rem/73.jpg"),

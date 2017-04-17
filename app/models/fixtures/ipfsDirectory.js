@@ -1,10 +1,10 @@
 // @flow
 
-import IpfsFile from '../IpfsFile'
-import IpfsDirectory, { writable } from '../IpfsDirectory'
-import randomHash from '../../utils/randomHash'
-import randomName from '../../utils/randomName'
-import EmptyIpfsObject from '../IpfsObject'
+import IpfsFile from 'models/IpfsFile'
+import IpfsDirectory, { writable } from 'models/IpfsDirectory'
+import randomHash from 'utils/randomHash'
+import randomName from 'utils/randomName'
+import EmptyIpfsObject from 'models/IpfsObject'
 
 const f1 = IpfsFile.create(randomHash())
 const f2 = IpfsFile.create(randomHash())

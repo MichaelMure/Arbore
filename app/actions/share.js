@@ -1,8 +1,8 @@
 // @flow
 import { createAction } from 'redux-actions'
-import Share from '../models/Share'
+import Share from 'models/Share'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
-import type { IpfsObject } from '../models/IpfsObject'
+import type { IpfsObject } from 'models/IpfsObject'
 
 export const addEmptyObject = createAction('SHARE_EMPTY_OBJECT_ADD',
   (id: number, name: string, hash: string) => ({id, name, hash})

@@ -1,7 +1,7 @@
 // @flow
-import React, { Component } from 'react';
-import styles from './Profile.css';
-import Model from '../models/Profile'
+import React, { Component } from 'react'
+import styles from './Profile.css'
+import Profile from 'models/Profile'
 import Input from 'material-ui/Input'
 import Text from 'material-ui/Text'
 import Avatar from 'material-ui/Avatar'
@@ -14,7 +14,7 @@ const dialog = require('electron').remote.dialog
 class ProfileEdit extends Component {
 
   props : {
-    profile: Model,
+    profile: Profile,
     onTest: () => void,
     onAvatarChange: (Buffer) => () => void
   }

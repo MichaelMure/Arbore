@@ -1,8 +1,8 @@
-import Share, { writable } from '../Share'
+import Share, { writable } from 'models/Share'
 import contactFxt from './contact'
 import metadataFxt from './shareMetadata'
 import { webui } from './ipfsDirectory'
-import randomName from '../../utils/randomName'
+import randomName from 'utils/randomName'
 
 const shares = [
   Share.create(contactFxt[0], metadataFxt[2]),

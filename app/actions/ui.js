@@ -1,6 +1,6 @@
 // @flow
 import { createAction } from 'redux-actions'
-import type { PageType } from '../models/UiState'
+import type { PageType } from 'models/UiState'
 
 export const openProfile = createAction('UI_PROFILE_OPEN')
 export const closeProfile = createAction('UI_PROFILE_CLOSE')

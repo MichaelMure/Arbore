@@ -1,9 +1,9 @@
 // @flow
 import { createAction } from 'redux-actions'
-import { writable } from '../models/Profile'
+import { writable } from 'models/Profile'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
-import { waitForIpfsReady } from '../ipfs/ipfsRenderer'
-import type { Store } from '../utils/types'
+import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
+import type { Store } from 'utils/types'
 
 export const create = createAction('PROFILE_CREATE')
 export const update = createAction('PROFILE_UPDATE')

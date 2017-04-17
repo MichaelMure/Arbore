@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
-import ContactList from '../models/ContactList'
-import Contact from '../models/Contact'
+import ContactList from 'models/ContactList'
+import Contact from 'models/Contact'
 import { Avatar } from 'material-ui'
 // import styles from './ContactPage.css'
 

@@ -1,9 +1,9 @@
 // @flow
 import { createAction } from 'redux-actions'
-import Contact from '../models/Contact'
+import Contact from 'models/Contact'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
-import { waitForIpfsReady } from '../ipfs/ipfsRenderer'
-import removeIpfsPrefix from '../utils/removeIpfsPrefix'
+import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
+import removeIpfsPrefix from 'utils/removeIpfsPrefix'
 
 export const addContact = createAction('CONTACT_CREATE',
   (pubkey: string, identity: string, bio: string, avatarHash: string) =>

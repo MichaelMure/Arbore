@@ -1,17 +1,17 @@
 // @flow
-import * as sharelist from '../actions/shareList'
-import * as share from '../actions/share'
-import * as ipfs from '../actions/ipfsObject'
-import ShareList, { ShareListFilter, writable } from '../models/ShareList'
-import type { ShareListFilterType } from '../models/ShareList'
-import Share from '../models/Share'
+import * as sharelist from 'actions/shareList'
+import * as share from 'actions/share'
+import * as ipfs from 'actions/ipfsObject'
+import ShareList, { ShareListFilter, writable } from 'models/ShareList'
+import type { ShareListFilterType } from 'models/ShareList'
+import Share from 'models/Share'
 import { handleActions, combineActions } from 'redux-actions'
-import { Action } from '../utils/types'
+import { Action } from 'utils/types'
 import shareReducer from './share'
-import { List } from "immutable"
+import { List } from 'immutable'
 import { REHYDRATE } from 'redux-persist/constants'
 
-import shareFxt from '../models/fixtures/share'
+import shareFxt from 'models/fixtures/share'
 let initialState = new ShareList()
 shareFxt.forEach((share) => {
   initialState = initialState.set(writable.list, initialState.list.push(share))

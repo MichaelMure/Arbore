@@ -8,11 +8,11 @@ import {
   TableRow,
   TableCell
 } from 'material-ui/Table';
-import Share from "../models/Share";
-import { ObjectType } from '../models/IpfsObject'
-import type { IpfsObject } from '../models/IpfsObject'
-import IpfsFile from '../models/IpfsFile'
-import IpfsDirectory from '../models/IpfsDirectory'
+import Share from 'models/Share'
+import { ObjectType } from 'models/IpfsObject'
+import type { IpfsObject } from 'models/IpfsObject'
+import IpfsFile from 'models/IpfsFile'
+import IpfsDirectory from 'models/IpfsDirectory'
 
 class ShareFiles extends Component {
 

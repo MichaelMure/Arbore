@@ -1,17 +1,17 @@
 // @flow
-import * as actions from '../actions/share';
-import * as ipfs from '../actions/ipfsObject'
-import Share, { writable, ShareState } from '../models/Share'
-import type { IpfsObject } from '../models/IpfsObject'
+import * as actions from 'actions/share'
+import * as ipfs from 'actions/ipfsObject'
+import Share, { writable, ShareState } from 'models/Share'
+import type { IpfsObject } from 'models/IpfsObject'
 import { handleActions, combineActions } from 'redux-actions'
-import { Action } from '../utils/types'
-import metadataReducer from '../reducers/shareMetadata'
-import ShareMetadata from "../models/ShareMetadata";
-import EmptyIpfsObject from '../models/IpfsObject'
-import ipfsObjectReducer from '../reducers/ipfsObject'
-import hashEquals from '../utils/hashEquals'
-import { ObjectType } from '../models/IpfsObject'
-import IpfsDirectory, { writable as dirWritable} from '../models/IpfsDirectory'
+import { Action } from 'utils/types'
+import metadataReducer from 'reducers/shareMetadata'
+import ShareMetadata from 'models/ShareMetadata'
+import EmptyIpfsObject from 'models/IpfsObject'
+import ipfsObjectReducer from 'reducers/ipfsObject'
+import hashEquals from 'utils/hashEquals'
+import { ObjectType } from 'models/IpfsObject'
+import IpfsDirectory, { writable as dirWritable } from 'models/IpfsDirectory'
 
 const initialState = null
 
