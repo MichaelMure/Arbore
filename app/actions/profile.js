@@ -51,7 +51,10 @@ export function publishProfile() {
         dispatch(setHash(hash))
         return hash
       })
-      .then(hash => ipfs.api.apiClient.name.publish(hash))
+      .then(hash => ipfs.api.apiClient.name.publish(hash, {
+        'lifetime': '8760h', // profile record validity of 1 year
+        'ttl': '24h' // profile record should be cached for 1 day (tradeoff between availability and time to propagate)
+      }))
       .then(() => console.log('profile published on IPNS'))
 
       // TODO: remove
