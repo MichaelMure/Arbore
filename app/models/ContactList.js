@@ -12,4 +12,9 @@ export const ShareListRecord = Record({
 
 export default class ContactList extends ShareListRecord {
   contacts: Map<Contact>
+
+  // Find a contact by its public key
+  findContact(pubkey: string) : Contact {
+    return this.contacts.get(pubkey)
+  }
 }

@@ -5,12 +5,6 @@
   height: 100vh;
 }
 
-.column {
-  flex-direction: column;
-  flex: 1;
-  margin: 4px;
-}
-
 .list {
   flex-direction: column;
   flex: 2;

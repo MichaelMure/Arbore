@@ -1,0 +1,59 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: 100vh;
+}
+
+.contacts {
+  flex-direction: column;
+  width: 150px;
+  margin: 4px;
+  overflow: hidden;
+}
+
+.scrollerContact {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  padding: 3px;
+}
+
+.chat {
+  flex-direction: column;
+  flex: 1;
+  /*
+   * This is hacky, the goal is to avoid the scroller to overflow in the bottom
+   * because of the search bar and the .scroller { height: 100% }
+   */
+  padding-bottom: 50px;
+  background-color: #f2f2f2;
+}
+
+.scrollerChat {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+  padding: 3px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.prompt {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.profileAvatar {
+  width: 42px;
+  height: 42px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.promptInput {
+  flex: 1
+}

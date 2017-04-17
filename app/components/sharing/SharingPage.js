@@ -33,11 +33,10 @@ class SharingPage extends Component {
     const selectedShare = shareList.selected
     const selectedId = shareList.selectedId
 
-
     return (
       <div className={styles.wrapper}>
         <div className={styles.list} >
-          <TextField label={"Search"} onChange={this.props.onSearchChange} />
+          <TextField label='Search' onChange={this.props.onSearchChange} />
           <div className={styles.scroller}>
             { this.renderShares(shares, selectedId) }
           </div>
@@ -48,7 +47,7 @@ class SharingPage extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
