@@ -26,18 +26,28 @@
    * This is hacky, the goal is to avoid the scroller to overflow in the bottom
    * because of the search bar and the .scroller { height: 100% }
    */
-  padding-bottom: 50px;
+  padding: 0 10px 50px;
   background-color: #f2f2f2;
+
 }
 
 .scrollerChat {
   height: 100%;
   width: 100%;
   overflow: auto;
-  padding: 3px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+}
+
+.chatItem {
+  margin-left: 10px !important;
+}
+
+.contactItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .prompt {
@@ -47,13 +57,44 @@
   align-items: center;
 }
 
-.profileAvatar {
-  width: 42px;
-  height: 42px;
+.promptAvatar {
+  width: 42px !important;
+  height: 42px !important;
   margin-right: 10px;
-  margin-left: 10px;
 }
 
 .promptInput {
   flex: 1
+}
+
+.cluster {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.clusterHeader {
+  display: flex;
+  flex-direction: row;
+  color: gray;
+  justify-content: space-between;
+}
+
+.clusterHistory {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.clusterAvatar {
+  width: 40px !important;
+  height: 40px !important;
+  margin-right: 10px;
+}
+
+.contactAvatar {
+  width: 20px !important;
+  height: 20px !important;
+  margin-right: 10px;
+  margin-left: 10px;
 }

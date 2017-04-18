@@ -27,10 +27,11 @@ export default class Contact extends ContactRecord {
   bio: string
   hash: ?string
 
-  static create(identity : string, avatarData: string) : Contact {
+  static create(identity : string, avatarData: string, pubkey: ?string) : Contact {
     return new this().withMutations(contact => contact
       .set(writable.identity, identity)
       .set(writable.avatarData, avatarData)
+      .set(writable.pubkey, pubkey)
     )
   }
 }

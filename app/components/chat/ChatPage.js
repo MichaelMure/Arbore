@@ -6,6 +6,9 @@ import { Avatar, Text, TextField } from 'material-ui'
 import { Map } from 'immutable'
 import Contact from 'models/Contact'
 import Profile from 'models/Profile'
+import Moment from 'react-moment'
+
+const app = require('electron').remote.app
 
 class ChatPage extends Component {
 
@@ -19,9 +22,16 @@ class ChatPage extends Component {
     this.history = [
       { contact: 'QmQ6TbUShnjKbnJDSYdxaBb78Dz6fF82NMetDKnau3k7zW', time: Date.now(), msg: 'Hello' },
       { contact: 'QmQ6TbUShnjKbnJDSYdxaBb78Dz6fF82NMetDKnau3k7zW', time: Date.now(), msg: 'Hello' },
+      { contact: 'DZNJZDNKZN', time: Date.now(), msg: 'Hello' },
+      { contact: 'DZNJZDNKZN', time: Date.now(), msg: 'Hello' },
+      { contact: 'DZNJZDNKZN', time: Date.now(), msg: 'Hello' },
+      { contact: 'DZNJZDNKZN', time: Date.now(), msg: 'Hello' },
+      { contact: 'DZNJZDNKZN', time: Date.now(), msg: 'Hello' },
+      { contact: 'QmQ6TbUShnjKbnJDSYdxaBb78Dz6fF82NMetDKnau3k7zW', time: Date.now(), msg: 'Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz ' },
       { contact: 'QmQ6TbUShnjKbnJDSYdxaBb78Dz6fF82NMetDKnau3k7zW', time: Date.now(), msg: 'Hello' },
-      { contact: 'QmQ6TbUShnjKbnJDSYdxaBb78Dz6fF82NMetDKnau3k7zW', time: Date.now(), msg: 'Hello' },
-      { contact: 'QmQ6TbUShnjKbnJDSYdxaBb78Dz6fF82NMetDKnau3k7zW', time: Date.now(), msg: 'Hello' },
+      { contact: 'DZNJZDNKZN', time: Date.now(), msg: 'Hello' },
+      { contact: 'DZNJZDNKZN', time: Date.now(), msg: 'Hello' },
+      { contact: 'DZNJZDNKZN', time: Date.now(), msg: 'Hello' },
     ]
 
     this.chats = [
@@ -33,17 +43,73 @@ class ChatPage extends Component {
   }
 
   renderContact(contacts: Map) {
+    // const classes = this.context.styleManager.render(styleSheet);
+
     return contacts.valueSeq().map((contact: Contact) =>
-      <div key={contact.pubkey}>{contact.identity}</div>
+      <div key={contact.pubkey} className={styles.contactItem}>
+        <Avatar src={contact.avatarData} alt={contact.identity} className={styles.contactAvatar}/>
+        {contact.identity}
+      </div>
     )
   }
 
   renderChats(chats) {
-    return chats.map(({name, unread}, index) => <div key={index}>{name}</div>)
+    return chats.map(({name, unread}, index) => (
+      <Text key={index} className={styles.chatItem}>{name}</Text>)
+    )
   }
 
   renderHistory(history) {
-    return history.map(({msg, time}, index) => <div key={index}>{msg}</div>)
+    let contact = null
+    let accu = []
+    let chunks = []
+
+    // Cluster the history in consecutive contact chunk
+    history.forEach(log => {
+      if(contact === null) {
+        contact = log.contact
+      }
+
+      accu.push(log)
+
+      if(log.contact !== contact) {
+        chunks.push(accu)
+        accu = []
+        contact = log.contact
+      }
+    })
+
+    if(accu.length > 0) {
+      chunks.push(accu)
+    }
+
+    return chunks.map((chunk, index) => this.renderHistoryChunk(chunk, index))
+  }
+
+  renderHistoryChunk(history, key) {
+    if(history.length <= 0) {
+      return
+    }
+
+    const contact: Contact = this.props.contacts.findContact(history[0].contact)
+    const time = history[0].time
+
+    return (
+      <div key={key} className={styles.cluster}>
+        <Avatar src={contact.avatarData} alt={contact.identity} className={styles.clusterAvatar}/>
+        <div className={styles.clusterHistory}>
+          <div className={styles.clusterHeader}>
+            <span>{contact.identity}</span>
+            <span><Moment locale={app.getLocale()} format="LT">{time}</Moment></span>
+          </div>
+          {
+            history.map(({time, msg}, index) => (
+              <Text key={index}>{msg}</Text>
+            ))
+          }
+        </div>
+      </div>
+    )
   }
 
   render() {
@@ -67,7 +133,8 @@ class ChatPage extends Component {
           <div className={styles.prompt}>
             <Avatar
               src={profile.avatarData}
-              className={styles.profileAvatar}
+              alt={profile.identity}
+              className={styles.promptAvatar}
             />
             <TextField label='Write something' className={styles.promptInput} />
           </div>
