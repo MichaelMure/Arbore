@@ -49,7 +49,17 @@ app.on('ready', async () => {
     width: 300,
     height: 300,
     frame: false,
-    transparent: true
+    transparent: true,
+    movable: false,
+    resizable: false,
+    minimizable: false,
+    maximizable: false,
+    closable: false,
+    webPreferences: {
+      devTools: false,
+      javascript: false,
+      nodeIntegration: false
+    }
   })
 
   splashScreen.webContents.on('did-finish-load', () => {
@@ -58,7 +68,7 @@ app.on('ready', async () => {
     }
   })
 
-  splashScreen.loadURL(`file://${__dirname}/../resources/logo.png`)
+  splashScreen.loadURL(`file://${__dirname}/splashScreen.html`)
 
   mainWindow = new BrowserWindow({
     show: false,
