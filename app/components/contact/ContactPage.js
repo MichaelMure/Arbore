@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import ContactList from 'models/ContactList'
 import Contact from 'models/Contact'
 import ContactDetail from './ContactDetail'
-// import styles from './ContactPage.css'
+import styles from './ContactPage.css'
 
 class ContactPage extends Component {
 
@@ -16,7 +16,7 @@ class ContactPage extends Component {
       .map((contact: Contact) => <ContactDetail key={ contact.pubkey } contact={contact} />)
 
     return (
-      <div>
+      <div className={styles.wrapper}>
         {contacts}
       </div>
     )
