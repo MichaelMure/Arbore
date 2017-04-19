@@ -5,10 +5,13 @@ import MenuBar from 'containers/MenuBar'
 import SharingPage from 'containers/SharingPage'
 import ContactPage from 'containers/ContactPage'
 import ChatPage from 'containers/ChatPage'
+import NewShareDrawer from 'containers/NewShareDrawer'
+import NewSharePage from 'containers/NewSharePage'
 import ProfileDrawer from 'containers/ProfileDrawer'
 import ProfilePage from 'containers/ProfilePage'
 import { Page } from 'models/UiState'
 import type { PageType } from 'models/UiState'
+
 
 export default class Home extends Component {
 
@@ -30,6 +33,10 @@ export default class Home extends Component {
           <ProfileDrawer>
             <ProfilePage />
           </ProfileDrawer>
+
+          <NewShareDrawer>
+            <NewSharePage />
+          </NewShareDrawer>
         </div>
       </div>
     );

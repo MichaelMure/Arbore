@@ -7,12 +7,12 @@ import { Store } from 'utils/types'
 
 
 const mapStateToProps = (state: Store) => ({
-  open: state.ui.profileOpen,
-  big: false
+  open: state.ui.newShareOpen,
+  big: true
 })
 
 const mapDispatchToProps = dispatch => ({
-  onBackgroundClick: () => { dispatch(ui.toggleProfile()) },
+  onBackgroundClick: () => { dispatch(ui.toggleNewShare()) },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Drawer)

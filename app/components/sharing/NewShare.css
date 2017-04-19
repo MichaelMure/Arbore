@@ -1,0 +1,28 @@
+.wrapper {
+
+}
+
+.recipients {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  border: rgb(225, 225, 225) 1px solid;
+  min-height: 100px;
+}
+
+.chip {
+  margin: 5px;
+}
+
+.recipientsInput {
+  margin: 5px;
+}
+
+.content {
+  border: rgb(225, 225, 225) 1px solid;
+  min-height: 200px;
+}
+
+.submit {
+
+}

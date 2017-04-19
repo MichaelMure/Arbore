@@ -15,12 +15,11 @@ export default class ContactList extends ShareListRecord {
 
   // Find a contact by its public key
   findContact(pubkey: string) : Contact {
-
-    // TODO: remove
-    if(!this.contacts.has(pubkey)) {
-      return Contact.create("Remy Sharp", "https://s3.amazonaws.com/uifaces/faces/twitter/rem/73.jpg", 'DZNJZDNKZN')
-    }
-
     return this.contacts.get(pubkey)
+  }
+
+  // Build a suggestion list with a string pattern
+  suggestContact(pattern: string) : Array<Contact> {
+    return this.contacts.filter((contact: Contact) => contact.match(pattern)).toArray()
   }
 }

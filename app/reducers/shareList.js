@@ -11,8 +11,10 @@ import shareReducer from './share'
 import { List } from 'immutable'
 import { REHYDRATE } from 'redux-persist/constants'
 
-import shareFxt from 'models/fixtures/share'
 let initialState = new ShareList()
+
+// TODO: remove
+import shareFxt from 'models/fixtures/share'
 shareFxt.forEach((share) => {
   initialState = initialState.set(writable.list, initialState.list.push(share))
 })

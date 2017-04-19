@@ -6,6 +6,10 @@ export const openProfile = createAction('UI_PROFILE_OPEN')
 export const closeProfile = createAction('UI_PROFILE_CLOSE')
 export const toggleProfile = createAction('UI_PROFILE_TOGGLE')
 
+export const openNewShare = createAction('UI_NEWSHARE_OPEN')
+export const closeNewShare = createAction('UI_NEWSHARE_CLOSE')
+export const toggleNewShare = createAction('UI_NEWSHARE_TOGGLE')
+
 export const setPage = createAction('UI_PAGE_SET',
   (page: PageType) => (page)
 )

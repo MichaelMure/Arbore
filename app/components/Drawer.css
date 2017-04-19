@@ -13,13 +13,21 @@
   height: 100%;
   background-color: white;
   border-left: 1px solid rgba(0, 0, 0, 0.12);
-  transform: translate(-300px);
   transition: transform 225ms ease-in-out 0ms;
-  width: 300px;
   display: flex;
   flex-direction: column;
   padding: 10px;
   pointer-events: all;
+}
+
+.drawerSmall {
+  transform: translate(-300px);
+  width: 300px;
+}
+
+.drawerBig {
+  transform: translate(-500px);
+  width: 500px;
 }
 
 .drawerOpen {

@@ -18,6 +18,7 @@ const mapStateToProps = (state: Store) => ({
 
 const mapDispatchToProps = dispatch => ({
   onProfileClick:   () => { dispatch(ui.toggleProfile()) },
+  onNewShareClick:  () => { dispatch(ui.toggleNewShare()) },
   onAvailableClick: () => { dispatch(sharelist.setFilter(ShareListFilter.AVAILABLE)); dispatch(ui.setPage(Page.SHARING)) },
   onInboxClick:     () => { dispatch(sharelist.setFilter(ShareListFilter.INBOX));     dispatch(ui.setPage(Page.SHARING)) },
   onActiveClick:    () => { dispatch(sharelist.setFilter(ShareListFilter.ACTIVE));    dispatch(ui.setPage(Page.SHARING)) },

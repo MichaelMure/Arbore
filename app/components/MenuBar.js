@@ -8,6 +8,7 @@ class MenuBar extends Component {
 
   props: {
     onProfileClick: () => void,
+    onNewShareClick: () => void,
     onAvailableClick: () => void,
     onInboxClick: () => void,
     onActiveClick: () => void,
@@ -36,7 +37,7 @@ class MenuBar extends Component {
 
         <div className={styles.spacer}></div>
 
-        <IconButton>
+        <IconButton onClick={this.props.onNewShareClick}>
           <Badge badgeContent="+">
             <FontAwesome name='envelope-open-o'/>
           </Badge>

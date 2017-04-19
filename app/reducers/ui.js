@@ -10,15 +10,31 @@ const initialState = new UiState()
 export default handleActions({
 
   [actions.openProfile]: (state: UiState, action: Action) => (
-    state.set(writable.profileOpen, true)
+    state
+      .set(writable.profileOpen, true)
+      .set(writable.newShareOpen, false)
   ),
-
   [actions.closeProfile]: (state: UiState, action: Action) => (
     state.set(writable.profileOpen, false)
   ),
-
   [actions.toggleProfile]: (state: UiState, action: Action) => (
-    state.set(writable.profileOpen, ! state.profileOpen)
+    state
+      .set(writable.profileOpen, ! state.profileOpen)
+      .set(writable.newShareOpen, false)
+  ),
+
+  [actions.openNewShare]: (state: UiState, action: Action) => (
+    state
+      .set(writable.newShareOpen, true)
+      .set(writable.profileOpen, false)
+  ),
+  [actions.closeNewShare]: (state: UiState, action: Action) => (
+    state.set(writable.newShareOpen, false)
+  ),
+  [actions.toggleNewShare]: (state: UiState, action: Action) => (
+    state
+      .set(writable.newShareOpen, ! state.newShareOpen)
+      .set(writable.profileOpen, false)
   ),
 
   [actions.setPage]: (state: UiState, action: Action<PageType>) => (

@@ -9,7 +9,8 @@ export default class Drawer extends Component {
 
   props: {
     onBackgroundClick: () => void,
-    open: boolean
+    open: boolean,
+    big: boolean
   };
 
   static defaultProps = {
@@ -25,7 +26,9 @@ export default class Drawer extends Component {
 
     const drawerClass = cx({
       drawer: true,
-      drawerOpen: this.props.open
+      drawerOpen: this.props.open,
+      drawerSmall: !this.props.big,
+      drawerBig: this.props.big
     })
 
     return (

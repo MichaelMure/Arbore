@@ -7,7 +7,14 @@ import Contact from 'models/Contact'
 import { Map } from 'immutable'
 import contactReducer from './contact'
 
-const initialState = new ContactList()
+let initialState = new ContactList()
+
+// TODO: remove
+import contactFxt from 'models/fixtures/contact'
+contactFxt.forEach((contact) => {
+  initialState = initialState.set(writable.contacts, initialState.contacts.set(contact.pubkey, contact))
+})
+
 
 export default handleActions({
 

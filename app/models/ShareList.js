@@ -1,6 +1,7 @@
 // @flow
 import { Record, List } from 'immutable'
 import Share from './Share'
+import strContain from 'utils/strContain'
 
 export const ShareListFilter = {
   AVAILABLE: 'AVAILABLE',
@@ -38,7 +39,7 @@ export default class ShareList extends ShareListRecord {
     }
 
     return this.list.filter((share : Share) => (
-      strContain(share.author.name,          this.search) ||
+      strContain(share.author.identity,      this.search) ||
       strContain(share.metadata.description, this.search) ||
       strContain(share.metadata.message,     this.search) ||
       strContain(share.metadata.title,       this.search)
@@ -93,12 +94,4 @@ export default class ShareList extends ShareListRecord {
   idInFiltered(id: number) : boolean {
     return this.filtered.some((share: Share) => share.id === id)
   }
-}
-
-/**
- * Helper to find if a string contains a pattern (case insensitive).
- * Handle the null string case.
- */
-function strContain(str : ?string, pattern : string) : boolean {
-  return (!!str) && (str.search(new RegExp(pattern, 'i')) !== -1)
 }

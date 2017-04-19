@@ -20,18 +20,18 @@ class ChatPage extends Component {
   constructor() {
     super()
     this.history = [
-      { contact: 'QmQ6TbUShnjKbnJDSYdxaBb78Dz6fF82NMetDKnau3k7zW', time: Date.now(), msg: 'Hello' },
-      { contact: 'QmQ6TbUShnjKbnJDSYdxaBb78Dz6fF82NMetDKnau3k7zW', time: Date.now(), msg: 'Hello' },
-      { contact: 'DZNJZDNKZN', time: Date.now(), msg: 'Hello' },
-      { contact: 'DZNJZDNKZN', time: Date.now(), msg: 'Hello' },
-      { contact: 'DZNJZDNKZN', time: Date.now(), msg: 'Hello' },
-      { contact: 'DZNJZDNKZN', time: Date.now(), msg: 'Hello' },
-      { contact: 'DZNJZDNKZN', time: Date.now(), msg: 'Hello' },
-      { contact: 'QmQ6TbUShnjKbnJDSYdxaBb78Dz6fF82NMetDKnau3k7zW', time: Date.now(), msg: 'Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz ' },
-      { contact: 'QmQ6TbUShnjKbnJDSYdxaBb78Dz6fF82NMetDKnau3k7zW', time: Date.now(), msg: 'Hello' },
-      { contact: 'DZNJZDNKZN', time: Date.now(), msg: 'Hello' },
-      { contact: 'DZNJZDNKZN', time: Date.now(), msg: 'Hello' },
-      { contact: 'DZNJZDNKZN', time: Date.now(), msg: 'Hello' },
+      { contact: 'pubkey1', time: Date.now(), msg: 'Hello' },
+      { contact: 'pubkey1', time: Date.now(), msg: 'Hello' },
+      { contact: 'pubkey3', time: Date.now(), msg: 'Hello' },
+      { contact: 'pubkey3', time: Date.now(), msg: 'Hello' },
+      { contact: 'pubkey3', time: Date.now(), msg: 'Hello' },
+      { contact: 'pubkey3', time: Date.now(), msg: 'Hello' },
+      { contact: 'pubkey3', time: Date.now(), msg: 'Hello' },
+      { contact: 'pubkey1', time: Date.now(), msg: 'Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz Hello\nzdbzdzad\nzbjkzbdz ' },
+      { contact: 'pubkey1', time: Date.now(), msg: 'Hello' },
+      { contact: 'pubkey3', time: Date.now(), msg: 'Hello' },
+      { contact: 'pubkey3', time: Date.now(), msg: 'Hello' },
+      { contact: 'pubkey3', time: Date.now(), msg: 'Hello' },
     ]
 
     this.chats = [
