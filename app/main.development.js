@@ -76,6 +76,7 @@ app.on('ready', async () => {
     height: 728,
     toolbar: false
   })
+  mainWindow.setMenu(null)
 
   mainWindow.webContents.on('did-finish-load', () => {
     if (!mainWindow) {
