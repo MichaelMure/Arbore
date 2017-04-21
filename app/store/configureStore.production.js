@@ -1,6 +1,7 @@
 // @flow
 import { createStore, applyMiddleware, compose } from 'redux';
 import { persistStore, autoRehydrate } from 'redux-persist'
+import { asyncLocalStorage } from 'redux-persist/storages'
 import immutableTransform from 'redux-persist-transform-immutable'
 import thunk from 'redux-thunk';
 import rootReducer from 'reducers';
@@ -11,13 +12,20 @@ const enhancer = compose(
   autoRehydrate()
 )
 
-export default function configureStore(initialState) {
+export default function configureStore(prefix) {
   const store = createStore(rootReducer, undefined, enhancer);
 
-  // begin periodically persisting the store
+  const storage = new LoginStorage(
+    asyncLocalStorage,
+    ['identityList'],
+    prefix
+  )
+
   persistStore(store, {
     blacklist: ['ui'],
-    transforms: [immutableTransform({records: allModels})]
+    transforms: [immutableTransform({records: allModels})],
+    storage: storage,
+    keyPrefix: ''
   })
 
   return store

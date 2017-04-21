@@ -1,6 +1,8 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { persistStore, autoRehydrate } from 'redux-persist'
+import { asyncLocalStorage } from 'redux-persist/storages'
 import immutableTransform from 'redux-persist-transform-immutable'
+import LoginStorage from './loginStorage'
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
 import rootReducer from 'reducers'
@@ -29,15 +31,21 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
 const enhancer = composeEnhancers(
   applyMiddleware(thunk, logger),
   autoRehydrate()
-);
+)
 
-export default function configureStore() {
+export default function configureStore(prefix) {
   const store = createStore(rootReducer, undefined, enhancer);
+  const storage = new LoginStorage(
+    asyncLocalStorage,
+    ['identityList'],
+    prefix
+  )
 
-  // begin periodically persisting the store
   persistStore(store, {
     blacklist: ['ui'],
-    transforms: [immutableTransform({records: allModels})]
+    transforms: [immutableTransform({records: allModels})],
+    storage: storage,
+    keyPrefix: ''
   })
 
   if (module.hot) {

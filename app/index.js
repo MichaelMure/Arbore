@@ -5,7 +5,7 @@ import Root from './containers/Root';
 import configureStore from './store/configureStore';
 import './app.global.css';
 
-const store = configureStore();
+let store = configureStore();
 
 // Kinda hacky
 // setInterval(() => {
@@ -18,6 +18,18 @@ render(
   </AppContainer>,
   document.getElementById('root')
 );
+
+// This allow to reload the store with a different user prefix
+// Kinda brutal, sorry !
+export const changeStorePrefix = (prefix: string) => {
+  store = configureStore(prefix)
+  render(
+    <AppContainer key={prefix}>
+      <Root store={store}/>
+    </AppContainer>,
+    document.getElementById('root')
+  );
+}
 
 if (module.hot) {
   module.hot.accept('./containers/Root', () => {
