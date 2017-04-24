@@ -1,14 +1,10 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
-  "version": "0.10.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "name": "arbore",
+  "productName": "Arbore",
+  "version": "0.0.0",
+  "description": "Friend-to-friend filesharing app to save the world from dystopia",
   "main": "main.js",
   "scripts": {
-    "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node ./test/runTests.js",
-    "test-all": "npm run lint && npm run flow && npm run test && npm run build",
-    "test-watch": "npm test -- --watch",
-    "test-e2e": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node ./test/runTests.js e2e",
     "lint": "eslint --cache --format=node_modules/eslint-formatter-pretty .",
     "lint-fix": "npm run lint -- --fix",
     "hot-server": "cross-env NODE_ENV=development node -r babel-register ./node_modules/webpack-dev-server/bin/webpack-dev-server --config ./webpack.config.development.js",
@@ -24,13 +20,14 @@
     "package": "npm run build && build --publish never",
     "package-win": "npm run build && build --win --x64",
     "package-linux": "npm run build && build --linux",
-    "package-all": "npm run build && build -mwl"
+    "package-all": "npm run build && build -mwl",
+    "install": "npm-git install"
   },
   "browserslist": "electron 1.4",
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.develar.ElectronReact",
-    "category": "public.app-category.tools",
+    "productName": "Arbore",
+    "appId": "org.michaelmure.arbore",
+    "category": "",
     "dmg": {
       "contents": [
         {
@@ -73,43 +70,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chentsulin/electron-react-boilerplate.git"
+    "url": "git+https://github.com/MichaelMure/TotallyNotArbore.git"
   },
   "author": {
-    "name": "C. T. Lin",
-    "email": "chentsulin@gmail.com",
-    "url": "https://github.com/chentsulin"
+    "name": "Michael Muré",
+    "email": "batolettre@gmail.com",
+    "url": "https://github.com/MichaelMure"
   },
-  "license": "MIT",
+  "license": "GPL",
   "bugs": {
-    "url": "https://github.com/chentsulin/electron-react-boilerplate/issues"
+    "url": "https://github.com/MichaelMure/TotallyNotArbore/issues"
   },
   "keywords": [
-    "electron",
-    "boilerplate",
-    "react",
-    "react-router",
-    "flux",
-    "webpack",
-    "react-hot"
+    "P2P",
+    "F2F",
+    "file sharing",
+    "file transfer",
+    "social",
+    "ipfs"
   ],
-  "homepage": "https://github.com/chentsulin/electron-react-boilerplate#readme",
-  "jest": {
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/mocks/fileMock.js",
-      "\\.(css|less|sass|scss)$": "identity-obj-proxy"
-    },
-    "moduleFileExtensions": [
-      "js"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "app/node_modules"
-    ],
-    "transform": {
-      "^.+\\.js$": "babel-jest"
-    }
-  },
+  "homepage": "http://arbo.re",
   "devDependencies": {
     "asar": "^0.13.0",
     "babel-core": "^6.22.1",
@@ -182,6 +162,8 @@
     "material-ui": "^1.0.0-alpha.10",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
+    "multihashes": "^0.4.5",
+    "npm-git-install": "^0.3.0",
     "react": "^15.4.2",
     "react-avatar-editor": "^8.0.1",
     "react-dom": "^15.4.2",
@@ -191,12 +173,14 @@
     "react-redux": "^5.0.2",
     "redux": "^3.6.0",
     "redux-actions": "^2.0.1",
-    "redux-persist": "^4.6.0",
     "redux-persist-immutable": "^4.2.0",
     "redux-persist-transform-immutable": "^4.2.0",
     "redux-thunk": "^2.2.0",
     "roboto-fontface": "^0.7.0",
     "source-map-support": "^0.4.10"
+  },
+  "gitDependencies": {
+    "redux-persist": "https://github.com/MichaelMure/redux-persist.git"
   },
   "devEngines": {
     "node": ">=6.x",
