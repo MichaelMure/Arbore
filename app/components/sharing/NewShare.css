@@ -16,6 +16,8 @@
 
 .recipientsInput {
   margin: 5px;
+  height: 32px;
+  flex: 1;
 }
 
 .content {

@@ -78,6 +78,7 @@ app.on('ready', async () => {
   })
   mainWindow.setMenu(null)
 
+  // mainWindow.on('ready-to-show', () => {
   mainWindow.webContents.on('did-finish-load', () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined')
@@ -86,6 +87,11 @@ app.on('ready', async () => {
       splashScreen.destroy()
     }
     splashScreen = null
+
+    if (process.env.NODE_ENV === 'development') {
+      mainWindow.maximize()
+    }
+
     mainWindow.show()
     mainWindow.focus()
   })

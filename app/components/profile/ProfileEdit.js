@@ -16,7 +16,8 @@ class ProfileEdit extends Component {
   props : {
     profile: Profile,
     onTest: () => void,
-    onAvatarChange: (Buffer) => () => void
+    onAvatarChange: (Buffer) => () => void,
+    onLogoutClick: () => void
   }
 
   constructor(props) {
@@ -55,6 +56,8 @@ class ProfileEdit extends Component {
     const profile = this.props.profile
     return (
       <div>
+        <Button onClick={this.props.onLogoutClick }>Logout</Button>
+
         <Text>Profile</Text>
         <Avatar
           src={profile.avatarData}

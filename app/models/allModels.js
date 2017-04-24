@@ -2,6 +2,8 @@
 import Contact from './Contact'
 import ContactList from './ContactList'
 import EmptyIpfsObject from './IpfsObject'
+import Identity from 'models/Identity'
+import IdentityList from 'models/IdentityList'
 import IpfsFile from './IpfsFile'
 import IpfsDirectory from './IpfsDirectory'
 import Profile from './Profile'
@@ -14,6 +16,8 @@ export default [
   Contact,
   ContactList,
   EmptyIpfsObject,
+  Identity,
+  IdentityList,
   IpfsDirectory,
   IpfsFile,
   Profile,

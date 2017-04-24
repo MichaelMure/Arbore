@@ -4,10 +4,16 @@ import UiState, { writable } from 'models/UiState'
 import type { PageType } from 'models/UiState'
 import { handleActions } from 'redux-actions'
 import { Action } from 'utils/types'
+import { REHYDRATE } from 'redux-persist/constants'
 
 const initialState = new UiState()
 
 export default handleActions({
+
+  // Reset the state when the data come from the storage
+  [REHYDRATE]: (state, action: Action) => (
+    initialState
+  ),
 
   [actions.openProfile]: (state: UiState, action: Action) => (
     state

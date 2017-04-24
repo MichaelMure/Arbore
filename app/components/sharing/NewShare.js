@@ -67,7 +67,7 @@ class NewShare extends Component {
           onChange={(event) => this.setState({ description: event.target.value })}
         />
 
-        <FormControl>
+        <FormControl style={{ marginTop: '10px' }} >
           <FormLabel>Recipients</FormLabel>
           <div className={styles.recipients} onClick={ () => this.recipientsInput.focus() }>
             {
@@ -92,7 +92,7 @@ class NewShare extends Component {
           </div>
         </FormControl>
 
-        <FormControl>
+        <FormControl style={{ marginTop: '10px' }}>
           <FormLabel>Content</FormLabel>
           <div className={styles.content}>
 

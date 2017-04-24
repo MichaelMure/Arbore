@@ -3,6 +3,7 @@ import ContactList from 'models/ContactList'
 import Profile from 'models/Profile'
 import ShareList from 'models/ShareList'
 import UiState from 'models/UiState'
+import IdentityList from 'models/IdentityList'
 
 export type Action<T> = {
   type: string,
@@ -11,6 +12,7 @@ export type Action<T> = {
 }
 
 export type Store = {
+  identityList: IdentityList,
   contactList: ContactList,
   profile: Profile,
   shareList: ShareList,

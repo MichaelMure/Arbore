@@ -25,7 +25,7 @@ class ShareDetail extends Component {
     )
 
     return (
-      <div className={styles.wrapper}>
+      <div className={styles.wrapper} key={share.id}>
         <div className={styles.header}>
           {header}
           <div className={styles.actions}>

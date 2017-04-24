@@ -2,10 +2,10 @@ import React from 'react';
 import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 import Root from './containers/Root';
-import configureStore from './store/configureStore';
+import { getStore } from './store';
 import './app.global.css';
 
-let store = configureStore();
+let store = getStore();
 
 // Kinda hacky
 // setInterval(() => {
@@ -19,17 +19,6 @@ render(
   document.getElementById('root')
 );
 
-// This allow to reload the store with a different user prefix
-// Kinda brutal, sorry !
-export const changeStorePrefix = (prefix: string) => {
-  store = configureStore(prefix)
-  render(
-    <AppContainer key={prefix}>
-      <Root store={store}/>
-    </AppContainer>,
-    document.getElementById('root')
-  );
-}
 
 if (module.hot) {
   module.hot.accept('./containers/Root', () => {
