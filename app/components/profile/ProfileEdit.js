@@ -30,11 +30,6 @@ class ProfileEdit extends Component {
           src={profile.avatarData}
           className={styles.avatar}
         />
-        <Input placeholder="Identity" />
-
-
-
-        <Button accent onClick={::this.onClickSave}>Submit</Button>
 
         <Button onClick={this.props.onTest}>TEST</Button>
       </div>

@@ -50,8 +50,8 @@ class NewProfile extends Component {
           The passphrase is here for compatibility for when this features will be available.</Text>
 
         <div className={styles.buttons}>
-          <Button onClick={this.props.onCancelClick }>Cancel</Button>
-          <Button type='submit'>Submit</Button>
+          <Button raised onClick={this.props.onCancelClick }>Cancel</Button>
+          <Button raised primary type='submit'>Submit</Button>
         </div>
       </form>
     )
