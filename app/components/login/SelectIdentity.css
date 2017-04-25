@@ -1,0 +1,26 @@
+.identity {
+  width: 300px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  border: gray 1px solid;
+  border-radius: 20px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.identity > span {
+  margin-left: 10px;
+}
+
+.newIdentity {
+  width: 300px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  border: lightgray 1px solid;
+  border-radius: 20px;
+  margin-bottom: 5px;
+  justify-content: center;
+  cursor: pointer;
+}

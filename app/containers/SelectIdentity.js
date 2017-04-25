@@ -1,6 +1,6 @@
 // @flow
 import { connect } from 'react-redux'
-import LoginPage from 'components/login/LoginPage'
+import SelectIdentity from 'components/login/SelectIdentity'
 import Identity from 'models/Identity'
 
 import * as identityList from 'actions/identityList'
@@ -15,5 +15,5 @@ const mapDispatchToProps = dispatch => ({
   })
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage)
+export default connect(mapStateToProps, mapDispatchToProps)(SelectIdentity)
 

@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Home from 'containers/Home'
-import LoginPage from 'containers/Login'
+import LoginPage from 'components/login/LoginPage'
 
 export default class Root extends Component {
 

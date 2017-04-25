@@ -41,7 +41,7 @@ class ContactDetail extends Component {
           title={ contact.identity }
           onClick={ ::this.toggleExpanded }
         />
-        <Collapse in={this.state.expanded} transitionDuration="auto" unmountOnExit>
+        <Collapse in={this.state.expanded} transitionDuration="auto">
           <CardContent>
             <Text component="p">{ contact.bio}</Text>
           </CardContent>
