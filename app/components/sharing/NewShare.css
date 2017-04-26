@@ -10,7 +10,7 @@
   min-height: 100px;
 }
 
-.chip {
+.recipients > * {
   margin: 5px;
 }
 
@@ -25,6 +25,8 @@
   min-height: 200px;
 }
 
-.submit {
-
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10px;
 }

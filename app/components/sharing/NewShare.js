@@ -77,7 +77,6 @@ class NewShare extends Component {
                   avatar={<Avatar src={contact.avatarData} />}
                   label={contact.identity}
                   onRequestDelete={ () => ::this.handleRemoveContact(contact.pubkey) }
-                  className={styles.chip}
                 />
               ))
             }
@@ -99,7 +98,10 @@ class NewShare extends Component {
           </div>
         </FormControl>
 
-        <Button accent onClick={ () => false } className={styles.submit}>Share</Button>
+        <div className={styles.buttons}>
+          <Button raised onClick={ () => false }>Cancel</Button>
+          <Button raised primary onClick={ () => false }>Share</Button>
+        </div>
       </div>
     )
   }
