@@ -11,6 +11,7 @@
 
 .identity > span {
   margin-left: 10px;
+  user-select: none;
 }
 
 .newIdentity {
@@ -23,4 +24,5 @@
   margin-bottom: 5px;
   justify-content: center;
   cursor: pointer;
+  user-select: none;
 }
