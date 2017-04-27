@@ -6,6 +6,7 @@ import Fade from 'material-ui/transitions/Fade'
 import NewProfile from 'components/profile/NewProfile'
 import SelectIdentity from 'containers/SelectIdentity'
 
+import logo from '../../../resources/logo.svg'
 
 class LoginPage extends Component {
 
@@ -31,7 +32,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div className={styles.wrapper}>
-        <img src="../resources/logo.svg" className={styles.logo} />
+        <img src={logo} className={styles.logo} />
         <Collapse in={this.state.selectIdentityOpen} >
           <Fade in={this.state.selectIdentityOpen} >
             <SelectIdentity onNewIdentityClick={ ::this.handleNewIdentityClick } />
