@@ -97,7 +97,10 @@ app.on('ready', async () => {
   })
 
   mainWindow.loadURL(`file://${__dirname}/app.html`)
-  mainWindow.openDevTools()
+
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.openDevTools()
+  }
 
   mainWindow.on('closed', () => {
     mainWindow = null
