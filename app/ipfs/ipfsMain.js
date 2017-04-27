@@ -39,6 +39,11 @@ export const isServiceStarted = 'is-ipfs-started'
 export const start = () => {
   const instance = IpfsConnector.getInstance()
 
+  // set the download path for ipfs
+  instance.setBinPath(
+    app.getPath('userData')
+  )
+
   // install some event listeners
   instance.on(ipfsEvents.SERVICE_STARTED, onServiceStarted)
   instance.on(ipfsEvents.SERVICE_STOPPING, onServiceStopping)
