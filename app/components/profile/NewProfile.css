@@ -11,6 +11,10 @@
   margin-top: 10px;
 }
 
+.buttons > * {
+  min-width: 100px;
+}
+
 .row {
   display: flex;
   flex-direction: row;

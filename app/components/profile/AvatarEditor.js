@@ -62,6 +62,14 @@ class AvatarEditor extends Component {
     return canvasBuffer(canvasScaled, 'image/png')
   }
 
+  reset() {
+    this.setState({
+      image: null,
+      scale: 1,
+      rotation: 0
+    })
+  }
+
   render() {
     if( this.state.image === null) {
       return (

@@ -14,7 +14,7 @@ const mapStateToProps = (state: Store) => ({
 
 const mapDispatchToProps = dispatch => ({
   onTest: () => dispatch(ipfsObject.fetchDirectoryMetadata('QmPhnvn747LqwPYMJmQVorMaGbMSgA7mRRoyyZYz3DoZRQ')),
-  onAvatarChange: (avatar) => () => dispatch(profile.publishAvatar(avatar)),
+  onAvatarChange: (avatar) => () => dispatch(profile.publishAvatar(avatar).then(dispatch(profile.publishProfile()))),
   onLogoutClick: () => { dispatch(identityList.logout()) },
 })
 

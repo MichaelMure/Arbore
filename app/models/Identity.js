@@ -3,6 +3,7 @@ import { Record } from 'immutable'
 
 /**
  * Used to store identity/account for the login screen
+ * Identities are composed of a few properties of a full profile
  */
 
 export const writable = {

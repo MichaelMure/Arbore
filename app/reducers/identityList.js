@@ -1,21 +1,18 @@
 // @flow
-// import * as Identity from 'actions/Identity'
 import IdentityList, { writable} from 'models/IdentityList'
-import { handleActions, combineActions } from 'redux-actions'
+import { handleActions } from 'redux-actions'
 import * as actions from 'actions/identityList'
-import { Action } from 'utils/types'
+import type { Action } from 'utils/types'
 import Identity from 'models/Identity'
-import { Map } from 'immutable'
 import { REHYDRATE } from 'redux-persist/constants'
-// import IdentityReducer from './Identity'
 
 let initialState = new IdentityList()
 
-// TODO: remove
-import identitiesFxt from 'models/fixtures/identities'
-identitiesFxt.forEach((identity) => {
-  initialState = initialState.set(writable.identities, initialState.identities.set(identity.pubkey, identity))
-})
+// // TODO: remove
+// import identitiesFxt from 'models/fixtures/identities'
+// identitiesFxt.forEach((identity) => {
+//   initialState = initialState.set(writable.identities, initialState.identities.set(identity.pubkey, identity))
+// })
 
 export default handleActions({
 
@@ -28,7 +25,12 @@ export default handleActions({
     return persisted
   },
 
-  [actions.setIdenty]: (state: IdentityList, action: Action<Identity>) => (
+  [actions.createNewIdentity]: (state: IdentityList, action: Action<Identity>) => {
+    const identity: Identity = action.payload
+    state.set(writable.identities, state.identities.set(identity.pubkey, identity))
+  },
+
+  [actions.selectIdenty]: (state: IdentityList, action: Action<Identity>) => (
     state.set(writable.selected, action.payload.pubkey)
   ),
 

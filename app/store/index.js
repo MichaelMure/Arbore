@@ -3,6 +3,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { persistStore } from 'redux-persist'
 import allModels from 'models/allModels'
 import immutableTransform from 'redux-persist-transform-immutable'
+// import Profile from 'models/Profile'
 
 let currentReducer = 'common'
 let store = null
@@ -20,13 +21,13 @@ export function getStore() {
   const enhancer = enhancerCreator()
 
   const reducer = currentReducer === 'common'
-    ? require('reducers/commonReducer')
-    : require('reducers/fullReducer')
+    ? require('reducers/combined/commonReducer')
+    : require('reducers/combined/fullReducer')
 
   store = createStore(reducer, undefined, enhancer)
 
   const config = {
-    blacklist: ['ui'],
+    blacklist: ['ui', 'form'],
     transforms: [immutableTransform({records: allModels})],
     commonKeys: ['identityList'],
   }
@@ -36,7 +37,7 @@ export function getStore() {
   if (process.env.NODE_ENV === 'production' && module.hot) {
     if (currentReducer === 'common') {
       module.hot.accept('reducers/commonReducer', () =>
-        store.replaceReducer(require('reducers/commonReducer'))
+        store.replaceReducer(require('reducers/combined/commonReducer'))
       )
     } else {
       module.hot.accept('reducers/fullReducer', () =>
@@ -56,19 +57,34 @@ export function changeStorePrefix(prefix: string) : Promise<void> {
   return persistor.changeDynPrefix(prefix)
     .then(() => {
       if(currentReducer === 'common') {
-        store.replaceReducer(require('reducers/fullReducer'))
+        store.replaceReducer(require('reducers/combined/fullReducer'))
         currentReducer = 'full'
       }
     })
 }
 
-export function resetStorePrefix() {
+export function resetStorePrefix() : Promise<void> {
   if(store === null) {
     getStore()
   }
 
-  if(currentReducer !== 'common') {
-    store.replaceReducer(require('reducers/commonReducer'))
-    currentReducer = 'common'
-  }
+  return persistor.changeDynPrefix()
+    .then(() => {
+      if (currentReducer !== 'common') {
+        store.replaceReducer(require('reducers/combined/commonReducer'))
+        currentReducer = 'common'
+      }
+    })
 }
+
+// export function persistProfile(profile: Profile) {
+//   if(store === null) {
+//     getStore()
+//   }
+//
+//   if(currentReducer !== 'common') {
+//     throw 'This is probably a bad idea as it would remove some reducer and potentially lose data'
+//   }
+//
+//   store.replaceReducer(require('reducers/combined/profileReducer'))
+// }

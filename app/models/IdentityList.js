@@ -4,6 +4,7 @@ import Identity from './Identity'
 
 /**
  * Used to store identities/accounts for the login screen
+ * Identities are composed of a few properties of a full profile.
  */
 
 export const writable = {

@@ -9,7 +9,7 @@
     "email": "batolettre@gmail.com",
     "url": "https://github.com/MichaelMure"
   },
-  "license": "GPL",
+  "license": "GPL-3.0",
   "dependencies": {
     "@akashaproject/ipfs-connector": "^1.7.17"
   }

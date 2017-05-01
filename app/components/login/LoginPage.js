@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import styles from './LoginPage.css'
 import Collapse from 'material-ui/transitions/Collapse'
 import Fade from 'material-ui/transitions/Fade'
-import NewProfile from 'components/profile/NewProfile'
+import NewProfile from 'containers/NewProfile'
 import SelectIdentity from 'containers/SelectIdentity'
 
 import logo from '../../../resources/logo.svg'
@@ -15,14 +15,14 @@ class LoginPage extends Component {
     newIdentityOpen: false
   }
 
-  handleNewIdentityClick() {
+  showNewProfile() {
     this.setState({
       selectIdentityOpen: false,
       newIdentityOpen: true
     })
   }
 
-  handleCancel() {
+  showIdentityList() {
     this.setState({
       selectIdentityOpen: true,
       newIdentityOpen: false
@@ -35,12 +35,12 @@ class LoginPage extends Component {
         <img src={logo} className={styles.logo} />
         <Collapse in={this.state.selectIdentityOpen} >
           <Fade in={this.state.selectIdentityOpen} >
-            <SelectIdentity onNewIdentityClick={ ::this.handleNewIdentityClick } />
+            <SelectIdentity onNewIdentityClick={ ::this.showNewProfile } />
           </Fade>
         </Collapse>
         <Collapse in={this.state.newIdentityOpen} >
           <Fade in={this.state.newIdentityOpen} >
-            <NewProfile onCancelClick={ ::this.handleCancel } />
+            <NewProfile showIdentityList={ ::this.showIdentityList } />
           </Fade>
         </Collapse>
       </div>
