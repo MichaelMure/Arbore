@@ -181,8 +181,7 @@
     "source-map-support": "^0.4.10"
   },
   "gitDependencies": {
-    "redux-persist": "https://github.com/MichaelMure/redux-persist.git",
-    "ipfs-api": "https://github.com/MichaelMure/js-ipfs-api.git"
+    "redux-persist": "https://github.com/MichaelMure/redux-persist.git"
   },
   "devEngines": {
     "node": ">=6.x",

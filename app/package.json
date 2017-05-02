@@ -10,7 +10,16 @@
     "url": "https://github.com/MichaelMure"
   },
   "license": "GPL-3.0",
+  "scripts": {
+    "install": "npm-git install"
+  },
+  "devDependencies": {
+    "npm-git-install": "^0.3.0"
+  },
   "dependencies": {
-    "@akashaproject/ipfs-connector": "^1.7.17"
+    "@akashaproject/ipfs-connector": "1.7.19"
+  },
+  "gitDependencies": {
+    "ipfs-api": "https://github.com/MichaelMure/js-ipfs-api.git"
   }
 }
