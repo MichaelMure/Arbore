@@ -3,7 +3,6 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { persistStore } from 'redux-persist'
 import allModels from 'models/allModels'
 import immutableTransform from 'redux-persist-transform-immutable'
-// import Profile from 'models/Profile'
 
 let currentReducer = 'common'
 let store = null
@@ -76,15 +75,3 @@ export function resetStorePrefix() : Promise<void> {
       }
     })
 }
-
-// export function persistProfile(profile: Profile) {
-//   if(store === null) {
-//     getStore()
-//   }
-//
-//   if(currentReducer !== 'common') {
-//     throw 'This is probably a bad idea as it would remove some reducer and potentially lose data'
-//   }
-//
-//   store.replaceReducer(require('reducers/combined/profileReducer'))
-// }

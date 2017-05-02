@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import NewProfile from 'components/profile/NewProfile'
 import * as profile from 'actions/profile'
 import Identity from 'models/Identity'
+import type {Action} from 'utils/types'
 
 class NewProfileContainer extends Component {
   newProfile: NewProfile
@@ -15,7 +16,7 @@ class NewProfileContainer extends Component {
   props: {
     forbiddenIdentities: string[],
     showIdentityList: () => any,
-    dispatch: (action) => any
+    dispatch: (Action) => any
   }
 
   handleSubmit(values) {
