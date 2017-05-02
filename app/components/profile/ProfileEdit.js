@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import styles from './Profile.css'
 import Profile from 'models/Profile'
 import Input from 'material-ui/Input'
-import Text from 'material-ui/Text'
+import Typography from 'material-ui/Typography'
 import Avatar from 'material-ui/Avatar'
 import Button from 'material-ui/Button'
 
@@ -25,7 +25,7 @@ class ProfileEdit extends Component {
       <div>
         <Button onClick={this.props.onLogoutClick }>Logout</Button>
 
-        <Text>Profile</Text>
+        <Typography>Profile</Typography>
         <Avatar
           src={profile.avatarData}
           className={styles.avatar}

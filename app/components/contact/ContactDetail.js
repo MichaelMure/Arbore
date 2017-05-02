@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import Contact from 'models/Contact'
 // import styles from './Contact.css'
 import { Card, CardContent, CardHeader } from 'material-ui/Card'
-import { Avatar, Text } from 'material-ui'
+import { Avatar, Typography } from 'material-ui'
 import Collapse from 'material-ui/transitions/Collapse'
 
 class ContactDetail extends Component {
@@ -43,7 +43,7 @@ class ContactDetail extends Component {
         />
         <Collapse in={this.state.expanded} transitionDuration="auto">
           <CardContent>
-            <Text component="p">{ contact.bio}</Text>
+            <Typography component="p">{ contact.bio}</Typography>
           </CardContent>
         </Collapse>
       </Card>

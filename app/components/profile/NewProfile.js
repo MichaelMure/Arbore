@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import styles from './NewProfile.css'
 import { Field, reduxForm } from 'redux-form'
-import { Button, FormLabel, Text } from 'material-ui'
+import { Button, FormLabel, Typography } from 'material-ui'
 import { renderTextField } from 'utils/forms'
 import AvatarEditor from 'components/profile/AvatarEditor'
 import FontAwesome from 'react-fontawesome'
@@ -56,9 +56,7 @@ class NewProfile extends Component {
           </div>
         </div>
 
-        <Text>Warning: Neither your data nor your local profile is protected for now.</Text>
-
-
+        <Typography>Warning: Neither your data nor your local profile is protected for now.</Typography>
 
         <div className={styles.buttons}>
           <Button raised onClick={this.props.onCancelClick} disabled={waiting}>Cancel</Button>

@@ -160,7 +160,7 @@
     "extract-text-webpack-plugin": "^2.0.0",
     "font-awesome": "^4.7.0",
     "immutable": "^3.8.1",
-    "material-ui": "^1.0.0-alpha.10",
+    "material-ui": "1.0.0-alpha.12",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
     "multihashes": "^0.4.5",

@@ -3,7 +3,6 @@ import styles from './CompactShare.css'
 import classNames from 'classnames/bind'
 import { Card, CardContent, CardHeader } from 'material-ui/Card'
 import Avatar from 'material-ui/Avatar'
-import Text from 'material-ui/Text'
 import { LinearProgress } from 'material-ui/Progress'
 import Share from "models/Share"
 

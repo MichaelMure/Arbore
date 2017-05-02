@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import styles from './ChatPage.css'
 import ContactList from 'models/ContactList'
-import { Avatar, Text, TextField } from 'material-ui'
+import { Avatar, Typography, TextField } from 'material-ui'
 import { Map } from 'immutable'
 import Contact from 'models/Contact'
 import Profile from 'models/Profile'
@@ -55,7 +55,7 @@ class ChatPage extends Component {
 
   renderChats(chats) {
     return chats.map(({name, unread}, index) => (
-      <Text key={index} className={styles.chatItem}>{name}</Text>)
+      <Typography key={index} className={styles.chatItem}>{name}</Typography>)
     )
   }
 
@@ -104,7 +104,7 @@ class ChatPage extends Component {
           </div>
           {
             history.map(({time, msg}, index) => (
-              <Text key={index}>{msg}</Text>
+              <Typography key={index}>{msg}</Typography>
             ))
           }
         </div>
