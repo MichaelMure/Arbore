@@ -1,7 +1,9 @@
 // @flow
 import { createAction } from 'redux-actions'
 import Identity from 'models/Identity'
-import { changeStorePrefix, resetStorePrefix } from 'store';
+import { changeStorePrefix, resetStorePrefix } from 'store'
+import * as profile from './profile'
+import * as scheduler from 'utils/scheduler'
 
 export const createNewIdentity = createAction('IDENTITYLIST_IDENTITY_CREATE',
   (identity: Identity) => (identity)
@@ -23,6 +25,9 @@ export function login(identity: Identity) {
     // We still need to store the selected identity
     return changeStorePrefix(identity.pubkey)
       .then(() => dispatch(selectIdenty(identity)))
+
+      // Start publishing the profile periodically
+      .then(() => scheduler.startTimeBetween(dispatch, 'publishProfile', profile.publishProfile(), 5 * 60 * 1000)) // 5 minutes
   }
 }
 
@@ -34,5 +39,8 @@ export function logout() {
   return function (dispatch) {
     return resetStorePrefix()
       .then(() => dispatch(resetIdentity()))
+
+      // Stop any scheduled tasks
+      .then(() => scheduler.stop('publishProfile'))
   }
 }
