@@ -32,8 +32,6 @@ export default class Profile extends ProfileRecord {
   passphrase: string
   avatarHash: ?string
 
-  // TODO: ipns id
-
   static create(identity: string, passphrase: string, bio: string) {
     return new this().withMutations(profile => profile
       .set(writable.identity, identity)

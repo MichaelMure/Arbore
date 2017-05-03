@@ -3,7 +3,10 @@ import { Record } from 'immutable'
 import strContain from 'utils/strContain'
 import { gatewayRoot } from 'ipfs/ipfsMain'
 
+const LOCAL_DATA_VERSION = 1
+
 export const writable = {
+  dataVersion: 'dataVersion',
   pubkey: 'pubkey',
   avatarHash: 'avatarHash',
   identity: 'identity',
@@ -12,6 +15,7 @@ export const writable = {
 }
 
 export const ContactRecord = Record({
+  dataVersion: LOCAL_DATA_VERSION,
   pubkey: null,
   avatarHash: null,
   identity: '',
@@ -20,6 +24,7 @@ export const ContactRecord = Record({
 }, 'Contact')
 
 export default class Contact extends ContactRecord {
+  dataVersion: number
   pubkey: string
   avatarHash: ?string
   identity: string

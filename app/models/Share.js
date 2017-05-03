@@ -4,6 +4,9 @@ import Contact from './Contact'
 import ShareMetadata from './ShareMetadata'
 import type { IpfsObject } from './IpfsObject'
 
+const LOCAL_DATA_VERSION = 1
+const PUBLISH_DATA_VERSION = 1
+
 export const ShareState = {
   AUTHOR : 'AUTHOR',
   AVAILABLE : 'AVAILABLE',
@@ -14,6 +17,7 @@ export const ShareState = {
 export type ShareStateType = $Keys<typeof ShareState>
 
 export const writable = {
+  dataVersion: 'dataVersion',
   author: 'author',
   metadata: 'metadata',
   status: 'status',
@@ -22,6 +26,7 @@ export const writable = {
 }
 
 export const ShareRecord = Record({
+  dataVersion: LOCAL_DATA_VERSION,
   id: null,
   author: null,
   metadata: null,
@@ -33,6 +38,7 @@ export const ShareRecord = Record({
 let idGenerator = 0
 
 export default class Share extends ShareRecord {
+  dataVersion: number
   id: number
   author: ?Contact
   metadata: ?ShareMetadata
@@ -47,6 +53,14 @@ export default class Share extends ShareRecord {
       .set(writable.metadata, metadata)
       .set(writable.status, ShareState.AVAILABLE)
     )
+  }
+
+  // Return the object to be published in IPFS
+  get publishObject(): {} {
+    return {
+      dataVersion: PUBLISH_DATA_VERSION,
+      // TODO
+    }
   }
 
   get progress() {
