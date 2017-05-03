@@ -47,7 +47,7 @@ class ChatPage extends Component {
 
     return contacts.valueSeq().map((contact: Contact) =>
       <div key={contact.pubkey} className={styles.contactItem}>
-        <Avatar src={contact.avatarData} alt={contact.identity} className={styles.contactAvatar}/>
+        <Avatar src={contact.encodedAvatar} alt={contact.identity} className={styles.contactAvatar}/>
         {contact.identity}
       </div>
     )
@@ -96,7 +96,7 @@ class ChatPage extends Component {
 
     return (
       <div key={key} className={styles.cluster}>
-        <Avatar src={contact.avatarData} alt={contact.identity} className={styles.clusterAvatar}/>
+        <Avatar src={contact.encodedAvatar} alt={contact.identity} className={styles.clusterAvatar}/>
         <div className={styles.clusterHistory}>
           <div className={styles.clusterHeader}>
             <span>{contact.identity}</span>
@@ -120,9 +120,9 @@ class ChatPage extends Component {
       <div className={styles.wrapper}>
         <div className={styles.contacts}>
           <div className={styles.scrollerContact}>
-            <Text>Chats</Text>
+            <Typography>Chats</Typography>
             { this.renderChats(this.chats) }
-            <Text>Contacts</Text>
+            <Typography>Contacts</Typography>
             { this.renderContact(contacts) }
           </div>
         </div>
@@ -132,7 +132,7 @@ class ChatPage extends Component {
           </div>
           <div className={styles.prompt}>
             <Avatar
-              src={profile.avatarData}
+              src={profile.encodedAvatar}
               alt={profile.identity}
               className={styles.promptAvatar}
             />

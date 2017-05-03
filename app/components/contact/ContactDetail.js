@@ -36,7 +36,7 @@ class ContactDetail extends Component {
         <CardHeader
           avatar={<Avatar
             alt={ contact.identity }
-            src={ contact.avatarData }
+            src={ contact.encodedAvatar }
           />}
           title={ contact.identity }
           onClick={ ::this.toggleExpanded }

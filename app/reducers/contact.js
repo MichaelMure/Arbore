@@ -18,9 +18,8 @@ export default handleActions({
     )
   },
 
-  [contact.setAvatar]: (state: Contact, action: Action) => {
-    const {data} = action.payload
-    return state.set(writable.avatarData, 'data:image/png;base64,' + data.toString('base64'))
+  [contact.setAvatar]: (state: Contact, action: Action<Buffer>) => {
+    return state.set(writable.avatarData, action.payload)
   },
 
 }, initialState )

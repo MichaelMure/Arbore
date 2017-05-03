@@ -19,14 +19,13 @@ export const setProfileHash = createAction('PROFILE_HASH_SET',
 
 export function generateProfile(identity: string, passphrase: string, bio: ?string, avatar: ?Buffer) {
   return function (dispatch) {
-    let profile = Profile.create(identity, passphrase, bio)
+    let profile = Profile.create(identity, passphrase, bio, avatar)
     const storageKey = profile.storageKey
-
-    // const identity = Identity.create(identity, avatar, storageKey)
+    const _identity = Identity.create(identity, avatar, storageKey)
 
     return dispatch(generateKeys(storageKey, passphrase))
       .then(() => changeStorePrefix(storageKey))
-      // .then(() => dispatch(identityList.createNewIdentity(identity)))
+      .then(() => dispatch(identityList.createNewIdentity(_identity)))
       .then(() => dispatch(storeNewProfile(profile)))
       .then(() => resetStorePrefix())
   }
@@ -60,7 +59,7 @@ export function generateKeys(name: string, passphrase: string) {
  */
 export function publishAvatar() {
   return function (dispatch, getState) {
-    const avatar: Buffer = getState().profile.avatarData
+    const avatar: ?Buffer = getState().profile.avatarData
 
     if(! avatar) {
       console.log('No avatar to publish')

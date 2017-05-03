@@ -1,5 +1,6 @@
 // @flow
 import { Record } from 'immutable'
+import encodePng from 'utils/encodePng'
 
 /**
  * Used to store identity/account for the login screen
@@ -20,14 +21,18 @@ export const IdentityRecord = Record({
 
 export default class Identity extends IdentityRecord {
   identity: string
-  avatarData: string
+  avatarData: ?Buffer
   pubkey: string
 
-  static create(identity: string, avatarData: string, pubkey: string) {
+  static create(identity: string, avatarData: ?Buffer, pubkey: string) {
     return new this().withMutations(id => id
       .set(writable.identity, identity)
       .set(writable.avatarData, avatarData)
       .set(writable.pubkey, pubkey)
     )
+  }
+
+  get encodedAvatar(): ?string {
+    return encodePng(this.avatarData)
   }
 }

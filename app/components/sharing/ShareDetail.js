@@ -15,7 +15,7 @@ class ShareDetail extends Component {
     const share: Share = this.props.share
 
     const avatar = (
-      <Avatar alt={share.author.name} src={share.author.avatarData} />
+      <Avatar alt={share.author.name} src={share.author.encodedAvatar} />
     )
     const header = (
       <CardHeader

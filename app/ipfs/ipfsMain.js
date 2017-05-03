@@ -1,7 +1,7 @@
 // @flow
 
 import { IpfsConnector, ipfsEvents } from '@akashaproject/ipfs-connector'
-import { BrowserWindow, ipcMain } from 'electron'
+import { BrowserWindow, ipcMain, app } from 'electron'
 
 /*
  * Note: This is hacky and will bite me in the future.

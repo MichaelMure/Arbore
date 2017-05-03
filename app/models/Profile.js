@@ -1,6 +1,7 @@
 // @flow
 import { Record } from 'immutable'
 import crypto from 'crypto'
+import encodePng from 'utils/encodePng'
 
 const LOCAL_DATA_VERSION = 1
 const PUBLISH_DATA_VERSION = 1
@@ -31,16 +32,17 @@ export default class Profile extends ProfileRecord {
   identity: string
   bio: string
   passphrase: string
-  avatarData: ?string
+  avatarData: ?Buffer
   avatarHash: ?string
 
-  // TODO: key id, ipns id
+  // TODO: ipns id
 
-  static create(identity: string, passphrase: string, bio: string) {
+  static create(identity: string, passphrase: string, bio: string, avatarData: ?Buffer) {
     return new this().withMutations(profile => profile
       .set(writable.identity, identity)
       .set(writable.passphrase, passphrase)
       .set(writable.bio, bio)
+      .set(writable.avatarData, avatarData)
     )
   }
 
@@ -48,6 +50,10 @@ export default class Profile extends ProfileRecord {
   get storageKey(): string {
     const sha256 = crypto.createHash('sha256')
     return sha256.update(this.identity).digest('hex').slice(32)
+  }
+
+  get encodedAvatar(): ?string {
+    return encodePng(this.avatarData)
   }
 
   // Return the object to be published in IPFS

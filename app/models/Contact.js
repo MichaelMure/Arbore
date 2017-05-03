@@ -1,6 +1,7 @@
 // @flow
 import { Record } from 'immutable'
 import strContain from 'utils/strContain'
+import encodePng from 'utils/encodePng'
 
 export const writable = {
   pubkey: 'pubkey',
@@ -22,13 +23,13 @@ export const ContactRecord = Record({
 
 export default class Contact extends ContactRecord {
   pubkey: string
-  avatarData: ?string
+  avatarData: ?Buffer
   avatarHash: ?string
   identity: string
   bio: string
   hash: ?string
 
-  static create(identity : string, avatarData: string, pubkey: string) : Contact {
+  static create(identity : string, avatarData: ?Buffer, pubkey: string) : Contact {
     return new this().withMutations(contact => contact
       .set(writable.identity, identity)
       .set(writable.avatarData, avatarData)
@@ -39,5 +40,9 @@ export default class Contact extends ContactRecord {
   // Return true if the contact match the pattern
   match(pattern: string): boolean {
     return strContain(this.identity, pattern) || strContain(this.bio, pattern)
+  }
+
+  get encodedAvatar(): ?string {
+    return encodePng(this.avatarData)
   }
 }

@@ -28,10 +28,11 @@ export function login(identity: Identity) {
 
 /**
  * Logout, persist and unload the user data
+ * @returns {Promise}
  */
 export function logout() {
   return function (dispatch) {
-    resetStorePrefix()
-    dispatch(resetIdentity())
+    return resetStorePrefix()
+      .then(() => dispatch(resetIdentity()))
   }
 }

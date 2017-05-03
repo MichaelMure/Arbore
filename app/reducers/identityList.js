@@ -8,12 +8,6 @@ import { REHYDRATE } from 'redux-persist/constants'
 
 let initialState = new IdentityList()
 
-// // TODO: remove
-// import identitiesFxt from 'models/fixtures/identities'
-// identitiesFxt.forEach((identity) => {
-//   initialState = initialState.set(writable.identities, initialState.identities.set(identity.pubkey, identity))
-// })
-
 export default handleActions({
 
   // Reset part of the state app re-launch
@@ -27,7 +21,7 @@ export default handleActions({
 
   [actions.createNewIdentity]: (state: IdentityList, action: Action<Identity>) => {
     const identity: Identity = action.payload
-    state.set(writable.identities, state.identities.set(identity.pubkey, identity))
+    return state.set(writable.identities, state.identities.set(identity.pubkey, identity))
   },
 
   [actions.selectIdenty]: (state: IdentityList, action: Action<Identity>) => (

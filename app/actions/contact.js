@@ -34,6 +34,8 @@ export function fetchProfileAvatar(pubkey: string, avatarHash: string) {
     console.log('fetch contact avatar: ' + pubkey)
     const ipfs = IpfsConnector.getInstance()
 
+    // TODO: check that the avatar is actually a png file
+
     waitForIpfsReady()
       .then(() => ipfs.api.getFile(avatarHash))
       .then(data => dispatch(setAvatar(pubkey, data)))
