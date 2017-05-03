@@ -1,6 +1,6 @@
 // @flow
 import { Record } from 'immutable'
-import encodePng from 'utils/encodePng'
+import { gatewayRoot } from 'ipfs/ipfsMain'
 
 /**
  * Used to store identity/account for the login screen
@@ -9,30 +9,30 @@ import encodePng from 'utils/encodePng'
 
 export const writable = {
   identity: 'identity',
-  avatarData: 'avatarData',
+  avatarHash: 'avatarHash',
   pubkey: 'pubkey'
 }
 
 export const IdentityRecord = Record({
   identity: '',
-  avatarData: null,
+  avatarHash: null,
   pubkey: null
 }, 'Identity')
 
 export default class Identity extends IdentityRecord {
   identity: string
-  avatarData: ?Buffer
+  avatarHash: ?string
   pubkey: string
 
-  static create(identity: string, avatarData: ?Buffer, pubkey: string) {
+  static create(identity: string, avatarHash: ?string, pubkey: string) {
     return new this().withMutations(id => id
       .set(writable.identity, identity)
-      .set(writable.avatarData, avatarData)
+      .set(writable.avatarHash, avatarHash)
       .set(writable.pubkey, pubkey)
     )
   }
 
-  get encodedAvatar(): ?string {
-    return encodePng(this.avatarData)
+  get avatarUrl(): ?string {
+    return this.avatarHash ? gatewayRoot + this.avatarHash : null
   }
 }

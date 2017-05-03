@@ -18,8 +18,8 @@ export default handleActions({
     )
   },
 
-  [contact.setAvatar]: (state: Contact, action: Action<Buffer>) => {
-    return state.set(writable.avatarData, action.payload)
+  [contact.setAvatar]: (state: Contact, action: Action) => {
+    return state.set(writable.avatarHash, action.payload.hash)
   },
 
 }, initialState )

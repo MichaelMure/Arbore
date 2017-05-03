@@ -74,7 +74,7 @@ class NewShare extends Component {
               this.state.recipients.map((contact: Contact) => (
                 <Chip
                   key={contact.pubkey}
-                  avatar={<Avatar src={contact.encodedAvatar} />}
+                  avatar={<Avatar src={contact.avatarUrl} />}
                   label={contact.identity}
                   onRequestDelete={ () => ::this.handleRemoveContact(contact.pubkey) }
                 />

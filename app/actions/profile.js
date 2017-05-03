@@ -4,7 +4,7 @@ import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
 import { changeStorePrefix, resetStorePrefix } from 'store';
 import * as identityList from './identityList'
-import Profile from 'models/Profile'
+import Profile, { writable } from 'models/Profile'
 import Identity from 'models/Identity'
 
 export const storeNewProfile = createAction('PROFILE_CREATE',
@@ -18,16 +18,31 @@ export const setProfileHash = createAction('PROFILE_HASH_SET',
 )
 
 export function generateProfile(identity: string, passphrase: string, bio: ?string, avatar: ?Buffer) {
-  return function (dispatch) {
-    let profile = Profile.create(identity, passphrase, bio, avatar)
+  return async function (dispatch) {
+    let profile = Profile.create(identity, passphrase, bio)
     const storageKey = profile.storageKey
-    const _identity = Identity.create(identity, avatar, storageKey)
 
-    return dispatch(generateKeys(storageKey, passphrase))
-      .then(() => changeStorePrefix(storageKey))
-      .then(() => dispatch(identityList.createNewIdentity(_identity)))
-      .then(() => dispatch(storeNewProfile(profile)))
-      .then(() => resetStorePrefix())
+    const ipfs: IpfsConnector = IpfsConnector.getInstance()
+
+    await waitForIpfsReady()
+    await dispatch(generateKeys(storageKey, passphrase))
+    await changeStorePrefix(storageKey)
+
+    // Store in IPFS and pin the avatar if any
+    let hash = null
+    if(avatar) {
+      const res = await ipfs.api.addFile(avatar)
+      hash = res.hash
+      console.log('avatar hash: ' + hash)
+    }
+
+    const _identity = Identity.create(identity, hash, storageKey)
+    profile = profile.set(writable.avatarHash, hash)
+
+    dispatch(identityList.createNewIdentity(_identity))
+    dispatch(storeNewProfile(profile))
+
+    await resetStorePrefix()
   }
 }
 
@@ -57,51 +72,51 @@ export function generateKeys(name: string, passphrase: string) {
  *
  * @returns {Promise}
  */
-export function publishAvatar() {
-  return function (dispatch, getState) {
-    const avatar: ?Buffer = getState().profile.avatarData
-
-    if(! avatar) {
-      console.log('No avatar to publish')
-      return Promise.resolve()
-    }
-
-    console.log('Publish avatar')
-    const ipfs: IpfsConnector = IpfsConnector.getInstance()
-
-    return waitForIpfsReady()
-      .then(() => ipfs.api.addFile(avatar))
-      .then(({hash}) => {
-        console.log('avatar hash: ' + hash)
-        dispatch(setAvatarHash(hash))
-      })
-  }
-}
+// export function publishAvatar() {
+//   return function (dispatch, getState) {
+//     const avatar: ?Buffer = getState().profile.avatarData
+//
+//     if(! avatar) {
+//       console.log('No avatar to publish')
+//       return Promise.resolve()
+//     }
+//
+//     console.log('Publish avatar')
+//     const ipfs: IpfsConnector = IpfsConnector.getInstance()
+//
+//     return waitForIpfsReady()
+//       .then(() => ipfs.api.addFile(avatar))
+//       .then(({hash}) => {
+//         console.log('avatar hash: ' + hash)
+//         dispatch(setAvatarHash(hash))
+//       })
+//   }
+// }
 
 /**
  * Publish the full profile (+avatar) in IPFS and IPNS
  * @returns {Promise}
  */
-export function publishProfile() {
-  return function (dispatch, getState) {
-    console.log('Publish profile')
-    const ipfs: IpfsConnector = IpfsConnector.getInstance()
-
-    return waitForIpfsReady()
-      .then(() => publishAvatar()) // TODO: add a dirty flag to avoid unnecessary republish of the avatar
-      .then(() => {
-        const obj = getState().profile.publishObject
-        return ipfs.api.createNode(obj, [])
-      })
-      .then(({hash}) => {
-        console.log('profile hash: ' + hash)
-        dispatch(setProfileHash(hash))
-        return hash
-      })
-      .then(hash => ipfs.api.apiClient.name.publish(hash, {
-        'lifetime': '8760h', // profile record validity of 1 year
-        'ttl': '24h' // profile record should be cached for 1 day (tradeoff between availability and time to propagate)
-      }))
-      .then(() => console.log('profile published on IPNS'))
-  }
-}
+// export function publishProfile() {
+//   return function (dispatch, getState) {
+//     console.log('Publish profile')
+//     const ipfs: IpfsConnector = IpfsConnector.getInstance()
+//
+//     return waitForIpfsReady()
+//       .then(() => publishAvatar()) // TODO: add a dirty flag to avoid unnecessary republish of the avatar
+//       .then(() => {
+//         const obj = getState().profile.publishObject
+//         return ipfs.api.createNode(obj, [])
+//       })
+//       .then(({hash}) => {
+//         console.log('profile hash: ' + hash)
+//         dispatch(setProfileHash(hash))
+//         return hash
+//       })
+//       .then(hash => ipfs.api.apiClient.name.publish(hash, {
+//         'lifetime': '8760h', // profile record validity of 1 year
+//         'ttl': '24h' // profile record should be cached for 1 day (tradeoff between availability and time to propagate)
+//       }))
+//       .then(() => console.log('profile published on IPNS'))
+//   }
+// }

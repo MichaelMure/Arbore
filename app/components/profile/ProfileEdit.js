@@ -27,7 +27,7 @@ class ProfileEdit extends Component {
 
         <Typography>Profile</Typography>
         <Avatar
-          src={profile.encodedAvatar}
+          src={profile.avatarUrl}
           className={styles.avatar}
         />
 

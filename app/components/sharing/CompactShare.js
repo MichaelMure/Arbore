@@ -33,7 +33,7 @@ class CompactShare extends Component {
         <CardHeader
           avatar={<Avatar
             alt={share.author.name}
-            src={share.author.encodedAvatar}
+            src={share.author.avatarUrl}
           />}
           title={share.metadata.title}
           subheader={share.metadata.description}

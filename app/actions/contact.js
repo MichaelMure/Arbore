@@ -10,9 +10,10 @@ export const addContact = createAction('CONTACT_CREATE',
     ({pubkey, identity, bio, avatarHash})
 )
 export const setAvatar = createAction('CONTACT_AVATAR_SET',
-  (pubkey: string, data: Buffer) => ({pubkey, data})
+  (pubkey: string, hash: ?string) => ({pubkey, hash})
 )
 
+// TODO: rework with avatar stored in ipfs
 export function fetchProfile(pubkey: string) {
   return function (dispatch) {
     console.log('fetch contact profile: ' + pubkey)
@@ -29,6 +30,7 @@ export function fetchProfile(pubkey: string) {
   }
 }
 
+// TODO: rework with avatar stored in ipfs
 export function fetchProfileAvatar(pubkey: string, avatarHash: string) {
   return function (dispatch) {
     console.log('fetch contact avatar: ' + pubkey)

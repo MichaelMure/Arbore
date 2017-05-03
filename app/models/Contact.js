@@ -1,11 +1,10 @@
 // @flow
 import { Record } from 'immutable'
 import strContain from 'utils/strContain'
-import encodePng from 'utils/encodePng'
+import { gatewayRoot } from 'ipfs/ipfsMain'
 
 export const writable = {
   pubkey: 'pubkey',
-  avatarData: 'avatarData',
   avatarHash: 'avatarHash',
   identity: 'identity',
   bio: 'bio',
@@ -14,7 +13,6 @@ export const writable = {
 
 export const ContactRecord = Record({
   pubkey: null,
-  avatarData: null,
   avatarHash: null,
   identity: '',
   bio: '',
@@ -23,17 +21,16 @@ export const ContactRecord = Record({
 
 export default class Contact extends ContactRecord {
   pubkey: string
-  avatarData: ?Buffer
   avatarHash: ?string
   identity: string
   bio: string
   hash: ?string
 
-  static create(identity : string, avatarData: ?Buffer, pubkey: string) : Contact {
+  static create(identity : string, avatarHash: ?string, pubkey: string) : Contact {
     return new this().withMutations(contact => contact
       .set(writable.identity, identity)
-      .set(writable.avatarData, avatarData)
       .set(writable.pubkey, pubkey)
+      .set(writable.avatarHash, avatarHash)
     )
   }
 
@@ -42,7 +39,7 @@ export default class Contact extends ContactRecord {
     return strContain(this.identity, pattern) || strContain(this.bio, pattern)
   }
 
-  get encodedAvatar(): ?string {
-    return encodePng(this.avatarData)
+  get avatarUrl(): ?string {
+    return this.avatarHash ? gatewayRoot + this.avatarHash : null
   }
 }
