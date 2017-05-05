@@ -8,15 +8,27 @@ import FontAwesome from 'react-fontawesome'
 
 const dialog = require('electron').remote.dialog
 
+export const AVATAR_DELETED = 'avatar-deleted'
 
 class AvatarEditor extends Component {
+
+  props: {
+    placeholder: ?string,
+    onPristineChanged: ?(() => any)
+  }
+
+  static defaultProps = {
+    placeholder: null,
+    onPristineChanged: null
+  }
 
   constructor(props) {
     super(props)
     this.state = {
       image: null,
       scale: 1,
-      rotation: 0
+      rotation: 0,
+      imageChanged: false,
     }
   }
 
@@ -29,7 +41,10 @@ class AvatarEditor extends Component {
     })
 
     if(result) {
-      this.setState({image: result[0]})
+      this.setState({
+        image: result[0],
+        imageChanged: true
+      }, this.triggerPristineChanged)
     }
   }
 
@@ -51,32 +66,69 @@ class AvatarEditor extends Component {
   }
 
   handleCloseImage() {
-    this.setState({ image: null })
+    this.setState({
+      image: null,
+      imageChanged: true
+    }, this.triggerPristineChanged)
   }
 
-  getPngImage () {
-    if(!this.avatarEditor) {
-      return
+  triggerPristineChanged() {
+    if(this.props.onPristineChanged !== null) {
+      this.props.onPristineChanged()
+    }
+  }
+
+  /**
+   * Return either:
+   * null: no changes, if a placeholder is present, it should be kept
+   * AVATAR_DELETED: a placeholder was present and was removed
+   * Buffer: a new image has been selected
+   */
+  getImage (): string|?Buffer {
+    if(this.props.placeholder && this.state.image === null && this.state.imageChanged) {
+      return AVATAR_DELETED
+    }
+    if(this.state.image === null) {
+      return null
     }
     const canvasScaled = this.avatarEditor.getImageScaledToCanvas()
     return canvasBuffer(canvasScaled, 'image/png')
+  }
+
+  get pristine(): boolean {
+    return !(this.state.imageChanged)
   }
 
   reset() {
     this.setState({
       image: null,
       scale: 1,
-      rotation: 0
+      rotation: 0,
+      imageChanged: false
     })
   }
 
   render() {
     if( this.state.image === null) {
-      return (
-        <div className={ styles.selectAvatar } onClick={::this.openFileDialog} >
-          Select an avatar
-        </div>
-      )
+      if(this.props.placeholder !== null && !this.state.imageChanged) {
+        return (
+          <div className={styles.avatar}>
+            <img src={this.props.placeholder} className={styles.placeholder} />
+            <div className={styles.actions}>
+              <div>
+                <div> </div>
+                <FontAwesome name='times' onClick={ ::this.handleCloseImage } />
+              </div>
+            </div>
+          </div>
+        )
+      } else {
+        return (
+          <div className={ styles.selectAvatar } onClick={::this.openFileDialog} >
+            Select an avatar
+          </div>
+        )
+      }
     }
 
     return (
@@ -111,7 +163,7 @@ class AvatarEditor extends Component {
           <Input
             type='range'
             min='1'
-            max='2'
+            max='4'
             step='0.01'
             defaultValue='1'
             onChange={::this.handleZoomChange}

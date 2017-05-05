@@ -34,7 +34,7 @@ class NewProfile extends Component {
       identity: values.identity,
       passphrase: values.passphrase|| '',
       bio: values.bio || '',
-      avatar: this.avatarEditor.getPngImage()
+      avatar: this.avatarEditor.getImage()
     })
   }
 

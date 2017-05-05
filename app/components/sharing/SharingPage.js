@@ -4,7 +4,7 @@ import Share from 'models/Share'
 import ShareList from 'models/ShareList'
 import TextField from 'material-ui/TextField';
 import CompactShare from './CompactShare';
-import ShareDetail from 'containers/ShareDetail';
+import ShareDetail from 'containers/sharing/ShareDetail';
 
 class SharingPage extends Component {
   props: {

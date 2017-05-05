@@ -3,6 +3,15 @@
   flex-direction: column;
 }
 
+.placeholder {
+  width: 200px;
+  height: 200px;
+  margin: 25px 25px 42px;
+  border-radius: 50%;
+  user-select: none;
+  pointer-events: none;
+}
+
 .selectAvatar {
   display: flex;
   justify-content: center;
@@ -10,7 +19,7 @@
   width: 200px;
   height: 200px;
   margin: 25px 25px 42px;
-  border-radius: 5000px;
+  border-radius: 50%;
   border: 4px dashed gray;
   cursor: pointer;
   user-select: none;

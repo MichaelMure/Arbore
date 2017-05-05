@@ -8,12 +8,28 @@ const initialState = new Profile()
 
 export default handleActions({
 
-  [profile.storeNewProfile]: (state: Profile, action: Action<Profile>) => (
+  [profile.priv.storeNewProfile]: (state: Profile, action: Action<Profile>) => (
     action.payload
   ),
 
-  [profile.setProfileHash]: (state: Profile, action: Action<string>) => (
+  [profile.priv.setProfileHash]: (state: Profile, action: Action<string>) => (
     state.set(writable.hash, action.payload)
   ),
+
+  [profile.priv.setAvatarHash]: (state: Profile, action: Action<?string>) => (
+    state.set(writable.avatarHash, action.payload)
+  ),
+
+  [profile.priv.setPassphrase]: (state: Profile, action: Action<string>) => (
+    state.set(writable.passphrase, action.payload)
+  ),
+
+  [profile.setBio]: (state: Profile, action: Action<string>) => (
+    state.set(writable.bio, action.payload)
+  ),
+
+  [profile.deleteAvatar]: (state: Profile, action: Action) => (
+    state.set(writable.avatarHash, null)
+  )
 
 }, initialState )

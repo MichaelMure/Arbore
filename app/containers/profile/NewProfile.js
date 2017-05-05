@@ -6,6 +6,9 @@ import * as profile from 'actions/profile'
 import Identity from 'models/Identity'
 import type {Action} from 'utils/types'
 
+/**
+ * Container around the new Profile form
+ */
 class NewProfileContainer extends Component {
   newProfile: NewProfile
 
@@ -19,19 +22,21 @@ class NewProfileContainer extends Component {
     dispatch: (Action) => any
   }
 
-  handleSubmit(values) {
-    console.log(values)
+  async handleSubmit(values) {
+    const dispatch = this.props.dispatch
+    const { identity, bio, avatar, passphrase } = values
 
     this.setState({ waiting: true })
 
-    this.props.dispatch(profile.generateProfile(values.identity, values.passphrase, values.bio, values.avatar))
-      .then(() => this.props.showIdentityList())
-      .then(() => this.setState({ waiting: false }))
-      .catch(err => {
-        this.setState({ waiting: false })
-        // TODO: do something with the error
-        console.log(err)
-      })
+    try {
+      await dispatch(profile.generateProfile(identity, passphrase, bio, avatar))
+      this.setState({ waiting: false })
+      this.props.showIdentityList()
+    } catch(err) {
+      this.setState({ waiting: false })
+      // TODO: do something with the error
+      console.log(err)
+    }
   }
 
   // Intercept the cancel click to reset the form
@@ -47,14 +52,13 @@ class NewProfileContainer extends Component {
       <NewProfile
         ref={(newProfile) => { this.newProfile = newProfile; }}
         onSubmit={::this.handleSubmit}
-        forbiddenIdentities={this.props.forbiddenIdentities}
         onCancelClick={::this.handleCancel}
         waiting={this.state.waiting}
+        { ...this.props }
       />
     )
   }
 }
-
 
 const mapStateToProps = (state) => ({
   forbiddenIdentities: state.identityList.identities.valueSeq().map(

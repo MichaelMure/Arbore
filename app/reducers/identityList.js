@@ -1,10 +1,12 @@
 // @flow
 import IdentityList, { writable} from 'models/IdentityList'
-import { handleActions } from 'redux-actions'
+import { handleActions, combineActions } from 'redux-actions'
 import * as actions from 'actions/identityList'
+import * as identity from 'actions/identity'
 import type { Action } from 'utils/types'
 import Identity from 'models/Identity'
 import { REHYDRATE } from 'redux-persist/constants'
+import identityReducer from './identity'
 
 let initialState = new IdentityList()
 
@@ -19,16 +21,27 @@ export default handleActions({
     return persisted
   },
 
-  [actions.createNewIdentity]: (state: IdentityList, action: Action<Identity>) => {
-    const identity: Identity = action.payload
-    return state.set(writable.identities, state.identities.set(identity.pubkey, identity))
-  },
-
-  [actions.selectIdenty]: (state: IdentityList, action: Action<Identity>) => (
+  [actions.priv.selectIdenty]: (state: IdentityList, action: Action<Identity>) => (
     state.set(writable.selected, action.payload.pubkey)
   ),
 
-  [actions.resetIdentity]: (state: IdentityList, action: Action) => (
+  [actions.priv.resetIdentity]: (state: IdentityList, action: Action) => (
     state.set(writable.selected, null)
   ),
+
+  [combineActions(
+    identity.createNewIdentity,
+    identity.setAvatarHash
+  )] : (state: IdentityList, action) => identityByPubkey(state, action)
 }, initialState )
+
+// Relay to the Identity reducer identified by
+// the property 'pubkey' found in the action payload
+function identityByPubkey(state: IdentityList, action: Action) {
+  const pubkey = action.payload.pubkey
+  return state.update(writable.identities,
+    identities => identities.update(pubkey,
+      (identity: ?Identity) => identityReducer(identity, action)
+    )
+  )
+}

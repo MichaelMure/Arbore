@@ -11,7 +11,7 @@ export const ShareListRecord = Record({
 }, 'ContactList')
 
 export default class ContactList extends ShareListRecord {
-  contacts: Map<Contact>
+  contacts: Map<string,Contact>
 
   // Find a contact by its public key
   findContact(pubkey: string) : Contact {

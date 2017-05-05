@@ -18,7 +18,7 @@ export const IdentityListRecord = Record({
 }, 'IdentityList')
 
 export default class IdentityList extends IdentityListRecord {
-  identities: Map<Identity>
+  identities: Map<string,Identity>
   selected: ?string
 
   get isLogged(): boolean {

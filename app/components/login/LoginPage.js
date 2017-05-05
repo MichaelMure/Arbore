@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 import styles from './LoginPage.css'
 import Collapse from 'material-ui/transitions/Collapse'
 import Fade from 'material-ui/transitions/Fade'
-import NewProfile from 'containers/NewProfile'
-import SelectIdentity from 'containers/SelectIdentity'
+import NewProfile from 'containers/profile/NewProfile'
+import SelectIdentity from 'containers/login/SelectIdentity'
 
 import logo from '../../../resources/logo.svg'
 

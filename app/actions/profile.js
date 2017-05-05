@@ -3,19 +3,29 @@ import { createAction } from 'redux-actions'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
 import { changeStorePrefix, resetStorePrefix } from 'store';
-import * as identityList from './identityList'
+import * as identityActions from './identity'
 import Profile, { writable } from 'models/Profile'
 import Identity from 'models/Identity'
 
-export const storeNewProfile = createAction('PROFILE_CREATE',
-  (profile: Profile) => (profile)
+export const priv = {
+  storeNewProfile: createAction('PROFILE_CREATE',
+    (profile: Profile) => (profile)
+  ),
+  setPassphrase: createAction('PROFILE_PASSPHRASE_SET',
+    (passphrase: string) => (passphrase)
+  ),
+  setAvatarHash: createAction('PROFILE_AVATAR_HASH_SET',
+    (hash: ?string) => (hash)
+  ),
+  setProfileHash: createAction('PROFILE_HASH_SET',
+    (hash: string) => (hash)
+  ),
+}
+
+export const setBio = createAction('PROFILE_BIO_SET',
+  (bio: string) => (bio)
 )
-export const setAvatarHash = createAction('PROFILE_AVATAR_HASH_SET',
-  (hash: string) => (hash)
-)
-export const setProfileHash = createAction('PROFILE_HASH_SET',
-  (hash: string) => (hash)
-)
+export const deleteAvatar = createAction('PROFILE_AVATAR_DELETE')
 
 export function generateProfile(identity: string, passphrase: string, bio: ?string, avatar: ?Buffer) {
   return async function (dispatch) {
@@ -39,8 +49,8 @@ export function generateProfile(identity: string, passphrase: string, bio: ?stri
     const _identity = Identity.create(identity, hash, storageKey)
     profile = profile.set(writable.avatarHash, hash)
 
-    dispatch(identityList.createNewIdentity(_identity))
-    dispatch(storeNewProfile(profile))
+    dispatch(identityActions.createNewIdentity(_identity))
+    dispatch(priv.storeNewProfile(profile))
 
     await resetStorePrefix()
   }
@@ -67,31 +77,31 @@ export function generateKeys(name: string, passphrase: string) {
   }
 }
 
-/**
- * Publish the avatar in IPFS and store the IPFS hash in the current profile
- *
- * @returns {Promise}
- */
-// export function publishAvatar() {
-//   return function (dispatch, getState) {
-//     const avatar: ?Buffer = getState().profile.avatarData
-//
-//     if(! avatar) {
-//       console.log('No avatar to publish')
-//       return Promise.resolve()
-//     }
-//
-//     console.log('Publish avatar')
-//     const ipfs: IpfsConnector = IpfsConnector.getInstance()
-//
-//     return waitForIpfsReady()
-//       .then(() => ipfs.api.addFile(avatar))
-//       .then(({hash}) => {
-//         console.log('avatar hash: ' + hash)
-//         dispatch(setAvatarHash(hash))
-//       })
-//   }
-// }
+export function updatePassphrase(passphrase: string) {
+  return function (dispatch) {
+    // TODO: change keys passphrase once it's ready in IPFS
+    return dispatch(priv.setPassphrase(passphrase))
+  }
+}
+
+export function updateAvatar(avatar: ?Buffer) {
+  return async function (dispatch, getState) {
+    let hash = null
+
+    if(avatar) {
+      const ipfs: IpfsConnector = IpfsConnector.getInstance()
+
+      await waitForIpfsReady()
+      const res = await ipfs.api.addFile(avatar)
+      hash = res.hash
+    }
+
+    return Promise.all([
+      await dispatch(priv.setAvatarHash(hash)),
+      await dispatch(identityActions.setAvatarHash(getState().profile.storageKey, hash))
+    ])
+  }
+}
 
 /**
  * Publish the full profile (+avatar) in IPFS and IPNS
@@ -109,7 +119,7 @@ export function publishProfile() {
       })
       .then(({hash}) => {
         console.log('profile hash: ' + hash)
-        dispatch(setProfileHash(hash))
+        dispatch(priv.setProfileHash(hash))
         return hash
       })
       .then(hash => ipfs.api.apiClient.name.publish(hash, {

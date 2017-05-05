@@ -1,12 +1,15 @@
-import React, {Component, PropTypes} from 'react';
-import styles from './MenuBar.css';
-import IconButton from 'material-ui/IconButton'
-import FontAwesome from 'react-fontawesome';
-import Badge from 'material-ui/Badge';
+// @Flow
+import React, {Component, PropTypes} from 'react'
+import styles from './MenuBar.css'
+import FontAwesome from 'react-fontawesome'
+import { Avatar, Badge, IconButton } from 'material-ui'
+import Profile from 'models/Profile'
 
 class MenuBar extends Component {
 
   props: {
+    profile: Profile,
+
     onProfileClick: () => void,
     onNewShareClick: () => void,
     onAvailableClick: () => void,
@@ -29,10 +32,15 @@ class MenuBar extends Component {
   }
 
   render() {
+    const { profile } = this.props
     return (
       <div className={styles.wrapper}>
         <IconButton accent onClick={this.props.onProfileClick}>
-          <FontAwesome name='user-circle-o'/>
+          { profile.avatarUrl
+            ? <Avatar src={profile.avatarUrl} />
+            : <FontAwesome name='user-circle-o' className={styles.profile} />
+          }
+
         </IconButton>
 
         <div className={styles.spacer}></div>
