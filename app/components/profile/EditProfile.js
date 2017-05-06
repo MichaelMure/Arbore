@@ -47,7 +47,7 @@ class EditProfile extends Component {
           />
         </div>
 
-        // TODO: passphrase values shoud be cleared on select && pristine
+        {/* TODO: passphrase values shoud be cleared on select && pristine*/}
         <Field
           name='passphrase'
           component={renderTextField}
