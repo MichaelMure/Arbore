@@ -73,4 +73,8 @@ export default class Profile extends ProfileRecord {
       avatarHash: this.avatarHash,
     }
   }
+
+  get chatPubsubTopic(): string {
+    return this.pubkey + '/chat'
+  }
 }

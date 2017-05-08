@@ -1,4 +1,7 @@
 // @flow
+import ChatEntry from 'models/ChatEntry'
+import ChatRoom from 'models/ChatRoom'
+import ChatRoomList from 'models/ChatRoomList'
 import Contact from './Contact'
 import ContactList from './ContactList'
 import EmptyIpfsObject from './IpfsObject'
@@ -13,6 +16,9 @@ import ShareMetadata from './ShareMetadata'
 import UiState from './UiState'
 
 export default [
+  ChatEntry,
+  ChatRoom,
+  ChatRoomList,
   Contact,
   ContactList,
   EmptyIpfsObject,

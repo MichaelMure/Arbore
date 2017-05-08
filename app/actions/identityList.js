@@ -4,6 +4,7 @@ import Identity from 'models/Identity'
 import { changeStorePrefix, resetStorePrefix } from 'store'
 import * as profile from './profile'
 import * as scheduler from 'utils/scheduler'
+import * as chat from './chat'
 
 export const priv = {
   selectIdenty: createAction('IDENTITYLIST_IDENTITY_SELECT',
@@ -27,6 +28,9 @@ export function login(identity: Identity) {
 
     // Start publishing the profile periodically
     scheduler.startTimeBetween(dispatch, 'publishProfile', profile.publishProfile(), 5 * 60 * 1000) // 5 minutes
+
+    // Start listening to chats
+    dispatch(chat.subscribeToChats())
   }
 }
 
@@ -41,5 +45,8 @@ export function logout() {
 
     // Stop any scheduled tasks
     scheduler.stop('publishProfile')
+
+    // Stop listening to chats
+    dispatch(chat.unsubscribeToChats())
   }
 }

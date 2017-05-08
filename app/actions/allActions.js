@@ -1,4 +1,5 @@
 // @flow
+import * as chatActions from './chat'
 import * as contactListActions from './contact'
 import * as identityListActions from './identityList'
 import * as ipfsObjectActions from './ipfsObject'
@@ -8,6 +9,7 @@ import * as shareListActions from './shareList'
 import * as uiActions from './ui'
 
 export default {
+  ...chatActions,
   ...contactListActions,
   ...identityListActions,
   ...ipfsObjectActions,

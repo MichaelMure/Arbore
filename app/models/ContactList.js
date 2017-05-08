@@ -15,6 +15,12 @@ export default class ContactList extends ShareListRecord {
 
   // Find a contact by its public key
   findContact(pubkey: string) : Contact {
+
+    // TODO: remove this
+    if(!this.contacts.has(pubkey)) {
+      return this.contacts.first()
+    }
+
     return this.contacts.get(pubkey)
   }
 

@@ -15,7 +15,10 @@ class ChatPage extends Component {
 
   props: {
     profile: Profile,
-    contacts: ContactList
+    contacts: ContactList,
+    promptValue: string,
+    onPromptKeyDown: (any) => any,
+    onPromptChange: (any) => any,
   }
 
   constructor() {
@@ -44,8 +47,6 @@ class ChatPage extends Component {
   }
 
   renderContact(contacts: Map) {
-    // const classes = this.context.styleManager.render(styleSheet);
-
     return contacts.valueSeq().map((contact: Contact) =>
       <div key={contact.pubkey} className={styles.contactItem}>
         <Avatar person={contact} className={styles.contactAvatar} />
@@ -133,7 +134,13 @@ class ChatPage extends Component {
           </div>
           <div className={styles.prompt}>
             <Avatar person={profile} className={styles.promptAvatar} />
-            <TextField label='Write something' className={styles.promptInput} />
+            <TextField
+              label='Write something'
+              className={styles.promptInput}
+              onKeyDown={this.props.onPromptKeyDown}
+              onChange={this.props.onPromptChange}
+              value={this.props.promptValue}
+            />
           </div>
         </div>
       </div>
