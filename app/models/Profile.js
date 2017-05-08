@@ -11,6 +11,7 @@ export const writable = {
   hash: 'hash',
   identity: 'identity',
   bio: 'bio',
+  pubkey: 'pubkey',
   passphrase: 'passphrase',
   avatarHash: 'avatarHash'
 }
@@ -20,6 +21,7 @@ export const ProfileRecord = Record({
   hash: null,
   identity: '',
   bio: '',
+  pubkey: null,
   passphrase: null,
   avatarHash: null
 }, 'Profile')
@@ -29,6 +31,7 @@ export default class Profile extends ProfileRecord {
   hash: ?string
   identity: string
   bio: string
+  pubkey: string
   passphrase: string
   avatarHash: ?string
 
@@ -66,6 +69,7 @@ export default class Profile extends ProfileRecord {
       dataVersion: PUBLISH_DATA_VERSION,
       identity: this.identity,
       bio: this.bio,
+      pubkey: this.pubkey,
       avatarHash: this.avatarHash,
     }
   }

@@ -35,7 +35,7 @@ export function generateProfile(identity: string, passphrase: string, bio: ?stri
     const ipfs: IpfsConnector = IpfsConnector.getInstance()
 
     await waitForIpfsReady()
-    await dispatch(generateKeys(storageKey, passphrase))
+    const { Id } = await dispatch(generateKeys(storageKey, passphrase))
     await changeStorePrefix(storageKey)
 
     // Store in IPFS and pin the avatar if any
@@ -47,7 +47,9 @@ export function generateProfile(identity: string, passphrase: string, bio: ?stri
     }
 
     const _identity = Identity.create(identity, hash, storageKey)
-    profile = profile.set(writable.avatarHash, hash)
+    profile = profile
+      .set(writable.avatarHash, hash)
+      .set(writable.pubkey, Id)
 
     dispatch(identityActions.createNewIdentity(_identity))
     dispatch(priv.storeNewProfile(profile))
