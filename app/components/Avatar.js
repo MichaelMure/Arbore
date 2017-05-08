@@ -12,7 +12,7 @@ class Avatar extends Component {
   }
 
   render() {
-    const { person, extra } = this.props
+    const { person, ...extra } = this.props
 
     if(person.avatarUrl) {
       return <MUIAvatar {...extra} src={person.avatarUrl} alt={person.identity} />
