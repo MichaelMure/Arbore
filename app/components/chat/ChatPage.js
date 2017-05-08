@@ -2,11 +2,12 @@
 import React, { Component } from 'react'
 import styles from './ChatPage.css'
 import ContactList from 'models/ContactList'
-import { Avatar, Typography, TextField } from 'material-ui'
+import { Typography, TextField } from 'material-ui'
 import { Map } from 'immutable'
 import Contact from 'models/Contact'
 import Profile from 'models/Profile'
 import Moment from 'react-moment'
+import Avatar from 'components/Avatar'
 
 const app = require('electron').remote.app
 
@@ -47,7 +48,7 @@ class ChatPage extends Component {
 
     return contacts.valueSeq().map((contact: Contact) =>
       <div key={contact.pubkey} className={styles.contactItem}>
-        <Avatar src={contact.avatarUrl} alt={contact.identity} className={styles.contactAvatar}/>
+        <Avatar person={contact} className={styles.contactAvatar} />
         {contact.identity}
       </div>
     )
@@ -96,7 +97,7 @@ class ChatPage extends Component {
 
     return (
       <div key={key} className={styles.cluster}>
-        <Avatar src={contact.avatarUrl} alt={contact.identity} className={styles.clusterAvatar}/>
+        <Avatar person={contact} className={styles.clusterAvatar}/>
         <div className={styles.clusterHistory}>
           <div className={styles.clusterHeader}>
             <span>{contact.identity}</span>
@@ -131,11 +132,7 @@ class ChatPage extends Component {
             { this.renderHistory(this.history) }
           </div>
           <div className={styles.prompt}>
-            <Avatar
-              src={profile.avatarUrl}
-              alt={profile.identity}
-              className={styles.promptAvatar}
-            />
+            <Avatar person={profile} className={styles.promptAvatar} />
             <TextField label='Write something' className={styles.promptInput} />
           </div>
         </div>

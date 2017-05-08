@@ -47,4 +47,14 @@ export default class Contact extends ContactRecord {
   get avatarUrl(): ?string {
     return this.avatarHash ? gatewayRoot + this.avatarHash : null
   }
+
+  get initials(): string {
+    const names = this.identity.split(' ')
+    let initials = names[0].substring(0, 1).toUpperCase();
+
+    if (names.length > 1) {
+      initials += names[names.length - 1].substring(0, 1).toUpperCase();
+    }
+    return initials;
+  }
 }

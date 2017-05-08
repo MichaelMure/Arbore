@@ -2,8 +2,8 @@
 import React, { Component } from 'react'
 import IdentityList from 'models/IdentityList'
 import styles from './SelectIdentity.css'
-import { Avatar } from 'material-ui'
 import Identity from 'models/Identity'
+import Avatar from 'components/Avatar'
 
 class SelectIdentity extends Component {
 
@@ -16,7 +16,7 @@ class SelectIdentity extends Component {
   renderIdentity(identity: Identity, onClick) {
     return (
       <div key={identity.pubkey} className={styles.identity} onClick={onClick}>
-        <Avatar src={identity.avatarUrl} />
+        <Avatar person={identity} />
         <span>{identity.identity}</span>
       </div>
     )

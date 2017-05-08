@@ -1,4 +1,3 @@
-import Avatar from 'material-ui/Avatar'
 import { CardHeader } from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton'
 import { LinearProgress } from 'material-ui/Progress'
@@ -9,13 +8,14 @@ import FontAwesome from 'react-fontawesome'
 import * as humanize from 'utils/humanize'
 import styles from './ShareDetail.css'
 import ShareFiles from './ShareFiles2'
+import Avatar from 'components/Avatar'
 
 class ShareDetail extends Component {
   render() {
     const share: Share = this.props.share
 
     const avatar = (
-      <Avatar alt={share.author.name} src={share.author.avatarUrl} />
+      <Avatar person={share.author} />
     )
     const header = (
       <CardHeader

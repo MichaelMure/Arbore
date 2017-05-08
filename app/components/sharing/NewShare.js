@@ -1,9 +1,10 @@
 // @flow
 import React, { Component } from 'react'
 import styles from './NewShare.css'
-import { Avatar, Button, Chip, FormControl, FormLabel, Input, TextField } from 'material-ui'
+import { Button, Chip, FormControl, FormLabel, Input, TextField } from 'material-ui'
 import Contact from 'models/Contact'
 import ContactList from 'models/ContactList'
+import Avatar from 'components/Avatar'
 
 
 class NewShare extends Component {
@@ -74,7 +75,7 @@ class NewShare extends Component {
               this.state.recipients.map((contact: Contact) => (
                 <Chip
                   key={contact.pubkey}
-                  avatar={<Avatar src={contact.avatarUrl} />}
+                  avatar={<Avatar person={contact} />}
                   label={contact.identity}
                   onRequestDelete={ () => ::this.handleRemoveContact(contact.pubkey) }
                 />

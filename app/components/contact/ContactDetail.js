@@ -3,8 +3,9 @@ import React, { Component } from 'react'
 import Contact from 'models/Contact'
 // import styles from './Contact.css'
 import { Card, CardContent, CardHeader } from 'material-ui/Card'
-import { Avatar, Typography } from 'material-ui'
+import { Typography } from 'material-ui'
 import Collapse from 'material-ui/transitions/Collapse'
+import Avatar from 'components/Avatar'
 
 class ContactDetail extends Component {
 
@@ -34,10 +35,7 @@ class ContactDetail extends Component {
     return (
       <Card>
         <CardHeader
-          avatar={<Avatar
-            alt={ contact.identity }
-            src={ contact.avatarUrl }
-          />}
+          avatar={<Avatar person={contact} />}
           title={ contact.identity }
           onClick={ ::this.toggleExpanded }
         />

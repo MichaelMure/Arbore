@@ -2,8 +2,9 @@
 import React, { Component } from 'react'
 import Profile from 'models/Profile'
 import styles from './ShowProfile.css'
-import { Avatar, Button, Typography } from 'material-ui'
+import { Button, Typography } from 'material-ui'
 import FontAwesome from 'react-fontawesome'
+import Avatar from 'components/Avatar'
 
 class ShowProfile extends Component {
 
@@ -20,7 +21,7 @@ class ShowProfile extends Component {
         <Typography className={styles.identity}>{profile.identity}</Typography>
 
         { profile.avatarUrl
-          ? <Avatar src={profile.avatarUrl} className={styles.avatar} />
+          ? <Avatar person={profile} className={styles.avatar} />
           : <div className={styles.noAvatar}><Typography>No avatar</Typography></div>
         }
 
