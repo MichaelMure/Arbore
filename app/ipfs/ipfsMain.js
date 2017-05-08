@@ -46,6 +46,11 @@ export const start = () => {
     app.getPath('userData')
   )
 
+  instance.setConfig('args', [
+    'daemon',
+    '--enable-pubsub-experiment'
+  ])
+
   // install some event listeners
   instance.on(ipfsEvents.SERVICE_STARTED, onServiceStarted)
   instance.on(ipfsEvents.SERVICE_STOPPING, onServiceStopping)
