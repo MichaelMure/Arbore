@@ -11,9 +11,13 @@ const initialState = new ChatRoomList()
 
 export default handleActions({
 
-  [chat.createRoom]: (state: ChatRoomList, action: Action<Contact>) => {
-    return state.set(writable.rooms, state.rooms.set(action.payload.pubkey), new ChatRoom())
-  },
+  [chat.createRoom]: (state: ChatRoomList, action: Action<Contact>) => (
+    state.set(writable.rooms,
+      state.rooms.update(action.payload.pubkey,
+        room => room ? room : new ChatRoom()
+      )
+    )
+  ),
 
   [combineActions(
     chat.priv.chatSent,

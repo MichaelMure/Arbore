@@ -1,0 +1,24 @@
+.cluster {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.clusterHeader {
+  display: flex;
+  flex-direction: row;
+  color: gray;
+  justify-content: space-between;
+}
+
+.clusterHistory {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.clusterAvatar {
+  width: 40px !important;
+  height: 40px !important;
+  margin-right: 10px;
+}

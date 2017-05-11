@@ -12,4 +12,8 @@ export const ChatRoomListRecord = Record({
 
 export default class ChatRoomList extends ChatRoomListRecord {
   rooms: Map<string, ChatRoom>
+
+  findRoom(pubkey: string) {
+    return this.rooms.get(pubkey)
+  }
 }

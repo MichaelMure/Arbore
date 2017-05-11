@@ -14,14 +14,8 @@ export default class ContactList extends ShareListRecord {
   contacts: Map<string,Contact>
 
   // Find a contact by its public key
-  findContact(pubkey: string) : Contact {
-
-    // TODO: remove this
-    if(!this.contacts.has(pubkey)) {
-      return this.contacts.first()
-    }
-
-    return this.contacts.get(pubkey)
+  findContact(pubkey: string) : ?Contact {
+    return this.contacts.get(pubkey, null)
   }
 
   // Build a suggestion list with a string pattern

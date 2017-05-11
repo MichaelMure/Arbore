@@ -1,0 +1,42 @@
+.chat {
+  flex-direction: column;
+  flex: 1;
+  /*
+   * This is hacky, the goal is to avoid the scroller to overflow in the bottom
+   * because of the search bar and the .scroller { height: 100% }
+   */
+  padding: 0 10px 50px;
+  background-color: #f2f2f2;
+
+}
+
+.scroller {
+  height: 100%;
+  width: 100%;
+  overflow: auto;
+}
+
+.history {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 100%;
+  padding-bottom: 5px;
+}
+
+.prompt {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.promptAvatar {
+  width: 42px !important;
+  height: 42px !important;
+  margin-right: 10px;
+}
+
+.promptInput {
+  flex: 1
+}

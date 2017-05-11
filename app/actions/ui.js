@@ -13,3 +13,7 @@ export const toggleNewShare = createAction('UI_NEWSHARE_TOGGLE')
 export const setPage = createAction('UI_PAGE_SET',
   (page: PageType) => (page)
 )
+
+export const selectChatRoom = createAction('UI_CHATROOM_SELECT',
+  (pubkey: string) => (pubkey)
+)

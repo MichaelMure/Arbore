@@ -47,4 +47,8 @@ export default handleActions({
     state.set(writable.page, action.payload)
   ),
 
+  [actions.selectChatRoom]: (state: UiState, action: Action<string>) => (
+    state.set(writable.selectedChat, action.payload)
+  )
+
 }, initialState )
