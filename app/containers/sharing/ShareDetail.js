@@ -1,7 +1,7 @@
 // @flow
 import { connect } from 'react-redux'
 import * as shareActions from 'actions/share'
-import { Store } from 'utils/types'
+import type { Store } from 'utils/types'
 import ShareDetail from 'components/sharing/ShareDetail'
 import Share from 'models/Share'
 

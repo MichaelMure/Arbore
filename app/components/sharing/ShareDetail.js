@@ -3,7 +3,7 @@ import IconButton from 'material-ui/IconButton'
 import { LinearProgress } from 'material-ui/Progress'
 import Typography from 'material-ui/Typography'
 import Share from 'models/Share'
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import FontAwesome from 'react-fontawesome'
 import * as humanize from 'utils/humanize'
 import styles from './ShareDetail.css'
@@ -11,6 +11,15 @@ import ShareFiles from './ShareFiles2'
 import Avatar from 'components/Avatar'
 
 class ShareDetail extends Component {
+
+  props: {
+    share: Share,
+    onStartClickGenerator: (Share) => any,
+    onPauseClickGenerator: (Share) => any,
+    onStopClickGenerator: (Share) => any,
+    onFavoriteClickGenerator: (Share) => any,
+  }
+
   render() {
     const share: Share = this.props.share
 
@@ -66,14 +75,5 @@ class ShareDetail extends Component {
     );
   }
 }
-
-ShareDetail.propTypes = {
-  share: PropTypes.instanceOf(Share).isRequired,
-  onStartClickGenerator: PropTypes.func.isRequired,
-  onPauseClickGenerator: PropTypes.func.isRequired,
-  onStopClickGenerator: PropTypes.func.isRequired,
-  onFavoriteClickGenerator: PropTypes.func.isRequired
-};
-ShareDetail.defaultProps = {};
 
 export default ShareDetail;

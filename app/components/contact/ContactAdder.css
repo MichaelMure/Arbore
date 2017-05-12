@@ -1,0 +1,11 @@
+.wrapper {
+  border: 4px dashed gray;
+}
+
+.ghost {
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  font-family: "Roboto";
+}

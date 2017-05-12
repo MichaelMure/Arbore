@@ -14,8 +14,7 @@ class NewProfile extends Component {
     forbiddenIdentities: string[],
     onCancelClick: () => any,
     onSubmit: (values: {}) => any,
-    waiting: boolean,
-    error: ?string
+    waiting: boolean
   }
 
   reset() {

@@ -5,10 +5,10 @@ import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
 import removeIpfsPrefix from 'utils/removeIpfsPrefix'
 
-export const addContact = createAction('CONTACT_CREATE',
-  (pubkey: string, identity: string, bio: string, avatarHash: string) =>
-    ({pubkey, identity, bio, avatarHash})
-)
+// export const addContact = createAction('CONTACT_CREATE',
+//   (pubkey: string, identity: string, bio: string, avatarHash: string) =>
+//     ({pubkey, identity, bio, avatarHash})
+// )
 export const setAvatar = createAction('CONTACT_AVATAR_SET',
   (pubkey: string, hash: ?string) => ({pubkey, hash})
 )
@@ -24,7 +24,7 @@ export function fetchProfile(pubkey: string) {
       .then(result => { console.log(result); return result})
       .then(({Path}) => ipfs.api.getObject(removeIpfsPrefix(Path)))
       .then(({identity, bio, avatarHash}) => {
-        dispatch(addContact(pubkey, identity, bio, avatarHash))
+        // dispatch(addContact(pubkey, identity, bio, avatarHash))
         dispatch(fetchProfileAvatar(pubkey, avatarHash))
       })
   }
