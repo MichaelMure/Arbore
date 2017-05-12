@@ -20,27 +20,13 @@ This application will be build on top of [IPFS](http://ipfs.io/).
 
 ![sharing snapshot](https://github.com/MichaelMure/TotallyNotArbore/blob/5ffc00385bd863596038dc1546fb2b8e90d3cc8f/resources/arbore%20sharing%20page.png)
 
-## FEATURES
-
-Arbore v1.0 (release date: TBD)  
-* Arbore is a desktop application (Windows, Mac, Linux compatible)  
-* allows digital file sharing (e.g. holiday pictures)     
-* uses a P2P (peer-to-peer) network  
-P2P means a decentralized solution  
-(avoids centralized servers hosted by private corporations  
-that can claim rights to and access your private data)   
-P2P means there is no file size limitations to the data shared.  
-* Social F2F (friend-to-friend) capabilities  
-
-This application is written with Javascript x.x  
-
-Arbore is built on top of the [IPFS (InterPlanetary File System)](http://ipfs.io/) protocol:  
-[(Learn more about IPFS on Wikipedia)](https://en.wikipedia.org/wiki/InterPlanetary_File_System)  
-
 ## GETTING STARTED
-Clone this repo to your desktop and run `npm install` to install all the dependencies.
 
-To run the developement version, run `npm run dev`
+1. Clone or download this repository
+2. run `npm install` to install all the dependencies.
+3. run `npm run dev` to launch the developement version
+
+Installation package will be provided later.
 
 ## ROADMAP
 
@@ -48,10 +34,10 @@ To run the developement version, run `npm run dev`
 * profile management
 * basic contact management (adding with a hash)
 * targeted sharing (notification and download)
+* basic 1 to 1 chat
 
 ### Version 2 (encryption and chat)
 * encryption (IPFS is currently working on encryption)
-* basic 1 to 1 chat (not really a priority but it actually helps me to test ipfs's pubsub and the rest is not that difficult)
 
 ### Version 3
 ### contact-related features: 
