@@ -19,6 +19,14 @@ class Room extends Component {
     onPromptChange: (any) => any,
   }
 
+  scrollToBottom() {
+    if(!this.bottom) {
+      return
+    }
+
+    this.bottom.scrollIntoView({block: "end", behavior: "smooth"});
+  }
+
   render() {
     const { selectedRoom, contacts, profile } = this.props
 
@@ -41,6 +49,7 @@ class Room extends Component {
         <div className={styles.scroller}>
           <div className={styles.history}>
             { history }
+            <div ref={(bottom) => { this.bottom = bottom }} > </div>
           </div>
         </div>
         <div className={styles.prompt}>

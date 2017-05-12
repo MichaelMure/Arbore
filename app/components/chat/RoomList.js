@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import ChatRoomList from 'models/ChatRoomList'
 import styles from './RoomList.css'
-import { Typography } from 'material-ui'
+import { Badge, Typography } from 'material-ui'
 import ChatRoom from 'models/ChatRoom'
 import ContactList from 'models/ContactList'
 import UiState from 'models/UiState'
@@ -25,11 +25,17 @@ class RoomList extends Component {
       <div>
         {
           rooms.rooms.entrySeq().map(([pubkey, room]) => {
-
             const contact: Contact = contacts.findContact(pubkey)
+            const selected = ui.selectedChat === pubkey
             return (
-              <div key={pubkey} onClick={onClickGenerator(contact)}>
-                <Typography className={styles.chatItem}>{contact.identity}</Typography>
+              <div
+                key={pubkey}
+                onClick={onClickGenerator(contact)}
+                className={selected ? styles.selected : null}
+              >
+                <Badge badgeContent={room.unread} badgeClassName={styles.badge}>
+                  <Typography className={styles.chatItem}>{contact.identity}</Typography>
+                </Badge>
               </div>
             )
           })

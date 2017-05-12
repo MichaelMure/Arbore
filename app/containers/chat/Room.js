@@ -11,6 +11,7 @@ import UiState from 'models/UiState'
 import ChatRoomList from 'models/ChatRoomList'
 
 class RoomContainer extends Component {
+  room: Room
 
   props: {
     dispatch: (Action) => any,
@@ -43,11 +44,28 @@ class RoomContainer extends Component {
     }
   }
 
+  componentDidMount() {
+    this.room.scrollToBottom()
+  }
+
+  componentDidUpdate(prevProps, prevState, prevContext) {
+    const { ui, chatRoomList } = this.props
+
+    if(!ui.selectedChat) {
+      return
+    }
+
+    if(chatRoomList !== prevProps.chatRoomList) {
+      this.room.scrollToBottom()
+    }
+  }
+
   render() {
     const { profile, contacts, chatRoomList, ui } = this.props
 
     return (
       <Room
+        ref={(room) => { this.room = room }}
         selectedRoom={ui.selectedChat ? chatRoomList.findRoom(ui.selectedChat) : null}
         contacts={contacts}
         profile={profile}

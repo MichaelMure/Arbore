@@ -1,3 +1,7 @@
 .chatItem {
   margin-left: 10px !important;
 }
+
+.selected {
+  background-color: #0a93ff;
+}
