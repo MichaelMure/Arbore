@@ -43,8 +43,17 @@ export default handleActions({
       .set(writable.profileOpen, false)
   ),
 
+  [actions.closeAllDrawers]: (state: UiState, action: Action) => (
+    state
+      .set(writable.newShareOpen, false)
+      .set(writable.profileOpen, false)
+  ),
+
   [actions.setPage]: (state: UiState, action: Action<PageType>) => (
-    state.set(writable.page, action.payload)
+    state
+      .set(writable.page, action.payload)
+      .set(writable.newShareOpen, false)
+      .set(writable.profileOpen, false)
   ),
 
   [actions.selectChatRoom]: (state: UiState, action: Action<string>) => (

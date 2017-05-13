@@ -10,6 +10,8 @@ export const openNewShare = createAction('UI_NEWSHARE_OPEN')
 export const closeNewShare = createAction('UI_NEWSHARE_CLOSE')
 export const toggleNewShare = createAction('UI_NEWSHARE_TOGGLE')
 
+export const closeAllDrawers = createAction('UI_CLOSE_DRAWERS')
+
 export const setPage = createAction('UI_PAGE_SET',
   (page: PageType) => (page)
 )
