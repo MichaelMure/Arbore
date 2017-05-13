@@ -5,6 +5,7 @@ import { changeStorePrefix, resetStorePrefix } from 'store'
 import * as profile from './profile'
 import * as scheduler from 'utils/scheduler'
 import * as chat from './chat'
+import Profile from 'models/Profile'
 
 export const priv = {
   selectIdenty: createAction('IDENTITYLIST_IDENTITY_SELECT',
@@ -39,7 +40,9 @@ export function login(identity: Identity) {
  * @returns {Promise}
  */
 export function logout() {
-  return async function (dispatch) {
+  return async function (dispatch, getState) {
+    const profile: Profile = getState().profile
+
     await resetStorePrefix()
     await dispatch(priv.resetIdentity())
 
@@ -47,6 +50,6 @@ export function logout() {
     scheduler.stop('publishProfile')
 
     // Stop listening to chats
-    dispatch(chat.unsubscribeToChats())
+    dispatch(chat.unsubscribeFromChats(profile))
   }
 }

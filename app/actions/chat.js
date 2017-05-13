@@ -36,14 +36,13 @@ export function subscribeToChats() {
   }
 }
 
-export function unsubscribeToChats() {
-  return async function (dispatch, getState) {
-    console.log('Unsubscribe to chats ...')
+export function unsubscribeFromChats(profile: Profile) {
+  return async function (dispatch) {
+    console.log('Unsubscribe from chats ...')
     const ipfs: IpfsConnector = IpfsConnector.getInstance()
 
     await waitForIpfsReady()
 
-    const profile: Profile = getState().profile
     return await ipfs.api.apiClient.pubsub.unsubscribe(profile.chatPubsubTopic, chatHandler)
   }
 }
