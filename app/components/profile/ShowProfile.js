@@ -30,6 +30,11 @@ class ShowProfile extends Component {
           : <Typography paragraph className={styles.bioEmpty}>Write something about you</Typography>
         }
 
+        <Typography align="center" type="body2">Share your Arbore ID</Typography>
+        <Typography className={styles.pubkey} align="center" gutterBottom>
+          {profile.pubkey}
+        </Typography>
+
         <div className={styles.buttons}>
           <Button raised onClick={this.props.onEditClick}>
             <FontAwesome name="pencil" />

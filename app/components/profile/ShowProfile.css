@@ -55,3 +55,8 @@
 .buttons > * {
   min-width: 100px;
 }
+
+.pubkey {
+  word-break: break-all;
+  margin-bottom: 10px;
+}
