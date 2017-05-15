@@ -3,8 +3,8 @@ import { Record } from 'immutable'
 import crypto from 'crypto'
 import { gatewayRoot } from 'ipfs/ipfsMain'
 
-const LOCAL_DATA_VERSION = 1
-const PUBLISH_DATA_VERSION = 1
+export const LOCAL_DATA_VERSION = 1
+export const PUBLISH_DATA_VERSION = 1
 
 export const writable = {
   dataVersion: 'dataVersion',

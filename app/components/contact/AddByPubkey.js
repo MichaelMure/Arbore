@@ -11,12 +11,13 @@ class AddByPubkey extends Component {
   props: {
     waiting: boolean,
     onCancelClick: () => any,
+    handleSubmit: (Array) => any
   }
 
   render() {
-    const { pristine, submitting, waiting } = this.props
+    const { pristine, submitting, waiting, handleSubmit } = this.props
     return (
-      <form className={styles.wrapper}>
+      <form className={styles.wrapper} onSubmit={handleSubmit}>
         <Field name='pubkey' component={renderTextField} required label='Contact'/>
 
         <div className={styles.buttons}>

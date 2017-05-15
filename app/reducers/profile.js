@@ -4,11 +4,11 @@ import Profile, { writable} from 'models/Profile'
 import { handleActions } from 'redux-actions'
 import { Action } from 'utils/types'
 
-const initialState = new Profile()
+const initialState = null
 
 export default handleActions({
 
-  [profile.priv.storeNewProfile]: (state: Profile, action: Action<Profile>) => (
+  [profile.priv.storeNewProfile]: (state, action: Action<Profile>) => (
     action.payload
   ),
 

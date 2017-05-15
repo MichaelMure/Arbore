@@ -1,0 +1,14 @@
+.wrapper {
+  padding: 0 10px 10px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.buttons > * {
+  min-width: 100px;
+}

@@ -31,6 +31,7 @@ class CompactContact extends Component {
     return (
       <Card className={cardClass} onClick={ ::this.props.onClick }>
         <CardHeader
+          className={styles.header}
           avatar={<Avatar person={contact} />}
           title={ contact.identity }
         />

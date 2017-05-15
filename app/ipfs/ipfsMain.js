@@ -61,13 +61,6 @@ export const start = () => {
     event.returnValue = serviceStarted
   })
 
-  // TODO: remove
-  // const delay = time => new Promise(resolve => setTimeout(resolve, time))
-  // delay(15000).then(() => {
-  //   console.log('STARTING')
-  //   instance.start()
-  // })
-
   // start ipfs daemon and download binaries if needed
   instance.start()
 }

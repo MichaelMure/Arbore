@@ -2,6 +2,7 @@
 import { Record } from 'immutable'
 import strContain from 'utils/strContain'
 import { gatewayRoot } from 'ipfs/ipfsMain'
+import { PUBLISH_DATA_VERSION as PROFILE_VERSION } from 'models/Profile'
 
 const LOCAL_DATA_VERSION = 1
 
@@ -31,9 +32,29 @@ export default class Contact extends ContactRecord {
   bio: string
   hash: ?string
 
-  static create(identity : string, avatarHash: ?string, pubkey: string) : Contact {
+  static create(identity : string, bio: string, pubkey: string, avatarHash: ?string) : Contact {
     return new this().withMutations(contact => contact
       .set(writable.identity, identity)
+      .set(writable.bio, bio)
+      .set(writable.pubkey, pubkey)
+      .set(writable.avatarHash, avatarHash)
+    )
+  }
+
+  static fromProfileData(expectedPubkey: string, data) {
+    const {dataVersion, identity, bio, pubkey, avatarHash} = data
+
+    if(dataVersion !== PROFILE_VERSION) {
+      throw 'Unexpected profile version'
+    }
+
+    if(expectedPubkey !== pubkey) {
+      throw 'Received a different pubkey (' + pubkey + ') than expected (' + expectedPubkey + ')'
+    }
+
+    return new this().withMutations(contact => contact
+      .set(writable.identity, identity)
+      .set(writable.bio, bio)
       .set(writable.pubkey, pubkey)
       .set(writable.avatarHash, avatarHash)
     )

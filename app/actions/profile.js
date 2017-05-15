@@ -110,24 +110,25 @@ export function updateAvatar(avatar: ?Buffer) {
  * @returns {Promise}
  */
 export function publishProfile() {
-  return function (dispatch, getState) {
+  return async function (dispatch, getState) {
     console.log('Publish profile')
     const ipfs: IpfsConnector = IpfsConnector.getInstance()
 
-    return waitForIpfsReady()
-      .then(() => {
-        const obj = getState().profile.publishObject
-        return ipfs.api.createNode(obj, [])
-      })
-      .then(({hash}) => {
-        console.log('profile hash: ' + hash)
-        dispatch(priv.setProfileHash(hash))
-        return hash
-      })
-      .then(hash => ipfs.api.apiClient.name.publish(hash, {
-        'lifetime': '8760h', // profile record validity of 1 year
-        'ttl': '24h' // profile record should be cached for 1 day (tradeoff between availability and time to propagate)
-      }))
-      .then(() => console.log('profile published on IPNS'))
+    await waitForIpfsReady()
+
+    const profile: Profile = getState().profile
+    const data = profile.publishObject
+
+    const {hash} = await ipfs.api.createNode(data, [])
+    console.log('profile hash: ' + hash)
+    await dispatch(priv.setProfileHash(hash))
+
+    const result = await ipfs.api.apiClient.name.publish(hash, {
+      'key': profile.storageKey,
+      'lifetime': '8760h', // profile record validity of 1 year
+      'ttl': '24h' // profile record should be cached for 1 day (tradeoff between availability and time to propagate)
+    })
+
+    console.log('profile published on IPNS: ', result)
   }
 }

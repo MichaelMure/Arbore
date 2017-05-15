@@ -5,3 +5,8 @@
 .cardSelected {
   background-color: rgba(0,0,0,0.12) !important;
 }
+
+.header {
+  padding-bottom: 10px !important;
+  padding-top: 10px !important;
+}
