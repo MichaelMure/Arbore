@@ -3,7 +3,7 @@ import { createAction } from 'redux-actions'
 import Contact from 'models/Contact'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
-import { toDataBuffer } from '@akashaproject/ipfs-connector/src/statics'
+import { toDataBuffer, fromRawData, fromRawObject } from '@akashaproject/ipfs-connector/src/statics'
 import ContactList from 'models/ContactList'
 import Profile from 'models/Profile'
 
@@ -49,7 +49,9 @@ export function unsubscribeFromChats(profile: Profile) {
 
 function createChatHandler(dispatch, getState) {
   return function (event) {
-    const {data, from, topicCIDs} = event
+    const {data /*, from, topicCIDs */} = event
+
+    const { from, message } = JSON.parse(data.toString())
 
     const contactList: ContactList = getState().contactList
     const contact = contactList.findContact(from)
@@ -59,8 +61,8 @@ function createChatHandler(dispatch, getState) {
       return
     }
 
-    console.log('Received \'' + data.toString() + '\' from ' + contact.identity)
-    dispatch(priv.chatReceived(contact, data.toString()))
+    console.log('Received \'' + message + '\' from ' + contact.identity)
+    dispatch(priv.chatReceived(contact, message))
   }
 }
 
@@ -72,7 +74,15 @@ export function sendChat(contact: Contact, message: string) {
     const profile: Profile = getState().profile
 
     await waitForIpfsReady()
-    await ipfs.api.apiClient.pubsub.publish(profile.chatPubsubTopic, toDataBuffer(message))
+
+    const data = {
+      from: getState().profile.pubkey,
+      message
+    }
+
+    const serialized = Buffer.from(JSON.stringify(data))
+
+    await ipfs.api.apiClient.pubsub.publish(profile.chatPubsubTopic, serialized)
 
     return dispatch(priv.chatSent(contact, message))
   }
