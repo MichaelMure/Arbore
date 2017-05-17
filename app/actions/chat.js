@@ -6,6 +6,8 @@ import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
 import ContactList from 'models/ContactList'
 import Profile from 'models/Profile'
 import type { Store } from 'utils/types'
+import { ipcRenderer } from 'electron'
+import { mainWindowVisible } from 'utils/constants'
 
 export const createRoom = createAction('CHAT_ROOM_CREATE',
   (contact: Contact) => (contact)
@@ -89,6 +91,13 @@ function handleMessage(dispatch, getState, payload) {
   console.log('Received \'' + message + '\' from ' + contact.identity)
   dispatch(priv.chatReceived(contact, id, message))
   dispatch(sendChatAck(contact, id))
+
+  if(!ipcRenderer.sendSync(mainWindowVisible)) {
+    new Notification(contact.identity, {
+      icon: contact.avatarUrl,
+      body: message
+    })
+  }
 }
 
 function handleAck(dispatch, getState, payload) {

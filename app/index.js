@@ -7,11 +7,6 @@ import './app.global.css';
 
 let store = getStore();
 
-// Kinda hacky
-// setInterval(() => {
-//   store.dispatch(fetchLocalObject())
-// }, 1000)
-
 render(
   <AppContainer>
     <Root store={store} />

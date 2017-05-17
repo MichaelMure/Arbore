@@ -1,9 +1,14 @@
 // @flow
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import * as ipfs from './ipfs/ipfsMain'
+import { mainWindowVisible } from './utils/constants'
 
 let mainWindow = null;
 let splashScreen = null
+
+ipcMain.on(mainWindowVisible, (event) => {
+  event.returnValue = mainWindow && mainWindow.isVisible()
+})
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support'); // eslint-disable-line
