@@ -19,6 +19,10 @@ export default handleActions({
     )
   ),
 
+  [chat.priv.incrementMessageIndex]: (state: ChatRoomList, action) => (
+    state.update(writable.messageIndex, index => index + 1)
+  ),
+
   [combineActions(
     chat.priv.chatSent,
     chat.priv.chatReceived

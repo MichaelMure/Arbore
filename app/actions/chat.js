@@ -5,6 +5,7 @@ import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
 import ContactList from 'models/ContactList'
 import Profile from 'models/Profile'
+import type { Store } from 'utils/types'
 
 export const createRoom = createAction('CHAT_ROOM_CREATE',
   (contact: Contact) => (contact)
@@ -16,8 +17,19 @@ export const priv = {
   ),
   chatSent: createAction('CHAT_MESSAGE_SENT',
     (contact: Contact, message: string) => ({contact, message})
+  ),
+  incrementMessageIndex: createAction('CHAT_INDEX_INCR'),
+}
+
+const protocol = {
+  message: createAction('MESSAGE',
+    (id: string, profile: Profile, message: string) => ({id, from: profile.pubkey, message})
+  ),
+  ack: createAction('ACK',
+    (id: string, profile: Profile) => ({id, from: profile.pubkey})
   )
 }
+
 
 let chatHandler = null
 
@@ -48,21 +60,38 @@ export function unsubscribeFromChats(profile: Profile) {
 
 function createChatHandler(dispatch, getState) {
   return function (event) {
-    const {data /*, from, topicCIDs */} = event
+    const {data, from, /* topicCIDs */} = event
 
-    const { from, message } = JSON.parse(data.toString())
+    const action = JSON.parse(data.toString())
 
-    const contactList: ContactList = getState().contactList
-    const contact = contactList.findContact(from)
-
-    if(!contact) {
-      console.log('Received message from unknow contact ' + from)
-      return
+    switch (action.type) {
+      case protocol.message.toString(): handleMessage(dispatch, getState, action.payload); break
+      case protocol.ack.toString(): handleAck(dispatch, getState, action.payload); break
+      default:
+        throw 'Received corrupted chat action from ' + from
     }
-
-    console.log('Received \'' + message + '\' from ' + contact.identity)
-    dispatch(priv.chatReceived(contact, message))
   }
+}
+
+function handleMessage(dispatch, getState, payload) {
+  const {id, from, message} = payload
+
+  const contactList: ContactList = getState().contactList
+  const contact = contactList.findContact(from)
+
+  if(!contact) {
+    console.log('Received message from unknow contact ' + from)
+    return
+  }
+
+  console.log('Received \'' + message + '\' from ' + contact.identity)
+  dispatch(priv.chatReceived(contact, message))
+  dispatch(sendChatAck(contact, id))
+}
+
+function handleAck(dispatch, getState, payload) {
+  const {id, from} = payload
+  console.log('Received ACK with id ' + id + ' from ' + from)
 }
 
 export function sendChat(contact: Contact, message: string) {
@@ -70,19 +99,39 @@ export function sendChat(contact: Contact, message: string) {
     console.log('Sending \'' + message + '\' to ' + contact.identity)
     const ipfs: IpfsConnector = IpfsConnector.getInstance()
 
-    const profile: Profile = getState().profile
-
     await waitForIpfsReady()
 
-    const data = {
-      from: getState().profile.pubkey,
+    // TODO: potential bug here with two concurent increment ending with the same message index
+    dispatch(priv.incrementMessageIndex())
+    const state: Store = getState()
+
+    const data = protocol.message(
+      state.chatRoomList.messageIndex,
+      state.profile,
       message
-    }
+    )
 
     const serialized = Buffer.from(JSON.stringify(data))
 
-    await ipfs.api.apiClient.pubsub.publish(profile.chatPubsubTopic, serialized)
+    await ipfs.api.apiClient.pubsub.publish(contact.chatPubsubTopic, serialized)
 
     return dispatch(priv.chatSent(contact, message))
+  }
+}
+
+export function sendChatAck(contact: Contact, id: string) {
+  return async function (dispatch, getState) {
+    console.log('Sending message ACK ' + id + ' to ' + contact.identity)
+    const ipfs: IpfsConnector = IpfsConnector.getInstance()
+
+    await waitForIpfsReady()
+
+    const state: Store = getState()
+
+    const data = protocol.ack(id, state.profile)
+
+    const serialized = Buffer.from(JSON.stringify(data))
+
+    await ipfs.api.apiClient.pubsub.publish(contact.chatPubsubTopic, serialized)
   }
 }
