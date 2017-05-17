@@ -12,6 +12,7 @@ export const writable = {
   avatarHash: 'avatarHash',
   identity: 'identity',
   bio: 'bio',
+  privacyHidden: 'privacyHidden',
   hash: 'hash'
 }
 
@@ -21,6 +22,7 @@ export const ContactRecord = Record({
   avatarHash: null,
   identity: '',
   bio: '',
+  privacyHidden: false,
   hash: null
 }, 'Contact')
 
@@ -30,6 +32,7 @@ export default class Contact extends ContactRecord {
   avatarHash: ?string
   identity: string
   bio: string
+  privacyHidden: boolean
   hash: ?string
 
   static create(identity : string, bio: string, pubkey: string, avatarHash: ?string) : Contact {

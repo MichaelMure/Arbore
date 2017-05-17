@@ -48,6 +48,7 @@ export default handleActions({
 
   [combineActions(
     contact.setAvatar,
+    contact.setPrivacy
   )] : (state: ContactList, action) => contactByPubkey(state, action)
 
 }, initialState )

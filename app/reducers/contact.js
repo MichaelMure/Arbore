@@ -8,18 +8,11 @@ const initialState = null
 
 export default handleActions({
 
-  [contact.addContact]: (state, action: Action) => {
-    const {pubkey, identity, bio, avatarHash} = action.payload
-    return new Contact().withMutations(contact => contact
-      .set(writable.pubkey, pubkey)
-      .set(writable.identity, identity)
-      .set(writable.bio, bio)
-      .set(writable.avatarHash, avatarHash)
-    )
-  },
-
   [contact.setAvatar]: (state: Contact, action: Action) => {
     return state.set(writable.avatarHash, action.payload.hash)
   },
 
+  [contact.setPrivacy]: (state: Contact, action: Action) => {
+    return state.set(writable.privacyHidden, action.payload.hidden)
+  },
 }, initialState )

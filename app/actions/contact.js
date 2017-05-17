@@ -8,6 +8,9 @@ import removeIpfsPrefix from 'utils/removeIpfsPrefix'
 export const setAvatar = createAction('CONTACT_AVATAR_SET',
   (pubkey: string, hash: ?string) => ({pubkey, hash})
 )
+export const setPrivacy = createAction('CONTACT_PRIVACY_SET',
+  (pubkey: string, hidden: boolean) => ({pubkey, hidden})
+)
 
 export function fetchProfile(pubkey: string) {
   return async function (dispatch) {
