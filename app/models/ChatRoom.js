@@ -26,15 +26,15 @@ export default class ChatRoom extends ChatRoomRecord {
     let chunks = []
 
     // Cluster the history in consecutive contact chunk
-    this.history.forEach(entry => {
+    this.history.forEach((entry: ChatEntry) => {
       if(contact === null) {
-        contact = entry.contact
+        contact = entry.contactPubkey
       }
 
-      if(accu.length > 0 && (entry.contact !== contact || entry.time > time + 60 * 1000)) {
+      if(accu.length > 0 && (entry.contactPubkey !== contact || entry.time > time + 60 * 1000)) {
         chunks.push(accu)
         accu = []
-        contact = entry.contact
+        contact = entry.contactPubkey
       }
 
       accu.push(entry)
