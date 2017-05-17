@@ -5,6 +5,7 @@ import { changeStorePrefix, resetStorePrefix } from 'store'
 import * as profile from './profile'
 import * as scheduler from 'utils/scheduler'
 import * as chat from './chat'
+import * as contactList from './contactList'
 import Profile from 'models/Profile'
 
 export const priv = {
@@ -28,7 +29,18 @@ export function login(identity: Identity) {
     await dispatch(priv.selectIdenty(identity))
 
     // Start publishing the profile periodically
-    scheduler.startTimeBetween(dispatch, 'publishProfile', profile.publishProfile(), 5 * 60 * 1000) // 5 minutes
+    scheduler.startTimeBetween(dispatch,
+      'publishProfile',
+      profile.publishProfile(),
+      5 * 60 * 1000 // 5 minutes
+    )
+
+    // Start updating contacts persiodically
+    scheduler.startTimeBetween(dispatch,
+      'updateAllContacts',
+      contactList.updateAllContacts(),
+      5 * 60 * 1000 //5 minutes
+    )
 
     // Start listening to chats
     dispatch(chat.subscribeToChats())
@@ -48,6 +60,7 @@ export function logout() {
 
     // Stop any scheduled tasks
     scheduler.stop('publishProfile')
+    scheduler.stop('updateAllContacts')
 
     // Stop listening to chats
     dispatch(chat.unsubscribeFromChats(profile))
