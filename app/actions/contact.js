@@ -30,12 +30,12 @@ export function fetchProfile(pubkey: string) {
 }
 
 export function fetchProfileAvatar(pubkey: string, avatarHash: ?string) {
-  if(!avatarHash) {
-    console.log('No avatar to fetch')
-    return null
-  }
-
   return async function (dispatch) {
+    if(!avatarHash) {
+      console.log('No avatar to fetch')
+      return
+    }
+
     console.log('fetch contact avatar: ' + pubkey)
     const ipfs = IpfsConnector.getInstance()
 
