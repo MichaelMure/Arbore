@@ -22,3 +22,8 @@
   height: 40px !important;
   margin-right: 10px;
 }
+
+.entry {
+  display: flex;
+  justify-content: space-between;
+}

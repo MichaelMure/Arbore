@@ -7,6 +7,7 @@ import Contact from 'models/Contact'
 import Moment from 'react-moment'
 import Avatar from 'components/Avatar'
 import Profile from 'models/Profile'
+import FontAwesome from 'react-fontawesome'
 
 const app = require('electron').remote.app
 
@@ -31,7 +32,12 @@ class HistoryChunk extends Component {
           </div>
           {
             chunk.map((entry: ChatEntry, index) => (
-              <Typography key={index}>{entry.message}</Typography>
+              <div className={styles.entry} key={index}>
+                <Typography>{entry.message}</Typography>
+                {
+                  (entry.contactPubkey === null) && <FontAwesome name={ entry.ack ? 'check' : 'clock-o' } />
+                }
+              </div>
             ))
           }
         </div>
