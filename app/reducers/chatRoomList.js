@@ -25,7 +25,8 @@ export default handleActions({
 
   [combineActions(
     chat.priv.chatSent,
-    chat.priv.chatReceived
+    chat.priv.chatReceived,
+    chat.priv.chatAckReceived
   )] : (state: ChatRoomList, action) => roomByContact(state, action)
 
 }, initialState )

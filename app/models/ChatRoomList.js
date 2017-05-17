@@ -21,7 +21,7 @@ export default class ChatRoomList extends ChatRoomListRecord {
     return this.rooms.get(pubkey)
   }
 
-  get messageIndex(): string {
+  get messageId(): string {
     const sha256 = crypto.createHash('sha256')
     return sha256.update(this.secret).update(super.messageIndex.toString()).digest('hex').slice(32)
   }

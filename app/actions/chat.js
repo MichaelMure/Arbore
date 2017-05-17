@@ -13,10 +13,13 @@ export const createRoom = createAction('CHAT_ROOM_CREATE',
 
 export const priv = {
   chatReceived: createAction('CHAT_MESSAGE_RECEIVED',
-    (contact: Contact, message: string) => ({contact, message})
+    (contact: Contact, id: string, message: string) => ({contact, id, message})
   ),
   chatSent: createAction('CHAT_MESSAGE_SENT',
-    (contact: Contact, message: string) => ({contact, message})
+    (contact: Contact, id: string, message: string) => ({contact, id, message})
+  ),
+  chatAckReceived: createAction('CHAT_MESSAGE_ACK',
+    (contact: Contact, id: string) => ({contact, id})
   ),
   incrementMessageIndex: createAction('CHAT_INDEX_INCR'),
 }
@@ -29,7 +32,6 @@ const protocol = {
     (id: string, profile: Profile) => ({id, from: profile.pubkey})
   )
 }
-
 
 let chatHandler = null
 
@@ -85,13 +87,23 @@ function handleMessage(dispatch, getState, payload) {
   }
 
   console.log('Received \'' + message + '\' from ' + contact.identity)
-  dispatch(priv.chatReceived(contact, message))
+  dispatch(priv.chatReceived(contact, id, message))
   dispatch(sendChatAck(contact, id))
 }
 
 function handleAck(dispatch, getState, payload) {
   const {id, from} = payload
+
+  const contactList: ContactList = getState().contactList
+  const contact = contactList.findContact(from)
+
+  if(!contact) {
+    console.log('Received ACK from unknow contact ' + from)
+    return
+  }
+
   console.log('Received ACK with id ' + id + ' from ' + from)
+  dispatch(priv.chatAckReceived(contact, id))
 }
 
 export function sendChat(contact: Contact, message: string) {
@@ -104,9 +116,10 @@ export function sendChat(contact: Contact, message: string) {
     // TODO: potential bug here with two concurent increment ending with the same message index
     dispatch(priv.incrementMessageIndex())
     const state: Store = getState()
+    const messageId = state.chatRoomList.messageId
 
     const data = protocol.message(
-      state.chatRoomList.messageIndex,
+      messageId,
       state.profile,
       message
     )
@@ -115,7 +128,7 @@ export function sendChat(contact: Contact, message: string) {
 
     await ipfs.api.apiClient.pubsub.publish(contact.chatPubsubTopic, serialized)
 
-    return dispatch(priv.chatSent(contact, message))
+    return dispatch(priv.chatSent(contact, messageId, message))
   }
 }
 
