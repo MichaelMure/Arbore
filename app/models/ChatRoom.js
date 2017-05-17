@@ -20,14 +20,14 @@ export default class ChatRoom extends ChatRoomRecord {
   }
 
   get chunks(): Array<Array<ChatEntry>> {
-    let contact = null
+    let contact = undefined
     let time = 0
     let accu = []
     let chunks = []
 
     // Cluster the history in consecutive contact chunk
     this.history.forEach((entry: ChatEntry) => {
-      if(contact === null) {
+      if(contact === undefined) {
         contact = entry.contactPubkey
       }
 
