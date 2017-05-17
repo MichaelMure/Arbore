@@ -17,7 +17,7 @@
     "npm-git-install": "^0.3.0"
   },
   "dependencies": {
-    "@akashaproject/ipfs-connector": "1.7.19"
+    "@akashaproject/ipfs-connector": "1.8.7"
   },
   "gitDependencies": {
     "ipfs-api": "https://github.com/MichaelMure/js-ipfs-api.git"

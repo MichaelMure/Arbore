@@ -3,7 +3,6 @@ import { createAction } from 'redux-actions'
 import Contact from 'models/Contact'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
-import { toDataBuffer, fromRawData, fromRawObject } from '@akashaproject/ipfs-connector/src/statics'
 import ContactList from 'models/ContactList'
 import Profile from 'models/Profile'
 

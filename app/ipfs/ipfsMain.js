@@ -46,7 +46,7 @@ export const start = () => {
     app.getPath('userData')
   )
 
-  instance.setConfig('args', [
+  instance.setOption('args', [
     'daemon',
     '--enable-pubsub-experiment'
   ])
