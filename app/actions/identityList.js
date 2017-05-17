@@ -43,8 +43,8 @@ export function logout() {
   return async function (dispatch, getState) {
     const profile: Profile = getState().profile
 
-    await resetStorePrefix()
     await dispatch(priv.resetIdentity())
+    await resetStorePrefix()
 
     // Stop any scheduled tasks
     scheduler.stop('publishProfile')
