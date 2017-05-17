@@ -1,8 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 // import styles from './ShareFiles.css';
-import {
-  Table,
+import Table, {
   TableHead,
   TableBody,
   TableRow,

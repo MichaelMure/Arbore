@@ -1,11 +1,14 @@
 // @flow
 import React, { Component } from 'react'
 import styles from './NewShare.css'
-import { Button, Chip, FormControl, FormLabel, Input, TextField } from 'material-ui'
+import Button from 'material-ui/Button'
+import Chip from 'material-ui/Chip'
+import Input from 'material-ui/Input'
+import { FormControl, FormLabel } from 'material-ui/Form'
+import TextField from 'material-ui/TextField'
 import Contact from 'models/Contact'
 import ContactList from 'models/ContactList'
 import Avatar from 'components/Avatar'
-
 
 class NewShare extends Component {
 

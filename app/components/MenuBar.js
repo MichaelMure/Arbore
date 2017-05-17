@@ -1,8 +1,11 @@
 // @Flow
 import React, {Component, PropTypes} from 'react'
 import styles from './MenuBar.css'
+import Avatar from 'material-ui/Avatar'
+import Badge from 'material-ui/Badge'
+import IconButton from 'material-ui/IconButton'
+import Typography from 'material-ui/Typography'
 import FontAwesome from 'react-fontawesome'
-import { Avatar, Badge, IconButton } from 'material-ui'
 import Profile from 'models/Profile'
 
 class MenuBar extends Component {

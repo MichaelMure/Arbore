@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import styles from './AddBySuggest.css'
-import { Button } from 'material-ui'
+import Button from 'material-ui/Button'
 
 class AddBySuggest extends Component {
 

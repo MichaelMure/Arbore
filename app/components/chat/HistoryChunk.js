@@ -1,10 +1,10 @@
 // @flow
 import React, { Component } from 'react'
 import styles from './HistoryChunk.css'
+import Typography from 'material-ui/Typography'
 import ChatEntry from 'models/ChatEntry'
 import Contact from 'models/Contact'
 import Moment from 'react-moment'
-import { Typography } from 'material-ui'
 import Avatar from 'components/Avatar'
 import Profile from 'models/Profile'
 

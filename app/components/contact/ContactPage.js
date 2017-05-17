@@ -1,10 +1,10 @@
 // @flow
 import React, { Component } from 'react'
+import styles from './ContactPage.css'
+import TextField from 'material-ui/TextField'
 import ContactList from 'models/ContactList'
 import Contact from 'models/Contact'
 import CompactContact from './CompactContact'
-import styles from './ContactPage.css'
-import { TextField, Typography } from 'material-ui'
 import ContactDetail from 'containers/contact/ContactDetail'
 import ContactAdder from 'components/contact/ContactAdder'
 

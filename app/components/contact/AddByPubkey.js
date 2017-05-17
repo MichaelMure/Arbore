@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react'
 import styles from './AddByPubkey.css'
+import Button from 'material-ui/Button'
 import { Field, reduxForm } from 'redux-form'
 import { renderTextField } from 'utils/forms'
-import { Button } from 'material-ui'
 import FontAwesome from 'react-fontawesome'
 
 class AddByPubkey extends Component {

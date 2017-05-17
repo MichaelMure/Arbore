@@ -1,8 +1,9 @@
 // @flow
 import React, { Component } from 'react'
 import Profile from 'models/Profile'
+import Button from 'material-ui/Button'
+import Typography from 'material-ui/Typography'
 import styles from './ShowProfile.css'
-import { Button, Typography } from 'material-ui'
 import FontAwesome from 'react-fontawesome'
 import Avatar from 'components/Avatar'
 

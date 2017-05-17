@@ -1,13 +1,11 @@
 // @flow
 import React, {Component, PropTypes} from 'react';
 // import styles from './ShareFiles.css';
-import {
-  Table,
+import Table, {
   TableHead,
   TableBody,
   TableRow,
-  TableCell,
-  TableSortLabel,
+  TableCell
 } from 'material-ui/Table';
 import Share from '/models/Share'
 import IpfsObject, {ObjectType} from 'models/IpfsObject'

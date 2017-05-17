@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react'
-import Contact from 'models/Contact'
 import styles from './CompactContact.css'
+import Card, { CardHeader } from 'material-ui/Card'
+import Contact from 'models/Contact'
 import classNames from 'classnames/bind'
-import { Card, CardHeader } from 'material-ui/Card'
 import Avatar from 'components/Avatar'
 
 const cx = classNames.bind(styles);

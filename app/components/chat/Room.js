@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import styles from './Room.css'
-import { TextField } from 'material-ui'
+import TextField from 'material-ui/TextField'
 import ChatRoom from 'models/ChatRoom'
 import HistoryChunk from 'components/chat/HistoryChunk'
 import ContactList from 'models/ContactList'

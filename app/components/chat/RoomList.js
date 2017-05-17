@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react'
-import ChatRoomList from 'models/ChatRoomList'
 import styles from './RoomList.css'
-import { Badge, Typography } from 'material-ui'
-import ChatRoom from 'models/ChatRoom'
+import Typography from 'material-ui/Typography'
+import Badge from 'material-ui/Badge'
+import ChatRoomList from 'models/ChatRoomList'
 import ContactList from 'models/ContactList'
 import UiState from 'models/UiState'
 import Contact from 'models/Contact'

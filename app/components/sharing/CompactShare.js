@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import styles from './CompactShare.css'
-import classNames from 'classnames/bind'
-import { Card, CardContent, CardHeader } from 'material-ui/Card'
+import Card, { CardHeader } from 'material-ui/Card'
 import { LinearProgress } from 'material-ui/Progress'
+import classNames from 'classnames/bind'
 import Share from "models/Share"
 import Avatar from 'components/Avatar'
 

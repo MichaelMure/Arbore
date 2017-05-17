@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { Avatar as MUIAvatar } from 'material-ui'
+import MUIAvatar from 'material-ui/Avatar'
 import Profile from 'models/Profile'
 import Contact from 'models/Contact'
 import Identity from 'models/Identity'

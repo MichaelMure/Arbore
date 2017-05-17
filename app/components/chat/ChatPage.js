@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import styles from './ChatPage.css'
-import { Typography } from 'material-ui'
+import Typography from 'material-ui/Typography'
 import RoomList from 'containers/chat/RoomList'
 import ContactList from 'containers/chat/ContactList'
 import Room from 'containers/chat/Room'

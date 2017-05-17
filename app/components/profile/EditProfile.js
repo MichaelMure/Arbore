@@ -1,8 +1,9 @@
 // @flow
 import React, { Component } from 'react'
 import styles from './EditProfile.css'
+import Button from 'material-ui/Button'
+import { FormLabel } from 'material-ui/Form'
 import AvatarEditor from 'components/profile/AvatarEditor'
-import { Button, FormLabel } from 'material-ui'
 import { renderTextField } from 'utils/forms'
 import { Field, reduxForm } from 'redux-form'
 import FontAwesome from 'react-fontawesome'

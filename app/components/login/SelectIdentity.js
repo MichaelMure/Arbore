@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
-import IdentityList from 'models/IdentityList'
 import styles from './SelectIdentity.css'
+import IdentityList from 'models/IdentityList'
 import Identity from 'models/Identity'
 import Avatar from 'components/Avatar'
 
