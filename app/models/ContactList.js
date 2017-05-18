@@ -49,4 +49,11 @@ export default class ContactList extends ContactListRecord {
   contactInSearched(pubkey: string) : boolean {
     return this.searched.some((contact: Contact) => contact.pubkey === pubkey)
   }
+
+  get publicContacts(): Array<string> {
+    return this.contacts
+      .filter((contact: Contact) => !contact.privacyHidden)
+      .valueSeq().map((contact: Contact) => contact.pubkey)
+      .toArray()
+  }
 }

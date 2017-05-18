@@ -77,4 +77,8 @@ export default class Profile extends ProfileRecord {
   get chatPubsubTopic(): string {
     return this.pubkey + '/chat'
   }
+
+  get contactsPubsubTopic() : string {
+    return this.pubkey + '/contacts'
+  }
 }

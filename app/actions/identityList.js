@@ -44,6 +44,9 @@ export function login(identity: Identity) {
 
     // Start listening to chats
     dispatch(chat.subscribe())
+
+    // Start listening to contact list events
+    dispatch(contactList.subscribe())
   }
 }
 
@@ -62,5 +65,8 @@ export function logout() {
 
     // Stop listening to chats
     dispatch(chat.unsubscribe())
+
+    // Stop listening to contactList events
+    dispatch(contactList.unsubscribe())
   }
 }

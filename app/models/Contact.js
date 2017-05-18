@@ -85,4 +85,8 @@ export default class Contact extends ContactRecord {
   get chatPubsubTopic(): string {
     return this.pubkey + '/chat'
   }
+
+  get contactsPubsubTopic() : string {
+    return this.pubkey + '/contacts'
+  }
 }
