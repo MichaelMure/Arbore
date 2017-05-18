@@ -43,7 +43,7 @@ export function login(identity: Identity) {
     )
 
     // Start listening to chats
-    dispatch(chat.subscribeToChats())
+    dispatch(chat.subscribe())
   }
 }
 
@@ -52,9 +52,7 @@ export function login(identity: Identity) {
  * @returns {Promise}
  */
 export function logout() {
-  return async function (dispatch, getState) {
-    const profile: Profile = getState().profile
-
+  return async function (dispatch) {
     await dispatch(priv.resetIdentity())
     await resetStorePrefix()
 
@@ -63,6 +61,6 @@ export function logout() {
     scheduler.stop('updateAllContacts')
 
     // Stop listening to chats
-    dispatch(chat.unsubscribeFromChats(profile))
+    dispatch(chat.unsubscribe())
   }
 }

@@ -1,13 +1,12 @@
 // @flow
 import { createAction } from 'redux-actions'
 import Contact from 'models/Contact'
-import { IpfsConnector } from '@akashaproject/ipfs-connector'
-import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
 import ContactList from 'models/ContactList'
 import Profile from 'models/Profile'
 import type { Store } from 'utils/types'
 import { ipcRenderer } from 'electron'
 import { mainWindowVisible } from 'utils/constants'
+import createProtocol from 'ipfs/createProtocol'
 
 export const createRoom = createAction('CHAT_ROOM_CREATE',
   (contact: Contact) => (contact)
@@ -35,45 +34,25 @@ const protocol = {
   )
 }
 
-let chatHandler = null
+let pubsub = null
 
-export function subscribeToChats() {
+export function subscribe() {
   return async function (dispatch, getState) {
-    console.log('Subscribe to chats ...')
-    const ipfs: IpfsConnector = IpfsConnector.getInstance()
-
-    await waitForIpfsReady()
-
-    chatHandler = createChatHandler(dispatch, getState)
 
     const profile: Profile = getState().profile
-    return await ipfs.api.apiClient.pubsub.subscribe(profile.chatPubsubTopic, {}, chatHandler)
+    pubsub = createProtocol('chat', profile.chatPubsubTopic, {
+      [protocol.message.toString()]: handleMessage,
+      [protocol.ack.toString()]: handleAck,
+    })
+
+    await dispatch(pubsub.subscribe())
   }
 }
 
-export function unsubscribeFromChats(profile: Profile) {
+export function unsubscribe() {
   return async function (dispatch) {
-    console.log('Unsubscribe from chats ...')
-    const ipfs: IpfsConnector = IpfsConnector.getInstance()
-
-    await waitForIpfsReady()
-
-    return await ipfs.api.apiClient.pubsub.unsubscribe(profile.chatPubsubTopic, chatHandler)
-  }
-}
-
-function createChatHandler(dispatch, getState) {
-  return function (event) {
-    const {data, from, /* topicCIDs */} = event
-
-    const action = JSON.parse(data.toString())
-
-    switch (action.type) {
-      case protocol.message.toString(): handleMessage(dispatch, getState, action.payload); break
-      case protocol.ack.toString(): handleAck(dispatch, getState, action.payload); break
-      default:
-        throw 'Received corrupted chat action from ' + from
-    }
+    await dispatch(pubsub.unsubscribe())
+    pubsub = null
   }
 }
 
@@ -118,9 +97,6 @@ function handleAck(dispatch, getState, payload) {
 export function sendChat(contact: Contact, message: string) {
   return async function (dispatch, getState) {
     console.log('Sending \'' + message + '\' to ' + contact.identity)
-    const ipfs: IpfsConnector = IpfsConnector.getInstance()
-
-    await waitForIpfsReady()
 
     // TODO: potential bug here with two concurent increment ending with the same message index
     dispatch(priv.incrementMessageIndex())
@@ -133,10 +109,7 @@ export function sendChat(contact: Contact, message: string) {
       message
     )
 
-    const serialized = Buffer.from(JSON.stringify(data))
-
-    await ipfs.api.apiClient.pubsub.publish(contact.chatPubsubTopic, serialized)
-
+    await dispatch(pubsub.send(contact.chatPubsubTopic, data))
     return dispatch(priv.chatSent(contact, messageId, message))
   }
 }
@@ -144,16 +117,10 @@ export function sendChat(contact: Contact, message: string) {
 export function sendChatAck(contact: Contact, id: string) {
   return async function (dispatch, getState) {
     console.log('Sending message ACK ' + id + ' to ' + contact.identity)
-    const ipfs: IpfsConnector = IpfsConnector.getInstance()
-
-    await waitForIpfsReady()
 
     const state: Store = getState()
-
     const data = protocol.ack(id, state.profile)
 
-    const serialized = Buffer.from(JSON.stringify(data))
-
-    await ipfs.api.apiClient.pubsub.publish(contact.chatPubsubTopic, serialized)
+    await dispatch(pubsub.send(contact.chatPubsubTopic, data))
   }
 }
