@@ -168,6 +168,7 @@
     "react-moment": "^0.2.2",
     "react-redux": "^5.0.2",
     "redux": "^3.6.0",
+    "redux-action-buffer": "^1.0.1",
     "redux-actions": "^2.0.1",
     "redux-form": "^6.6.3",
     "redux-persist": "^4.8.0",

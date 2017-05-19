@@ -3,6 +3,9 @@ import { autoRehydrate } from 'redux-persist'
 import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
 import allActions from 'actions/allActions'
+import createActionBuffer from 'redux-action-buffer'
+import {REHYDRATE} from 'redux-persist/constants'
+
 
 export default function configureEnhancer(storeName) {
   const actionCreators = {
@@ -27,7 +30,7 @@ export default function configureEnhancer(storeName) {
     compose;
 
   return composeEnhancers(
-    applyMiddleware(thunk, logger),
+    applyMiddleware(thunk, createActionBuffer(REHYDRATE), logger),
     autoRehydrate({log: true})
   )
 }
