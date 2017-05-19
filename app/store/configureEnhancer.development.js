@@ -27,6 +27,6 @@ export default function configureEnhancer() {
 
   return composeEnhancers(
     applyMiddleware(thunk, logger),
-    autoRehydrate()
+    autoRehydrate({log: true})
   )
 }
