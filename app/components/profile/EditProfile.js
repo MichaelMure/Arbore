@@ -63,7 +63,7 @@ class EditProfile extends Component {
           label='Repeat passphrase'
           type='password'
         />
-        <Field name='bio' component={renderTextField} label='Bio'/>
+        <Field name='bio' component={renderTextField} label='Bio' multiline rows="6"/>
 
         <div className={styles.buttons}>
           <Button raised onClick={onCancelClick} disabled={waiting}>Cancel</Button>
