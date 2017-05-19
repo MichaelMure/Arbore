@@ -46,7 +46,7 @@ export default class Profile extends ProfileRecord {
   // Generate a truncated hash from the identity string to use as a storage key
   get storageKey(): string {
     const sha256 = crypto.createHash('sha256')
-    return sha256.update(this.identity).digest('hex').slice(32)
+    return sha256.update(this.identity).digest('hex').slice(-16)
   }
 
   get avatarUrl(): ?string {

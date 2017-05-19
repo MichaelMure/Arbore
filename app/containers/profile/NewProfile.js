@@ -29,7 +29,7 @@ class NewProfileContainer extends Component {
     this.setState({ waiting: true })
 
     try {
-      await dispatch(profile.generateProfile(identity, passphrase, bio, avatar))
+      dispatch(profile.generateProfile(identity, passphrase, bio, avatar))
       this.setState({ waiting: false })
       this.props.showIdentityList()
     } catch(err) {

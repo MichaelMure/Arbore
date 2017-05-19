@@ -15,7 +15,7 @@ class SelectIdentity extends Component {
 
   renderIdentity(identity: Identity, onClick) {
     return (
-      <div key={identity.pubkey} className={styles.identity} onClick={onClick}>
+      <div key={identity.storageKey} className={styles.identity} onClick={onClick}>
         <Avatar person={identity} />
         <span>{identity.identity}</span>
       </div>

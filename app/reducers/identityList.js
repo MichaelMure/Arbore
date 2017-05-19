@@ -22,7 +22,7 @@ export default handleActions({
   },
 
   [actions.priv.selectIdenty]: (state: IdentityList, action: Action<Identity>) => (
-    state.set(writable.selected, action.payload.pubkey)
+    state.set(writable.selected, action.payload.storageKey)
   ),
 
   [actions.priv.resetIdentity]: (state: IdentityList, action: Action) => (
@@ -32,15 +32,15 @@ export default handleActions({
   [combineActions(
     identity.createNewIdentity,
     identity.setAvatarHash
-  )] : (state: IdentityList, action) => identityByPubkey(state, action)
+  )] : (state: IdentityList, action) => identityByStorageKey(state, action)
 }, initialState )
 
 // Relay to the Identity reducer identified by
-// the property 'pubkey' found in the action payload
-function identityByPubkey(state: IdentityList, action: Action) {
-  const pubkey = action.payload.pubkey
+// the property 'storageKey' found in the action payload
+function identityByStorageKey(state: IdentityList, action: Action) {
+  const storageKey = action.payload.storageKey
   return state.update(writable.identities,
-    identities => identities.update(pubkey,
+    identities => identities.update(storageKey,
       (identity: ?Identity) => identityReducer(identity, action)
     )
   )

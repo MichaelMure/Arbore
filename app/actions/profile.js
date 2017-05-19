@@ -2,10 +2,10 @@
 import { createAction } from 'redux-actions'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
-import { changeStorePrefix, resetStorePrefix } from 'store';
 import * as identityActions from './identity'
 import Profile, { writable } from 'models/Profile'
 import Identity from 'models/Identity'
+import { loadFullStore } from 'index'
 
 export const priv = {
   storeNewProfile: createAction('PROFILE_CREATE',
@@ -36,7 +36,6 @@ export function generateProfile(identity: string, passphrase: string, bio: ?stri
 
     await waitForIpfsReady()
     const { Id } = await dispatch(generateKeys(storageKey, passphrase))
-    await changeStorePrefix(storageKey)
 
     // Store in IPFS and pin the avatar if any
     let hash = null
@@ -52,9 +51,9 @@ export function generateProfile(identity: string, passphrase: string, bio: ?stri
       .set(writable.pubkey, Id)
 
     dispatch(identityActions.createNewIdentity(_identity))
-    dispatch(priv.storeNewProfile(profile))
 
-    await resetStorePrefix()
+    const fullStore = await loadFullStore(storageKey, identity)
+    await fullStore.dispatch(priv.storeNewProfile(profile))
   }
 }
 

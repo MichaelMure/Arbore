@@ -7,6 +7,11 @@ import LoginPage from 'components/login/LoginPage'
 
 export default class Root extends Component {
 
+  props: {
+    loginStore: any,
+    fullStore: any
+  }
+
   constructor(props) {
     super(props)
     this.state = { selected: null }
@@ -15,8 +20,8 @@ export default class Root extends Component {
   componentDidMount() {
     // Root is not connected to the store so we need to
     // manually force update when state.identityList.selected change
-    this.props.store.subscribe(() => {
-      const store = this.props.store
+    this.props.loginStore.subscribe(() => {
+      const store = this.props.loginStore
       const state = store.getState()
       const selected = state.identityList.selected
 
@@ -27,15 +32,18 @@ export default class Root extends Component {
   }
 
   render() {
+    const { loginStore, fullStore } = this.props
+
+    const isLogged = loginStore.getState().identityList.isLogged
+    const store = isLogged ? fullStore : loginStore
+    const key = isLogged ? 'full' : 'login'
+
     return (
-      <Provider store={ this.props.store }>
-        <MuiThemeProvider>
-          { this.props.store.getState().identityList.isLogged ?
-            <Home /> :
-            <LoginPage />
-          }
-        </MuiThemeProvider>
-      </Provider>
+      <MuiThemeProvider>
+        <Provider key={ key } store={ store }>
+          { isLogged ? <Home /> : <LoginPage /> }
+        </Provider>
+      </MuiThemeProvider>
     )
   }
 }

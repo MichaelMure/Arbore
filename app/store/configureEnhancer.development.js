@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 import createLogger from 'redux-logger'
 import allActions from 'actions/allActions'
 
-export default function configureEnhancer() {
+export default function configureEnhancer(storeName) {
   const actionCreators = {
     ...allActions
   }
@@ -22,6 +22,7 @@ export default function configureEnhancer() {
       // Options: http://extension.remotedev.io/docs/API/Arguments.html
       actionsBlacklist: ['@@redux-form'],
       actionCreators,
+      name: storeName,
     }) :
     compose;
 

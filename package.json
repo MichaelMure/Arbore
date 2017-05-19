@@ -20,8 +20,7 @@
     "package": "npm run build && build --publish never",
     "package-win": "npm run build && build --win --x64 --ia32",
     "package-linux": "npm run build && build --linux --x64 --ia32",
-    "package-all": "npm run build && build -mwl --x64 --ia32",
-    "install": "npm-git install"
+    "package-all": "npm run build && build -mwl --x64 --ia32"
   },
   "browserslist": "electron 1.6",
   "build": {
@@ -139,7 +138,6 @@
     "jest": "^18.1.0",
     "jsdom": "^9.9.1",
     "minimist": "^1.2.0",
-    "npm-git-install": "^0.3.0",
     "react-addons-test-utils": "^15.4.2",
     "react-test-renderer": "^15.4.2",
     "redux-logger": "^2.7.4",
@@ -172,14 +170,12 @@
     "redux": "^3.6.0",
     "redux-actions": "^2.0.1",
     "redux-form": "^6.6.3",
+    "redux-persist": "^4.8.0",
     "redux-persist-immutable": "^4.2.0",
     "redux-persist-transform-immutable": "^4.2.0",
     "redux-thunk": "^2.2.0",
     "roboto-fontface": "^0.7.0",
     "source-map-support": "^0.4.10"
-  },
-  "gitDependencies": {
-    "redux-persist": "https://github.com/MichaelMure/redux-persist.git"
   },
   "devEngines": {
     "node": ">=6.x",

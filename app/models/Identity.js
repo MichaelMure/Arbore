@@ -10,25 +10,25 @@ import { gatewayRoot } from 'ipfs/ipfsMain'
 export const writable = {
   identity: 'identity',
   avatarHash: 'avatarHash',
-  pubkey: 'pubkey'
+  storageKey: 'storageKey'
 }
 
 export const IdentityRecord = Record({
   identity: '',
   avatarHash: null,
-  pubkey: null
+  storageKey: null
 }, 'Identity')
 
 export default class Identity extends IdentityRecord {
   identity: string
   avatarHash: ?string
-  pubkey: string
+  storageKey: string
 
-  static create(identity: string, avatarHash: ?string, pubkey: string) {
+  static create(identity: string, avatarHash: ?string, storageKey: string) {
     return new this().withMutations(id => id
       .set(writable.identity, identity)
       .set(writable.avatarHash, avatarHash)
-      .set(writable.pubkey, pubkey)
+      .set(writable.storageKey, storageKey)
     )
   }
 
