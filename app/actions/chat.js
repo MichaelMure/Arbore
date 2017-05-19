@@ -109,8 +109,8 @@ export function sendChat(contact: Contact, message: string) {
       message
     )
 
-    await dispatch(pubsub.send(contact.chatPubsubTopic, data))
-    return dispatch(priv.chatSent(contact, messageId, message))
+    await dispatch(priv.chatSent(contact, messageId, message))
+    return dispatch(pubsub.send(contact.chatPubsubTopic, data))
   }
 }
 
