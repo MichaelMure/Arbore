@@ -65,7 +65,18 @@ export const start = () => {
   instance.start()
 }
 
-const onServiceStarted = () => {
+const onServiceStarted = async () => {
+  const instance = IpfsConnector.getInstance()
+  const versionOK = await instance.checkVersion()
+
+  if(!versionOK) {
+    console.log("Need to update IPFS")
+    await instance.stop()
+    await instance.downloadManager.deleteBin()
+    instance.start()
+    return
+  }
+
   console.log('Main: Ipfs service started')
 
   serviceStarted = true
