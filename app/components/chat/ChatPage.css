@@ -19,3 +19,14 @@
   padding: 3px;
 }
 
+.noContact {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.spacer {
+  height: 30px;
+}
