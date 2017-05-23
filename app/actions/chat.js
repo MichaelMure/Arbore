@@ -7,6 +7,7 @@ import type { Store } from 'utils/types'
 import { ipcRenderer } from 'electron'
 import { mainWindowVisible } from 'utils/constants'
 import createProtocol from 'ipfs/createProtocol'
+import { nextToken } from 'utils/tokenGenerator'
 
 export const createRoom = createAction('CHAT_ROOM_CREATE',
   (contact: Contact) => (contact)
@@ -22,7 +23,6 @@ export const priv = {
   chatAckReceived: createAction('CHAT_MESSAGE_ACK',
     (contact: Contact, id: string) => ({contact, id})
   ),
-  incrementMessageIndex: createAction('CHAT_INDEX_INCR'),
 }
 
 const protocol = {
@@ -98,10 +98,8 @@ export function sendChat(contact: Contact, message: string) {
   return async function (dispatch, getState) {
     console.log('Sending \'' + message + '\' to ' + contact.identity)
 
-    // TODO: potential bug here with two concurent increment ending with the same message index
-    dispatch(priv.incrementMessageIndex())
     const state: Store = getState()
-    const messageId = state.chatRoomList.messageId
+    const messageId = nextToken()
 
     const data = protocol.message(
       messageId,
