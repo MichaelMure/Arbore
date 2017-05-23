@@ -1,7 +1,41 @@
-.chatItem {
-  margin-left: 10px !important;
+.identity {
+  flex: 1;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  cursor: pointer;
+  user-select: none;
 }
 
 .selected {
-  background-color: #0a93ff;
+  background-color: rgba(0,0,0,0.12);
+  border-radius: 3px;
+}
+
+.contactAvatar {
+  width: 24px !important;
+  height: 24px !important;
+  margin-right: 4px;
+  margin-left: 4px;
+  font-size: 12px !important;
+}
+
+.unread {
+  width: 20px;
+  height: 20px;
+  background-color: lightgray;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 4px;
+  margin-left: 4px;
+}
+
+.spacer {
+  height: 20px;
 }

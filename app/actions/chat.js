@@ -12,6 +12,9 @@ import { nextToken } from 'utils/tokenGenerator'
 export const createRoom = createAction('CHAT_ROOM_CREATE',
   (contact: Contact) => (contact)
 )
+export const readAllRoom = createAction('CHAT_ROOM_READALL',
+  (contact: Contact) => ({contact})
+)
 
 export const priv = {
   chatReceived: createAction('CHAT_MESSAGE_RECEIVED',

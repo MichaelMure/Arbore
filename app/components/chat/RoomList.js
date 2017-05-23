@@ -2,11 +2,14 @@
 import React, { Component } from 'react'
 import styles from './RoomList.css'
 import Typography from 'material-ui/Typography'
-import Badge from 'material-ui/Badge'
 import ChatRoomList from 'models/ChatRoomList'
 import ContactList from 'models/ContactList'
 import UiState from 'models/UiState'
 import Contact from 'models/Contact'
+import Avatar from 'components/Avatar'
+import classNames from 'classnames/bind'
+
+const cx = classNames.bind(styles);
 
 class RoomList extends Component {
 
@@ -14,31 +17,65 @@ class RoomList extends Component {
     rooms: ChatRoomList,
     contacts: ContactList,
     ui: UiState,
-    onClickGenerator: (Contact) => any
+    onRoomClickGenerator: (Contact) => any,
+    onContactClickgenerator: (Contact) => any
   }
 
   render() {
-    const { rooms, contacts, ui, onClickGenerator } = this.props
-    const selectedRoom: ?string = ui.selectedChat
+    const {
+      rooms,
+      contacts,
+      ui,
+      onRoomClickGenerator,
+      onContactClickgenerator
+    } = this.props
+
+    const roomsSeq = rooms.rooms.entrySeq()
+      .sortBy(([pubkey, room]) => contacts.findContact(pubkey).identity)
+
+    const contactsSeq = contacts.contacts.valueSeq()
+      .filter((contact: Contact) => !rooms.rooms.has(contact.pubkey))
+      .sortBy((contact: Contact) => contact.identity)
 
     return (
       <div>
+        <Typography type="subheading">Conversations</Typography>
         {
-          rooms.rooms.entrySeq().map(([pubkey, room]) => {
+          roomsSeq.map(([pubkey, room]) => {
             const contact: Contact = contacts.findContact(pubkey)
             const selected = ui.selectedChat === pubkey
+
+            const itemClass = cx({
+              item: true,
+              selected: selected
+            })
+
             return (
               <div
                 key={pubkey}
-                onClick={onClickGenerator(contact)}
-                className={selected ? styles.selected : null}
+                onClick={onRoomClickGenerator(contact)}
+                className={itemClass}
               >
-                <Badge badgeContent={room.unread} badgeClassName={styles.badge}>
-                  <Typography className={styles.chatItem}>{contact.identity}</Typography>
-                </Badge>
+                <Avatar person={contact} className={styles.contactAvatar} />
+                <Typography className={styles.identity} noWrap>{contact.identity}</Typography>
+                { room.unread > 0 &&  <div className={styles.unread}>{room.unread}</div> }
               </div>
             )
           })
+        }
+        <div className={styles.spacer} />
+        <Typography type="subheading">Contacts</Typography>
+        {
+          contactsSeq.map((contact: Contact) => (
+            <div
+              key={contact.pubkey}
+              onClick={onContactClickgenerator(contact)}
+              className={styles.item}
+            >
+              <Avatar person={contact} className={styles.contactAvatar} />
+              <Typography className={styles.identity} noWrap>{contact.identity}</Typography>
+            </div>
+          ))
         }
       </div>
     )

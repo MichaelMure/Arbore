@@ -14,7 +14,7 @@ let initialState = new ContactList()
 // TODO: remove
 import contactFxt from 'models/fixtures/contact'
 
-if(process.env.NODE_ENV === 'production') {
+if(process.env.NODE_ENV !== 'production') {
   contactFxt.forEach((contact) => {
     initialState = initialState.set(writable.contacts, initialState.contacts.set(contact.pubkey, contact))
   })

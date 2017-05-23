@@ -9,7 +9,7 @@ export const writable = {
 
 export const ChatRoomRecord = Record({
   history: List(),
-  lastRead: -1
+  lastRead: 0
 }, 'ChatRoom')
 
 export default class ChatRoom extends ChatRoomRecord {

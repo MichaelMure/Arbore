@@ -7,7 +7,7 @@
 
 .contacts {
   flex-direction: column;
-  width: 150px;
+  width: 200px;
   margin: 4px;
   overflow: hidden;
 }

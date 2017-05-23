@@ -18,9 +18,11 @@ export default handleActions({
 
   [chat.priv.chatSent]: (state: ChatRoom, action: Action) => {
     const {id, message} = action.payload
-    return state.set(writable.history, state.history.push(
-      ChatEntry.create(id, null, message)
-    ))
+    return state
+      .set(writable.lastRead, state.history.count() + 1)
+      .set(writable.history, state.history.push(
+        ChatEntry.create(id, null, message)
+      ))
   },
 
   [chat.priv.chatAckReceived]: (state: ChatRoom, action: Action) => {
@@ -31,6 +33,10 @@ export default handleActions({
         (entry: ChatEntry) => entry.set(entryWritable.ack, true)
       ))
   },
+
+  [chat.readAllRoom]: (state: ChatRoom, action: Action) => (
+    state.set(writable.lastRead, state.history.count())
+  ),
 
 }, initialState )
 

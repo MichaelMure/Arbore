@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import type { Store } from 'utils/types'
 import RoomList from 'components/chat/RoomList'
 import Contact from 'models/Contact'
+import * as chat from 'actions/chat'
 import * as ui from 'actions/ui'
 
 const mapStateToProps = (state: Store) => ({
@@ -12,8 +13,14 @@ const mapStateToProps = (state: Store) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onClickGenerator: (contact: Contact) => () => {
+  onRoomClickGenerator: (contact: Contact) => () => {
     dispatch(ui.selectChatRoom(contact.pubkey))
+    dispatch(chat.readAllRoom(contact))
+  },
+  onContactClickgenerator: (contact: Contact) => () => {
+    dispatch(chat.createRoom(contact))
+    dispatch(ui.selectChatRoom(contact.pubkey))
+    dispatch(chat.readAllRoom(contact))
   }
 })
 
