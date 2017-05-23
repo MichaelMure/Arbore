@@ -15,4 +15,18 @@ export default handleActions({
   [contact.setPrivacy]: (state: Contact, action: Action) => {
     return state.set(writable.privacyHidden, action.payload.hidden)
   },
+
+  [contact.setPingToken]: (state: Contact, action: Action) => {
+    return state
+      .set(writable.pingToken, action.payload.token)
+      .set(writable.lastPing, Date.now())
+  },
+
+  [contact.pingResult]: (state: Contact, action: Action) => {
+    // invalidate the ping token because we got an answer with it
+    const newState = state.set(writable.pingToken, null)
+    return action.payload.result
+      ? newState.set(writable.lastSeen, Date.now()).set(writable.lastPongDelay, Date.now() - state.lastPing)
+      : newState
+  }
 }, initialState )

@@ -11,6 +11,12 @@ export const setAvatar = createAction('CONTACT_AVATAR_SET',
 export const setPrivacy = createAction('CONTACT_PRIVACY_SET',
   (pubkey: string, hidden: boolean) => ({pubkey, hidden})
 )
+export const setPingToken = createAction('CONTACT_PING_TOKEN',
+  (pubbkey: string, token: string) => ({pubbkey, token})
+)
+export const pingResult = createAction('CONTACT_PING_RESULT',
+  (pubkey: string, result: boolean) => ({pubkey, result})
+)
 
 export function fetchProfile(pubkey: string) {
   return async function (dispatch) {

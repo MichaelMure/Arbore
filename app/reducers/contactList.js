@@ -13,10 +13,12 @@ let initialState = new ContactList()
 
 // TODO: remove
 import contactFxt from 'models/fixtures/contact'
-contactFxt.forEach((contact) => {
-  initialState = initialState.set(writable.contacts, initialState.contacts.set(contact.pubkey, contact))
-})
 
+if(process.env.NODE_ENV === 'production') {
+  contactFxt.forEach((contact) => {
+    initialState = initialState.set(writable.contacts, initialState.contacts.set(contact.pubkey, contact))
+  })
+}
 
 export default handleActions({
 
@@ -48,7 +50,9 @@ export default handleActions({
 
   [combineActions(
     contact.setAvatar,
-    contact.setPrivacy
+    contact.setPrivacy,
+    contact.setPingToken,
+    contact.pingResult
   )] : (state: ContactList, action) => contactByPubkey(state, action)
 
 }, initialState )

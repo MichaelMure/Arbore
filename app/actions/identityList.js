@@ -27,6 +27,13 @@ export function login(identity: Identity) {
 
     await dispatch(priv.selectIdenty(identity))
 
+
+    // Start listening to chats
+    fullStoreDispatch(chat.subscribe())
+
+    // Start listening to contact list events
+    fullStoreDispatch(contactList.subscribe())
+
     // Start publishing the profile periodically
     scheduler.startTimeBetween(fullStoreDispatch,
       'publishProfile',
@@ -40,12 +47,11 @@ export function login(identity: Identity) {
       contactList.updateAllContacts(),
       5 * 60 * 1000 //5 minutes
     )
-
-    // Start listening to chats
-    fullStoreDispatch(chat.subscribe())
-
-    // Start listening to contact list events
-    fullStoreDispatch(contactList.subscribe())
+    scheduler.startTimeBetween(fullStoreDispatch,
+      'pingAllContacts',
+      contactList.pingAllContacts(),
+      2 * 60 * 1000 // 2 minutes
+    )
   }
 }
 
@@ -60,6 +66,7 @@ export function logout() {
     // Stop any scheduled tasks
     scheduler.stop('publishProfile')
     scheduler.stop('updateAllContacts')
+    scheduler.stop('pingAllContacts')
 
     // Stop listening to chats
     dispatch(chat.unsubscribe())

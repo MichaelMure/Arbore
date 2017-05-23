@@ -6,6 +6,12 @@ import { PUBLISH_DATA_VERSION as PROFILE_VERSION } from 'models/Profile'
 
 const LOCAL_DATA_VERSION = 1
 
+export const ContactStatus = {
+  OFFLINE:  'OFFLINE',
+  ONLINE: 'ONLINE',
+}
+export type ContactStatusType = $Keys<typeof ContactStatus>
+
 export const writable = {
   dataVersion: 'dataVersion',
   pubkey: 'pubkey',
@@ -13,7 +19,11 @@ export const writable = {
   identity: 'identity',
   bio: 'bio',
   privacyHidden: 'privacyHidden',
-  hash: 'hash'
+  hash: 'hash',
+  lastSeen: 'lastSeen',
+  lastPing: 'lastPing',
+  lastPongDelay: 'lastPongDelay',
+  pingToken: 'pingToken',
 }
 
 export const ContactRecord = Record({
@@ -23,7 +33,11 @@ export const ContactRecord = Record({
   identity: '',
   bio: '',
   privacyHidden: false,
-  hash: null
+  hash: null,
+  lastSeen: 0,
+  lastPing: null,
+  lastPongDelay: null,
+  pingToken: null
 }, 'Contact')
 
 export default class Contact extends ContactRecord {
@@ -34,6 +48,10 @@ export default class Contact extends ContactRecord {
   bio: string
   privacyHidden: boolean
   hash: ?string
+  lastSeen: number
+  lastPing: ?number
+  lastPongDelay: ?number
+  pingToken: ?string
 
   static create(identity : string, bio: string, pubkey: string, avatarHash: ?string) : Contact {
     return new this().withMutations(contact => contact
@@ -80,6 +98,11 @@ export default class Contact extends ContactRecord {
       initials += names[names.length - 1].substring(0, 1).toUpperCase();
     }
     return initials;
+  }
+
+  get status(): ContactStatusType {
+    return (this.lastSeen - Date.now() < 5 * 60 * 1000) ?
+      ContactStatus.ONLINE : ContactStatus.OFFLINE
   }
 
   get chatPubsubTopic(): string {
