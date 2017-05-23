@@ -159,7 +159,7 @@
     "material-ui": "1.0.0-alpha.14",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
-    "multihashes": "^0.4.5",
+    "rand-token": "^0.3.0",
     "react": "^15.4.2",
     "react-avatar-editor": "^8.0.1",
     "react-dom": "^15.4.2",
