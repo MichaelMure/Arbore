@@ -28,4 +28,8 @@ export default class UiState extends UiRecord {
   newShareOpen: boolean
   page: PageType
   selectedChat: string
+
+  get drawerOpen() : boolean {
+    return this.newShareOpen || this.profileOpen
+  }
 }
