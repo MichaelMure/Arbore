@@ -1,6 +1,7 @@
 // @flow
 import { createAction } from 'redux-actions'
 import * as contactActions from 'actions/contact'
+import * as contactPoolActions from 'actions/contactPool'
 import type { Store } from 'utils/types'
 import ContactList from 'models/ContactList'
 import Contact from 'models/Contact'
@@ -111,7 +112,19 @@ function handleQueryList(dispatch, getState, payload) {
 function handleListReply(dispatch, getState, payload) {
   const { from, contacts } = payload
 
-  console.log(from, contacts)
+  const contactList: ContactList = getState().contactList
+  const contact = contactList.findContact(from)
+
+  if(!contact) {
+    console.log('Got a contactList from unknow contact ' + from)
+    return
+  }
+
+  // TODO: check contacts
+
+  console.log('Got contact list from ' + contact.identity)
+
+  dispatch(contactPoolActions.storeContactList(contact, contacts))
 }
 
 export function pingContact(contact: Contact) {
@@ -128,7 +141,7 @@ export function pingAllContacts() {
     const state: Store = getState()
     const contactList: ContactList = state.contactList
 
-    const result = await Promise.all(
+    await Promise.all(
       contactList.contacts.valueSeq().map((contact: Contact) =>
         dispatch(pingContact(contact))
       )

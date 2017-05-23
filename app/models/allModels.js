@@ -4,6 +4,7 @@ import ChatRoom from './ChatRoom'
 import ChatRoomList from './ChatRoomList'
 import Contact from './Contact'
 import ContactList from './ContactList'
+import ContactPool from './ContactPool'
 import EmptyIpfsObject from './IpfsObject'
 import Identity from './Identity'
 import IdentityList from './IdentityList'
@@ -21,6 +22,7 @@ export default [
   ChatRoomList,
   Contact,
   ContactList,
+  ContactPool,
   EmptyIpfsObject,
   Identity,
   IdentityList,
