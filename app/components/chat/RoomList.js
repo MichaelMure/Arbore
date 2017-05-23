@@ -39,7 +39,7 @@ class RoomList extends Component {
 
     return (
       <div>
-        <Typography type="subheading">Conversations</Typography>
+        { roomsSeq.count() > 0 && <Typography type="subheading">Conversations</Typography> }
         {
           roomsSeq.map(([pubkey, room]) => {
             const contact: Contact = contacts.findContact(pubkey)
@@ -64,7 +64,7 @@ class RoomList extends Component {
           })
         }
         <div className={styles.spacer} />
-        <Typography type="subheading">Contacts</Typography>
+        { contactsSeq.count() > 0 && <Typography type="subheading">Contacts</Typography> }
         {
           contactsSeq.map((contact: Contact) => (
             <div
