@@ -19,6 +19,7 @@ export const IdentityListRecord = Record({
 
 export default class IdentityList extends IdentityListRecord {
   identities: Map<string,Identity>
+  // the redux storage key of the selected profile if any. This define if a user is logged in or not
   selected: ?string
 
   get isLogged(): boolean {

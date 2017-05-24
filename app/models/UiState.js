@@ -29,6 +29,7 @@ export default class UiState extends UiRecord {
   page: PageType
   selectedChat: string
 
+  // indicate if any drawer is open
   get drawerOpen() : boolean {
     return this.newShareOpen || this.profileOpen
   }

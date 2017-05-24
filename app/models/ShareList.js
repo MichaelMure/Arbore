@@ -28,8 +28,11 @@ export const ShareListRecord = Record({
 
 export default class ShareList extends ShareListRecord {
   list: List<Share>
+  // the current filter for the UI
   filter: ShareListFilterType
+  // the selected share's id in the UI, if any
   selectedId: ?number
+  // the search pattern in the UI
   search: string
 
   // Filter the Share list with the 'search' string pattern

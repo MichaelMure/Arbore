@@ -19,7 +19,6 @@ export const writable = {
   identity: 'identity',
   bio: 'bio',
   privacyHidden: 'privacyHidden',
-  hash: 'hash',
   lastSeen: 'lastSeen',
   lastPing: 'lastPing',
   lastPongDelay: 'lastPongDelay',
@@ -33,7 +32,6 @@ export const ContactRecord = Record({
   identity: '',
   bio: '',
   privacyHidden: false,
-  hash: null,
   lastSeen: 0,
   lastPing: null,
   lastPongDelay: null,
@@ -47,10 +45,13 @@ export default class Contact extends ContactRecord {
   identity: string
   bio: string
   privacyHidden: boolean
-  hash: ?string
+  // time when the contact was last known alive
   lastSeen: number
+  // time when the last ping was sent
   lastPing: ?number
+  // how long did it take for the contact to reply to a ping
   lastPongDelay: ?number
+  // randon identifier of the last ping
   pingToken: ?string
 
   static create(identity : string, bio: string, pubkey: string, avatarHash: ?string) : Contact {

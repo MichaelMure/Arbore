@@ -16,7 +16,9 @@ export const ContactListRecord = Record({
 
 export default class ContactList extends ContactListRecord {
   contacts: Map<string,Contact>
+  // the contact's pubkey selected in the UI
   selectedPubkey: ?string
+  // the current search pattern
   search: string
 
   // Find a contact by its public key

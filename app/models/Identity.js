@@ -22,6 +22,7 @@ export const IdentityRecord = Record({
 export default class Identity extends IdentityRecord {
   identity: string
   avatarHash: ?string
+  // the redux localstorage prefix for this profile
   storageKey: string
 
   static create(identity: string, avatarHash: ?string, storageKey: string) {

@@ -18,10 +18,14 @@ export const ChatEntryRecord = Record({
 }, 'ChatEntry')
 
 export default class ChatEntry extends ChatEntryRecord {
+  // a random identifier for the network
   id: string
   contactPubkey: ?string
+  // the message itself
   message: string
+  // time the message was either sent or received
   time: number
+  // has the chat been ACKed (only valid for a message sent)
   ack: boolean
 
   static create(id: string, contactPubkey: ?string, message: string, time: number = Date.now()) : this {
