@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import styles from './Home.css'
-import MenuBar from 'containers/MenuBar'
+import MenuBar from 'containers/menu/MenuBar'
 import SharingPage from 'containers/sharing/SharingPage'
 import ContactPage from 'containers/contact/ContactPage'
 import ChatPage from 'containers/chat/ChatPage'

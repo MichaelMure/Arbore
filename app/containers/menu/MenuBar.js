@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as ui from 'actions/ui'
 import * as sharelist from 'actions/shareList'
 import { ShareListFilter } from 'models/ShareList'
-import MenuBar from 'components/MenuBar'
+import MenuBar from 'components/menu/MenuBar'
 import { Store } from 'utils/types'
 import { Page } from 'models/UiState'
 
