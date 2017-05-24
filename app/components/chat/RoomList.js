@@ -63,7 +63,7 @@ class RoomList extends Component {
             )
           })
         }
-        <div className={styles.spacer} />
+        { roomsSeq.count() > 0 && <div className={styles.spacer} /> }
         { contactsSeq.count() > 0 && <Typography type="subheading">Contacts</Typography> }
         {
           contactsSeq.map((contact: Contact) => (
