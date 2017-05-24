@@ -53,6 +53,7 @@ export const start = () => {
 
   // install some event listeners
   instance.on(ipfsEvents.SERVICE_STARTED, onServiceStarted)
+  instance.on(ipfsEvents.UPGRADING_BINARY, onServiceUpgrade)
   instance.on(ipfsEvents.SERVICE_STOPPING, onServiceStopping)
   instance.on(ipfsEvents.SERVICE_FAILED, onServiceFailed)
 
@@ -66,17 +67,6 @@ export const start = () => {
 }
 
 const onServiceStarted = async () => {
-  const instance = IpfsConnector.getInstance()
-  const versionOK = await instance.checkVersion()
-
-  if(!versionOK) {
-    console.log("Need to update IPFS")
-    await instance.stop()
-    await instance.downloadManager.deleteBin()
-    instance.start()
-    return
-  }
-
   console.log('Main: Ipfs service started')
 
   serviceStarted = true
@@ -84,6 +74,16 @@ const onServiceStarted = async () => {
   // Inform all renderer process
   BrowserWindow.getAllWindows()
     .forEach(win => win.webContents.send(ipfsEvents.SERVICE_STARTED))
+}
+
+const onServiceUpgrade = () => {
+  console.log('Main: Ipfs service upgrading')
+
+  serviceStarted = false
+
+  // Inform all renderer process
+  BrowserWindow.getAllWindows()
+    .forEach(win => win.webContents.send(ipfsEvents.UPGRADING_BINARY))
 }
 
 const onServiceStopping = () => {
