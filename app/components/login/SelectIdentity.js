@@ -26,7 +26,7 @@ class SelectIdentity extends Component {
     const identities = this.props.identities.identities
 
     return (
-      <div>
+      <div className={styles.wrapper}>
         {
           identities.valueSeq().map(
             (id: Identity) => this.renderIdentity(id, this.props.onIdentityClickGenerator(id))
