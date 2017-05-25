@@ -57,7 +57,8 @@ export default handleActions({
     contact.setAvatar,
     contact.setPrivacy,
     contact.setPingToken,
-    contact.pingResult
+    contact.pingResult,
+    contact.addedAck,
   )] : (state: ContactList, action) => contactByPubkey(state, action)
 
 }, initialState )

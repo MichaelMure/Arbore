@@ -20,6 +20,9 @@ export const setPingToken = createAction('CONTACT_PING_TOKEN',
 export const pingResult = createAction('CONTACT_PING_RESULT',
   (pubkey: string, result: boolean) => ({pubkey, result})
 )
+export const addedAck = createAction('CONTACT_ADDED_ACK',
+  (pubkey: string) => ({pubkey})
+)
 
 export function fetchProfile(pubkey: string) {
   return async function (dispatch) {

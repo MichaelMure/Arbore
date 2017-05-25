@@ -16,4 +16,9 @@ export default handleActions({
       state.graph.set(contact.pubkey, List.of(list))
     )
   },
+
+  [contactPool.addedAsContact]: (state: ContactPool, action: Action) => {
+    const { pubkey } = action.payload
+    return state.set(writable.follower, state.follower.add(pubkey))
+  },
 }, initialState )

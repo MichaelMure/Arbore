@@ -23,7 +23,7 @@ export const setSearch = createAction('CONTACTLIST_SEARCH_SET',
 )
 
 const protocol = {
-  queryList: createAction('QUERYLIST',
+  queryList: createAction('LISTQUERY',
     (profile: Profile) => ({from: profile.pubkey})
   ),
   listReply: createAction('LISTREPLY',
@@ -34,6 +34,12 @@ const protocol = {
   ),
   pong: createAction('PONG',
     (profile: Profile, token: string) => ({from: profile.pubkey, token: token})
+  ),
+  addedContactQuery: createAction('ADDEDCONTACTQUERY',
+    (profile: Profile) => ({from: profile.pubkey})
+  ),
+  addedContactAck: createAction('ADDEDCONTACTACK',
+    (profile: Profile) => ({from: profile.pubkey})
   )
 }
 
@@ -48,6 +54,8 @@ export function subscribe() {
       [protocol.listReply.toString()]: handleListReply,
       [protocol.ping.toString()]: handlePing,
       [protocol.pong.toString()]: handlePong,
+      [protocol.addedContactQuery.toString()]: handleAddedContactQuery,
+      [protocol.addedContactAck.toString()]: handleAddedContactAck,
     })
 
     await dispatch(pubsub.subscribe())
@@ -201,4 +209,30 @@ function handlePong(dispatch, getState, payload) {
   console.log('Got a pong from ' + contact.identity)
 
   dispatch(contactActions.pingResult(contact.pubkey, true))
+}
+
+function handleAddedContactQuery(dispatch, getState, payload) {
+  const { from } = payload
+
+  console.log(from + ' added us as a contact')
+
+  const profile: Profile = getState().profile
+
+  dispatch(contactPoolActions.addedAsContact(from))
+  dispatch(pubsub.send(Contact.contactsPubsubTopic(from), protocol.addedContactAck(profile)))
+}
+
+function handleAddedContactAck(dispatch, getState, payload) {
+  const { from } = payload
+
+  const contactList: ContactList = getState().contactList
+  const contact = contactList.findContact(from)
+
+  if(!contact) {
+    console.log('Got a added contact ack from unknow contact ' + from)
+  }
+
+  console.log(contact.identity + ' is aware we have added him as a contact')
+
+  dispatch(contactActions.addedAck(from))
 }

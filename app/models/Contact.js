@@ -23,6 +23,7 @@ export const writable = {
   lastPing: 'lastPing',
   lastPongDelay: 'lastPongDelay',
   pingToken: 'pingToken',
+  addedAck: 'addedAck'
 }
 
 export const ContactRecord = Record({
@@ -35,7 +36,8 @@ export const ContactRecord = Record({
   lastSeen: 0,
   lastPing: null,
   lastPongDelay: null,
-  pingToken: null
+  pingToken: null,
+  addedAck: false,
 }, 'Contact')
 
 export default class Contact extends ContactRecord {
@@ -53,6 +55,8 @@ export default class Contact extends ContactRecord {
   lastPongDelay: ?number
   // randon identifier of the last ping
   pingToken: ?string
+  // does this contact is aware that we have added it ?
+  addedAck: boolean
 
   static create(identity : string, bio: string, pubkey: string, avatarHash: ?string) : Contact {
     return new this().withMutations(contact => contact
