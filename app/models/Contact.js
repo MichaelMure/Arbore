@@ -102,7 +102,7 @@ export default class Contact extends ContactRecord {
   }
 
   get status(): ContactStatusType {
-    return (this.lastSeen - Date.now() < 5 * 60 * 1000) ?
+    return (Date.now() - this.lastSeen < 5 * 60 * 1000) ?
       ContactStatus.ONLINE : ContactStatus.OFFLINE
   }
 

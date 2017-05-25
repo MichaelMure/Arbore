@@ -6,7 +6,7 @@ import IconButton from 'material-ui/IconButton'
 import Typography from 'material-ui/Typography'
 import FontAwesome from 'react-fontawesome'
 import Avatar from 'components/Avatar'
-import Contact from 'models/Contact'
+import Contact, { ContactStatus } from 'models/Contact'
 
 class ContactDetail extends Component {
 
@@ -41,6 +41,14 @@ class ContactDetail extends Component {
           onChange={::this.handlePrivacyChange}
           label="Hidden"
         />
+
+
+        <Typography>
+          Status: { contact.status === ContactStatus.ONLINE ? 'Online' : 'Offline'}
+        </Typography>
+        { contact.status === ContactStatus.ONLINE &&
+          <Typography>Last ping: { contact.lastPongDelay } ms</Typography>
+        }
 
       </div>
     )
