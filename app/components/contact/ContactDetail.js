@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import styles from './ContactDetail.css'
 import { CardHeader } from 'material-ui/Card'
 import { LabelSwitch } from 'material-ui/Switch';
+import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
 import Typography from 'material-ui/Typography'
 import FontAwesome from 'react-fontawesome'
@@ -12,7 +13,8 @@ class ContactDetail extends Component {
 
   props: {
     contact: Contact,
-    onPrivacyChange: (Contact, boolean) => any
+    onPrivacyChange: (Contact, boolean) => any,
+    onDeleteClickGenerator: (Contact) =>  any,
   }
 
   handlePrivacyChange(event, checked) {
@@ -49,6 +51,10 @@ class ContactDetail extends Component {
         { contact.status === ContactStatus.ONLINE &&
           <Typography>Last ping: { contact.lastPongDelay } ms</Typography>
         }
+
+        <Button raised primary onClick={this.props.onDeleteClickGenerator(this.props.contact)}>
+          Delete contact
+        </Button>
 
       </div>
     )

@@ -21,6 +21,9 @@ export const setSelected = createAction('CONTACTLIST_SELECTED_SET',
 export const setSearch = createAction('CONTACTLIST_SEARCH_SET',
   (search: string) => (search)
 )
+export const removeContact = createAction('CONTACTLIST_CONTACT_REMOVE',
+  (contact: Contact) => (contact)
+)
 
 const protocol = {
   queryList: createAction('LISTQUERY',

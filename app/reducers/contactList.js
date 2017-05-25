@@ -40,7 +40,17 @@ export default handleActions({
       throw 'Contact already know'
     }
     return state.set(writable.contacts,
-      state.contacts.set(action.payload.pubkey, action.payload)
+      state.contacts.set(contact.pubkey, contact)
+    )
+  },
+
+  [contactList.removeContact]: (state: ContactList, action: Action<Contact>) => {
+    const contact: Contact = action.payload
+    if(!state.contacts.has(contact.pubkey)) {
+      throw 'Contact unknow'
+    }
+    return state.set(writable.contacts,
+      state.contacts.delete(contact.pubkey)
     )
   },
 

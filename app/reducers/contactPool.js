@@ -1,7 +1,8 @@
 // @flow
 import * as contactPool from 'actions/contactPool'
+import * as contactList from 'actions/contactList'
 import ContactPool, { writable} from 'models/ContactPool'
-import { handleActions, combineActions } from 'redux-actions'
+import { handleActions } from 'redux-actions'
 import type { Action } from 'utils/types'
 import Contact from 'models/Contact'
 import { List } from 'immutable'
@@ -20,5 +21,11 @@ export default handleActions({
   [contactPool.addedAsContact]: (state: ContactPool, action: Action) => {
     const { pubkey } = action.payload
     return state.set(writable.follower, state.follower.add(pubkey))
+  },
+
+  // a manually removed contact is considered rejected from future suggestion
+  [contactList.removeContact]: (state: ContactPool, action: Action) => {
+    const { pubkey } = action.payload
+    return state.set(writable.rejected, state.rejected.add(pubkey))
   },
 }, initialState )
