@@ -97,10 +97,12 @@ export function updateAvatar(avatar: ?Buffer) {
       hash = res.hash
     }
 
-    return Promise.all([
+    await Promise.all([
       await dispatch(priv.setAvatarHash(hash)),
       await loginStore.dispatch(identityActions.setAvatarHash(getState().profile.storageKey, hash))
     ])
+
+    return dispatch(publishProfile())
   }
 }
 
