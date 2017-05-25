@@ -47,10 +47,17 @@ export function login(identity: Identity) {
       contactList.updateAllContacts(),
       5 * 60 * 1000 //5 minutes
     )
+
     scheduler.startTimeBetween(fullStoreDispatch,
       'pingAllContacts',
       contactList.pingAllContacts(),
       2 * 60 * 1000 // 2 minutes
+    )
+
+    scheduler.startTimeBetween(fullStoreDispatch,
+      'queryAllContactsList',
+      contactList.queryAllContactsList(),
+      10 * 60 * 1000 // 10 minutes
     )
   }
 }
@@ -67,6 +74,7 @@ export function logout() {
     scheduler.stop('publishProfile')
     scheduler.stop('updateAllContacts')
     scheduler.stop('pingAllContacts')
+    scheduler.stop('queryAllContactsList')
 
     // Stop listening to chats
     dispatch(chat.unsubscribe())

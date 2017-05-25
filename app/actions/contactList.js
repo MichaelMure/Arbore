@@ -113,6 +113,19 @@ export function queryContactList(contact: Contact) {
   }
 }
 
+export function queryAllContactsList() {
+  return async function (dispatch, getState) {
+    const state: Store = getState()
+    const contactList: ContactList = state.contactList
+
+    await Promise.all(
+      contactList.contacts.valueSeq().map((contact: Contact) => {
+        dispatch(queryContactList(contact))
+      })
+    )
+  }
+}
+
 function handleQueryList(dispatch, getState, payload) {
   const { from } = payload
 
