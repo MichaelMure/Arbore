@@ -60,3 +60,9 @@
   word-break: break-all;
   margin-bottom: 10px;
 }
+
+.copyToClipboard {
+  font-size: 15px;
+  width: 26px;
+  height: 26px;
+}

@@ -2,10 +2,13 @@
 import React, { Component } from 'react'
 import Profile from 'models/Profile'
 import Button from 'material-ui/Button'
+import IconButton from 'material-ui/IconButton'
 import Typography from 'material-ui/Typography'
 import styles from './ShowProfile.css'
 import FontAwesome from 'react-fontawesome'
 import Avatar from 'components/Avatar'
+
+const {clipboard} = require('electron')
 
 class ShowProfile extends Component {
 
@@ -13,6 +16,10 @@ class ShowProfile extends Component {
     profile: Profile,
     onLogoutClick: () => any,
     onEditClick: () => any
+  }
+
+  handlePubkeyToClipboard() {
+    clipboard.writeText(this.props.profile.pubkey)
   }
 
   render() {
@@ -31,7 +38,12 @@ class ShowProfile extends Component {
           : <Typography paragraph className={styles.bioEmpty}>Write something about you</Typography>
         }
 
-        <Typography align="center" type="body2">Share your Arbore ID</Typography>
+        <Typography align="center" type="body2">
+          Share your Arbore ID
+          <IconButton className={styles.copyToClipboard} onClick={::this.handlePubkeyToClipboard}>
+            <FontAwesome name="clipboard" />
+          </IconButton>
+        </Typography>
         <Typography className={styles.pubkey} align="center" gutterBottom>
           {profile.pubkey}
         </Typography>
