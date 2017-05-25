@@ -131,7 +131,9 @@ export function pingContact(contact: Contact) {
   return async function (dispatch, getState) {
     console.log('Ping contact ' + contact.identity)
     const profile: Profile = getState().profile
-    const data = protocol.ping(profile, nextToken())
+    const token = nextToken()
+    await dispatch(contactActions.setPingToken(contact.pubkey, token))
+    const data = protocol.ping(profile, token)
     await dispatch(pubsub.send(contact.contactsPubsubTopic, data))
   }
 }
@@ -180,6 +182,7 @@ function handlePong(dispatch, getState, payload) {
 
   if(contact.pingToken !== token) {
     console.log('Got a pong with a unknow token ' + token)
+    return
   }
 
   console.log('Got a pong from ' + contact.identity)
