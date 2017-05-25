@@ -5,7 +5,7 @@ import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
 import * as identityActions from './identity'
 import Profile, { writable } from 'models/Profile'
 import Identity from 'models/Identity'
-import { loadFullStore } from 'index'
+import { loginStore, loadFullStore } from 'index'
 
 export const priv = {
   storeNewProfile: createAction('PROFILE_CREATE',
@@ -99,7 +99,7 @@ export function updateAvatar(avatar: ?Buffer) {
 
     return Promise.all([
       await dispatch(priv.setAvatarHash(hash)),
-      await dispatch(identityActions.setAvatarHash(getState().profile.storageKey, hash))
+      await loginStore.dispatch(identityActions.setAvatarHash(getState().profile.storageKey, hash))
     ])
   }
 }
