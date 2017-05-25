@@ -9,9 +9,12 @@ import Profile from 'models/Profile'
 import createProtocol from 'ipfs/createProtocol'
 import { nextToken } from 'utils/tokenGenerator'
 
-export const addContact = createAction('CONTACTLIST_ADD',
-  (contact: Contact) => (contact)
-)
+export const priv = {
+  addContact: createAction('CONTACTLIST_CONTACT_ADD',
+    (contact: Contact) => (contact)
+  ),
+}
+
 export const setSelected = createAction('CONTACTLIST_SELECTED_SET',
   (selectedPubkey: string) => (selectedPubkey)
 )
@@ -58,10 +61,21 @@ export function unsubscribe() {
   }
 }
 
-export function fetchContact(pubkey: string) {
+export function addContact(pubkey: string) {
+  return async function (dispatch, getState) {
+    const contact = await dispatch(contactActions.fetchProfile(pubkey))
+    await dispatch(priv.addContact(contact))
+
+    const profile: Profile = getState().profile
+    const data = protocol.addedContactQuery(profile)
+    dispatch(pubsub.send(contact.contactsPubsubTopic, data))
+  }
+}
+
+export function updateContact(pubkey: string) {
   return async function (dispatch) {
     const contact = await dispatch(contactActions.fetchProfile(pubkey))
-    await dispatch(addContact(contact))
+    await dispatch(contactActions.updateContact(contact))
   }
 }
 
@@ -72,8 +86,7 @@ export function updateAllContacts() {
 
     const result = await Promise.all(
       contactList.contacts.valueSeq().map((contact: Contact) =>
-        dispatch(fetchContact(contact.pubkey))
-          .then((result: Contact) => dispatch(addContact(result)))
+        dispatch(updateContact(contact.pubkey))
           .then(() => [contact.pubkey, 'ok'])
           .catch(err => [contact.pubkey, err])
       )

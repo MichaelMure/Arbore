@@ -110,7 +110,15 @@ export default class Contact extends ContactRecord {
     return this.pubkey + '/chat'
   }
 
+  static chatPubsubTopic(pubkey: string) : string {
+    return pubkey + '/chat'
+  }
+
   get contactsPubsubTopic() : string {
     return this.pubkey + '/contacts'
+  }
+
+  static contactsPubsubTopic(pubkey: string) : string {
+    return pubkey + '/contacts'
   }
 }

@@ -28,7 +28,7 @@ class AddByPubkeyContainer extends Component {
     this.setState({ waiting: true })
 
     try {
-      await dispatch(contactList.fetchContact(pubkey))
+      await dispatch(contactList.addContact(pubkey))
       this.setState({ waiting: false })
       this.props.onCancelClick()
     } catch(err) {

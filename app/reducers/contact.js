@@ -8,6 +8,14 @@ const initialState = null
 
 export default handleActions({
 
+  [contact.updateContact]: (state: Contact, action: Action<Contact>) => {
+    const contact: Contact = action.payload
+    return state.withMutations(old => old
+      .set(writable.bio, contact.bio)
+      .set(writable.avatarHash, contact.avatarHash)
+    )
+  },
+
   [contact.setAvatar]: (state: Contact, action: Action) => {
     return state.set(writable.avatarHash, action.payload.hash)
   },
@@ -28,5 +36,9 @@ export default handleActions({
     return action.payload.result
       ? newState.set(writable.lastSeen, Date.now()).set(writable.lastPongDelay, Date.now() - state.lastPing)
       : newState
-  }
+  },
+
+  [contact.addedAck]: (state: Contact, action: Action) => {
+    return state.set(writable.addedAck, true)
+  },
 }, initialState )

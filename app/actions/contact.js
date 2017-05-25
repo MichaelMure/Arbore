@@ -5,6 +5,9 @@ import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
 import removeIpfsPrefix from 'utils/removeIpfsPrefix'
 
+export const updateContact = createAction('CONTACTLIST_CONTACT_UPDATE',
+  (contact: Contact) => (contact)
+)
 export const setAvatar = createAction('CONTACT_AVATAR_SET',
   (pubkey: string, hash: ?string) => ({pubkey, hash})
 )

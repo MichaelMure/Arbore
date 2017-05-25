@@ -34,11 +34,15 @@ export default handleActions({
     return persisted
   },
 
-  [contactList.addContact]: (state: ContactList, action: Action<Contact>) => (
-    state.set(writable.contacts,
+  [contactList.priv.addContact]: (state: ContactList, action: Action<Contact>) => {
+    const contact: Contact = action.payload
+    if(state.contacts.has(contact.pubkey)) {
+      throw 'Contact already know'
+    }
+    return state.set(writable.contacts,
       state.contacts.set(action.payload.pubkey, action.payload)
     )
-  ),
+  },
 
   [contactList.setSelected]: (state: ContactList, action: Action<string>) => (
     state.set(writable.selectedPubkey, action.payload)
@@ -49,6 +53,7 @@ export default handleActions({
   ),
 
   [combineActions(
+    contact.updateContact,
     contact.setAvatar,
     contact.setPrivacy,
     contact.setPingToken,
@@ -61,9 +66,14 @@ export default handleActions({
 // the property 'pubkey' found in the action payload
 function contactByPubkey(state: ContactList, action: Action) {
   const pubkey = action.payload.pubkey
+
+  if(!state.contacts.has(pubkey)) {
+    throw 'Unknow contact'
+  }
+
   return state.update(writable.contacts,
     (contacts: Map) => contacts.update(pubkey,
-        (contact: ?Contact) => contactReducer(contact, action)
+        (contact: Contact) => contactReducer(contact, action)
     )
   )
 }
