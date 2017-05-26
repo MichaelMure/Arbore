@@ -5,7 +5,7 @@ import Typography from 'material-ui/Typography'
 import ChatRoomList from 'models/ChatRoomList'
 import ContactList from 'models/ContactList'
 import UiState from 'models/UiState'
-import Contact from 'models/Contact'
+import Contact, { ContactStatus, ContactStatusType } from 'models/Contact'
 import Avatar from 'components/Avatar'
 import classNames from 'classnames/bind'
 
@@ -19,6 +19,20 @@ class RoomList extends Component {
     ui: UiState,
     onRoomClickGenerator: (Contact) => any,
     onContactClickgenerator: (Contact) => any
+  }
+
+  renderStatus(status: ContactStatusType) {
+    const dotClass = cx({
+      dot: true,
+      green: status === ContactStatus.ONLINE,
+      red: status === ContactStatus.OFFLINE,
+    })
+
+    return (
+      <div className={styles.status}>
+        <div className={dotClass}/>
+      </div>
+    )
   }
 
   render() {
@@ -57,6 +71,7 @@ class RoomList extends Component {
                 className={itemClass}
               >
                 <Avatar person={contact} className={styles.contactAvatar} />
+                { this.renderStatus(contact.status) }
                 <Typography className={styles.identity} noWrap>{contact.identity}</Typography>
                 { room.unread > 0 &&  <div className={styles.unread}>{room.unread}</div> }
               </div>
@@ -73,6 +88,7 @@ class RoomList extends Component {
               className={styles.item}
             >
               <Avatar person={contact} className={styles.contactAvatar} />
+              { this.renderStatus(contact.status) }
               <Typography className={styles.identity} noWrap>{contact.identity}</Typography>
             </div>
           ))

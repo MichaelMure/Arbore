@@ -39,3 +39,25 @@
 .spacer {
   height: 20px;
 }
+
+.status {
+  margin-left: -8px;
+  margin-top: -15px;
+  margin-right: 3px;
+  z-index: 10;
+}
+
+.dot {
+  border-radius: 50%;
+  width: 10px;
+  height: 10px;
+}
+
+.green {
+  background-color: green;
+}
+
+.red {
+  background-color: red;
+}
+
