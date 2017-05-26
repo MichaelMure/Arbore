@@ -5,6 +5,12 @@ import { LabelSwitch } from 'material-ui/Switch';
 import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
 import Typography from 'material-ui/Typography'
+import Dialog, {
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from 'material-ui/Dialog';
 import FontAwesome from 'react-fontawesome'
 import Avatar from 'components/Avatar'
 import Contact, { ContactStatus } from 'models/Contact'
@@ -17,8 +23,24 @@ class ContactDetail extends Component {
     onDeleteClickGenerator: (Contact) =>  any,
   }
 
+  state = {
+    confirmOpen: false,
+  }
+
   handlePrivacyChange(event, checked) {
     this.props.onPrivacyChange(this.props.contact, checked)
+  }
+
+  handleOpenConfirm() {
+    this.setState({
+      confirmOpen: true,
+    })
+  }
+
+  handleCloseConfirm() {
+    this.setState({
+      confirmOpen: false,
+    })
   }
 
   render() {
@@ -52,9 +74,22 @@ class ContactDetail extends Component {
           <Typography>Last ping: { contact.lastPongDelay } ms</Typography>
         }
 
-        <Button raised primary onClick={this.props.onDeleteClickGenerator(this.props.contact)}>
+        <Button raised primary onClick={::this.handleOpenConfirm}>
           Delete contact
         </Button>
+
+        <Dialog open={this.state.confirmOpen} onRequestClose={this.handleCloseConfirm}>
+          <DialogTitle>Confirm contact deletion</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Are you sure you want to remove this contact ?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={::this.handleCloseConfirm} primary>Cancel</Button>
+            <Button onClick={this.props.onDeleteClickGenerator(this.props.contact)} primary>Confirm</Button>
+          </DialogActions>
+        </Dialog>
 
       </div>
     )
