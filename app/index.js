@@ -11,14 +11,32 @@ let fullStore = null
 let currentPrefix = null
 
 export function loadFullStore(prefix, name) {
+  console.log('loadFullStore')
   if(prefix !== currentPrefix) {
+    console.log('new prefix, reloading the store')
+
     const { store, onComplete } = getFullStore(prefix, name)
     fullStore = store
     currentPrefix = prefix
 
+    console.log('render Root - store uncomplete', loginStore, fullStore)
+
+    /*
+     * Note: If below I use:
+     *
+     * <Root loginStore={loginStore} fullStore={fullStore}/>
+     *
+     * instead of:
+     *
+     * <Root loginStore={loginStore} fullStore={store}/>
+     *
+     * ... it breaks mysteriously in release only, the fullstore props end up being null
+     * once the fullStore is loaded.
+     */
+
     render(
       <AppContainer>
-        <Root loginStore={loginStore} fullStore={fullStore} />
+        <Root loginStore={loginStore} fullStore={store}/>
       </AppContainer>,
       document.getElementById('root')
     );
