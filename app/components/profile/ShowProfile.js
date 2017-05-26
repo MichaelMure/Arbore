@@ -19,6 +19,7 @@ class ShowProfile extends Component {
   }
 
   handlePubkeyToClipboard() {
+    // TODO: maybe that need some visual feedback for the user ?
     clipboard.writeText(this.props.profile.pubkey)
   }
 
