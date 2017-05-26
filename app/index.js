@@ -53,6 +53,10 @@ render(
   document.getElementById('root')
 );
 
+// Prevent borking the app by dropping file into the windows
+document.addEventListener('dragover', event => event.preventDefault())
+document.addEventListener('drop', event => event.preventDefault())
+
 
 if (module.hot) {
   module.hot.accept('./containers/Root', () => {
