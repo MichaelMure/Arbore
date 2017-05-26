@@ -25,7 +25,7 @@ class RoomList extends Component {
     const dotClass = cx({
       dot: true,
       green: status === ContactStatus.ONLINE,
-      red: status === ContactStatus.OFFLINE,
+      gray: status === ContactStatus.OFFLINE,
     })
 
     return (
