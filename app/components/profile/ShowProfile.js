@@ -41,12 +41,12 @@ class ShowProfile extends Component {
 
         <Typography align="center" type="body2">
           Share your Arbore ID
-          <IconButton className={styles.copyToClipboard} onClick={::this.handlePubkeyToClipboard}>
-            <FontAwesome name="clipboard" />
-          </IconButton>
         </Typography>
         <Typography className={styles.pubkey} align="center" gutterBottom>
           {profile.pubkey}
+          <IconButton className={styles.copyToClipboard} onClick={::this.handlePubkeyToClipboard}>
+            <FontAwesome name="clipboard" />
+          </IconButton>
         </Typography>
 
         <div className={styles.buttons}>
