@@ -5,7 +5,7 @@ import ContactPool, { writable} from 'models/ContactPool'
 import { handleActions } from 'redux-actions'
 import type { Action } from 'utils/types'
 import Contact from 'models/Contact'
-import { List } from 'immutable'
+import { Set } from 'immutable'
 
 let initialState = new ContactPool()
 
@@ -14,7 +14,7 @@ export default handleActions({
   [contactPool.storeContactList]: (state: ContactPool, action: Action) => {
     const {contact, list} = action.payload
     return state.set(writable.graph,
-      state.graph.set(contact.pubkey, List.of(list))
+      state.graph.set(contact.pubkey, Set(list))
     )
   },
 

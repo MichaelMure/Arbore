@@ -4,7 +4,7 @@ import styles from './ContactAdder.css'
 import Collapse from 'material-ui/transitions/Collapse'
 import Fade from 'material-ui/transitions/Fade'
 import AddByPubkey from 'containers/contact/AddByPubkey'
-import AddBySuggest from 'components/contact/AddBySuggest'
+import AddBySuggest from 'containers/contact/AddBySuggest'
 
 const Steps = {
   START: 'START',
@@ -19,9 +19,6 @@ const Adder = {
 type AdderType = $Keys<typeof Adder>
 
 class ContactAdder extends Component {
-
-  props: {}
-
 
   constructor(props) {
     super(props)

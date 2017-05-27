@@ -28,6 +28,29 @@ export default class ContactPool extends ContactPoolRecord {
   follower: Set<string>
 
   suggest(contactList: ContactList, number: number): Set<Contact> {
-    return new Set()
+    const result = new Set()
+
+    // TODO: do better
+
+    this.graph.forEach((set: Set) => {
+      set.forEach((pubkey: string) => {
+        if(contactList.contacts.has(pubkey)) {
+          // continue
+        }
+
+        if(this.rejected.has(pubkey)) {
+          // continue
+        }
+
+        if(this.pool.has(pubkey)) {
+          result.add(this.pool.get(pubkey))
+        }
+
+        if(result.count() >= number) {
+          return result
+        }
+      })
+    })
+    return result
   }
 }
