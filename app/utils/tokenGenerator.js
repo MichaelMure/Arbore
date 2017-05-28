@@ -3,6 +3,6 @@ import randToken from 'rand-token'
 
 const generator = randToken.generator()
 
-export function nextToken() {
-  return generator.generate(32)
+export function nextToken(length: number = 32) {
+  return generator.generate(length)
 }

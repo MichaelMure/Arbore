@@ -1,13 +1,14 @@
 // @flow
 import { Record } from 'immutable'
-import crypto from 'crypto'
-import { gatewayRoot } from 'ipfs/ipfsMain'
+import { gatewayRoot } from 'ipfs/index'
+import { nextToken } from 'utils/tokenGenerator'
 
 export const LOCAL_DATA_VERSION = 1
 export const PUBLISH_DATA_VERSION = 1
 
 export const writable = {
   dataVersion: 'dataVersion',
+  storageKey: 'storageKey',
   hash: 'hash',
   identity: 'identity',
   bio: 'bio',
@@ -18,6 +19,7 @@ export const writable = {
 
 export const ProfileRecord = Record({
   dataVersion: LOCAL_DATA_VERSION,
+  storageKey: null,
   hash: null,
   identity: '',
   bio: '',
@@ -28,6 +30,7 @@ export const ProfileRecord = Record({
 
 export default class Profile extends ProfileRecord {
   dataVersion: number
+  storageKey: string
   hash: ?string
   identity: string
   bio: string
@@ -37,16 +40,11 @@ export default class Profile extends ProfileRecord {
 
   static create(identity: string, passphrase: string, bio: string) {
     return new this().withMutations(profile => profile
+      .set(writable.storageKey, nextToken(16))
       .set(writable.identity, identity)
       .set(writable.passphrase, passphrase)
       .set(writable.bio, bio)
     )
-  }
-
-  // Generate a truncated hash from the identity string to use as a storage key
-  get storageKey(): string {
-    const sha256 = crypto.createHash('sha256')
-    return sha256.update(this.identity).digest('hex').slice(-16)
   }
 
   get avatarUrl(): ?string {
