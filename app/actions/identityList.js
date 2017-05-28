@@ -5,7 +5,7 @@ import * as profile from './profile'
 import * as scheduler from 'utils/scheduler'
 import * as chat from './chat'
 import * as contactList from './contactList'
-import { loginStore, loadFullStore } from 'index'
+import { getLoginStore, getFullStore } from 'store/index'
 
 
 export const priv = {
@@ -22,7 +22,7 @@ export const priv = {
  */
 export function login(identity: Identity) {
   return async function (dispatch) {
-    const fullStore = await loadFullStore(identity.storageKey, identity.identity)
+    const fullStore = await getFullStore(identity.storageKey, identity.identity)
     const fullStoreDispatch = fullStore.dispatch
 
     await dispatch(priv.selectIdenty(identity))
@@ -68,6 +68,7 @@ export function login(identity: Identity) {
  */
 export function logout() {
   return async function (dispatch) {
+    const loginStore = await getLoginStore()
     await loginStore.dispatch(priv.resetIdentity())
 
     // Stop any scheduled tasks

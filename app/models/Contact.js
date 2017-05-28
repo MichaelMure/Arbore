@@ -1,7 +1,7 @@
 // @flow
 import { Record } from 'immutable'
 import strContain from 'utils/strContain'
-import { gatewayRoot } from 'ipfs/ipfsMain'
+import { gatewayRoot } from 'ipfs/index'
 import { PUBLISH_DATA_VERSION as PROFILE_VERSION } from 'models/Profile'
 
 const LOCAL_DATA_VERSION = 1

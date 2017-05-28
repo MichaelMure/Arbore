@@ -1,6 +1,6 @@
 // @flow
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
-import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
+import { waitForIpfsReady } from 'ipfs/index'
 
 // Encapsulate the handling of pubsub communication
 export default function createProtocol(name: string, topic: string, handlers: {}) {

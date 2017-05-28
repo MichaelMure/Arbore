@@ -22,6 +22,14 @@ export default merge(baseConfig, {
 
   module: {
     rules: [
+      {
+        test: /\.jsx?$/,
+        use: [
+          { loader: 'babel-loader' },
+          { loader: `ifdef-loader?json={"isElectron":${true}}` },
+        ],
+        exclude: /node_modules/
+      },
       // Extract all .global.css to style.css as is
       {
         test: /\.global\.css$/,

@@ -1,5 +1,4 @@
 // @flow
-
 import { Record } from 'immutable'
 
 export const Page = {

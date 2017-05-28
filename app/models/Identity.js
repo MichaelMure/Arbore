@@ -1,6 +1,6 @@
 // @flow
 import { Record } from 'immutable'
-import { gatewayRoot } from 'ipfs/ipfsMain'
+import { gatewayRoot } from 'ipfs/index'
 
 /**
  * Used to store identity/account for the login screen

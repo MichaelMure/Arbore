@@ -4,10 +4,13 @@ import Contact from 'models/Contact'
 import ContactList from 'models/ContactList'
 import Profile from 'models/Profile'
 import type { Store } from 'utils/types'
-import { ipcRenderer } from 'electron'
 import { mainWindowVisible } from 'utils/constants'
 import createProtocol from 'ipfs/createProtocol'
 import { nextToken } from 'utils/tokenGenerator'
+
+/// #if isElectron
+import { ipcRenderer } from 'electron'
+/// #endif
 
 export const createRoom = createAction('CHAT_ROOM_CREATE',
   (contact: Contact) => (contact)
@@ -74,12 +77,14 @@ function handleMessage(dispatch, getState, payload) {
   dispatch(priv.chatReceived(contact, id, message))
   dispatch(sendChatAck(contact, id))
 
+/// #if isElectron
   if(!ipcRenderer.sendSync(mainWindowVisible)) {
     new Notification(contact.identity, {
       icon: contact.avatarUrl,
       body: message
     })
   }
+/// #endif
 }
 
 function handleAck(dispatch, getState, payload) {

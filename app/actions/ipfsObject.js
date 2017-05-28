@@ -1,7 +1,7 @@
 // @flow
 import { createAction } from 'redux-actions'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
-import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
+import { waitForIpfsReady } from 'ipfs/index'
 
 /*
  * This is what we use for now:

@@ -36,8 +36,6 @@ let serviceStarted = false
 
 export const isServiceStarted = 'is-ipfs-started'
 
-export let gatewayRoot = 'http:///127.0.0.1:8080/ipfs/'
-
 export const start = () => {
   const instance = IpfsConnector.getInstance()
 

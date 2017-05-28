@@ -35,6 +35,8 @@ app/node_modules
 release
 app/main.js
 app/main.js.map
+app/contactAdder.js
+app/contactAdder.js.map
 app/bundle.js
 app/bundle.js.map
 app/style.css

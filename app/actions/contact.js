@@ -2,7 +2,7 @@
 import { createAction } from 'redux-actions'
 import Contact from 'models/Contact'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
-import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
+import { waitForIpfsReady } from 'ipfs/index'
 import removeIpfsPrefix from 'utils/removeIpfsPrefix'
 
 export const updateContact = createAction('CONTACTLIST_CONTACT_UPDATE',

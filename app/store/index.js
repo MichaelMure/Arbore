@@ -4,8 +4,18 @@ import { persistStore } from 'redux-persist'
 import allModels from 'models/allModels'
 import immutableTransform from 'redux-persist-transform-immutable'
 
+/// #if !isElectron
+import path from 'path'
+import os from 'os'
+import { AsyncNodeStorage } from 'redux-persist-node-storage'
+/// #endif
 
-export function getLoginStore() {
+let loginStore = null
+let fullStore = null
+let currentPrefix = null
+const fullStoreChangeCallbacks = []
+
+export function createLoginStore() {
   const enhancerCreator = (process.env.NODE_ENV === 'production')
     ? require('./configureEnhancer.production')
     : require('./configureEnhancer.development')
@@ -18,7 +28,10 @@ export function getLoginStore() {
   const onComplete = new Promise((resolve) => {
     persistStore(store, {
       blacklist: ['ui', 'form'],
-      transforms: [immutableTransform({records: allModels})]
+      transforms: [immutableTransform({records: allModels})],
+/// #if !isElectron
+      storage: new AsyncNodeStorage(path.join(os.homedir(), '.arbore-contactAdder')),
+/// #endif
     }, () => { resolve(store) })
   })
 
@@ -31,7 +44,7 @@ export function getLoginStore() {
   return { store, onComplete }
 }
 
-export function getFullStore(prefix: string, name: string) {
+export function createFullStore(prefix: string, name: string) {
   const enhancerCreator = (process.env.NODE_ENV === 'production')
     ? require('./configureEnhancer.production')
     : require('./configureEnhancer.development')
@@ -45,7 +58,10 @@ export function getFullStore(prefix: string, name: string) {
     persistStore(store, {
       blacklist: ['ui', 'form'],
       transforms: [immutableTransform({records: allModels})],
-      keyPrefix: '@'+prefix+':'
+      keyPrefix: '@'+prefix+':',
+/// #if !isElectron
+      storage: new AsyncNodeStorage(path.join(os.homedir(), '.arbore-contactAdder')),
+/// #endif
     }, () => { resolve(store) })
   })
 
@@ -56,4 +72,32 @@ export function getFullStore(prefix: string, name: string) {
   }
 
   return { store, onComplete }
+}
+
+export function addfullStoreChangeCallback(callback: (any) => any) {
+  fullStoreChangeCallbacks.push(callback)
+}
+
+export function getLoginStore() {
+  if(!loginStore) {
+    const { store, onComplete } = createLoginStore()
+    loginStore = store
+
+    return onComplete
+  }
+
+  return Promise.resolve(loginStore)
+}
+
+export function getFullStore(prefix, name) {
+  if(prefix !== currentPrefix) {
+    const { store, onComplete } = createFullStore(prefix, name)
+    fullStore = store
+    currentPrefix = prefix
+
+    fullStoreChangeCallbacks.forEach(callback => callback(onComplete))
+
+    return onComplete
+  }
+  return Promise.resolve(fullStore)
 }

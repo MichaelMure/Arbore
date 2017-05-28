@@ -18,6 +18,19 @@ export default merge(baseConfig, {
     filename: './app/main.js'
   },
 
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        use: [
+          { loader: 'babel-loader' },
+          { loader: `ifdef-loader?json={"isElectron":${true}}` },
+        ],
+        exclude: /node_modules/
+      },
+    ]
+  },
+
   plugins: [
     /**
      * Babli is an ES6+ aware minifier based on the Babel toolchain (beta)

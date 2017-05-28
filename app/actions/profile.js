@@ -1,11 +1,11 @@
 // @flow
 import { createAction } from 'redux-actions'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
-import { waitForIpfsReady } from 'ipfs/ipfsRenderer'
+import { waitForIpfsReady } from 'ipfs/index'
 import * as identityActions from './identity'
 import Profile, { writable } from 'models/Profile'
 import Identity from 'models/Identity'
-import { loginStore, loadFullStore } from 'index'
+import { getLoginStore, getFullStore } from 'store/index'
 
 export const priv = {
   storeNewProfile: createAction('PROFILE_CREATE',
@@ -52,7 +52,7 @@ export function generateProfile(identity: string, passphrase: string, bio: ?stri
 
     dispatch(identityActions.createNewIdentity(_identity))
 
-    const fullStore = await loadFullStore(storageKey, identity)
+    const fullStore = await getFullStore(storageKey, identity)
     await fullStore.dispatch(priv.storeNewProfile(profile))
   }
 }
@@ -96,6 +96,8 @@ export function updateAvatar(avatar: ?Buffer) {
       const res = await ipfs.api.addFile(avatar)
       hash = res.hash
     }
+
+    const loginStore = await getLoginStore()
 
     await Promise.all([
       await dispatch(priv.setAvatarHash(hash)),
