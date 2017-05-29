@@ -137,6 +137,7 @@
     "flow-typed": "^2.0.0",
     "html-webpack-plugin": "^2.26.0",
     "identity-obj-proxy": "^3.0.0",
+    "ifdef-loader": "^1.1.1",
     "jest": "^18.1.0",
     "jsdom": "^9.9.1",
     "minimist": "^1.2.0",
