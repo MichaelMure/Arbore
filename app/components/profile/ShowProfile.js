@@ -36,7 +36,7 @@ class ShowProfile extends Component {
 
         { profile.bio
           ? <Typography paragraph className={styles.bio}>{profile.bio}</Typography>
-          : <Typography paragraph className={styles.bioEmpty}>Write something about you</Typography>
+          : <Typography paragraph className={styles.bioEmpty}>No biography</Typography>
         }
 
         <Typography align="center" type="body2">
