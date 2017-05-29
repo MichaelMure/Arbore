@@ -16,16 +16,17 @@ async function run() {
 
   const loginStore = await getLoginStore()
 
-  const identityList: IdentityList = loginStore.getState().identityList
+  let identityList: IdentityList = loginStore.getState().identityList
 
   if(identityList.identities.count() <= 0) {
     console.log('Generate new profile ...')
 
     await loginStore.dispatch(
-      profileActions.generateProfile("Contact adder", 'blah', 'I\'m a bot ! I help you to find other people.')
+      profileActions.generateProfile("Contact adder", 'blah', 'I\'m a bot! I help you to find other people.')
     )
   }
 
+  identityList = loginStore.getState().identityList
   const identity: Identity = identityList.identities.first()
   console.log('Login with identity ' + identity.identity)
 
