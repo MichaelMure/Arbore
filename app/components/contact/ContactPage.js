@@ -19,6 +19,7 @@ class ContactPage extends Component {
   render() {
     const { contacts, onClickGenerator, onSearchChange } = this.props
     const selectedPubKey = contacts.selectedPubkey
+    const list = contacts.searched.sortBy((contact: Contact) => contact.identity)
 
     return (
       <div className={styles.wrapper}>
@@ -27,7 +28,7 @@ class ContactPage extends Component {
           <div className={styles.scroller}>
             <ContactAdder/>
             {
-              contacts.searched.map((contact: Contact) =>
+              list.map((contact: Contact) =>
                 <CompactContact
                   key={ contact.pubkey }
                   contact={contact}
