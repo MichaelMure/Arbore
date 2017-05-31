@@ -54,6 +54,12 @@ class MenuBar extends Component {
 
         <div className={styles.spacer} />
 
+        <MenuItem name="contact" label="Contacts" onClick={this.props.onContactClick} accent={this.props.contactSelected}>
+          <FontAwesome name='users'/>
+        </MenuItem>
+
+        <div className={styles.spacer} />
+
         <MenuItem name="newshare" label="Share something" onClick={this.props.onNewShareClick}
             accent={this.props.newShareSelected}>
           <Badge badgeContent="+">
@@ -89,12 +95,6 @@ class MenuBar extends Component {
 
         <MenuItem name="chat" label="Chat" onClick={this.props.onChatClick} accent={this.props.chatSelected}>
             <FontAwesome name='comments'/>
-        </MenuItem>
-
-        <div className={styles.spacer} />
-
-        <MenuItem name="contact" label="Contacts" onClick={this.props.onContactClick} accent={this.props.contactSelected}>
-            <FontAwesome name='users'/>
         </MenuItem>
       </div>
     )
