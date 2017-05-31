@@ -31,6 +31,8 @@ export const priv = {
   ),
 }
 
+/* Network messages */
+
 const protocol = {
   message: createAction('MESSAGE',
     (id: string, profile: Profile, message: string) => ({id, from: profile.pubkey, message})

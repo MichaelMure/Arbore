@@ -6,6 +6,7 @@ import type { Store } from 'utils/types'
 import ContactList from 'models/ContactList'
 import Contact from 'models/Contact'
 import Profile from 'models/Profile'
+import ContactPool from 'models/ContactPool'
 import createProtocol from 'ipfs/createProtocol'
 import { nextToken } from 'utils/tokenGenerator'
 
@@ -24,6 +25,57 @@ export const setSearch = createAction('CONTACTLIST_SEARCH_SET',
 export const removeContact = createAction('CONTACTLIST_CONTACT_REMOVE',
   (contact: Contact) => (contact)
 )
+
+// Fetch a contact profile and add it to the contact list
+// Also perform various consequential tasks
+export function addContact(pubkey: string) {
+  return async function (dispatch, getState) {
+    const contactPool: ContactPool = getState().contactPool
+
+    // Use a cached contact if available, otherwise fetch the profile
+    const contact: Contact = contactPool.pool.has(pubkey)
+      ? contactPool.pool.get(pubkey)
+      : await dispatch(contactActions.fetchProfile(pubkey))
+
+    await dispatch(priv.addContact(contact))
+
+    // Inform the contact that we added him
+    const profile: Profile = getState().profile
+    const data = protocol.addedContactQuery(profile)
+    dispatch(pubsub.send(contact.contactsPubsubTopic, data))
+
+    // Ask for the contact list
+    dispatch(queryContactList(contact))
+  }
+}
+
+// Fetch a contact's profile to update the local data
+export function updateContact(pubkey: string) {
+  return async function (dispatch) {
+    const contact = await dispatch(contactActions.fetchProfile(pubkey))
+    await dispatch(contactActions.updateContact(contact))
+  }
+}
+
+// Update all the contacts
+export function updateAllContacts() {
+  return async function (dispatch, getState) {
+    const state: Store = getState()
+    const contactList: ContactList = state.contactList
+
+    const result = await Promise.all(
+      contactList.contacts.valueSeq().map((contact: Contact) =>
+        dispatch(updateContact(contact.pubkey))
+          .then(() => [contact.pubkey, 'ok'])
+          .catch(err => [contact.pubkey, err])
+      )
+    )
+
+    console.log(result)
+  }
+}
+
+/* Network messages */
 
 const protocol = {
   queryList: createAction('LISTQUERY',
@@ -69,41 +121,6 @@ export function unsubscribe() {
   return async function (dispatch) {
     await dispatch(pubsub.unsubscribe())
     pubsub = null
-  }
-}
-
-export function addContact(pubkey: string) {
-  return async function (dispatch, getState) {
-    const contact = await dispatch(contactActions.fetchProfile(pubkey))
-    await dispatch(priv.addContact(contact))
-
-    const profile: Profile = getState().profile
-    const data = protocol.addedContactQuery(profile)
-    dispatch(pubsub.send(contact.contactsPubsubTopic, data))
-  }
-}
-
-export function updateContact(pubkey: string) {
-  return async function (dispatch) {
-    const contact = await dispatch(contactActions.fetchProfile(pubkey))
-    await dispatch(contactActions.updateContact(contact))
-  }
-}
-
-export function updateAllContacts() {
-  return async function (dispatch, getState) {
-    const state: Store = getState()
-    const contactList: ContactList = state.contactList
-
-    const result = await Promise.all(
-      contactList.contacts.valueSeq().map((contact: Contact) =>
-        dispatch(updateContact(contact.pubkey))
-          .then(() => [contact.pubkey, 'ok'])
-          .catch(err => [contact.pubkey, err])
-      )
-    )
-
-    console.log(result)
   }
 }
 
@@ -162,6 +179,7 @@ function handleListReply(dispatch, getState, payload) {
   console.log('Got contact list from ' + contact.identity)
 
   dispatch(contactPoolActions.storeContactList(contact, contacts))
+  dispatch(contactPoolActions.fetchAllMissingContacts())
 }
 
 export function pingContact(contact: Contact) {
@@ -235,6 +253,7 @@ function handleAddedContactQuery(dispatch, getState, payload) {
   const profile: Profile = getState().profile
 
   dispatch(contactPoolActions.addedAsContact(from))
+  dispatch(contactPoolActions.fetchContactIfMissing(from))
   dispatch(pubsub.send(Contact.contactsPubsubTopic(from), protocol.addedContactAck(profile)))
 }
 

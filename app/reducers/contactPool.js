@@ -23,6 +23,11 @@ export default handleActions({
     return state.set(writable.follower, state.follower.add(pubkey))
   },
 
+  [contactPool.priv.storeContactInPool]: (state: ContactPool, action: Action) => {
+    const { contact } = action.payload
+    return state.set(writable.pool, state.pool.set(contact.pubkey, contact))
+  },
+
   // a manually removed contact is considered rejected from future suggestion
   [contactList.removeContact]: (state: ContactPool, action: Action) => {
     const { pubkey } = action.payload
