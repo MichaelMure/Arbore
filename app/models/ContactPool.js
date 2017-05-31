@@ -1,5 +1,5 @@
 // @flow
-import { Record, Map, Set as immuSet } from 'immutable'
+import { Record, Map as immuMap, Set as immuSet } from 'immutable'
 import Contact from './Contact'
 import ContactList from 'models/ContactList'
 
@@ -11,51 +11,51 @@ export const writable = {
 }
 
 export const ContactPoolRecord = Record({
-  graph: Map(),
-  pool: Map(),
+  graph: immuMap(),
+  pool: immuMap(),
   rejected: immuSet(),
   follower: immuSet(),
 }, 'ContactPool')
 
 export default class ContactPool extends ContactPoolRecord {
   // store the contact list of potential contact as pubkey->list(pubkey)
-  graph: Map<string, immuSet<string>>
+  graph: immuMap<string, immuSet<string>>
   // store known potential contacts
-  pool: Map<string, Contact>
+  pool: immuMap<string, Contact>
   // store the rejected potential contact pubkey
   rejected: immuSet<string>
   // store contacts that had added the profile
   follower: immuSet<string>
 
-  suggest(contactList: ContactList, number: number): Set<Contact> {
-    const result = new Set()
-
-    // TODO: do better
+  suggest(contactList: ContactList, number: number): Array<Contact> {
+    const ratings: Map<string, number> = new Map()
 
     this.graph.forEach((set: immuSet<string>) => {
-      set.forEach((pubkey: string) => {
-        if(contactList.contacts.has(pubkey)) {
-          // continue
-        }
-
-        if(this.rejected.has(pubkey)) {
-          // continue
-        }
-
-        if(this.pool.has(pubkey)) {
-          result.add(this.pool.get(pubkey))
-        }
-
-        if(result.size >= number) {
-          return result
-        }
-      })
+      set
+        // filter out invalid candidates
+        .filter((pubkey: string) => (
+          !this.rejected.has(pubkey) && // already rejected
+          !contactList.contacts.has(pubkey) && // already added contact
+          this.pool.has(pubkey) // not available in the pool
+        ))
+        // compute a rating
+        .forEach((pubkey: string) => {
+          ratings.set(pubkey, 1)
+        })
     })
-    return result
+
+    // sort the rating by descending order and map to the pubkeys
+    const candidates = [...ratings.keys()]
+    candidates.sort((a,b) => ratings.get(b) - ratings.get(a))
+
+    // map to the *number* best contacts
+    return candidates
+      .slice(0, number)
+      .map((pubkey: string) => this.pool.get(pubkey))
   }
 
   // return all the potentian contact's pubkey that don't have a full Contact in the pool
-  get missingInPool(): Set<string> {
+  get missingInPool(): Array<string> {
     const result = new Set()
 
     this.follower.forEach((pubkey: string) => {
@@ -72,6 +72,6 @@ export default class ContactPool extends ContactPoolRecord {
       })
     })
 
-    return result
+    return Array.from(result.values())
   }
 }

@@ -11,6 +11,9 @@ export const storeContactList = createAction('CONTACTPOOL_STORE_CONTACTLIST',
 export const addedAsContact = createAction('CONTACTPOOL_ADDEDASCONTACT',
   (pubkey: string) => ({pubkey})
 )
+export const rejectSuggestion = createAction('CONTACTPOOL_REJECTSUGGEST',
+  (contact: Contact) => (contact)
+)
 
 export const priv = {
   storeContactInPool: createAction('CONTACTPOOL_STORE_CONTACT',
@@ -37,7 +40,7 @@ export function fetchAllMissingContacts() {
     const state: Store = getState()
     const pool: ContactPool = state.contactPool
 
-    const missing: Set<string> = pool.missingInPool
+    const missing: Array<string> = pool.missingInPool
 
     missing.forEach(async (pubkey: string) => (
       await fetchContactForPool(pubkey, dispatch)

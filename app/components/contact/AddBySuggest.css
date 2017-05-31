@@ -15,11 +15,14 @@
 }
 
 .suggestions {
-
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
 }
 
 .suggestWrapper {
-
+  width: 100px;
 }
 
 .suggestAvatar {

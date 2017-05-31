@@ -9,6 +9,20 @@ import { Set } from 'immutable'
 
 let initialState = new ContactPool()
 
+// TODO: remove
+import contactFxt from 'models/fixtures/contact'
+
+if(process.env.NODE_ENV !== 'production') {
+  contactFxt.forEach((contact) => {
+    initialState = initialState.set(writable.pool, initialState.pool.set(contact.pubkey, contact))
+  })
+  let set = new Set()
+  contactFxt.forEach((contact) => {
+    set = set.add(contact.pubkey)
+  })
+  initialState = initialState.set(writable.graph, initialState.graph.set('pubkey567', set))
+}
+
 export default handleActions({
 
   [contactPool.storeContactList]: (state: ContactPool, action: Action) => {
@@ -21,6 +35,10 @@ export default handleActions({
   [contactPool.addedAsContact]: (state: ContactPool, action: Action) => {
     const { pubkey } = action.payload
     return state.set(writable.follower, state.follower.add(pubkey))
+  },
+
+  [contactPool.rejectSuggestion]: (state: ContactPool, action: Action<Contact>) => {
+    return state.set(writable.rejected, state.rejected.add(action.payload.pubkey))
   },
 
   [contactPool.priv.storeContactInPool]: (state: ContactPool, action: Action) => {
