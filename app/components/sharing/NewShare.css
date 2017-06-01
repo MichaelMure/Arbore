@@ -2,11 +2,6 @@
 
 }
 
-.content {
-  border: rgb(225, 225, 225) 1px solid;
-  min-height: 200px;
-}
-
 .buttons {
   display: flex;
   justify-content: space-around;

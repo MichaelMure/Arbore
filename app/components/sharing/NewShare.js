@@ -2,11 +2,11 @@
 import React, { Component } from 'react'
 import styles from './NewShare.css'
 import Button from 'material-ui/Button'
-import { FormControl, FormLabel } from 'material-ui/Form'
 import { Field, reduxForm } from 'redux-form'
 import { renderTextField } from 'utils/forms'
 import ContactList from 'models/ContactList'
 import RecipientsInput from 'components/sharing/RecipientsInput'
+import ContentInput from 'components/sharing/ContentInput'
 
 export const formName = 'NewShareForm'
 
@@ -27,14 +27,8 @@ class NewShare extends Component {
       <form className={styles.wrapper} onSubmit={handleSubmit}>
         <Field name='title' component={renderTextField} required label='Title' autoFocus />
         <Field name='description' component={renderTextField} multiline rows="6" label='Description'/>
-        <Field name="recipients" component={RecipientsInput} contactList={contactList} label="Recipients"/>
-
-        <FormControl style={{ marginTop: '10px' }}>
-          <FormLabel>Content</FormLabel>
-          <div className={styles.content}>
-
-          </div>
-        </FormControl>
+        <Field name='recipients' component={RecipientsInput} contactList={contactList} label="Recipients"/>
+        <Field name='content' component={ContentInput} label='Content'/>
 
         <div className={styles.buttons}>
           <Button raised onClick={this.props.onCancelClick} disabled={waiting}>Cancel</Button>
@@ -59,7 +53,7 @@ const validate = (values, props) => {
   })
 
   const recipients = values[ 'recipients' ]
-  if(!recipients || recipients.length == 0) {
+  if(!recipients || recipients.length === 0) {
     errors[ 'recipients' ] = 'Required'
   }
 

@@ -1,0 +1,42 @@
+.wrapper {
+  border: rgb(225, 225, 225) 1px solid;
+  min-height: 200px;
+  max-height: 300px;
+  overflow: auto;
+}
+
+.adder {
+  cursor: pointer;
+  text-align: center;
+  user-select: none;
+  font-family: "Roboto";
+  border: 2px dashed gray;
+  padding: 10px;
+  outline: none;
+}
+
+.object {
+  display: flex;
+  flex-direction: row;
+}
+
+.icon {
+  width: 24px;
+  text-align: center;
+}
+
+.name {
+  flex-grow: 1;
+  flex-shrink: 1000;
+  margin-right: 2px;
+}
+
+.remove {
+  width: 24px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.size {
+
+}
