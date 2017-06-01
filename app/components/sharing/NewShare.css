@@ -2,24 +2,6 @@
 
 }
 
-.recipients {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  border: rgb(225, 225, 225) 1px solid;
-  min-height: 100px;
-}
-
-.recipients > * {
-  margin: 5px;
-}
-
-.recipientsInput {
-  margin: 5px;
-  height: 32px;
-  flex: 1;
-}
-
 .content {
   border: rgb(225, 225, 225) 1px solid;
   min-height: 200px;

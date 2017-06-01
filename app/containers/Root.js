@@ -26,7 +26,6 @@ export default class Root extends Component {
       const selected = state.identityList.selected
 
       if(selected !== this.state.selected) {
-        console.log('update Root')
         this.setState({ selected: selected })
       }
     })
@@ -35,13 +34,9 @@ export default class Root extends Component {
   render() {
     const { loginStore, fullStore } = this.props
 
-    console.log('render Root', loginStore, fullStore)
-
     const isLogged = loginStore.getState().identityList.isLogged
     const store = isLogged ? fullStore : loginStore
     const key = isLogged ? 'full' : 'login'
-
-    console.log('selected store', store)
 
     return (
       <MuiThemeProvider>
