@@ -13,7 +13,7 @@ export const filesizeNoUnit = (size, kilo, decimals, decPoint, thousandsSep) => 
  * If value is 123456789, the output would be 117.7 MB.
  */
 export const filesize = (filesize, kilo, decimals, decPoint, thousandsSep, suffixSep, units) => {
-  units = units || ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB']
+  units = units || ['B', 'KB', 'MB', 'GB', 'TB', 'PB']
   kilo = (kilo === undefined) ? 1024 : kilo
   if (filesize < kilo && decimals === undefined) {
     decimals = 0

@@ -1,7 +1,7 @@
 import Share, { writable } from 'models/Share'
 import contactFxt from './contact'
 import metadataFxt from './shareMetadata'
-import { webui } from './ipfsDirectory'
+import d2, { webui } from './ipfsDirectory'
 import randomName from 'utils/randomName'
 
 const shares = [
@@ -16,7 +16,7 @@ const shares = [
 ]
 
 shares[0] = shares[0].set(writable.content, shares[0].content.set(randomName(), webui))
-// shares[1] = shares[1].set(writable.content, shares[1].content.set(randomName(), webui))
+shares[1] = shares[1].set(writable.content, shares[1].content.set(randomName(), d2))
 // shares[2] = shares[2].set(writable.content, shares[2].content.set(randomName(), webui))
 // shares[3] = shares[3].set(writable.content, shares[3].content.set(randomName(), webui))
 // shares[4] = shares[4].set(writable.content, shares[4].content.set(randomName(), webui))

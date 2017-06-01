@@ -1,96 +1,86 @@
 // @flow
-import React, {Component, PropTypes} from 'react';
-// import styles from './ShareFiles.css';
-import Table, {
-  TableHead,
-  TableBody,
-  TableRow,
-  TableCell
-} from 'material-ui/Table';
-import Share from '/models/Share'
-import IpfsObject, {ObjectType} from 'models/IpfsObject'
+import React, { Component } from 'react'
+import styles from './ShareFiles.css'
+import Share from 'models/Share'
+import { ObjectType } from 'models/IpfsObject'
+import type { IpfsObject } from 'models/IpfsObject'
 import IpfsFile from 'models/IpfsFile'
 import IpfsDirectory from 'models/IpfsDirectory'
+import FontAwesome from 'react-fontawesome'
+import * as humanize from 'utils/humanize'
 
 class ShareFiles extends Component {
+
+  props: {
+    share: Share
+  }
 
   // This is not the more elegant code ever
   // but apparently this is the way to concatenate
   // jsx elements
   buffer: Array
 
-  // Used to generate react keys
-  // We can't use the ipfs hash because the same content can be in
-  // different part of the tree
-  id: number
-
-  renderObject(obj: IpfsObject) {
+  renderObject(obj: IpfsObject, name: string, path: string, level: number) {
     switch(obj.type) {
       case ObjectType.DIRECTORY:
-        this.renderDirectory(obj)
+        this.renderDirectory(obj, name, path, level)
         break
       case ObjectType.FILE:
-        this.renderFile(obj)
+        this.renderFile(obj, name, path, level)
         break
       default:
         console.assert(false)
     }
   }
 
-  renderFile(file: IpfsFile) {
+  renderFile(file: IpfsFile, name: string, path: string, level: number) {
+    // const progress: number = file.sizeLocal / file.sizeTotal * 100
+    const progress = Math.round(Math.random() * 100)
     this.buffer.push(
-      <TableRow key={ this.id }>
-        <TableCell>{ file.name }</TableCell>
-        <TableCell numeric>{ file.sizeTotal }</TableCell>
-        <TableCell numeric>{ file.sizeLocal / file.sizeTotal * 100 }%</TableCell>
-      </TableRow>
+      <div key={path} className={styles.object}>
+        <span style={{width: `${20*level}px`, display: 'inline-block'}} />
+        <span className={styles.icon}><FontAwesome name="file-o"/></span>
+        <span className={styles.name}>{ name }</span>
+        <div className={styles.progress}>
+          <div style={{width: `${progress}%`, backgroundColor: 'green'}} >{progress}%</div>
+        </div>
+        <span className={styles.size}>{humanize.filesize(file.sizeTotal)}</span>
+      </div>
     )
-    this.id++
   }
 
-  renderDirectory(dir: IpfsDirectory) {
+  renderDirectory(dir: IpfsDirectory, name: string, path: string, level: number) {
     this.buffer.push(
-      <TableRow key={ this.id }>
-        <TableCell>{ dir.name }</TableCell>
-        <TableCell numeric> </TableCell>
-        <TableCell numeric> </TableCell>
-      </TableRow>
+      <div key={path} className={styles.object}>
+        <span style={{width: `${20*level}px`, display: 'inline-block'}} />
+        <span className={styles.expander}><FontAwesome name="folder-open-o"/></span>
+        <span className={styles.name}>{ name }</span>
+      </div>
     )
-    this.id++
 
-    dir.children.forEach(
-      (child) => this.renderObject(child)
+    dir.children.entrySeq().forEach(
+      ([name, object]) => this.renderObject(object, name, path + '/' + name, level + 1)
     )
   }
 
   render() {
+    if(! this.props.share.metadataLocal) {
+      return (<div>Waiting for metadata...</div>)
+    }
+
     const content = this.props.share.content
-
     this.buffer = []
-    this.id = 1
 
-    content.forEach((obj) => this.renderObject(obj))
+    content.entrySeq().forEach(([name, object]) =>
+      this.renderObject(object, name, name, 0)
+    )
 
     return (
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell>Size</TableCell>
-            <TableCell>Progress</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          { this.buffer }
-        </TableBody>
-      </Table>
+      <div className={styles.wrapper}>
+        { this.buffer }
+      </div>
     );
   }
 }
-
-ShareFiles.propTypes = {
-  share: PropTypes.instanceOf(Share).isRequired
-};
-ShareFiles.defaultProps = {};
 
 export default ShareFiles;

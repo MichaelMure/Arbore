@@ -7,7 +7,7 @@ import Typography from 'material-ui/Typography'
 import Share from 'models/Share'
 import FontAwesome from 'react-fontawesome'
 import * as humanize from 'utils/humanize'
-import ShareFiles from './ShareFiles2'
+import ShareFiles from './ShareFiles'
 import Avatar from 'components/Avatar'
 
 class ShareDetail extends Component {
