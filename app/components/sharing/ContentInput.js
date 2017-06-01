@@ -16,7 +16,7 @@ class ContentInput extends Component {
     const stat = fs.statSync(path)
     return {
       path,
-      size: stat.size,
+      size: stat.isDirectory() ? null : stat.size,
       directory: stat.isDirectory()
     }
   }
@@ -53,7 +53,7 @@ class ContentInput extends Component {
       <div key={path} className={styles.object}>
         <FontAwesome className={styles.icon} name={ directory ? "folder" : 'file-o' }/>
         <Typography noWrap className={styles.name}>{ nodePath.basename(path) }</Typography>
-        <Typography className={styles.size}>{ humanize.filesize(size) }</Typography>
+        { size !== null && <Typography className={styles.size}>{ humanize.filesize(size) }</Typography> }
         <FontAwesome className={styles.remove} name='times' onClick={() => {::this.handleRemove(index)}}/>
       </div>
     )
