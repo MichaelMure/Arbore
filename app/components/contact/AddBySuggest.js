@@ -20,14 +20,22 @@ class AddBySuggest extends Component {
   renderContact(contact: Contact) {
     return (
       <div key={contact.pubkey} className={styles.suggestWrapper}>
-        <Avatar person={contact} className={styles.suggestAvatar}/>
+        <div className={styles.suggestActions}>
+          <Avatar person={contact} className={styles.suggestAvatar}/>
+          <div className={styles.suggestButtons}>
+            <Button fab
+              onClick={this.props.onSuggestRefuseGenerator(contact)}
+              className={styles.suggestReject}>
+              <FontAwesome name='times' />
+            </Button>
+            <Button fab
+              onClick={this.props.onSuggestAcceptGenerator(contact)}
+              className={styles.suggestAccept}>
+              <FontAwesome name='check' />
+            </Button>
+          </div>
+        </div>
         <Typography>{contact.identity}</Typography>
-        <IconButton onClick={this.props.onSuggestAcceptGenerator(contact)}>
-          <FontAwesome name='check' />
-        </IconButton>
-        <IconButton onClick={this.props.onSuggestRefuseGenerator(contact)}>
-          <FontAwesome name='times' />
-        </IconButton>
       </div>
     )
   }
