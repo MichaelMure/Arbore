@@ -5,14 +5,20 @@
   overflow: auto;
 }
 
-.adder {
+.buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.button {
   cursor: pointer;
   text-align: center;
   user-select: none;
   font-family: "Roboto";
   border: 2px dashed gray;
   padding: 10px;
-  outline: none;
+  flex-grow: 1;
+  margin: 1px;
 }
 
 .object {

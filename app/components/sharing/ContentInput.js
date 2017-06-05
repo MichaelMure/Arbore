@@ -21,10 +21,10 @@ class ContentInput extends Component {
     }
   }
 
-  handleOpen() {
+  handleOpen(directories: boolean) {
     const { input: { value, onChange} } = this.props
     const opened = dialog.showOpenDialog({
-      properties: ['multiSelections'],
+      properties: ['multiSelections', directories ? 'openDirectory' : 'openFile'],
     })
 
     if(!opened) {
@@ -64,11 +64,18 @@ class ContentInput extends Component {
     return (
       <FormControl error={touched && (error != null)} style={{ marginTop: '10px' }} >
         <FormLabel>{label}</FormLabel>
-        {/* tabIndex is a trick to make the input focusable */}
+
         <div className={styles.wrapper}>
           { value && value.map((entry, index) => this.renderObject(index, entry)) }
-          <div className={styles.adder} tabIndex={0} onClick={::this.handleOpen}>
-            Add content
+          <div className={styles.buttons}>
+            <div className={styles.button} tabIndex={0} onClick={() => { ::this.handleOpen(false) }}>
+              <FontAwesome className={styles.icon} name='file-o'/>
+              Add files
+            </div>
+            <div className={styles.button} tabIndex={0} onClick={() => { ::this.handleOpen(true) }}>
+              <FontAwesome className={styles.icon} name="folder"/>
+              Add directories
+            </div>
           </div>
         </div>
       </FormControl>

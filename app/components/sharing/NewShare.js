@@ -57,6 +57,11 @@ const validate = (values, props) => {
     errors[ 'recipients' ] = 'Required'
   }
 
+  const content = values[ 'content' ]
+  if(!content || content.length === 0) {
+    errors[ 'content' ] = 'Required'
+  }
+
   return errors
 }
 
