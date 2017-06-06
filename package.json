@@ -55,6 +55,10 @@
         "nsis"
       ]
     },
+	"nsis": {
+	  "oneClick": false,
+	  "multiLanguageInstaller": true
+	},
     "linux": {
       "target": [
         "deb",
