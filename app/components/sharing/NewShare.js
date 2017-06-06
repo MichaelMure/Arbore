@@ -7,6 +7,7 @@ import { renderTextField } from 'utils/forms'
 import ContactList from 'models/ContactList'
 import RecipientsInput from 'components/sharing/RecipientsInput'
 import ContentInput from 'components/sharing/ContentInput'
+import FontAwesome from 'react-fontawesome'
 
 export const formName = 'NewShareForm'
 
