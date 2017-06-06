@@ -57,7 +57,8 @@
     },
 	"nsis": {
 	  "oneClick": false,
-	  "multiLanguageInstaller": true
+	  "multiLanguageInstaller": true,
+	  "allowToChangeInstallationDirectory": true
 	},
     "linux": {
       "target": [
