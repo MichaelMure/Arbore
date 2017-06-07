@@ -27,7 +27,7 @@ export function createLoginStore() {
 
   const onComplete = new Promise((resolve) => {
     persistStore(store, {
-      blacklist: ['ui', 'form'],
+      blacklist: ['ui', 'form', 'globalError'],
       transforms: [immutableTransform({records: allModels})],
 /// #if !isElectron
       storage: new AsyncNodeStorage(path.join(os.homedir(), '.arbore-contactAdder')),
@@ -56,7 +56,7 @@ export function createFullStore(prefix: string, name: string) {
 
   const onComplete = new Promise((resolve) => {
     persistStore(store, {
-      blacklist: ['ui', 'form'],
+      blacklist: ['ui', 'form', 'globalError'],
       transforms: [immutableTransform({records: allModels})],
       keyPrefix: '@'+prefix+':',
 /// #if !isElectron

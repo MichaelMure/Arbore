@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Home from 'containers/Home'
 import LoginPage from 'components/login/LoginPage'
+import GlobalError from 'containers/GlobalError'
 
 export default class Root extends Component {
 
@@ -41,7 +42,10 @@ export default class Root extends Component {
     return (
       <MuiThemeProvider>
         <Provider key={ key } store={ store }>
-          { isLogged ? <Home /> : <LoginPage /> }
+          <div>
+            { isLogged ? <Home /> : <LoginPage /> }
+            <GlobalError />
+          </div>
         </Provider>
       </MuiThemeProvider>
     )

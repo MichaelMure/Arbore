@@ -3,6 +3,7 @@ import * as chatActions from './chat'
 import * as contactActions from './contact'
 import * as contactListActions from './contactList'
 import * as contactPoolActions from './contactPool'
+import * as globalErrorActions from './globalError'
 import * as identityActions from './identity'
 import * as identityListActions from './identityList'
 import * as ipfsObjectActions from './ipfsObject'
@@ -16,6 +17,7 @@ export default {
   ...contactActions,
   ...contactListActions,
   ...contactPoolActions,
+  ...globalErrorActions,
   ...identityActions,
   ...identityListActions,
   ...ipfsObjectActions,
