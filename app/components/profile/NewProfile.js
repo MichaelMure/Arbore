@@ -8,6 +8,7 @@ import { Field, reduxForm } from 'redux-form'
 import { renderTextField } from 'utils/forms'
 import AvatarEditor from 'components/profile/AvatarEditor'
 import FontAwesome from 'react-fontawesome'
+import Error from 'components/Error'
 
 class NewProfile extends Component {
   avatarEditor: AvatarEditor
@@ -31,9 +32,9 @@ class NewProfile extends Component {
   // Intercept the submit to clean the values and add the avatar
   handleSubmit(values) {
     // Pass it up ↑
-    this.props.onSubmit({
+    return this.props.onSubmit({
       identity: values.identity,
-      passphrase: values.passphrase|| '',
+      passphrase: values.passphrase || '',
       bio: values.bio || '',
       avatar: this.avatarEditor.getImage()
     })
@@ -41,7 +42,7 @@ class NewProfile extends Component {
 
   // TODO: need an error field
   render() {
-    const { handleSubmit, pristine, submitting, waiting } = this.props
+    const { error, handleSubmit, pristine, submitting, waiting } = this.props
     return (
       <form className={styles.wrapper} onSubmit={handleSubmit(::this.handleSubmit)}>
         <div className={styles.row} >
@@ -58,6 +59,8 @@ class NewProfile extends Component {
         </div>
 
         <Typography>Warning: Neither your data nor your local profile is protected for now.</Typography>
+
+        { error && <Error>{error}</Error>}
 
         <div className={styles.buttons}>
           <Button raised onClick={this.props.onCancelClick} disabled={waiting}>Cancel</Button>

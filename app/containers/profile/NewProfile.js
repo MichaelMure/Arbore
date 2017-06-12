@@ -5,6 +5,7 @@ import NewProfile from 'components/profile/NewProfile'
 import * as profile from 'actions/profile'
 import Identity from 'models/Identity'
 import type {Action} from 'utils/types'
+import { SubmissionError } from 'redux-form'
 
 /**
  * Container around the new Profile form
@@ -34,8 +35,7 @@ class NewProfileContainer extends Component {
       this.props.showIdentityList()
     } catch(err) {
       this.setState({ waiting: false })
-      // TODO: do something with the error
-      console.log(err)
+      throw new SubmissionError({ _error: err })
     }
   }
 
