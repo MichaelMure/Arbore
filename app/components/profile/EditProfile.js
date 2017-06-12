@@ -7,6 +7,7 @@ import AvatarEditor from 'components/profile/AvatarEditor'
 import { renderTextField } from 'utils/forms'
 import { Field, reduxForm } from 'redux-form'
 import FontAwesome from 'react-fontawesome'
+import Error from 'components/Error'
 
 class EditProfile extends Component {
   avatarEditor: AvatarEditor
@@ -15,14 +16,13 @@ class EditProfile extends Component {
     onCancelClick: () => any,
     onSubmit: (values: {}) => any,
     waiting: boolean,
-    error: ?string,
     initialValues: {}
   }
 
   // Intercept the submit to clean the values and add the avatar
   handleSubmit(values) {
     // Pass it up ↑
-    this.props.onSubmit({
+    return this.props.onSubmit({
       passphrase: values.passphrase|| '',
       bio: values.bio || '',
       avatar: this.avatarEditor.getImage()
@@ -34,7 +34,7 @@ class EditProfile extends Component {
   }
 
   render() {
-    const { onCancelClick, handleSubmit, pristine, submitting, waiting } = this.props
+    const { error, onCancelClick, handleSubmit, pristine, submitting, waiting } = this.props
     const avatarPristine = !this.avatarEditor || this.avatarEditor.pristine
 
     return (
@@ -64,6 +64,8 @@ class EditProfile extends Component {
           type='password'
         />
         <Field name='bio' component={renderTextField} label='Bio' multiline rows="6"/>
+
+        { error && <Error>{error}</Error>}
 
         <div className={styles.buttons}>
           <Button raised onClick={onCancelClick} disabled={waiting}>Cancel</Button>

@@ -6,6 +6,7 @@ import EditProfile from 'components/profile/EditProfile'
 import * as profile from 'actions/profile'
 import { AVATAR_DELETED } from 'components/profile/AvatarEditor'
 import { isBuffer } from 'util'
+import { SubmissionError } from 'redux-form'
 
 // TODO: this could be done best with a real placeholder in the textfield
 const passphrasePlaceholder = 'ⓟⓛⓐⓒⓔⓗⓞⓛⓓⓔⓡ'
@@ -49,8 +50,7 @@ class EditProfileContainer extends Component {
       this.props.onDone()
     } catch(err) {
       this.setState({ waiting: false })
-      // TODO: do something with the error
-      console.log(err)
+      throw new SubmissionError({ _error: err })
     }
   }
 
