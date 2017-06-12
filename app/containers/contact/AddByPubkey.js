@@ -5,6 +5,7 @@ import type { Store } from 'utils/types'
 import type {Action} from 'utils/types'
 import AddByPubkey from 'components/contact/AddByPubkey'
 import * as contactList from 'actions/contactList'
+import { SubmissionError } from 'redux-form'
 
 class AddByPubkeyContainer extends Component {
 
@@ -33,8 +34,7 @@ class AddByPubkeyContainer extends Component {
       this.props.onCancelClick()
     } catch(err) {
       this.setState({ waiting: false })
-      // TODO: do something with the error
-      console.log(err)
+      throw new SubmissionError({ _error: err })
     }
   }
 
