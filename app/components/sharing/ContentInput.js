@@ -21,6 +21,13 @@ class ContentInput extends Component {
     }
   }
 
+  enterToClick(e) {
+    console.log(e)
+    if (e.key === 'Enter') {
+      e.target.click()
+    }
+  }
+
   handleOpen(directories: boolean) {
     const { input: { value, onChange} } = this.props
     const opened = dialog.showOpenDialog({
@@ -68,11 +75,17 @@ class ContentInput extends Component {
         <div className={styles.wrapper}>
           { value && value.map((entry, index) => this.renderObject(index, entry)) }
           <div className={styles.buttons}>
-            <div className={styles.button} tabIndex={0} onClick={() => { ::this.handleOpen(false) }}>
+            <div className={styles.button} tabIndex={0}
+                 onClick={() => { ::this.handleOpen(false) }}
+                 onKeyPress={ ::this.enterToClick }
+            >
               <FontAwesome className={styles.icon} name='file-o'/>
               Add files
             </div>
-            <div className={styles.button} tabIndex={0} onClick={() => { ::this.handleOpen(true) }}>
+            <div className={styles.button} tabIndex={0}
+                 onClick={() => { ::this.handleOpen(true) }}
+                 onKeyPress={ ::this.enterToClick }
+            >
               <FontAwesome className={styles.icon} name="folder"/>
               Add directories
             </div>
