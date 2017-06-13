@@ -39,6 +39,8 @@ export const isServiceStarted = 'is-ipfs-started'
 export const start = () => {
   const instance = IpfsConnector.getInstance()
 
+  console.log('Application data path: ' + app.getPath('userData'))
+
   // set the download path for ipfs
   instance.setBinPath(
     app.getPath('userData')
