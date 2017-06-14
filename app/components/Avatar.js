@@ -15,7 +15,12 @@ class Avatar extends Component {
     const { person, ...extra } = this.props
 
     if(person.avatarUrl) {
-      return <MUIAvatar {...extra} src={person.avatarUrl} alt={person.identity} />
+      return <MUIAvatar
+        {...extra}
+        src={person.avatarUrl}
+        alt={person.identity}
+        style={{ pointerEvents: 'none'}}
+      />
     } else {
       return <MUIAvatar {...extra} alt={person.identity}>{person.initials}</MUIAvatar>
     }
