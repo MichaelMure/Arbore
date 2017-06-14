@@ -4,7 +4,7 @@ import Card, { CardHeader } from 'material-ui/Card'
 import { LinearProgress } from 'material-ui/Progress'
 import classNames from 'classnames/bind'
 import Share from "models/Share"
-import Avatar from 'components/Avatar'
+import Avatar from 'components/common/Avatar'
 
 const cx = classNames.bind(styles);
 

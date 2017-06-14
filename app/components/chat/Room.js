@@ -6,7 +6,7 @@ import ChatRoom from 'models/ChatRoom'
 import HistoryChunk from 'components/chat/HistoryChunk'
 import ContactList from 'models/ContactList'
 import Profile from 'models/Profile'
-import Avatar from 'components/Avatar'
+import Avatar from 'components/common/Avatar'
 
 class Room extends Component {
 

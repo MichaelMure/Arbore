@@ -4,7 +4,7 @@ import styles from './RecipientsInput.css'
 import Chip from 'material-ui/Chip'
 import Input from 'material-ui/Input'
 import { FormControl, FormLabel } from 'material-ui/Form'
-import Avatar from 'components/Avatar'
+import Avatar from 'components/common/Avatar'
 import Contact from 'models/Contact'
 import ContactList from 'models/ContactList'
 

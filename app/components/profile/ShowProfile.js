@@ -6,9 +6,9 @@ import IconButton from 'material-ui/IconButton'
 import Typography from 'material-ui/Typography'
 import styles from './ShowProfile.css'
 import FontAwesome from 'react-fontawesome'
-import Avatar from 'components/Avatar'
 
 const {clipboard} = require('electron')
+import Avatar from 'components/common/Avatar'
 
 class ShowProfile extends Component {
 

@@ -8,7 +8,7 @@ import Share from 'models/Share'
 import FontAwesome from 'react-fontawesome'
 import * as humanize from 'utils/humanize'
 import ShareFiles from './ShareFiles'
-import Avatar from 'components/Avatar'
+import Avatar from 'components/common/Avatar'
 
 class ShareDetail extends Component {
 

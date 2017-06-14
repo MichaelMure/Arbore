@@ -5,7 +5,7 @@ import Typography from 'material-ui/Typography'
 import ChatEntry from 'models/ChatEntry'
 import Contact from 'models/Contact'
 import Moment from 'react-moment'
-import Avatar from 'components/Avatar'
+import Avatar from 'components/common/Avatar'
 import Profile from 'models/Profile'
 import FontAwesome from 'react-fontawesome'
 

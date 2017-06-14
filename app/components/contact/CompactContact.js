@@ -4,7 +4,7 @@ import styles from './CompactContact.css'
 import Card, { CardHeader } from 'material-ui/Card'
 import Contact from 'models/Contact'
 import classNames from 'classnames/bind'
-import Avatar from 'components/Avatar'
+import Avatar from 'components/common/Avatar'
 
 const cx = classNames.bind(styles);
 

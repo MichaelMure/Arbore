@@ -12,7 +12,7 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog';
 import FontAwesome from 'react-fontawesome'
-import Avatar from 'components/Avatar'
+import Avatar from 'components/common/Avatar'
 import Contact, { ContactStatus } from 'models/Contact'
 
 class ContactDetail extends Component {

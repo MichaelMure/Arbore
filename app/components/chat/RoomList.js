@@ -6,7 +6,7 @@ import ChatRoomList from 'models/ChatRoomList'
 import ContactList from 'models/ContactList'
 import UiState from 'models/UiState'
 import Contact, { ContactStatus, ContactStatusType } from 'models/Contact'
-import Avatar from 'components/Avatar'
+import Avatar from 'components/common/Avatar'
 import classNames from 'classnames/bind'
 
 const cx = classNames.bind(styles);
