@@ -30,24 +30,6 @@
   text-align: center;
 }
 
-.bio {
-  min-height: 150px;
-  max-height: 300px;
-  overflow: auto;
-  background-color: #f5f5f5;
-  border-radius: 5px;
-  margin-top: 10px !important;
-  white-space: pre-line;
-}
-
-.bioEmpty {
-  min-height: 150px;
-  color: gray !important;
-  background-color: #f5f5f5;
-  border-radius: 5px;
-  margin-top: 10px !important;
-}
-
 .buttons {
   display: flex;
   flex-direction: row;
@@ -59,13 +41,3 @@
   min-width: 100px;
 }
 
-.pubkey {
-  word-break: break-all;
-  margin-bottom: 10px;
-}
-
-.copyToClipboard {
-  font-size: 15px !important;
-  width: 26px !important;
-  height: 26px !important;
-}

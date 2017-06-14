@@ -1,14 +1,13 @@
 // @flow
 import React, { Component } from 'react'
+import styles from './ShowProfile.css'
 import Profile from 'models/Profile'
 import Button from 'material-ui/Button'
-import IconButton from 'material-ui/IconButton'
 import Typography from 'material-ui/Typography'
-import styles from './ShowProfile.css'
 import FontAwesome from 'react-fontawesome'
-
-const {clipboard} = require('electron')
 import Avatar from 'components/common/Avatar'
+import Pubkey from 'components/common/Pubkey'
+import Bio from 'components/common/Bio'
 
 class ShowProfile extends Component {
 
@@ -16,11 +15,6 @@ class ShowProfile extends Component {
     profile: Profile,
     onLogoutClick: () => any,
     onEditClick: () => any
-  }
-
-  handlePubkeyToClipboard() {
-    // TODO: maybe that need some visual feedback for the user ?
-    clipboard.writeText(this.props.profile.pubkey)
   }
 
   render() {
@@ -34,20 +28,12 @@ class ShowProfile extends Component {
           : <div className={styles.noAvatar}><Typography>No avatar</Typography></div>
         }
 
-        { profile.bio
-          ? <Typography paragraph className={styles.bio}>{profile.bio}</Typography>
-          : <Typography paragraph className={styles.bioEmpty}>No biography</Typography>
-        }
+        <Bio bio={profile.bio} />
 
         <Typography align="center" type="body2">
           Share your Arbore ID
         </Typography>
-        <Typography className={styles.pubkey} align="center" gutterBottom>
-          {profile.pubkey}
-          <IconButton className={styles.copyToClipboard} onClick={::this.handlePubkeyToClipboard}>
-            <FontAwesome name="clipboard" />
-          </IconButton>
-        </Typography>
+        <Pubkey pubkey={profile.pubkey} />
 
         <div className={styles.buttons}>
           <Button raised onClick={this.props.onEditClick}>
