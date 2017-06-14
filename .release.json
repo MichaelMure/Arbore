@@ -1,5 +1,9 @@
 {
   "verbose": true,
+  "pkgFiles": [
+    "package.json",
+    "app/package.json"
+  ],
   "src": {
     "commitMessage": "Release %s-preview",
     "tagName": "v%s-preview"
