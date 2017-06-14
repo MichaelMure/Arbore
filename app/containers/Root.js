@@ -5,6 +5,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Home from 'containers/Home'
 import LoginPage from 'components/login/LoginPage'
 import GlobalError from 'containers/GlobalError'
+import IpfsStatus from 'containers/IpfsStatus'
 
 export default class Root extends Component {
 
@@ -45,6 +46,7 @@ export default class Root extends Component {
           <div>
             { isLogged ? <Home /> : <LoginPage /> }
             <GlobalError />
+            <IpfsStatus />
           </div>
         </Provider>
       </MuiThemeProvider>
