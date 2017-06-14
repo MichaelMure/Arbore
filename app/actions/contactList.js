@@ -39,6 +39,9 @@ export function addContact(pubkey: string) {
 
     await dispatch(priv.addContact(contact))
 
+    // Ping the contact
+    dispatch(pingContact(contact))
+
     // Inform the contact that we added him
     const profile: Profile = getState().profile
     const data = protocol.addedContactQuery(profile)
