@@ -78,19 +78,20 @@ class ContactDetail extends Component {
           Delete contact
         </Button>
 
-        <Dialog open={this.state.confirmOpen} onRequestClose={this.handleCloseConfirm}>
-          <DialogTitle>Confirm contact deletion</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to remove this contact ?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={::this.handleCloseConfirm} primary>Cancel</Button>
-            <Button onClick={this.props.onDeleteClickGenerator(this.props.contact)} primary>Confirm</Button>
-          </DialogActions>
-        </Dialog>
-
+        { this.state.confirmOpen &&
+          <Dialog open={true} onRequestClose={this.handleCloseConfirm}>
+            <DialogTitle>Confirm contact deletion</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                Are you sure you want to remove this contact ?
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={::this.handleCloseConfirm} primary>Cancel</Button>
+              <Button onClick={this.props.onDeleteClickGenerator(this.props.contact)} primary>Confirm</Button>
+            </DialogActions>
+          </Dialog>
+        }
       </div>
     )
   }
