@@ -54,7 +54,6 @@ app.on('ready', async () => {
     width: 300,
     height: 300,
     frame: false,
-    transparent: true,
     movable: false,
     resizable: false,
     minimizable: false,

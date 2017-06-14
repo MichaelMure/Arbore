@@ -17,7 +17,7 @@
    enable-background="new 0 0 350 150"
    xml:space="preserve"
    inkscape:version="0.92.1 r15371"
-   sodipodi:docname="logo.svg"
+   sodipodi:docname="logo-splashscreen.svg"
    inkscape:export-filename="/home/michael/dev/arbore/resources/icon.png"
    inkscape:export-xdpi="61.439999"
    inkscape:export-ydpi="61.439999"><metadata
@@ -25,7 +25,7 @@
          rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" /><dc:title></dc:title></cc:Work></rdf:RDF></metadata><defs
      id="defs19" /><sodipodi:namedview
-     pagecolor="#ffffff"
+     pagecolor="#484848"
      bordercolor="#666666"
      borderopacity="1"
      objecttolerance="10"
@@ -38,8 +38,8 @@
      id="namedview17"
      showgrid="false"
      inkscape:zoom="1.9"
-     inkscape:cx="85.935212"
-     inkscape:cy="155.16696"
+     inkscape:cx="-123.01216"
+     inkscape:cy="112.00907"
      inkscape:window-x="0"
      inkscape:window-y="55"
      inkscape:window-maximized="1"
@@ -58,7 +58,7 @@
        id="g3981"
        transform="matrix(2.593397,0,0,2.593397,-427.4378,-241.12201)"><path
          inkscape:connector-curvature="0"
-         style="fill:#fcfeff;fill-opacity:1;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3;stroke-dasharray:none"
+         style="fill:#a8adb1;fill-opacity:1;stroke:none;stroke-width:15;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:3;stroke-dasharray:none;opacity:0.98"
          d="m 35.304778,104.48818 -0.0359,-63.521369 54.98155,-31.7943387 55.035392,31.7225407 0.0224,63.530327 -54.990532,31.78088 z"
          id="path3002-5" /><path
          inkscape:connector-curvature="0"
