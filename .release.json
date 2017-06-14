@@ -1,0 +1,18 @@
+{
+  "verbose": true,
+  "src": {
+    "commitMessage": "Release %s-preview",
+    "tagName": "v%s-preview"
+  },
+  "dist": {
+    "baseDir": false
+  },
+  "npm": {
+    "private": "true"
+  },
+  "github": {
+    "release": true,
+    "preRelease": true,
+    "tokenRef": "GITHUB_TOKEN"
+  }
+}
