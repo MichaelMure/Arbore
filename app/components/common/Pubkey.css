@@ -1,0 +1,10 @@
+.pubkey {
+  word-break: break-all;
+  margin-bottom: 10px;
+}
+
+.copyToClipboard {
+  font-size: 15px !important;
+  width: 26px !important;
+  height: 26px !important;
+}
