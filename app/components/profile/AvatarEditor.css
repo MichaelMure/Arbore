@@ -59,17 +59,10 @@
 .zoomWrapper {
   position: relative;
   vertical-align: middle;
-  margin-top: -20px;
+  margin-top: -12px;
 }
 
 .zoomWrapper > * {
   width: 100%;
   padding: 0;
-}
-
-.zoomRail {
-  position: absolute;
-  border: gray 1px solid;
-  margin: 15px 0 15px;
-  height: 1px;
 }

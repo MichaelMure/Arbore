@@ -155,20 +155,18 @@ class AvatarEditor extends Component {
               <FontAwesome name='rotate-right' onClick={ ::this.handleRotateRight } />
             </div>
           </div>
-        </div>
-        {/* TODO: replace with Slider once material-ui is ready */}
-        {/* https://github.com/callemall/material-ui/issues/4793 */}
-        <div className={styles.zoomWrapper}>
-          <div className={styles.zoomRail}> </div>
-          <Input
-            type='range'
-            min='1'
-            max='4'
-            step='0.01'
-            defaultValue='1'
-            onChange={::this.handleZoomChange}
-            disableUnderline={true}
-          />
+          {/* TODO: replace with Slider once material-ui is ready */}
+          {/* https://github.com/callemall/material-ui/issues/4793 */}
+          <div className={styles.zoomWrapper}>
+            <input
+              type='range'
+              min={1}
+              max={4}
+              step={0.01}
+              defaultValue={1}
+              onChange={::this.handleZoomChange}
+            />
+          </div>
         </div>
       </div>
     )
