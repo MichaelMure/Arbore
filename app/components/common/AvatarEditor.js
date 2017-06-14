@@ -164,6 +164,7 @@ class AvatarEditor extends Component {
               max={4}
               step={0.01}
               defaultValue={1}
+              value={this.state.zoom}
               onChange={::this.handleZoomChange}
             />
           </div>

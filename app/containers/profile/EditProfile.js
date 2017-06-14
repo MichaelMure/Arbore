@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import type { Action, Store } from 'utils/types'
 import EditProfile from 'components/profile/EditProfile'
 import * as profile from 'actions/profile'
-import { AVATAR_DELETED } from 'components/profile/AvatarEditor'
+import { AVATAR_DELETED } from 'components/common/AvatarEditor'
 import { isBuffer } from 'util'
 import { SubmissionError } from 'redux-form'
 

@@ -6,7 +6,7 @@ import { FormLabel } from 'material-ui/Form'
 import Typography from 'material-ui/Typography'
 import { Field, reduxForm } from 'redux-form'
 import { renderTextField } from 'utils/forms'
-import AvatarEditor from 'components/profile/AvatarEditor'
+import AvatarEditor from 'components/common/AvatarEditor'
 import FontAwesome from 'react-fontawesome'
 import Error from 'components/Error'
 
@@ -40,7 +40,6 @@ class NewProfile extends Component {
     })
   }
 
-  // TODO: need an error field
   render() {
     const { error, handleSubmit, pristine, submitting, waiting } = this.props
     return (
