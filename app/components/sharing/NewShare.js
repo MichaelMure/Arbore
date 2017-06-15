@@ -8,21 +8,20 @@ import ContactList from 'models/ContactList'
 import RecipientsInput from 'components/sharing/RecipientsInput'
 import ContentInput from 'components/sharing/ContentInput'
 import FontAwesome from 'react-fontawesome'
+import Error from 'components/Error'
 
 export const formName = 'NewShareForm'
 
 class NewShare extends Component {
-  recipients: RecipientsInput
 
   props: {
     contactList: ContactList,
     onCancelClick: () => any,
     onSubmit: (values: {}) => any,
-    waiting: boolean
   }
 
   render() {
-    const { contactList, handleSubmit, pristine, submitting, waiting } = this.props
+    const { contactList, error, handleSubmit, pristine, submitting, waiting } = this.props
 
     return (
       <form className={styles.wrapper} onSubmit={handleSubmit}>
@@ -31,10 +30,12 @@ class NewShare extends Component {
         <Field name='recipients' component={RecipientsInput} contactList={contactList} label="Recipients"/>
         <Field name='content' component={ContentInput} label='Content'/>
 
+        { error && <Error>{error}</Error>}
+
         <div className={styles.buttons}>
           <Button raised onClick={this.props.onCancelClick} disabled={waiting}>Cancel</Button>
-          <Button raised primary type='submit' disabled={pristine || submitting || waiting}>
-            { waiting && <FontAwesome name='cog' spin /> }
+          <Button raised primary type='submit' disabled={pristine || submitting }>
+            { submitting && <FontAwesome name='cog' spin /> }
             Share
           </Button>
         </div>

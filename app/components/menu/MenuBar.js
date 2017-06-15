@@ -43,7 +43,7 @@ class MenuBar extends Component {
     const profile: Profile = this.props.profile
 
     return (
-      <div className={styles.wrapper}>
+      <nav className={styles.wrapper}>
 
         <MenuItem name="profile" label="Profile" onClick={this.props.onProfileClick} accent={this.props.profileSelected}>
           { profile.avatarUrl
@@ -96,7 +96,7 @@ class MenuBar extends Component {
         <MenuItem name="chat" label="Chat" onClick={this.props.onChatClick} accent={this.props.chatSelected}>
             <FontAwesome name='comments'/>
         </MenuItem>
-      </div>
+      </nav>
     )
   }
 }
