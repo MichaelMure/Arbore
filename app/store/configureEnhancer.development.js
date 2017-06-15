@@ -1,7 +1,7 @@
 import { applyMiddleware, compose } from 'redux'
 import { autoRehydrate } from 'redux-persist'
 import thunk from 'redux-thunk'
-import createLogger from 'redux-logger'
+import { createLogger } from 'redux-logger'
 import allActions from 'actions/allActions'
 import createActionBuffer from 'redux-action-buffer'
 import {REHYDRATE} from 'redux-persist/constants'
