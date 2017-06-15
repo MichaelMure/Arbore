@@ -1,9 +1,11 @@
 // @flow
 import { createAction } from 'redux-actions'
 import Share from 'models/Share'
+import Contact from 'models/Contact'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import type { IpfsObject } from 'models/IpfsObject'
 import { waitForIpfsReady } from 'ipfs/index'
+import path from 'path'
 
 export const addEmptyObject = createAction('SHARE_EMPTY_OBJECT_ADD',
   (id: number, name: string, hash: string) => ({id, name, hash})
@@ -43,5 +45,42 @@ export function triggerDownload(share: Share) {
     } catch (error) {
       console.error(error)
     }
+  }
+}
+
+export function createShare(title: string, description: string, recipients: Array<Contact>, content: Array) {
+  return async function* (dispatch) {
+    const instance = IpfsConnector.getInstance()
+    await waitForIpfsReady()
+
+    const objects = []
+
+    let addedSize = 0
+    const totalSize = content.reduce((a,b) => a + b.size, 0)
+
+    for(const {path: contentPath, size, directory} of content) {
+
+      // Feedback with the progress
+      yield {
+        progress: addedSize / totalSize,
+        nextProgress: (addedSize + size) / totalSize,
+        adding: path.basename(contentPath)
+      }
+
+      const result = await instance.api.apiClient.util.addFromFs(contentPath, {
+        recursive: true,
+        hidden: true,
+        // ignore: ['subfolder/to/ignore/**']
+      })
+
+      addedSize += size
+
+      objects.push(directory
+        ? result.last()
+        : result
+      )
+    }
+
+    return objects
   }
 }

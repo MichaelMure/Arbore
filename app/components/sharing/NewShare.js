@@ -2,6 +2,8 @@
 import React, { Component } from 'react'
 import styles from './NewShare.css'
 import Button from 'material-ui/Button'
+import { LinearProgress } from 'material-ui/Progress'
+import Typography from 'material-ui/Typography'
 import { Field, reduxForm } from 'redux-form'
 import { renderTextField } from 'utils/forms'
 import ContactList from 'models/ContactList'
@@ -18,10 +20,11 @@ class NewShare extends Component {
     contactList: ContactList,
     onCancelClick: () => any,
     onSubmit: (values: {}) => any,
+    progress: any
   }
 
   render() {
-    const { contactList, error, handleSubmit, pristine, submitting, waiting } = this.props
+    const { contactList, error, progress, handleSubmit, pristine, submitting, waiting } = this.props
 
     return (
       <form className={styles.wrapper} onSubmit={handleSubmit}>
@@ -31,6 +34,13 @@ class NewShare extends Component {
         <Field name='content' component={ContentInput} label='Content'/>
 
         { error && <Error>{error}</Error>}
+
+        { progress &&
+          <div className={styles.progressWrapper}>
+            <LinearProgress mode="buffer" value={progress.progress*100} valueBuffer={progress.nextProgress*100} />
+            <Typography>Adding {progress.adding}</Typography>
+          </div>
+        }
 
         <div className={styles.buttons}>
           <Button raised onClick={this.props.onCancelClick} disabled={waiting}>Cancel</Button>

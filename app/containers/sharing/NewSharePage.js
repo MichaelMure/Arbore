@@ -3,69 +3,70 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import NewShare, { formName } from 'components/sharing/NewShare'
 import { Store } from 'utils/types'
-import type {Action} from 'utils/types'
-import ContactList from 'models/ContactList'
 import * as ui from 'actions/ui'
-import {reset} from 'redux-form'
+import * as share from 'actions/share'
+import {reset, SubmissionError} from 'redux-form'
 
-/**
- * Container around the new Share form
- */
-class NewShareContainer extends Component {
-  state = {
-    waiting: false
-  }
+class NewSharePage extends Component {
 
   props: {
-    contactList: ContactList,
-    dispatch: (Action) => any
+    dispatch: (any) => any
+  }
+
+  state = {
+    progress: null
   }
 
   async handleSubmit(values) {
-    const dispatch = this.props.dispatch
-    console.log(values)
-    this.setState({ waiting: true })
-
-    try {
-
-      this.setState({ waiting: false })
-      dispatch(ui.closeNewShare())
-    } catch(err) {
-      this.setState({ waiting: false })
-      // TODO: do something with the error
-      console.log(err)
-    }
-  }
-
-  // Intercept the cancel click to reset the form
-  handleCancel() {
     const { dispatch } = this.props
 
-    dispatch(ui.closeNewShare())
+    try {
+      const progressGen = dispatch(share.createShare(
+        values.title,
+        values.description || '',
+        values.recipients,
+        values.content
+      ))
 
-    // Wait for the end of the UI animation
-    setTimeout(() => { dispatch(reset(formName)) }, 1000)
+      for await (const progress of progressGen) {
+        this.setState({progress})
+      }
+
+      this.setState({progress: null})
+
+      dispatch(ui.closeNewShare())
+      // Wait for the end of the UI animation
+      setTimeout(() => { dispatch(reset(formName)) }, 500)
+    } catch(err) {
+      console.log(err)
+      throw new SubmissionError({ _error: err })
+    }
   }
 
   render() {
     return (
       <NewShare
         onSubmit={::this.handleSubmit}
-        onCancelClick={::this.handleCancel}
-        waiting={this.state.waiting}
+        progress={this.state.progress}
         { ...this.props }
       />
     )
   }
 }
 
-
 const mapStateToProps = (state: Store) => ({
   contactList: state.contactList
 })
 
 const mapDispatchToProps = dispatch => ({
-  dispatch
+  dispatch,
+
+  onCancelClick: () => {
+    dispatch(ui.closeNewShare())
+
+    // Wait for the end of the UI animation
+    setTimeout(() => { dispatch(reset(formName)) }, 500)
+  },
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewShareContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(NewSharePage)

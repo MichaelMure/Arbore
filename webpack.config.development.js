@@ -16,6 +16,7 @@ export default merge(baseConfig, {
   devtool: 'inline-source-map',
 
   entry: [
+    'babel-polyfill',
     'react-hot-loader/patch',
     `webpack-dev-server/client?http://localhost:${port}/`,
     'webpack/hot/only-dev-server',
