@@ -7,6 +7,8 @@ import FontAwesome from 'react-fontawesome'
 import fs from 'fs'
 import nodePath from 'path'
 import * as humanize from 'utils/humanize'
+import getFolderSize from 'get-folder-size'
+import queryablePromise from 'utils/queryablePromise'
 
 const dialog = require('electron').remote.dialog
 
@@ -14,13 +16,21 @@ class ContentInput extends Component {
 
   _getProperties(path: string) {
     const stat = fs.statSync(path)
+
+    const size = queryablePromise(
+      stat.isDirectory()
+        ? new Promise((resolve, reject) => { getFolderSize(path, (err, total) => err ? reject(err) : resolve(total)) })
+        : Promise.resolve(stat.size)
+    )
+
     return {
       path,
-      size: stat.isDirectory() ? null : stat.size,
+      size,
       directory: stat.isDirectory()
     }
   }
 
+  // Helper for the keyboard navigation
   enterToClick(e) {
     console.log(e)
     if (e.key === 'Enter') {
@@ -56,11 +66,19 @@ class ContentInput extends Component {
   }
 
   renderObject(index, {path, size, directory}) {
+    let displaySize
+    if(!size.isFulfilled()) {
+      displaySize = null
+      size.then(() => this.forceUpdate())
+    } else {
+      displaySize = size.result()
+    }
+
     return (
       <div key={path} className={styles.object}>
         <FontAwesome className={styles.icon} name={ directory ? "folder" : 'file-o' }/>
         <Typography noWrap className={styles.name}>{ nodePath.basename(path) }</Typography>
-        { size !== null && <Typography className={styles.size}>{ humanize.filesize(size) }</Typography> }
+        { displaySize !== null && <Typography className={styles.size}>{ humanize.filesize(displaySize) }</Typography> }
         <FontAwesome className={styles.remove} name='times' onClick={() => {::this.handleRemove(index)}}/>
       </div>
     )

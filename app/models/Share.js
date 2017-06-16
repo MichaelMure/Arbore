@@ -40,13 +40,14 @@ let idGenerator = 0
 export default class Share extends ShareRecord {
   dataVersion: number
   id: number
+  // author == null mean that I'm the author
   author: ?Contact
-  metadata: ?ShareMetadata
+  metadata: ShareMetadata
   status: ShareStateType
   content: Map<string,IpfsObject>
   favorite: boolean
 
-  static create(author: Contact, metadata: ShareMetadata) {
+  static create(author: ?Contact, metadata: ShareMetadata) {
     return new this().withMutations(share => share
       .set('id', idGenerator++)
       .set(writable.author, author)

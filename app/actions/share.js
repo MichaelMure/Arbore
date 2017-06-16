@@ -1,11 +1,16 @@
 // @flow
 import { createAction } from 'redux-actions'
-import Share from 'models/Share'
+import Share, { writable } from 'models/Share'
+import ShareMetadata from 'models/ShareMetadata'
 import Contact from 'models/Contact'
+import IpfsFile from 'models/IpfsFile'
+import IpfsDirectory from 'models/IpfsDirectory'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import type { IpfsObject } from 'models/IpfsObject'
 import { waitForIpfsReady } from 'ipfs/index'
+import { Map } from 'immutable'
 import path from 'path'
+import delay from 'utils/delay'
 
 export const addEmptyObject = createAction('SHARE_EMPTY_OBJECT_ADD',
   (id: number, name: string, hash: string) => ({id, name, hash})
@@ -53,34 +58,53 @@ export function createShare(title: string, description: string, recipients: Arra
     const instance = IpfsConnector.getInstance()
     await waitForIpfsReady()
 
-    const objects = []
+    let objects: Map<string,IpfsObject> = new Map()
+
+    const metadata = ShareMetadata.create(title, description)
+    let share = Share.create(null, metadata)
 
     let addedSize = 0
-    const totalSize = content.reduce((a,b) => a + b.size, 0)
+    let totalSize = 0
+    for (let element of content) {
+      totalSize += await element.size
+    }
 
     for(const {path: contentPath, size, directory} of content) {
 
       // Feedback with the progress
       yield {
         progress: addedSize / totalSize,
-        nextProgress: (addedSize + size) / totalSize,
+        nextProgress: (addedSize + await size) / totalSize,
         adding: path.basename(contentPath)
       }
 
       const result = await instance.api.apiClient.util.addFromFs(contentPath, {
         recursive: true,
         hidden: true,
-        // ignore: ['subfolder/to/ignore/**']
+        ignore: [
+          'Thumbs.db',
+          '.DS_Store',
+          '.Trashes',
+          '.Spotlight-V100',
+        ]
       })
 
-      addedSize += size
+      addedSize += await size
 
-      objects.push(directory
-        ? result.last()
-        : result
+      const hash = result[result.length - 1].hash
+
+      objects = objects.set(
+        path.basename(contentPath),
+        directory
+          ? IpfsDirectory.create(hash)
+          : IpfsFile.create(hash)
       )
     }
 
-    return objects
+    share = share.set(writable.content, objects)
+
+    console.log(share)
+
+    return share
   }
 }
