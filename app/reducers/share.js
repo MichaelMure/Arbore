@@ -5,8 +5,6 @@ import Share, { writable, ShareState } from 'models/Share'
 import type { IpfsObject } from 'models/IpfsObject'
 import { handleActions, combineActions } from 'redux-actions'
 import { Action } from 'utils/types'
-import metadataReducer from 'reducers/shareMetadata'
-import ShareMetadata from 'models/ShareMetadata'
 import EmptyIpfsObject from 'models/IpfsObject'
 import ipfsObjectReducer from 'reducers/ipfsObject'
 import hashEquals from 'utils/hashEquals'
@@ -31,7 +29,7 @@ export default handleActions({
   ),
 
   [actions.setTitle]: (state: Share, action: Action) => (
-    state.update(writable.metadata, (x: ShareMetadata) => metadataReducer(x, action))
+    state.set(writable.title, action.payload.title)
   ),
 
   [actions.setStarted]: (state: Share, action: Action) => (

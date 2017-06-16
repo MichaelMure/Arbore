@@ -1,7 +1,6 @@
 // @flow
 import { Record, Map } from 'immutable'
 import Contact from './Contact'
-import ShareMetadata from './ShareMetadata'
 import type { IpfsObject } from './IpfsObject'
 
 const LOCAL_DATA_VERSION = 1
@@ -19,7 +18,8 @@ export type ShareStateType = $Keys<typeof ShareState>
 export const writable = {
   dataVersion: 'dataVersion',
   author: 'author',
-  metadata: 'metadata',
+  title: 'title',
+  description: 'description',
   status: 'status',
   content: 'content',
   favorite: 'favorite'
@@ -29,7 +29,8 @@ export const ShareRecord = Record({
   dataVersion: LOCAL_DATA_VERSION,
   id: null,
   author: null,
-  metadata: null,
+  title: null,
+  description: null,
   status: null,
   content: Map(),
   favorite: false
@@ -40,18 +41,19 @@ let idGenerator = 0
 export default class Share extends ShareRecord {
   dataVersion: number
   id: number
-  // author == null mean that I'm the author
-  author: ?Contact
-  metadata: ShareMetadata
+  author: ?Contact // (author == null) mean that the user is the author
+  title: string
+  description: string
   status: ShareStateType
   content: Map<string,IpfsObject>
   favorite: boolean
 
-  static create(author: ?Contact, metadata: ShareMetadata) {
+  static create(author: ?Contact, title: string, description: ?string = null) {
     return new this().withMutations(share => share
       .set('id', idGenerator++)
       .set(writable.author, author)
-      .set(writable.metadata, metadata)
+      .set(writable.title, title)
+      .set(writable.description, description)
       .set(writable.status, ShareState.AVAILABLE)
     )
   }

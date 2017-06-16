@@ -13,7 +13,6 @@ import IpfsDirectory from './IpfsDirectory'
 import Profile from './Profile'
 import Share from './Share'
 import ShareList from './ShareList'
-import ShareMetadata from './ShareMetadata'
 import UiState from './UiState'
 
 export default [
@@ -31,6 +30,5 @@ export default [
   Profile,
   Share,
   ShareList,
-  ShareMetadata,
   UiState
 ]

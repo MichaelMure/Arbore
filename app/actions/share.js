@@ -1,7 +1,6 @@
 // @flow
 import { createAction } from 'redux-actions'
 import Share, { writable } from 'models/Share'
-import ShareMetadata from 'models/ShareMetadata'
 import Contact from 'models/Contact'
 import IpfsFile from 'models/IpfsFile'
 import IpfsDirectory from 'models/IpfsDirectory'
@@ -60,8 +59,7 @@ export function createShare(title: string, description: string, recipients: Arra
 
     let objects: Map<string,IpfsObject> = new Map()
 
-    const metadata = ShareMetadata.create(title, description)
-    let share = Share.create(null, metadata)
+    let share = Share.create(null, title, description)
 
     let addedSize = 0
     let totalSize = 0

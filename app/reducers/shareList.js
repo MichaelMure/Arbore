@@ -14,10 +14,10 @@ import { REHYDRATE } from 'redux-persist/constants'
 let initialState = new ShareList()
 
 // TODO: remove
-import shareFxt from 'models/fixtures/share'
-shareFxt.forEach((share) => {
-  initialState = initialState.set(writable.list, initialState.list.push(share))
-})
+// import shareFxt from 'models/fixtures/share'
+// shareFxt.forEach((share) => {
+//   initialState = initialState.set(writable.list, initialState.list.push(share))
+// })
 
 export default handleActions({
 

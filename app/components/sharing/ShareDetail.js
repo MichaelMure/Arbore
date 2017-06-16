@@ -29,8 +29,8 @@ class ShareDetail extends Component {
     const header = (
       <CardHeader
         avatar={avatar}
-        title={share.metadata.title}
-        subheader={share.metadata.description} />
+        title={share.title}
+        subheader={share.description} />
     )
 
     return (
@@ -68,7 +68,6 @@ class ShareDetail extends Component {
         </div>
         <div className={styles.spacer} />
         <Typography type="subheading" component="h2">Description</Typography>
-        <Typography component="p">{share.metadata.message}</Typography>
         <div className={styles.spacer} />
         <ShareFiles share={share} style="margin:30px"/>
       </div>
