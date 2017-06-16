@@ -31,7 +31,7 @@ export const setStarted = createAction('SHARE_STARTED',
 // Update the state accordingly
 export function triggerDownload(share: Share) {
   return async function (dispatch) {
-    console.log('Trigger download of ' + share.metadata.title)
+    console.log('Trigger download of ' + share.title)
 
     dispatch(setStarted(share.id))
 

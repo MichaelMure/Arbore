@@ -43,9 +43,8 @@ export default class ShareList extends ShareListRecord {
 
     return this.list.filter((share : Share) => (
       strContain(share.author.identity,      this.search) ||
-      strContain(share.metadata.description, this.search) ||
-      strContain(share.metadata.message,     this.search) ||
-      strContain(share.metadata.title,       this.search)
+      strContain(share.description, this.search) ||
+      strContain(share.title,       this.search)
     ))
   }
 
