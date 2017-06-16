@@ -5,7 +5,8 @@ import SharingPage from 'components/sharing/SharingPage'
 import * as sharelist from 'actions/shareList'
 
 const mapStateToProps = (state: Store) => ({
-  shares: state.shareList
+  shareList: state.shareList,
+  profile: state.profile
 })
 
 const mapDispatchToProps = dispatch => ({

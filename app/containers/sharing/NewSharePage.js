@@ -3,9 +3,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import NewShare, { formName } from 'components/sharing/NewShare'
 import { Store } from 'utils/types'
-import * as ui from 'actions/ui'
-import * as share from 'actions/share'
+import * as uiActions from 'actions/ui'
+import * as shareActions from 'actions/share'
 import {reset, SubmissionError} from 'redux-form'
+import { Page } from 'models/UiState'
 
 class NewSharePage extends Component {
 
@@ -21,7 +22,7 @@ class NewSharePage extends Component {
     const { dispatch } = this.props
 
     try {
-      const progressGen = dispatch(share.createShare(
+      const progressGen = dispatch(shareActions.createShare(
         values.title,
         values.description || '',
         values.recipients,
@@ -34,7 +35,8 @@ class NewSharePage extends Component {
 
       this.setState({progress: null})
 
-      dispatch(ui.closeNewShare())
+      dispatch(uiActions.setPage(Page.SHARING))
+      dispatch(uiActions.closeNewShare())
       // Wait for the end of the UI animation
       setTimeout(() => { dispatch(reset(formName)) }, 500)
     } catch(err) {
@@ -62,7 +64,7 @@ const mapDispatchToProps = dispatch => ({
   dispatch,
 
   onCancelClick: () => {
-    dispatch(ui.closeNewShare())
+    dispatch(uiActions.closeNewShare())
 
     // Wait for the end of the UI animation
     setTimeout(() => { dispatch(reset(formName)) }, 500)

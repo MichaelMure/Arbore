@@ -4,7 +4,7 @@ import * as share from 'actions/share'
 import * as ipfs from 'actions/ipfsObject'
 import ShareList, { ShareListFilter, writable } from 'models/ShareList'
 import type { ShareListFilterType } from 'models/ShareList'
-import Share from 'models/Share'
+import Share, { writable as writableShare } from 'models/Share'
 import { handleActions, combineActions } from 'redux-actions'
 import type { Action } from 'utils/types'
 import shareReducer from './share'
@@ -34,9 +34,10 @@ export default handleActions({
     return persisted
   },
 
-  [sharelist.addShare]: (state: ShareList, action: Action<Share>) => (
-    state.set(writable.list, state.list.push(action.payload))
-  ),
+  [sharelist.addShare]: (state: ShareList, action: Action<Share>) => {
+    const share = action.payload.set(writableShare.id, state.nextId)
+    return state.set(writable.list, state.list.push(share))
+  },
 
   [sharelist.setFilter]: (state: ShareList, action: Action<ShareListFilterType>) => (
     state.set(writable.filter, action.payload)

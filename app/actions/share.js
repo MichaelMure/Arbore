@@ -1,6 +1,7 @@
 // @flow
 import { createAction } from 'redux-actions'
 import Share, { writable } from 'models/Share'
+import ShareRecipient from 'models/ShareRecipient'
 import Contact from 'models/Contact'
 import IpfsFile from 'models/IpfsFile'
 import IpfsDirectory from 'models/IpfsDirectory'
@@ -9,7 +10,7 @@ import type { IpfsObject } from 'models/IpfsObject'
 import { waitForIpfsReady } from 'ipfs/index'
 import { Map } from 'immutable'
 import path from 'path'
-import delay from 'utils/delay'
+import * as shareList from 'actions/shareList'
 
 export const addEmptyObject = createAction('SHARE_EMPTY_OBJECT_ADD',
   (id: number, name: string, hash: string) => ({id, name, hash})
@@ -52,6 +53,7 @@ export function triggerDownload(share: Share) {
   }
 }
 
+// Add the content to IPFS, create and store a new Share
 export function createShare(title: string, description: string, recipients: Array<Contact>, content: Array) {
   return async function* (dispatch) {
     const instance = IpfsConnector.getInstance()
@@ -67,6 +69,7 @@ export function createShare(title: string, description: string, recipients: Arra
       totalSize += await element.size
     }
 
+    // Add the content to the local IPFS repo
     for(const {path: contentPath, size, directory} of content) {
 
       // Feedback with the progress
@@ -83,26 +86,33 @@ export function createShare(title: string, description: string, recipients: Arra
           'Thumbs.db',
           '.DS_Store',
           '.Trashes',
+          '.fseventsd',
           '.Spotlight-V100',
+          '$Recycle.Bin',
+          // 'System Volume Information' // TODO: this one doesn't work
         ]
       })
 
       addedSize += await size
 
+      // The daemon stream a result object for each element added. We care only for the last (the root element).
       const hash = result[result.length - 1].hash
 
-      objects = objects.set(
-        path.basename(contentPath),
-        directory
-          ? IpfsDirectory.create(hash)
-          : IpfsFile.create(hash)
+      objects = objects.set(path.basename(contentPath),
+        directory ? IpfsDirectory.create(hash) : IpfsFile.create(hash)
       )
     }
 
+    // store the content
     share = share.set(writable.content, objects)
 
-    console.log(share)
+    // store the recipients
+    recipients.forEach((recipient: Contact) => {
+      share = share.set(writable.recipients,
+        share.recipients.add(ShareRecipient.create(recipient.pubkey))
+      )
+    })
 
-    return share
+    dispatch(shareList.addShare(share))
   }
 }

@@ -5,6 +5,7 @@ import IconButton from 'material-ui/IconButton'
 import { LinearProgress } from 'material-ui/Progress'
 import Typography from 'material-ui/Typography'
 import Share from 'models/Share'
+import Profile from 'models/Profile'
 import FontAwesome from 'react-fontawesome'
 import * as humanize from 'utils/humanize'
 import ShareFiles from './ShareFiles'
@@ -14,6 +15,7 @@ class ShareDetail extends Component {
 
   props: {
     share: Share,
+    profile: Profile,
     onStartClickGenerator: (Share) => any,
     onPauseClickGenerator: (Share) => any,
     onStopClickGenerator: (Share) => any,
@@ -21,10 +23,10 @@ class ShareDetail extends Component {
   }
 
   render() {
-    const share: Share = this.props.share
+    const { share, profile } = this.props
 
     const avatar = (
-      <Avatar person={share.author} />
+      <Avatar person={share.author ? share.author : profile} />
     )
     const header = (
       <CardHeader

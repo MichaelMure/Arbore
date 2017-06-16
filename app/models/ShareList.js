@@ -35,6 +35,10 @@ export default class ShareList extends ShareListRecord {
   // the search pattern in the UI
   search: string
 
+  get nextId(): number {
+    return this.list.reduce((accu, share: Share) => Math.max(accu, share.id), 0) + 1
+  }
+
   // Filter the Share list with the 'search' string pattern
   get searched() : List<Share> {
     if(this.search === '') {
