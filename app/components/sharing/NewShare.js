@@ -57,21 +57,26 @@ class NewShare extends Component {
 const validate = (values, props) => {
   const errors = {}
 
-  const requiredFields = [ 'title' ]
+  const requiredFields = ['title']
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
     }
   })
 
-  const recipients = values[ 'recipients' ]
+  const recipients = values['recipients']
   if(!recipients || recipients.length === 0) {
-    errors[ 'recipients' ] = 'Required'
+    errors['recipients'] = 'Required'
   }
 
-  const content = values[ 'content' ]
+  const content = values['content']
   if(!content || content.length === 0) {
-    errors[ 'content' ] = 'Required'
+    errors['content'] = 'Required'
+  }
+
+  // detect a duplicate name
+  if(content && content.length !== new Set(content).size) {
+    errors['content'] = 'Duplicate name'
   }
 
   return errors
