@@ -18,7 +18,7 @@ export const writable = {
 export const UiRecord = Record({
   profileOpen: false,
   newShareOpen: false,
-  page: Page.SHARING,
+  page: Page.CONTACT,
   selectedChat: null,
 }, 'UiState')
 
