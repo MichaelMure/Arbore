@@ -1,6 +1,6 @@
 // @flow
 
-import { IpfsConnector, ipfsEvents } from '@akashaproject/ipfs-connector'
+import { IpfsConnector, ipfsEvents, ConnectorState } from '@akashaproject/ipfs-connector'
 import { BrowserWindow, ipcMain, app } from 'electron'
 
 /*
@@ -35,6 +35,7 @@ import { BrowserWindow, ipcMain, app } from 'electron'
 let serviceStarted = false
 
 export const isServiceStarted = 'is-ipfs-started'
+export const getServiceStatus = 'get-service-status'
 
 export const start = () => {
   const instance = IpfsConnector.getInstance()
@@ -56,10 +57,16 @@ export const start = () => {
   instance.on(ipfsEvents.UPGRADING_BINARY, onServiceUpgrade)
   instance.on(ipfsEvents.SERVICE_STOPPING, onServiceStopping)
   instance.on(ipfsEvents.SERVICE_FAILED, onServiceFailed)
+  instance.on(ipfsEvents.STATUS_UPDATE, onStatusUpdate)
 
   // reply when a renderer process ask if ipfs is ready
   ipcMain.on(isServiceStarted, (event) => {
     event.returnValue = serviceStarted
+  })
+
+  // reply when a renderer process ask for ipfs status
+  ipcMain.on(getServiceStatus, (event) => {
+    event.returnValue = instance.serviceStatus.state
   })
 
   // start ipfs daemon and download binaries if needed
@@ -104,6 +111,14 @@ const onServiceFailed = () => {
   // Inform all renderer process
   BrowserWindow.getAllWindows()
     .forEach(win => win.webContents.send(ipfsEvents.SERVICE_FAILED))
+}
+
+const onStatusUpdate = (state) => {
+  console.log('Main: Ipfs status update: ' + ConnectorState[state])
+
+  // Inform all renderer process
+  BrowserWindow.getAllWindows()
+    .forEach(win => win.webContents.send(ipfsEvents.STATUS_UPDATE, state))
 }
 
 export const stop = () => {
