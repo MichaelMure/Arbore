@@ -13,13 +13,21 @@ class IpfsStatus extends Component {
   }
 
   componentDidMount() {
-    ipcRenderer.on(ipfsEvents.STATUS_UPDATE, (e, state) => {
-      this.setState({state})
-    })
+    ipcRenderer.on(ipfsEvents.STATUS_UPDATE, this.handleStatusUpdate)
 
     this.setState({
       state: ipcRenderer.sendSync(getServiceStatus)
     })
+  }
+
+  componentWillUnmount() {
+    ipcRenderer.removeListener(ipfsEvents.STATUS_UPDATE, this.handleStatusUpdate)
+  }
+
+  // this syntax capture 'this' automatically
+  // this is needed to be able to remove the listener without generating a new binded handler
+  handleStatusUpdate = (e, state) => {
+    this.setState({state})
   }
 
   render() {
