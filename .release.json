@@ -1,5 +1,6 @@
 {
   "verbose": true,
+  "buildCommand": "npm run package-win && npm run package-linux",
   "pkgFiles": [
     "package.json",
     "app/package.json"
