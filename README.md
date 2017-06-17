@@ -6,8 +6,7 @@
 [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/TotallyNotArbore/Lobby)
 [![codebeat badge](https://codebeat.co/badges/b645c684-c495-4010-87aa-54829b6e4279)](https://codebeat.co/projects/github-com-michaelmure-totallynotarbore-master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1e15cfc3aa7e4bae9662d035ed720b0d)](https://www.codacy.com/app/batolettre/TotallyNotArbore?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MichaelMure/TotallyNotArbore&amp;utm_campaign=Badge_Grade)
-
-## DESCRIPTION
+[![GitHub (pre-)release](https://img.shields.io/github/release/MichaelMure/TotallyNotArbore/all.svg)](https://github.com/MichaelMure/TotallyNotArbore/releases/latest)
 
 Arbore is a peer-to-peer file sharing application with the following caracteristics:
 - targeted for private/low diffusion data between people that know each-others. Main use case: friends want to share between each-others their holidays pictures.
