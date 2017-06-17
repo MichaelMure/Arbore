@@ -62,10 +62,24 @@ export default class Share extends ShareRecord {
   }
 
   // Return the object to be published in IPFS
-  get publishObject(): {} {
+  getPublishObject(profile: Profile): {} {
+    const content = this.content.entrySeq().map(([name, object]) => ({
+      name,
+      hash: object.hash,
+      type: object.type
+    }))
+
+    const recipients = this.recipients.valueSeq().map((recipient: ShareRecipient) => ({
+      pubkey: recipient.pubkey
+    }))
+
     return {
       dataVersion: PUBLISH_DATA_VERSION,
-      // TODO
+      author: this.author ? this.author.pubkey : profile.pubkey,
+      title: this.title,
+      description: this.description,
+      content,
+      recipients
     }
   }
 
