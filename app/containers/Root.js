@@ -1,11 +1,27 @@
 // @flow
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
+import createPalette from 'material-ui/styles/palette'
 import Home from 'containers/Home'
 import LoginPage from 'components/login/LoginPage'
 import GlobalError from 'containers/GlobalError'
 import IpfsStatus from 'containers/IpfsStatus'
+
+const dark = createMuiTheme({
+  palette: createPalette({
+    type: 'dark',
+  }),
+})
+
+const light = createMuiTheme({
+  palette: createPalette({
+    type: 'light',
+  }),
+})
+
+// const theme = dark
+const theme = light
 
 export default class Root extends Component {
 
@@ -41,7 +57,7 @@ export default class Root extends Component {
     const key = isLogged ? 'full' : 'login'
 
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider theme={theme}>
         <Provider key={ key } store={ store }>
           <div>
             { isLogged ? <Home /> : <LoginPage /> }

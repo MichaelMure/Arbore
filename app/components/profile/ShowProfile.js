@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import styles from './ShowProfile.css'
+import { withStyles, createStyleSheet } from 'material-ui/styles'
 import Profile from 'models/Profile'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
@@ -18,14 +18,15 @@ class ShowProfile extends Component {
   }
 
   render() {
-    const profile = this.props.profile
+    const { classes, profile } = this.props
+
     return (
       <div>
-        <Typography className={styles.identity}>{profile.identity}</Typography>
+        <Typography className={classes.identity}>{profile.identity}</Typography>
 
         { profile.avatarUrl
-          ? <Avatar person={profile} className={styles.avatar} />
-          : <div className={styles.noAvatar}><Typography>No avatar</Typography></div>
+          ? <Avatar person={profile} className={classes.avatar} />
+          : <div className={classes.noAvatar}><Typography>No avatar</Typography></div>
         }
 
         <Bio bio={profile.bio} />
@@ -35,7 +36,7 @@ class ShowProfile extends Component {
         </Typography>
         <Pubkey pubkey={profile.pubkey} />
 
-        <div className={styles.buttons}>
+        <div className={classes.buttons}>
           <Button raised onClick={this.props.onEditClick}>
             <FontAwesome name="pencil" />
             Edit profile
@@ -47,4 +48,44 @@ class ShowProfile extends Component {
   }
 }
 
-export default ShowProfile
+const styleSheet = createStyleSheet('ShowProfile', theme => ({
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
+  avatar: {
+    width: '200px !important',
+    height: '200px !important',
+    margin: 'auto',
+    userSelect: 'none',
+    pointerEvents: 'none',
+  },
+  noAvatar: {
+    width: 200,
+    height: 200,
+    borderRadius: '50%',
+    backgroundColor: theme.palette.background.appBar,
+    margin: 'auto',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  identity: {
+    margin: '10px 10px 20px !important',
+    fontSize: '2em !important',
+    textAlign: 'center'
+  },
+  buttons: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: '10px !important',
+    '& > *': {
+      minWidth: 100,
+    }
+  }
+}))
+
+export default withStyles(styleSheet)(ShowProfile)
