@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import styles from './LoginPage.css'
+import { withStyles, createStyleSheet } from 'material-ui/styles'
 import Collapse from 'material-ui/transitions/Collapse'
 import Fade from 'material-ui/transitions/Fade'
 import NewProfile from 'containers/profile/NewProfile'
@@ -30,9 +30,11 @@ class LoginPage extends Component {
   }
 
   render() {
+    const { classes } = this.props
+
     return (
-      <div className={styles.wrapper}>
-        <img src={logo} className={styles.logo} />
+      <div className={classes.wrapper}>
+        <img src={logo} className={classes.logo} />
         <Collapse in={this.state.selectIdentityOpen} >
           <Fade in={this.state.selectIdentityOpen} >
             <SelectIdentity onNewIdentityClick={ ::this.showNewProfile } />
@@ -48,4 +50,25 @@ class LoginPage extends Component {
   }
 }
 
-export default LoginPage
+const styleSheet = createStyleSheet('LoginPage', theme => ({
+  wrapper: {
+    top: 0,
+    left: 0,
+    height: '100vh',
+    width: '100vw',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: theme.palette.background.default,
+  },
+  logo: {
+    width: '200px',
+    height: '200px',
+    marginBottom: '60px',
+    userSelect: 'none',
+    pointerEvents: 'none',
+  }
+}))
+
+export default withStyles(styleSheet)(LoginPage)
