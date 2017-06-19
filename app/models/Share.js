@@ -9,7 +9,6 @@ const LOCAL_DATA_VERSION = 1
 const PUBLISH_DATA_VERSION = 1
 
 export const ShareState = {
-  AUTHOR : 'AUTHOR',
   AVAILABLE : 'AVAILABLE',
   DOWNLOADING : 'DOWNLOADING',
   PAUSED : 'PAUSED',
@@ -116,7 +115,7 @@ export default class Share extends ShareRecord {
   }
 
   get isAuthor() {
-    return this.status === ShareState.AUTHOR
+    return this.author === null
   }
 
   get isAvailable() {
