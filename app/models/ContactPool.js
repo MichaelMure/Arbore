@@ -3,6 +3,8 @@ import { Record, Map as immuMap, Set as immuSet } from 'immutable'
 import Contact from './Contact'
 import ContactList from 'models/ContactList'
 
+export const LOCAL_DATA_VERSION = 1
+
 export const writable = {
   graph: 'graph',
   pool: 'pool',
@@ -11,6 +13,7 @@ export const writable = {
 }
 
 export const ContactPoolRecord = Record({
+  dataVersion: LOCAL_DATA_VERSION,
   graph: immuMap(),
   pool: immuMap(),
   rejected: immuSet(),
@@ -18,6 +21,7 @@ export const ContactPoolRecord = Record({
 }, 'ContactPool')
 
 export default class ContactPool extends ContactPoolRecord {
+  dataVersion: number
   // store the contact list of potential contact as pubkey->list(pubkey)
   graph: immuMap<string, immuSet<string>>
   // store known potential contacts

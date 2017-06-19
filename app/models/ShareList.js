@@ -3,6 +3,8 @@ import { Record, List } from 'immutable'
 import Share from './Share'
 import strContain from 'utils/strContain'
 
+export const LOCAL_DATA_VERSION = 1
+
 export const ShareListFilter = {
   AVAILABLE: 'AVAILABLE',
   INBOX: 'INBOX',
@@ -20,6 +22,7 @@ export const writable = {
 }
 
 export const ShareListRecord = Record({
+  dataVersion: LOCAL_DATA_VERSION,
   list: List(),
   filter: ShareListFilter.AVAILABLE,
   selectedId: null,
@@ -27,6 +30,7 @@ export const ShareListRecord = Record({
 }, 'ShareList')
 
 export default class ShareList extends ShareListRecord {
+  dataVersion: number
   list: List<Share>
   // the current filter for the UI
   filter: ShareListFilterType

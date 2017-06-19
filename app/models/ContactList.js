@@ -2,6 +2,8 @@
 import { Record, Map, List } from 'immutable'
 import Contact from './Contact'
 
+export const LOCAL_DATA_VERSION = 1
+
 export const writable = {
   contacts: 'contacts',
   selectedPubkey: 'selectedPubkey',
@@ -9,12 +11,14 @@ export const writable = {
 }
 
 export const ContactListRecord = Record({
+  dataVersion: LOCAL_DATA_VERSION,
   contacts: Map(),
   selectedPubkey: null,
   search: '',
 }, 'ContactList')
 
 export default class ContactList extends ContactListRecord {
+  dataVersion: number
   contacts: Map<string,Contact>
   // the contact's pubkey selected in the UI
   selectedPubkey: ?string
