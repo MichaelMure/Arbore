@@ -1,6 +1,6 @@
 // @flow
 import { createAction } from 'redux-actions'
-import Share, { writable } from 'models/Share'
+import Share, { ShareState, writable } from 'models/Share'
 import ShareRecipient from 'models/ShareRecipient'
 import Contact from 'models/Contact'
 import IpfsFile from 'models/IpfsFile'
@@ -20,13 +20,11 @@ export const toggleFavorite = createAction('SHARE_FAVORITE_TOGGLE',
   (id: number) => ({id})
 )
 
-export const setTitle = createAction('SHARE_TITLE_SET',
-  (id: number, title: string) => ({id, title})
-)
-
-export const setStarted = createAction('SHARE_STARTED',
-  (id: number) => ({id})
-)
+export const priv = {
+  setHash: createAction('SHARE_HASH_SET',
+    (id: number, hash: string) => ({id, hash})
+  )
+}
 
 // Trigger the download of content by pinning the root hashes
 // Update the state accordingly
@@ -113,6 +111,33 @@ export function createShare(title: string, description: string, recipients: Arra
       )
     })
 
-    dispatch(shareList.addShare(share))
+    // Set the status
+    share = share.set(writable.status, ShareState.SHARING)
+
+    // Store the share in the shareList
+    share = await dispatch(shareList.addShare(share))
+
+    // Publish the share
+    dispatch(publishShare(share))
+  }
+}
+
+/**
+ * Publish the share description data in IPFS
+ * @param share
+ */
+export function publishShare(share: Share) {
+  return async function (dispatch, getState) {
+    console.log('Publish share ' + share.title)
+    const ipfs: IpfsConnector = IpfsConnector.getInstance()
+
+    await waitForIpfsReady()
+
+    const profile = getState().profile
+    const data = share.getPublishObject(profile)
+
+    const {hash} = await ipfs.api.createNode(data, [])
+    console.log('share hash: ' + hash)
+    await dispatch(priv.setHash(share.id, hash))
   }
 }

@@ -34,8 +34,11 @@ export default handleActions({
     return persisted
   },
 
-  [sharelist.addShare]: (state: ShareList, action: Action<Share>) => {
-    const share = action.payload.set(writableShare.id, state.nextId)
+  [sharelist.priv.addShare]: (state: ShareList, action: Action<Share>) => {
+    const share = action.payload
+    if(share.id === null) {
+      throw 'Id shoud be set'
+    }
     return state.set(writable.list, state.list.push(share))
   },
 
@@ -52,7 +55,7 @@ export default handleActions({
   ),
 
   [combineActions(
-    share.setTitle,
+    share.priv.setHash,
     share.toggleFavorite
   )] : (state: ShareList, action: Action) => shareById(state, action),
 

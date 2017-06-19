@@ -19,6 +19,7 @@ export type ShareStateType = $Keys<typeof ShareState>
 export const writable = {
   dataVersion: 'dataVersion',
   id: 'id',
+  hash: 'hash',
   author: 'author',
   title: 'title',
   description: 'description',
@@ -31,6 +32,7 @@ export const writable = {
 export const ShareRecord = Record({
   dataVersion: LOCAL_DATA_VERSION,
   id: null,
+  hash: null,
   author: null,
   title: null,
   description: null,
@@ -42,8 +44,11 @@ export const ShareRecord = Record({
 
 export default class Share extends ShareRecord {
   dataVersion: number
+  // local identifier
   id: number
-  author: ?Contact // (author == null) mean that the user is the author
+  hash: ?string
+  // (author == null) mean that the user is the author
+  author: ?Contact
   title: string
   description: string
   status: ShareStateType

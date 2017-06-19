@@ -28,13 +28,8 @@ export default handleActions({
     state.update(writable.favorite, (x : boolean) => (!x))
   ),
 
-  [actions.setTitle]: (state: Share, action: Action) => (
-    state.set(writable.title, action.payload.title)
-  ),
-
-  [actions.setStarted]: (state: Share, action: Action) => (
-    // TODO: better state machine
-    state.update(writable.status, ShareState.DOWNLOADING)
+  [actions.priv.setHash]: (state: Share, action: Action) => (
+    state.set(writable.hash, action.payload.hash)
   ),
 
   [combineActions(
