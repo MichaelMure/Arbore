@@ -27,6 +27,11 @@ export default class ContactPool extends ContactPoolRecord {
   // store contacts that had added the profile
   follower: immuSet<string>
 
+  // Find a contact by its public key
+  findContact(pubkey: string) : ?Contact {
+    return this.pool.get(pubkey, null)
+  }
+
   suggest(contactList: ContactList, number: number): Array<Contact> {
     const ratings: Map<string, number> = new Map()
 

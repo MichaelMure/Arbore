@@ -8,11 +8,19 @@ import Identity from 'models/Identity'
 class Avatar extends Component {
 
   props: {
-    person: Profile|Contact|Identity,
+    person: Profile|Contact|Identity|null,
   }
 
   render() {
     const { person, ...extra } = this.props
+
+    if(!person) {
+      return <MUIAvatar
+        {...extra}
+        style={{ pointerEvents: 'none'}}
+        alt='Unknow'
+      >?</MUIAvatar>
+    }
 
     if(person.avatarUrl) {
       return <MUIAvatar

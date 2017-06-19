@@ -7,7 +7,8 @@ import Share from 'models/Share'
 
 const mapStateToProps = (state: Store) => ({
   share: state.shareList.selected,
-  profile: state.profile
+  profile: state.profile,
+  contactPool: state.contactPool
 })
 
 const mapDispatchToProps = dispatch => ({

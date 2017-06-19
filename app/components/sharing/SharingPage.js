@@ -1,37 +1,46 @@
-import React, { Component } from 'react';
-import styles from './SharingPage.css';
-import TextField from 'material-ui/TextField';
+import React, { Component } from 'react'
+import styles from './SharingPage.css'
+import TextField from 'material-ui/TextField'
+import ContactPool from 'models/ContactPool'
 import Share from 'models/Share'
 import Profile from 'models/Profile'
 import ShareList from 'models/ShareList'
-import CompactShare from './CompactShare';
-import ShareDetail from 'containers/sharing/ShareDetail';
+import CompactShare from './CompactShare'
+import ShareDetail from 'containers/sharing/ShareDetail'
 
 class SharingPage extends Component {
   props: {
     shareList: ShareList,
+    contactPool: ContactPool,
     profile: Profile,
     onClickGenerator: (id: number) => () => void,
     onSearchChange: () => void,
   }
 
-  renderShares(shares, profile: Profile, selectedId) {
+  renderShares(shares, selectedId) {
+    const { contactPool, profile } = this.props
+
     if(shares.count() > 0) {
-      return shares.map((share : Share) => (
-        <CompactShare
+      return shares.map((share : Share) => {
+        const author = share.author
+          ? contactPool.findContact(share.author)
+          : profile
+
+        return <CompactShare
           key={share.id}
           share={share}
-          profile={profile}
+          author={author}
           selected={share.id === selectedId}
           onClick={this.props.onClickGenerator(share.id)}
-        />))
+        />
+      })
     }
 
     return (<span>Nothing here yet.</span>)
   }
 
   render() {
-    const { shareList, profile } = this.props
+    const { shareList } = this.props
     const shares = shareList.filtered
     const selectedShare = shareList.selected
     const selectedId = shareList.selectedId
@@ -41,7 +50,7 @@ class SharingPage extends Component {
         <div className={styles.list} >
           <TextField label='Search' onChange={this.props.onSearchChange} />
           <div className={styles.scroller}>
-            { this.renderShares(shares, profile, selectedId) }
+            { this.renderShares(shares, selectedId) }
           </div>
         </div>
         <div className={styles.details}>
