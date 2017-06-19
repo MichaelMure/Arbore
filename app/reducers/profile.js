@@ -17,7 +17,9 @@ export default handleActions({
   ),
 
   [profile.priv.setAvatarHash]: (state: Profile, action: Action<?string>) => (
-    state.set(writable.avatarHash, action.payload)
+    state
+      .set(writable.avatarHash, action.payload)
+      .set(writable.hash, null)
   ),
 
   [profile.priv.setPassphrase]: (state: Profile, action: Action<string>) => (
@@ -25,11 +27,15 @@ export default handleActions({
   ),
 
   [profile.setBio]: (state: Profile, action: Action<string>) => (
-    state.set(writable.bio, action.payload)
+    state
+      .set(writable.bio, action.payload)
+      .set(writable.hash, null)
   ),
 
   [profile.deleteAvatar]: (state: Profile, action: Action) => (
-    state.set(writable.avatarHash, null)
+    state
+      .set(writable.avatarHash, null)
+      .set(writable.hash, null)
   )
 
 }, initialState )
