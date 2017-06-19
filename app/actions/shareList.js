@@ -3,6 +3,7 @@ import { createAction } from 'redux-actions'
 import ShareList from 'models/ShareList'
 import Share, { writable as shareWritable } from 'models/Share'
 import type { ShareListFilterType } from 'models/ShareList'
+import * as shareActions from 'actions/share'
 
 export const setFilter = createAction('SHARELIST_FILTER_SET',
   (filter: ShareListFilterType) => (filter)
@@ -31,6 +32,27 @@ export function addShare(share: Share) {
     const id = shareList.nextId
     share = share.set(shareWritable.id, id)
     dispatch(priv.addShare(share))
+    return share
+  }
+}
+
+/**
+ * Add to the sharelist a Share found in the network
+ * @param hash
+ * @returns {Function}
+ */
+export function fetchShareDescription(hash: string) {
+  return async function(dispatch, getState) {
+    const shareList: ShareList = getState().shareList
+
+    if(shareList.list.some((share: Share) => share.hash === hash)) {
+      console.log(`Share ${hash} already know`)
+      return
+    }
+
+    let share: Share = await dispatch(shareActions.fetchShareDescription(hash))
+    share = await dispatch(addShare(share))
+
     return share
   }
 }

@@ -1,9 +1,12 @@
 // @flow
 import { Record, Map, Set } from 'immutable'
 import Contact from './Contact'
-import ShareRecipient from 'models/ShareRecipient'
-import type { IpfsObject } from './IpfsObject'
 import Profile from 'models/Profile'
+import ShareRecipient from 'models/ShareRecipient'
+import { ObjectType } from 'models/IpfsObject'
+import IpfsDirectory from 'models/IpfsDirectory'
+import IpfsFile from 'models/IpfsFile'
+import type { IpfsObject } from './IpfsObject'
 
 const LOCAL_DATA_VERSION = 1
 const PUBLISH_DATA_VERSION = 1
@@ -62,6 +65,36 @@ export default class Share extends ShareRecord {
       .set(writable.title, title)
       .set(writable.description, description)
       .set(writable.status, ShareState.AVAILABLE)
+    )
+  }
+
+  static fromData(hash: string, data) {
+    const { dataVersion, author, title, description, content, recipients } = data
+
+    if(dataVersion !== PUBLISH_DATA_VERSION) {
+      throw 'Unexpected share data version'
+    }
+
+    const _content = Map(content.map(({name, hash, type}) => {
+      switch(type) {
+        case ObjectType.DIRECTORY: return [name, IpfsDirectory.create(hash)]
+        case ObjectType.FILE:      return [name, IpfsFile.create(hash)]
+        default: throw 'Unknow object type'
+      }
+    }))
+
+    const _recipients = Set(
+      recipients.map(({pubkey}) => ShareRecipient.create(pubkey))
+    )
+
+    return new this().withMutations(share => share
+      .set(writable.hash, hash)
+      .set(writable.status, ShareState.AVAILABLE)
+      .set(writable.author, author)
+      .set(writable.title, title)
+      .set(writable.description, description)
+      .set(writable.content, _content)
+      .set(writable.recipients, _recipients)
     )
   }
 
