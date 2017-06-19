@@ -81,10 +81,10 @@ export function updateAllContacts() {
 /* Network messages */
 
 const protocol = {
-  queryList: createAction('LISTQUERY',
+  queryContacts: createAction('CONTACTSQUERY',
     (profile: Profile) => ({from: profile.pubkey})
   ),
-  listReply: createAction('LISTREPLY',
+  contactsReply: createAction('CONTACTSREPLY',
     (profile: Profile, contacts: Array<string>) => ({from: profile.pubkey, contacts: contacts})
   ),
   ping: createAction('PING',
@@ -108,8 +108,8 @@ export function subscribe() {
     const profile: Profile = getState().profile
 
     pubsub = createProtocol('contactList', profile.contactsPubsubTopic, {
-      [protocol.queryList.toString()]: handleQueryList,
-      [protocol.listReply.toString()]: handleListReply,
+      [protocol.queryContacts.toString()]: handleQueryContacts,
+      [protocol.contactsReply.toString()]: handleContactsReply,
       [protocol.ping.toString()]: handlePing,
       [protocol.pong.toString()]: handlePong,
       [protocol.addedContactQuery.toString()]: handleAddedContactQuery,
@@ -131,7 +131,7 @@ export function queryContactList(contact: Contact) {
   return async function (dispatch, getState) {
     console.log('Query contact list of ' + contact.identity)
     const profile: Profile = getState().profile
-    const data = protocol.queryList(profile)
+    const data = protocol.queryContacts(profile)
     await dispatch(pubsub.send(contact.contactsPubsubTopic, data))
   }
 }
@@ -149,7 +149,7 @@ export function queryAllContactsList() {
   }
 }
 
-function handleQueryList(dispatch, getState, payload) {
+function handleQueryContacts(dispatch, getState, payload) {
   const { from } = payload
 
   const contactList: ContactList = getState().contactList
@@ -162,11 +162,11 @@ function handleQueryList(dispatch, getState, payload) {
 
   const profile = getState().profile
 
-  const data = protocol.listReply(profile, contactList.publicContacts)
+  const data = protocol.contactsReply(profile, contactList.publicContacts)
   dispatch(pubsub.send(contact.contactsPubsubTopic, data))
 }
 
-function handleListReply(dispatch, getState, payload) {
+function handleContactsReply(dispatch, getState, payload) {
   const { from, contacts } = payload
 
   const contactList: ContactList = getState().contactList

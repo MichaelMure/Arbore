@@ -2,11 +2,25 @@
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 
-// Encapsulate the handling of pubsub communication
+
+/**
+ * Encapsulate the handling of pubsub communication.
+ *
+ * @param name Name of the channel for debugging purpose
+ * @param topic Pubsub topic to listen to.
+ * @param handlers Collection of array to handle incoming messages.
+ * @returns {{subscribe: subscribe, unsubscribe: unsubscribe, send: send}}
+ */
 export default function createProtocol(name: string, topic: string, handlers: {}) {
 
   let pubsubHandler = null
 
+  /**
+   * Start listening to the pubsub topic
+   *
+   * Need to be dispatched.
+   * @returns {Function}
+   */
   function subscribe() {
     return async function (dispatch, getState) {
       console.log('Subscribe to ' + name + ' ...')
@@ -20,6 +34,12 @@ export default function createProtocol(name: string, topic: string, handlers: {}
     }
   }
 
+  /**
+   * Stop listening to the pubsub topic.
+   *
+   * Need to be dispatched.
+   * @returns {Function}
+   */
   function unsubscribe() {
     return async function (dispatch) {
       console.log('Unsubscribe from ' + name + ' ...')
@@ -31,6 +51,14 @@ export default function createProtocol(name: string, topic: string, handlers: {}
     }
   }
 
+  /**
+   * Create an internal handler for incoming messages.
+   *
+   * Need to be dispatched.
+   * @param dispatch
+   * @param getState
+   * @returns {Function}
+   */
   function createHandler(dispatch, getState) {
     return function (event) {
       const {data, from, /* topicCIDs */} = event
@@ -45,6 +73,14 @@ export default function createProtocol(name: string, topic: string, handlers: {}
     }
   }
 
+  /**
+   * Send a message to the given pubsub topic.
+   *
+   * Need to be dispatched.
+   * @param _topic
+   * @param action
+   * @returns {Function}
+   */
   function send(_topic: string, action) {
     return async function (dispatch) {
       const ipfs: IpfsConnector = IpfsConnector.getInstance()
