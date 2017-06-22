@@ -2,6 +2,7 @@
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 
+const PROTOCOL_VERSION = 1
 
 /**
  * Encapsulate the handling of pubsub communication.
@@ -61,9 +62,14 @@ export default function createProtocol(name: string, topic: string, handlers: {}
    */
   function createHandler(dispatch, getState) {
     return function (event) {
+      // from is the IPFS node pubkey, not the pubkey of the identity
       const {data, from, /* topicCIDs */} = event
 
       const action = JSON.parse(data.toString())
+
+      if(!action.protoVersion || action.protoVersion !== PROTOCOL_VERSION) {
+        throw 'Unrecognized protocol version'
+      }
 
       if (!handlers.hasOwnProperty(action.type)) {
         throw 'Received corrupted ' + name + ' action from ' + from
@@ -86,7 +92,10 @@ export default function createProtocol(name: string, topic: string, handlers: {}
       const ipfs: IpfsConnector = IpfsConnector.getInstance()
       await waitForIpfsReady()
 
+      action.protoVersion = PROTOCOL_VERSION
+
       const serialized = Buffer.from(JSON.stringify(action))
+
       await ipfs.api.apiClient.pubsub.publish(_topic, serialized)
     }
   }
