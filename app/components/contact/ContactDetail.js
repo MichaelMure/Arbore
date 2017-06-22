@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import styles from './ContactDetail.css'
-import { CardHeader } from 'material-ui/Card'
 import { LabelSwitch } from 'material-ui/Switch';
 import Button from 'material-ui/Button'
-import IconButton from 'material-ui/IconButton'
 import Typography from 'material-ui/Typography'
 import Dialog, {
   DialogActions,
@@ -11,9 +9,10 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
-import FontAwesome from 'react-fontawesome'
-import Avatar from 'components/common/Avatar'
 import Contact, { ContactStatus } from 'models/Contact'
+import Pubkey from 'components/common/Pubkey'
+import Bio from 'components/common/Bio'
+import AvatarWithStatus from 'components/common/AvatarWithStatus'
 
 class ContactDetail extends Component {
 
@@ -49,16 +48,16 @@ class ContactDetail extends Component {
     return (
       <div className={styles.wrapper} key={contact.pubkey}>
         <div className={styles.header}>
-          <CardHeader
-            avatar={<Avatar person={contact} />}
-            title={contact.identity}
-          />
-          <IconButton>
-            <FontAwesome name='pencil' />
-          </IconButton>
+          <AvatarWithStatus person={contact} status={contact.status} avatarClass={styles.avatar} rootClass={styles.status} />
+          <div className={styles.headerContent}>
+            <div className={styles.name}>
+              <Typography type="title">{contact.identity}</Typography>
+            </div>
+            <Pubkey pubkey={contact.pubkey} />
+          </div>
         </div>
 
-        <Typography>{contact.bio}</Typography>
+        <Bio bio={contact.bio} />
 
         <LabelSwitch
           checked={contact.privacyHidden}
@@ -66,10 +65,6 @@ class ContactDetail extends Component {
           label="Hidden"
         />
 
-
-        <Typography>
-          Status: { contact.status === ContactStatus.ONLINE ? 'Online' : 'Offline'}
-        </Typography>
         { contact.status === ContactStatus.ONLINE &&
           <Typography>Last ping: { contact.lastPongDelay } ms</Typography>
         }

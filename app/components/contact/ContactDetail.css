@@ -6,8 +6,26 @@
 
 .header {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  justify-content: space-between;
-  margin-top: 20px;
+  height: 100px;
+}
+
+.headerContent {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 10000;
+}
+
+.avatar {
+  width: 90px !important;
+  height: 90px !important;
+}
+
+.status {
+  margin-right: 10px;
+}
+
+.name {
+  display: flex;
+  align-items: center;
 }

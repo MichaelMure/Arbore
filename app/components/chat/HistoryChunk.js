@@ -34,8 +34,8 @@ class HistoryChunk extends Component {
             chunk.map((entry: ChatEntry, index) => (
               <div className={styles.entry} key={index}>
                 <Typography>{entry.message}</Typography>
-                {
-                  (entry.contactPubkey === null) && <FontAwesome name={ entry.ack ? 'check' : 'clock-o' } />
+                { (entry.contactPubkey === null) &&
+                  <FontAwesome name={ entry.ack ? 'check' : 'clock-o' } />
                 }
               </div>
             ))

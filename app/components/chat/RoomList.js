@@ -5,9 +5,9 @@ import Typography from 'material-ui/Typography'
 import ChatRoomList from 'models/ChatRoomList'
 import ContactList from 'models/ContactList'
 import UiState from 'models/UiState'
-import Contact, { ContactStatus, ContactStatusType } from 'models/Contact'
-import Avatar from 'components/common/Avatar'
+import Contact  from 'models/Contact'
 import classNames from 'classnames/bind'
+import AvatarWithStatus from 'components/common/AvatarWithStatus'
 
 const cx = classNames.bind(styles);
 
@@ -19,20 +19,6 @@ class RoomList extends Component {
     ui: UiState,
     onRoomClickGenerator: (Contact) => any,
     onContactClickgenerator: (Contact) => any
-  }
-
-  renderStatus(status: ContactStatusType) {
-    const dotClass = cx({
-      dot: true,
-      green: status === ContactStatus.ONLINE,
-      gray: status === ContactStatus.OFFLINE,
-    })
-
-    return (
-      <div className={styles.status}>
-        <div className={dotClass}/>
-      </div>
-    )
   }
 
   render() {
@@ -70,8 +56,7 @@ class RoomList extends Component {
                 onClick={onRoomClickGenerator(contact)}
                 className={itemClass}
               >
-                <Avatar person={contact} className={styles.contactAvatar} />
-                { this.renderStatus(contact.status) }
+                <AvatarWithStatus person={contact} status={contact.status} avatarClass={styles.avatar} rootClass={styles.status} />
                 <Typography className={styles.identity} noWrap>{contact.identity}</Typography>
                 { room.unread > 0 &&  <div className={styles.unread}>{room.unread}</div> }
               </div>
@@ -87,8 +72,7 @@ class RoomList extends Component {
               onClick={onContactClickgenerator(contact)}
               className={styles.item}
             >
-              <Avatar person={contact} className={styles.contactAvatar} />
-              { this.renderStatus(contact.status) }
+              <AvatarWithStatus person={contact} status={contact.status} avatarClass={styles.avatar} rootClass={styles.status} />
               <Typography className={styles.identity} noWrap>{contact.identity}</Typography>
             </div>
           ))

@@ -15,11 +15,14 @@
   border-radius: 3px;
 }
 
-.contactAvatar {
-  width: 24px !important;
-  height: 24px !important;
+.status {
   margin-right: 4px;
   margin-left: 4px;
+}
+
+.avatar {
+  width: 24px !important;
+  height: 24px !important;
   font-size: 12px !important;
 }
 
@@ -39,25 +42,3 @@
 .spacer {
   height: 20px;
 }
-
-.status {
-  margin-left: -8px;
-  margin-top: -15px;
-  margin-right: 3px;
-  z-index: 1;
-}
-
-.dot {
-  border-radius: 50%;
-  width: 10px;
-  height: 10px;
-}
-
-.green {
-  background-color: green;
-}
-
-.gray {
-  background-color: gray;
-}
-
