@@ -6,18 +6,18 @@ import { LinearProgress } from 'material-ui/Progress'
 import Typography from 'material-ui/Typography'
 import Share from 'models/Share'
 import Profile from 'models/Profile'
-import ContactPool from 'models/ContactPool'
 import FontAwesome from 'react-fontawesome'
 import * as humanize from 'utils/humanize'
 import ShareFiles from './ShareFiles'
 import Avatar from 'components/common/Avatar'
+import ContactList from 'models/ContactList'
 
 class ShareDetail extends Component {
 
   props: {
     share: Share,
     profile: Profile,
-    contactPool: ContactPool,
+    contactList: ContactList,
     onStartClickGenerator: (Share) => any,
     onPauseClickGenerator: (Share) => any,
     onStopClickGenerator: (Share) => any,
@@ -25,10 +25,10 @@ class ShareDetail extends Component {
   }
 
   render() {
-    const { share, profile, contactPool } = this.props
+    const { share, profile, contactList } = this.props
 
     const author = share.author
-      ? contactPool.findContact(share.author)
+      ? contactList.findContact(share.author)
       : profile
 
     const avatar = (

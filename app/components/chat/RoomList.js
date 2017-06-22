@@ -47,7 +47,7 @@ class RoomList extends Component {
     const roomsSeq = rooms.rooms.entrySeq()
       .sortBy(([pubkey, room]) => contacts.findContact(pubkey).identity)
 
-    const contactsSeq = contacts.contacts.valueSeq()
+    const contactsSeq = contacts.directoryMapped
       .filter((contact: Contact) => !rooms.rooms.has(contact.pubkey))
       .sortBy((contact: Contact) => contact.identity)
 

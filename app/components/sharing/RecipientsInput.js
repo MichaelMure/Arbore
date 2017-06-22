@@ -22,7 +22,7 @@ class RecipientsInput extends Component {
         e.preventDefault()
         return
       }
-      const suggest = this.props.contactList.suggestContact(e.target.value)
+      const suggest = this.props.contactList.autoComplete(e.target.value)
 
       // Use Set to deduplicate the elements
       const newRecipients = [ ...new Set( [].concat(

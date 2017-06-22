@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react'
 import styles from './AvatarEditor.css'
-import Input from 'material-ui/Input'
 import ReactAvatarEditor from 'react-avatar-editor'
 import canvasBuffer from 'electron-canvas-to-buffer'
 import FontAwesome from 'react-fontawesome'

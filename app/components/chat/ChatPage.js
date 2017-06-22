@@ -15,7 +15,7 @@ class ChatPage extends Component {
   }
 
   render() {
-    if(this.props.contacts.contacts.count() <= 0) {
+    if(this.props.contacts.directory.count() <= 0) {
       return (
         <div className={styles.noContact}>
           <Typography type="subheading">Ho no !</Typography>

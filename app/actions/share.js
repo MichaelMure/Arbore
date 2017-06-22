@@ -141,3 +141,22 @@ export function publishShare(share: Share) {
     await dispatch(priv.setHash(share.id, hash))
   }
 }
+
+/**
+ * Fetch and decode a Share description
+ * @param hash
+ * @returns {Function}
+ */
+export function fetchShareDescription(hash: string) {
+  return async function (dispatch) {
+    console.log('fetch share description: ' + hash)
+    const ipfs = IpfsConnector.getInstance()
+
+    await waitForIpfsReady()
+
+    const data = await ipfs.api.getObject(hash)
+    console.log(data)
+
+    return Share.fromData(hash, data)
+  }
+}

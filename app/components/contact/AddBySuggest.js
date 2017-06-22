@@ -2,7 +2,6 @@
 import React, { Component } from 'react'
 import styles from './AddBySuggest.css'
 import Button from 'material-ui/Button'
-import IconButton from 'material-ui/IconButton'
 import Typography from 'material-ui/Typography'
 import Contact from 'models/Contact'
 import Avatar from 'components/common/Avatar'

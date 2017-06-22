@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import styles from './SharingPage.css'
 import TextField from 'material-ui/TextField'
-import ContactPool from 'models/ContactPool'
 import Share from 'models/Share'
 import Profile from 'models/Profile'
 import ShareList from 'models/ShareList'
@@ -11,7 +10,6 @@ import ShareDetail from 'containers/sharing/ShareDetail'
 class SharingPage extends Component {
   props: {
     shareList: ShareList,
-    contactPool: ContactPool,
     profile: Profile,
     onClickGenerator: (id: number) => () => void,
     onSearchChange: () => void,

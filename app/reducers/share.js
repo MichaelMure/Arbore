@@ -1,7 +1,7 @@
 // @flow
 import * as actions from 'actions/share'
 import * as ipfs from 'actions/ipfsObject'
-import Share, { writable, ShareState } from 'models/Share'
+import Share, { writable } from 'models/Share'
 import type { IpfsObject } from 'models/IpfsObject'
 import { handleActions, combineActions } from 'redux-actions'
 import { Action } from 'utils/types'

@@ -5,7 +5,7 @@ import ContactList, { writable} from 'models/ContactList'
 import { handleActions, combineActions } from 'redux-actions'
 import type { Action } from 'utils/types'
 import Contact from 'models/Contact'
-import { Map } from 'immutable'
+import { Map, Set } from 'immutable'
 import contactReducer from './contact'
 import { REHYDRATE } from 'redux-persist/constants'
 
@@ -15,9 +15,14 @@ let initialState = new ContactList()
 import contactFxt from 'models/fixtures/contact'
 
 // if(process.env.NODE_ENV !== 'production') {
-//   contactFxt.forEach((contact) => {
-//     initialState = initialState.set(writable.contacts, initialState.contacts.set(contact.pubkey, contact))
-//   })
+  contactFxt.forEach((contact) => {
+    initialState = initialState.set(writable.pool, initialState.pool.set(contact.pubkey, contact))
+  })
+  let set = new Set()
+  contactFxt.forEach((contact) => {
+    set = set.add(contact.pubkey)
+  })
+  initialState = initialState.set(writable.graph, initialState.graph.set('pubkey567', set))
 // }
 
 export default handleActions({
@@ -34,24 +39,25 @@ export default handleActions({
     return persisted
   },
 
-  [contactList.priv.addContact]: (state: ContactList, action: Action<Contact>) => {
+  [contactList.priv.storeContactInDirectory]: (state: ContactList, action: Action<Contact>) => {
     const contact: Contact = action.payload
-    if(state.contacts.has(contact.pubkey)) {
+    if(state.directory.has(contact.pubkey)) {
       throw 'Contact already know'
     }
-    return state.set(writable.contacts,
-      state.contacts.set(contact.pubkey, contact)
-    )
+    return state
+      .set(writable.directory, state.directory.add(contact.pubkey))
+      .set(writable.pool, state.pool.set(contact.pubkey, contact))
   },
 
   [contactList.removeContact]: (state: ContactList, action: Action<Contact>) => {
     const contact: Contact = action.payload
-    if(!state.contacts.has(contact.pubkey)) {
+    if(!state.directory.has(contact.pubkey)) {
       throw 'Contact unknow'
     }
-    return state.set(writable.contacts,
-      state.contacts.delete(contact.pubkey)
-    )
+    return state
+      .set(writable.directory, state.directory.remove(contact.pubkey))
+      // a manually removed contact is considered rejected from future suggestion
+      .set(writable.rejected, state.rejected.add(pubkey))
   },
 
   [contactList.setSelected]: (state: ContactList, action: Action<string>) => (
@@ -61,6 +67,28 @@ export default handleActions({
   [contactList.setSearch]: (state: ContactList, action: Action<string>) => (
     state.set(writable.search, action.payload)
   ),
+
+  [contactList.storeContactList]: (state: ContactList, action: Action) => {
+    const {contact, list} = action.payload
+    return state.set(writable.graph,
+      state.graph.set(contact.pubkey, Set(list))
+    )
+  },
+
+  [contactList.addedAsContact]: (state: ContactList, action: Action) => {
+    const { pubkey } = action.payload
+    return state.set(writable.follower, state.follower.add(pubkey))
+  },
+
+  [contactList.rejectSuggestion]: (state: ContactList, action: Action<Contact>) => {
+    return state.set(writable.rejected, state.rejected.add(action.payload.pubkey))
+  },
+
+  [contactList.priv.storeContactInPool]: (state: ContactList, action: Action) => {
+    const { contact } = action.payload
+    return state.set(writable.pool, state.pool.set(contact.pubkey, contact))
+  },
+
 
   [combineActions(
     contact.updateContact,
@@ -78,11 +106,11 @@ export default handleActions({
 function contactByPubkey(state: ContactList, action: Action) {
   const pubkey = action.payload.pubkey
 
-  if(!state.contacts.has(pubkey)) {
+  if(!state.pool.has(pubkey)) {
     throw 'Unknow contact'
   }
 
-  return state.update(writable.contacts,
+  return state.update(writable.pool,
     (contacts: Map) => contacts.update(pubkey,
         (contact: Contact) => contactReducer(contact, action)
     )

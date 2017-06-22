@@ -1,19 +1,20 @@
 // @flow
 import { createAction } from 'redux-actions'
 import * as contactActions from 'actions/contact'
-import * as contactPoolActions from 'actions/contactPool'
 import type { Store } from 'utils/types'
 import ContactList from 'models/ContactList'
 import Contact from 'models/Contact'
 import Profile from 'models/Profile'
-import ContactPool from 'models/ContactPool'
 import createProtocol from 'ipfs/createProtocol'
 import { nextToken } from 'utils/tokenGenerator'
 
 export const priv = {
-  addContact: createAction('CONTACTLIST_CONTACT_ADD',
+  storeContactInDirectory: createAction('CONTACTLIST_CONTACT_STORE',
     (contact: Contact) => (contact)
   ),
+  storeContactInPool: createAction('CONTACTPOOL_CONTACT_STORE',
+    (contact: Contact) => ({contact})
+  )
 }
 
 export const setSelected = createAction('CONTACTLIST_SELECTED_SET',
@@ -25,19 +26,28 @@ export const setSearch = createAction('CONTACTLIST_SEARCH_SET',
 export const removeContact = createAction('CONTACTLIST_CONTACT_REMOVE',
   (contact: Contact) => (contact)
 )
+export const storeContactList = createAction('CONTACTPOOL_CONTACTLIST_STORE',
+  (contact: Contact, list: Array<string>) => ({contact, list})
+)
+export const addedAsContact = createAction('CONTACTPOOL_ADDEDASCONTACT',
+  (pubkey: string) => ({pubkey})
+)
+export const rejectSuggestion = createAction('CONTACTPOOL_REJECTSUGGEST',
+  (contact: Contact) => (contact)
+)
 
 // Fetch a contact profile and add it to the contact list
 // Also perform various consequential tasks
-export function addContact(pubkey: string) {
+export function addContactInDirectory(pubkey: string) {
   return async function (dispatch, getState) {
-    const contactPool: ContactPool = getState().contactPool
+    const contactList: ContactList = getState().contactList
 
     // Use a cached contact if available, otherwise fetch the profile
-    const contact: Contact = contactPool.pool.has(pubkey)
-      ? contactPool.pool.get(pubkey)
+    const contact: Contact = contactList.pool.has(pubkey)
+      ? contactList.pool.get(pubkey)
       : await dispatch(contactActions.fetchProfile(pubkey))
 
-    await dispatch(priv.addContact(contact))
+    await dispatch(priv.storeContactInDirectory(contact))
 
     // Ping the contact
     dispatch(pingContact(contact))
@@ -49,6 +59,20 @@ export function addContact(pubkey: string) {
 
     // Ask for the contact list
     dispatch(queryContactList(contact))
+  }
+}
+
+async function addContactInPool(pubkey: string) {
+  return async function(dispatch, getState) {
+    const contactList: ContactList = getState().contactList
+
+    // don't do anything if the contact is already there
+    if(contactList.pool.has(pubkey)) {
+      return
+    }
+
+    const contact: Contact = await dispatch(contactActions.fetchProfile(pubkey))
+    dispatch(priv.storeContactInPool(contact))
   }
 }
 
@@ -67,7 +91,7 @@ export function updateAllContacts() {
     const contactList: ContactList = state.contactList
 
     const result = await Promise.all(
-      contactList.contacts.valueSeq().map((contact: Contact) =>
+      contactList.pool.map((contact: Contact) =>
         dispatch(updateContact(contact.pubkey))
           .then(() => [contact.pubkey, 'ok'])
           .catch(err => [contact.pubkey, err])
@@ -76,6 +100,39 @@ export function updateAllContacts() {
 
     console.log(result)
   }
+}
+
+// Fetch the contact for the pool if missing there
+export function fetchContactIfMissing(pubkey: string) {
+  return async function(dispatch, getState) {
+    const state: Store = getState()
+    const contactList: ContactList = state.contactList
+
+    if(contactList.pool.has(pubkey)) {
+      return
+    }
+
+    await dispatch(addContactInPool(pubkey))
+  }
+}
+
+export function fetchAllMissingContacts() {
+  // TODO: + scheduler
+  return async function(dispatch, getState) {
+    const state: Store = getState()
+    const contactList: ContactList = state.contactList
+
+    const missing: Array<string> = contactList.missingInPool
+
+    missing.forEach(async (pubkey: string) => (
+      await dispatch(addContactInPool(pubkey))
+    ))
+  }
+}
+
+export function garbageCollectPool() {
+  // TODO + scheduler
+  // clean the contact pool for unused contact
 }
 
 /* Network messages */
@@ -142,7 +199,7 @@ export function queryAllContactsList() {
     const contactList: ContactList = state.contactList
 
     await Promise.all(
-      contactList.contacts.valueSeq().map((contact: Contact) => {
+      contactList.directoryMapped.map((contact: Contact) => {
         dispatch(queryContactList(contact))
       })
     )
@@ -181,8 +238,8 @@ function handleContactsReply(dispatch, getState, payload) {
 
   console.log('Got contact list from ' + contact.identity)
 
-  dispatch(contactPoolActions.storeContactList(contact, contacts))
-  dispatch(contactPoolActions.fetchAllMissingContacts())
+  dispatch(storeContactList(contact, contacts))
+  dispatch(fetchAllMissingContacts())
 }
 
 export function pingContact(contact: Contact) {
@@ -202,7 +259,7 @@ export function pingAllContacts() {
     const contactList: ContactList = state.contactList
 
     await Promise.all(
-      contactList.contacts.valueSeq().map((contact: Contact) =>
+      contactList.directoryMapped.map((contact: Contact) =>
         dispatch(pingContact(contact))
       )
     )
@@ -255,8 +312,8 @@ function handleAddedContactQuery(dispatch, getState, payload) {
 
   const profile: Profile = getState().profile
 
-  dispatch(contactPoolActions.addedAsContact(from))
-  dispatch(contactPoolActions.fetchContactIfMissing(from))
+  dispatch(addedAsContact(from))
+  dispatch(fetchContactIfMissing(from))
   dispatch(pubsub.send(Contact.contactsPubsubTopic(from), protocol.addedContactAck(profile)))
 }
 

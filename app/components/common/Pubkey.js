@@ -5,7 +5,7 @@ import IconButton from 'material-ui/IconButton'
 import Typography from 'material-ui/Typography'
 import FontAwesome from 'react-fontawesome'
 
-const {clipboard} = require('electron')
+const { clipboard } = require('electron')
 
 class Pubkey extends Component {
 
