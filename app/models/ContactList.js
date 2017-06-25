@@ -44,8 +44,13 @@ export default class ContactList extends ContactListRecord {
   // store contacts that had added the profile
   follower: Set<string>
 
-  // Find a contact by its public key
+  // Find a contact by its public key in the directory
   findContact(pubkey: string) : ?Contact {
+    return this.directory.has(pubkey) ? this.pool.get(pubkey, null) : null
+  }
+
+  // Find a contact by its public key in the Pool
+  findContactInPool(pubkey: string) : ?Contact {
     return this.pool.get(pubkey, null)
   }
 
