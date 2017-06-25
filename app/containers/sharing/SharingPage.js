@@ -6,6 +6,7 @@ import * as sharelist from 'actions/shareList'
 
 const mapStateToProps = (state: Store) => ({
   shareList: state.shareList,
+  contactList: state.contactList,
   profile: state.profile
 })
 

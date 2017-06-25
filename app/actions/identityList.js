@@ -5,6 +5,7 @@ import * as profile from './profile'
 import * as scheduler from 'utils/scheduler'
 import * as chat from './chat'
 import * as contactList from './contactList'
+import * as shareList from './shareList'
 import { getLoginStore, getFullStore } from 'store/index'
 
 
@@ -28,11 +29,10 @@ export function login(identity: Identity) {
     await dispatch(priv.selectIdenty(identity))
 
 
-    // Start listening to chats
+    // Start listening to network events
     fullStoreDispatch(chat.subscribe())
-
-    // Start listening to contact list events
     fullStoreDispatch(contactList.subscribe())
+    fullStoreDispatch(shareList.subscribe())
 
     // Start publishing the profile periodically
     scheduler.startTimeBetween(fullStoreDispatch,
@@ -77,10 +77,9 @@ export function logout() {
     scheduler.stop('pingAllContacts')
     scheduler.stop('queryAllContactsList')
 
-    // Stop listening to chats
+    // Stop listening to network events
     dispatch(chat.unsubscribe())
-
-    // Stop listening to contactList events
     dispatch(contactList.unsubscribe())
+    dispatch(shareList.unsubscribe())
   }
 }

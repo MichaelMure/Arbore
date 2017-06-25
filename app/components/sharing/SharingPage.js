@@ -6,22 +6,24 @@ import Profile from 'models/Profile'
 import ShareList from 'models/ShareList'
 import CompactShare from './CompactShare'
 import ShareDetail from 'containers/sharing/ShareDetail'
+import ContactList from 'models/ContactList'
 
 class SharingPage extends Component {
   props: {
     shareList: ShareList,
+    contactList: ContactList,
     profile: Profile,
     onClickGenerator: (id: number) => () => void,
     onSearchChange: () => void,
   }
 
   renderShares(shares, selectedId) {
-    const { contactPool, profile } = this.props
+    const { contactList, profile } = this.props
 
     if(shares.count() > 0) {
       return shares.map((share : Share) => {
         const author = share.author
-          ? contactPool.findContact(share.author)
+          ? contactList.findContact(share.author)
           : profile
 
         return <CompactShare

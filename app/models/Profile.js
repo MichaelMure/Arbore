@@ -79,4 +79,8 @@ export default class Profile extends ProfileRecord {
   get contactsPubsubTopic() : string {
     return this.pubkey + '/contacts'
   }
+
+  get sharesPubsubTopic() : string {
+    return this.pubkey + '/shares'
+  }
 }

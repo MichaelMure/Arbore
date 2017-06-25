@@ -92,7 +92,7 @@ export default class Share extends ShareRecord {
       .set(writable.status, ShareState.AVAILABLE)
       .set(writable.author, author)
       .set(writable.title, title)
-      .set(writable.description, description)
+      .set(writable.description, description || '')
       .set(writable.content, _content)
       .set(writable.recipients, _recipients)
     )

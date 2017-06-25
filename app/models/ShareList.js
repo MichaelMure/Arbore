@@ -1,6 +1,8 @@
 // @flow
 import { Record, List } from 'immutable'
 import Share from './Share'
+import ShareRecipient from './ShareRecipient'
+import Contact from './Contact'
 import strContain from 'utils/strContain'
 
 export const LOCAL_DATA_VERSION = 1
@@ -103,5 +105,13 @@ export default class ShareList extends ShareListRecord {
 
   idInFiltered(id: number) : boolean {
     return this.filtered.some((share: Share) => share.id === id)
+  }
+
+  getSharesForContact(contact: Contact) : List<Share> {
+    return this.list.filter(
+      (share: Share) => share.recipients.some(
+        (recipient: ShareRecipient) => recipient.pubkey === contact.pubkey
+      )
+    )
   }
 }
