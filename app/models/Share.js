@@ -41,7 +41,7 @@ export const ShareRecord = Record({
   description: null,
   status: null,
   content: Map(),
-  recipients: Set(),
+  recipients: Map(),
   favorite: false
 }, 'Share')
 
@@ -56,7 +56,7 @@ export default class Share extends ShareRecord {
   description: string
   status: ShareStateType
   content: Map<string,IpfsObject>
-  recipients: Set<ShareRecipient>
+  recipients: Map<string,ShareRecipient>
   favorite: boolean
 
   static create(author: ?Contact, title: string, description: ?string = null) {
@@ -170,5 +170,9 @@ export default class Share extends ShareRecord {
 
   get isSharing() {
     return this.status === ShareState.SHARING
+  }
+
+  hasRecipient(pubkey: string) : boolean {
+    return this.recipients.some((recipient: ShareRecipient) => recipient.pubkey === pubkey)
   }
 }

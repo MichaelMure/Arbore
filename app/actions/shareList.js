@@ -31,7 +31,7 @@ export const priv = {
  * @param share
  * @returns {Function}
  */
-export function addShare(share: Share) {
+export function storeShare(share: Share) {
   return async function(dispatch, getState) {
     const shareList: ShareList = getState().shareList
     const id = shareList.nextId
@@ -50,13 +50,14 @@ export function fetchShareDescription(hash: string) {
   return async function(dispatch, getState) {
     const shareList: ShareList = getState().shareList
 
-    if(shareList.list.some((share: Share) => share.hash === hash)) {
+    let share: Share = shareList.findByHash(hash)
+    if(share) {
       console.log(`Share ${hash} already know`)
-      return
+      return share
     }
 
-    let share: Share = await dispatch(shareActions.fetchShareDescription(hash))
-    share = await dispatch(addShare(share))
+    share = await dispatch(shareActions.fetchShareDescription(hash))
+    share = await dispatch(storeShare(share))
 
     return share
   }
@@ -71,6 +72,12 @@ const protocol = {
   ),
   sharesReply: createAction('SHARESREPLY',
     (profile: Profile, shares: Array<string>) => ({from: profile.pubkey, shares: shares})
+  ),
+  sharePush: createAction('SHAREPUSH',
+    (profile: Profile, hash: string) => ({from: profile.pubkey, hash: hash})
+  ),
+  shareAck: createAction('SHAREACK',
+    (profile: Profile, hash: string) => ({from: profile.pubkey, hash: hash})
   )
 }
 
@@ -83,6 +90,8 @@ export function subscribe() {
     pubsub = createProtocol('shareList', profile.sharesPubsubTopic, {
       [protocol.queryShares.toString()]: handleQueryShares,
       [protocol.sharesReply.toString()]: handleSharesReply,
+      [protocol.sharePush.toString()]: handleSharePush,
+      [protocol.shareAck.toString()]: handleShareAck,
     })
 
     await dispatch(pubsub.subscribe())
@@ -142,7 +151,68 @@ async function handleSharesReply(dispatch, getState, payload) {
   }
 
   shares.forEach(async (hash: string) => {
-    const share: Share = await dispatch(shareActions.fetchShareDescription(hash))
-    dispatch(addShare(share))
+    const share: Share = await dispatch(fetchShareDescription(hash))
+    dispatch(storeShare(share))
   })
+}
+
+export function sendShare(share: Share, pubkey: string) {
+  return async function (dispatch, getState) {
+    console.log('Send share notification to ' + pubkey)
+    const profile: Profile = getState().profile
+
+    // Publish the share if needed
+    if(! share.hash) {
+      share = await dispatch(shareActions.publishShare(share))
+    }
+
+    const data = protocol.sharePush(profile, share.hash)
+    await dispatch(pubsub.send(Contact.sharesPubsubTopic(pubkey), data))
+  }
+}
+
+async function handleSharePush(dispatch, getState, payload) {
+  const { from, hash } = payload
+
+  const state: Store = getState()
+  const contactList: ContactList = state.contactList
+  const contact = contactList.findContact(from)
+
+  if(!contact) {
+    console.log('Got a share notification from unknow contact ' + from)
+    return
+  }
+
+  dispatch(storeShare(await dispatch(fetchShareDescription(hash))))
+
+  const profile = getState().profile
+  const data = protocol.shareAck(profile, hash)
+  dispatch(pubsub.send(contact.sharesPubsubTopic, data))
+}
+
+function handleShareAck(dispatch, getState, payload) {
+  const { from, hash } = payload
+
+  const state: Store = getState()
+  const contactList: ContactList = state.contactList
+  const contact = contactList.findContact(from)
+
+  if(!contact) {
+    console.log('Got a share notification ack from unknow contact ' + from)
+    return
+  }
+
+  const shareList: ShareList = state.shareList
+  const share: Share = shareList.findByHash(hash)
+
+  if(share.author) {
+    console.log('Got a share notification for a Share that we didn\'t authored')
+    return
+  }
+  if(!share.hasRecipient(contact.pubkey)) {
+    console.log('Got a share notification ack that does not match the recipients of the Share')
+    return
+  }
+
+  dispatch(shareActions.setRecipientNotified(share.id, contact.pubkey))
 }

@@ -125,4 +125,8 @@ export default class Contact extends ContactRecord {
   get sharesPubsubTopic() : string {
     return this.pubkey + '/shares'
   }
+
+  static sharesPubsubTopic(pubkey: string) : string {
+    return pubkey + '/shares'
+  }
 }

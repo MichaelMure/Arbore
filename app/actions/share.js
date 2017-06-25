@@ -3,6 +3,7 @@ import { createAction } from 'redux-actions'
 import Share, { ShareState, writable } from 'models/Share'
 import ShareRecipient from 'models/ShareRecipient'
 import Contact from 'models/Contact'
+import ContactList from 'models/ContactList'
 import IpfsFile from 'models/IpfsFile'
 import IpfsDirectory from 'models/IpfsDirectory'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
@@ -15,9 +16,11 @@ import * as shareList from 'actions/shareList'
 export const addEmptyObject = createAction('SHARE_EMPTY_OBJECT_ADD',
   (id: number, name: string, hash: string) => ({id, name, hash})
 )
-
 export const toggleFavorite = createAction('SHARE_FAVORITE_TOGGLE',
   (id: number) => ({id})
+)
+export const setRecipientNotified = createAction('SHARE_RECIPIENT_NOTIFIED',
+  (id: number, pubkey: string) => ({id, pubkey})
 )
 
 export const priv = {
@@ -53,13 +56,13 @@ export function triggerDownload(share: Share) {
 
 // Add the content to IPFS, create and store a new Share
 export function createShare(title: string, description: string, recipients: Array<Contact>, content: Array) {
-  return async function* (dispatch) {
+  return async function* (dispatch, getState) {
     const instance = IpfsConnector.getInstance()
     await waitForIpfsReady()
 
     let objects: Map<string,IpfsObject> = new Map()
 
-    let share = Share.create(null, title, description)
+    let share: Share = Share.create(null, title, description)
 
     let addedSize = 0
     let totalSize = 0
@@ -107,7 +110,7 @@ export function createShare(title: string, description: string, recipients: Arra
     // store the recipients
     recipients.forEach((recipient: Contact) => {
       share = share.set(writable.recipients,
-        share.recipients.add(ShareRecipient.create(recipient.pubkey))
+        share.recipients.set(recipient.pubkey, ShareRecipient.create(recipient.pubkey))
       )
     })
 
@@ -115,10 +118,15 @@ export function createShare(title: string, description: string, recipients: Arra
     share = share.set(writable.status, ShareState.SHARING)
 
     // Store the share in the shareList
-    share = await dispatch(shareList.addShare(share))
+    share = await dispatch(shareList.storeShare(share))
 
     // Publish the share
-    dispatch(publishShare(share))
+    share = await dispatch(publishShare(share))
+
+    // Notify each recipients if possible
+    share.recipients.forEach((recipient: ShareRecipient) => {
+      dispatch(shareList.sendShare(share, recipient.pubkey))
+    })
   }
 }
 
@@ -139,6 +147,8 @@ export function publishShare(share: Share) {
     const {hash} = await ipfs.api.createNode(data, [])
     console.log('share hash: ' + hash)
     await dispatch(priv.setHash(share.id, hash))
+
+    return getState().shareList.findById(share.id)
   }
 }
 

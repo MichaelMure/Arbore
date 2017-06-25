@@ -56,7 +56,8 @@ export default handleActions({
 
   [combineActions(
     share.priv.setHash,
-    share.toggleFavorite
+    share.toggleFavorite,
+    share.setRecipientNotified
   )] : (state: ShareList, action: Action) => shareById(state, action),
 
   [combineActions(

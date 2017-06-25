@@ -74,6 +74,14 @@ export default class ShareList extends ShareListRecord {
     }
   }
 
+  findById(id: number) : ?Share {
+    return this.list.find((share: Share) => share.id === id)
+  }
+
+  findByHash(hash: string) : ?Share {
+    return this.list.find((share: Share) => share.hash === hash)
+  }
+
   // Return the selected share, if any
   get selected() : ?Share {
     if(this.selectedId === null) {

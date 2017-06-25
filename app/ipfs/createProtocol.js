@@ -72,7 +72,7 @@ export default function createProtocol(name: string, topic: string, handlers: {}
       }
 
       if (!handlers.hasOwnProperty(action.type)) {
-        throw 'Received corrupted ' + name + ' action from ' + from
+        throw `Received corrupted ${name} action from ${from} with type ${action.type}`
       }
 
       try {

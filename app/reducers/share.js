@@ -2,6 +2,8 @@
 import * as actions from 'actions/share'
 import * as ipfs from 'actions/ipfsObject'
 import Share, { writable } from 'models/Share'
+import IpfsDirectory, { writable as dirWritable } from 'models/IpfsDirectory'
+import ShareRecipient, { writable as recipientWritable } from 'models/ShareRecipient'
 import type { IpfsObject } from 'models/IpfsObject'
 import { handleActions, combineActions } from 'redux-actions'
 import { Action } from 'utils/types'
@@ -9,7 +11,7 @@ import EmptyIpfsObject from 'models/IpfsObject'
 import ipfsObjectReducer from 'reducers/ipfsObject'
 import hashEquals from 'utils/hashEquals'
 import { ObjectType } from 'models/IpfsObject'
-import IpfsDirectory, { writable as dirWritable } from 'models/IpfsDirectory'
+import { Set } from 'immutable'
 
 const initialState = null
 
@@ -27,6 +29,11 @@ export default handleActions({
   [actions.toggleFavorite]: (state: Share, action: Action) => (
     state.update(writable.favorite, (x : boolean) => (!x))
   ),
+
+  [actions.setRecipientNotified]: (state: Share, action: Action) => (
+    state.updateIn([writable.recipients,  action.payload.pubkey],
+      (recipients: ShareRecipient) => recipients.set(recipientWritable.notified, true)
+  )),
 
   [actions.priv.setHash]: (state: Share, action: Action) => (
     state.set(writable.hash, action.payload.hash)
