@@ -61,7 +61,7 @@ export default function createProtocol(name: string, topic: string, handlers: {}
    * @returns {Function}
    */
   function createHandler(dispatch, getState) {
-    return function (event) {
+    return async function (event) {
       // from is the IPFS node pubkey, not the pubkey of the identity
       const {data, from, /* topicCIDs */} = event
 
@@ -76,7 +76,7 @@ export default function createProtocol(name: string, topic: string, handlers: {}
       }
 
       try {
-        handlers[action.type](dispatch, getState, action.payload)
+        await handlers[action.type](dispatch, getState, action.payload)
       } catch (err) {
         console.error(err)
       }
