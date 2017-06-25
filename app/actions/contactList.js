@@ -29,7 +29,7 @@ export const removeContact = createAction('CONTACTLIST_CONTACT_REMOVE',
 export const storeContactList = createAction('CONTACTPOOL_CONTACTLIST_STORE',
   (contact: Contact, list: Array<string>) => ({contact, list})
 )
-export const addedAsContact = createAction('CONTACTPOOL_ADDEDASCONTACT',
+export const storeAddedAsContact = createAction('CONTACTPOOL_ADDEDASCONTACT',
   (pubkey: string) => ({pubkey})
 )
 export const rejectSuggestion = createAction('CONTACTPOOL_REJECTSUGGEST',
@@ -53,9 +53,7 @@ export function addContactInDirectory(pubkey: string) {
     dispatch(pingContact(contact))
 
     // Inform the contact that we added him
-    const profile: Profile = getState().profile
-    const data = protocol.addedContactQuery(profile)
-    dispatch(pubsub.send(contact.contactsPubsubTopic, data))
+    dispatch(addedAsContact(contact))
 
     // Ask for the contact list
     dispatch(queryContactList(contact))
@@ -305,6 +303,16 @@ function handlePong(dispatch, getState, payload) {
   dispatch(contactActions.pingResult(contact.pubkey, true))
 }
 
+export function addedAsContact(contact: Contact) {
+  return async function (dispatch, getState) {
+    console.log('Send added as contact to ' + contact.identity)
+
+    const profile: Profile = getState().profile
+    const data = protocol.addedContactQuery(profile)
+    dispatch(pubsub.send(contact.contactsPubsubTopic, data))
+  }
+}
+
 function handleAddedContactQuery(dispatch, getState, payload) {
   const { from } = payload
 
@@ -312,7 +320,7 @@ function handleAddedContactQuery(dispatch, getState, payload) {
 
   const profile: Profile = getState().profile
 
-  dispatch(addedAsContact(from))
+  dispatch(storeAddedAsContact(from))
   dispatch(fetchContactIfMissing(from))
   dispatch(pubsub.send(Contact.contactsPubsubTopic(from), protocol.addedContactAck(profile)))
 }
