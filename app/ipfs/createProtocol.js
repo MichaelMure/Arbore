@@ -75,7 +75,11 @@ export default function createProtocol(name: string, topic: string, handlers: {}
         throw 'Received corrupted ' + name + ' action from ' + from
       }
 
-      handlers[action.type](dispatch, getState, action.payload)
+      try {
+        handlers[action.type](dispatch, getState, action.payload)
+      } catch (err) {
+        console.error(err)
+      }
     }
   }
 
