@@ -63,6 +63,21 @@ export function fetchShareDescription(hash: string) {
   }
 }
 
+// Execute anything needed when we find that a contact in online
+//  - push the shares that has not been notified properly
+export function onContactPong(contact: Contact) {
+  return async function(dispatch, getState) {
+    const state: Store = getState()
+    const sharelist : ShareList = state.shareList
+
+    // Stop on the first error
+    await Promise.all(
+      sharelist.getUnNotifiedSharesForContact(contact).valueSeq().map((share: Share) => {
+        dispatch(sendShare(share, contact.pubkey))
+      })
+    )
+  }
+}
 
 /* Network messages */
 
@@ -204,6 +219,11 @@ function handleShareAck(dispatch, getState, payload) {
 
   const shareList: ShareList = state.shareList
   const share: Share = shareList.findByHash(hash)
+
+  if(!share) {
+    console.log('Got a share notification ack for an unknow share ' + hash)
+    return
+  }
 
   if(share.author) {
     console.log('Got a share notification for a Share that we didn\'t authored')

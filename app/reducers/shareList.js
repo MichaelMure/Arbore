@@ -35,9 +35,13 @@ export default handleActions({
   },
 
   [sharelist.priv.addShare]: (state: ShareList, action: Action<Share>) => {
-    const share = action.payload
+    const share : Share = action.payload
     if(share.id === null) {
       throw 'Id shoud be set'
+    }
+    // Share already known
+    if(state.list.some((stored: Share) => share.hash === stored.hash)) {
+      return state
     }
     return state.set(writable.list, state.list.push(share))
   },

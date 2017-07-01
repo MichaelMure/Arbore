@@ -91,22 +91,27 @@ export default class ShareList extends ShareListRecord {
     return this.list.find((share: Share) => share.id === this.selectedId)
   }
 
+  // Return the number of available (not author, not flagged for download yet) Share
   get available() : number {
     return this.list.filter((x: Share) => x.isAvailable).count()
   }
 
+  // Return the number of inbox (not author, downloaded) Share
   get inbox() : number {
     return this.list.filter((x: Share) => x.isSharing && !x.isAuthor).count()
   }
 
+  // Return the number of active (download in progress) Share
   get active() : number {
     return this.list.filter((x: Share) => x.isDownloading || x.isPaused).count()
   }
 
+  // Return the number sharing (author or not, available locally) Share
   get sharing() : number {
     return this.list.filter((x: Share) => x.isAuthor || x.isSharing).count()
   }
 
+  // Return the number of favorited Share
   get favorite() : number {
     return this.list.filter((x : Share) => x.favorite).count()
   }
@@ -115,11 +120,18 @@ export default class ShareList extends ShareListRecord {
     return this.filtered.some((share: Share) => share.id === id)
   }
 
+  // Find all Share where the contact is a recipient
   getSharesForContact(contact: Contact) : List<Share> {
     return this.list.filter(
       (share: Share) => share.recipients.some(
         (recipient: ShareRecipient) => recipient.pubkey === contact.pubkey
       )
     )
+  }
+
+  // Find all Share targeted to the contact that are not flagged as notified
+  getUnNotifiedSharesForContact(contact: Contact) : List<Share> {
+    return this.getSharesForContact(contact)
+      .filter((share: Share) => ! share.recipients.get(contact.pubkey).notified)
   }
 }
