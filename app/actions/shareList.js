@@ -8,6 +8,7 @@ import type { ShareListFilterType } from 'models/ShareList'
 import type { Store } from 'utils/types'
 import createProtocol from 'ipfs/createProtocol'
 import * as shareActions from 'actions/share'
+import * as contactListActions from 'actions/contactList'
 import Contact from 'models/Contact'
 
 export const setFilter = createAction('SHARELIST_FILTER_SET',
@@ -169,6 +170,8 @@ async function handleSharesReply(dispatch, getState, payload) {
     const share: Share = await dispatch(fetchShareDescription(hash))
     dispatch(storeShare(share))
   })
+
+  dispatch(contactListActions.fetchAllMissingContacts())
 }
 
 export function sendShare(share: Share, pubkey: string) {
@@ -203,6 +206,8 @@ async function handleSharePush(dispatch, getState, payload) {
   const profile = getState().profile
   const data = protocol.shareAck(profile, hash)
   dispatch(pubsub.send(contact.sharesPubsubTopic, data))
+
+  dispatch(contactListActions.fetchAllMissingContacts())
 }
 
 function handleShareAck(dispatch, getState, payload) {

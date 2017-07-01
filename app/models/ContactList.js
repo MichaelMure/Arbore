@@ -1,6 +1,10 @@
 // @flow
 import { Record, Map, Set, List } from 'immutable'
 import Contact from './Contact'
+import ShareList from 'models/ShareList'
+import ChatRoomList from 'models/ChatRoomList'
+import ChatRoom from 'models/ChatRoom'
+import Share from 'models/Share'
 
 export const LOCAL_DATA_VERSION = 1
 
@@ -114,7 +118,7 @@ export default class ContactList extends ContactListRecord {
   }
 
   // return all the potential contact's pubkey that don't have a full Contact in the pool
-  get missingInPool(): Array<string> {
+  missingInPool(chatRoomList: ChatRoomList, shareList: ShareList): Array<string> {
     const result = new global.Set()
 
     this.follower.forEach((pubkey: string) => {
@@ -126,6 +130,23 @@ export default class ContactList extends ContactListRecord {
     this.graph.forEach((set: Set<string>) => {
       set.forEach((pubkey: string) => {
         if(!this.rejected.has(pubkey) && !this.pool.has(pubkey)) {
+          result.add(pubkey)
+        }
+      })
+    })
+
+    chatRoomList.rooms.keySeq().forEach((pubkey: string) => {
+      if(!this.pool.has(pubkey)) {
+        result.add(pubkey)
+      }
+    })
+
+    shareList.list.forEach((share: Share) => {
+      if(share.author && !this.pool.has(share.author.pubkey)) {
+        result.add(share.author.pubkey)
+      }
+      share.recipients.keySeq().forEach((pubkey: string) => {
+        if(!this.pool.has(pubkey)) {
           result.add(pubkey)
         }
       })

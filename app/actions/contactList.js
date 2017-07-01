@@ -7,6 +7,8 @@ import type { Store } from 'utils/types'
 import ContactList from 'models/ContactList'
 import Contact from 'models/Contact'
 import Profile from 'models/Profile'
+import ChatRoomList from 'models/ChatRoomList'
+import ShareList from 'models/ShareList'
 import createProtocol from 'ipfs/createProtocol'
 import { nextToken } from 'utils/tokenGenerator'
 
@@ -121,8 +123,10 @@ export function fetchAllMissingContacts() {
   return async function(dispatch, getState) {
     const state: Store = getState()
     const contactList: ContactList = state.contactList
+    const chatRoomList : ChatRoomList = state.chatRoomList
+    const shareList : ShareList = state.shareList
 
-    const missing: Array<string> = contactList.missingInPool
+    const missing: Array<string> = contactList.missingInPool(chatRoomList, shareList)
 
     missing.forEach(async (pubkey: string) => (
       await dispatch(addContactInPool(pubkey))
