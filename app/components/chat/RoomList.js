@@ -31,7 +31,7 @@ class RoomList extends Component {
     } = this.props
 
     const roomsSeq = rooms.rooms.entrySeq()
-      .sortBy(([pubkey, room]) => contacts.findContact(pubkey).identity)
+      .sortBy(([pubkey, room]) => contacts.findContactInPool(pubkey).identity)
 
     const contactsSeq = contacts.directoryMapped
       .filter((contact: Contact) => !rooms.rooms.has(contact.pubkey))
@@ -42,7 +42,7 @@ class RoomList extends Component {
         { roomsSeq.count() > 0 && <Typography type="subheading">Conversations</Typography> }
         {
           roomsSeq.map(([pubkey, room]) => {
-            const contact: Contact = contacts.findContact(pubkey)
+            const contact: Contact = contacts.findContactInPool(pubkey)
             const selected = ui.selectedChat === pubkey
 
             const itemClass = cx({
