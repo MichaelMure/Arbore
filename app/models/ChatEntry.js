@@ -36,4 +36,8 @@ export default class ChatEntry extends ChatEntryRecord {
       .set(writable.time, time)
     )
   }
+
+  get isAuthor() : boolean {
+    return this.contactPubkey === null
+  }
 }

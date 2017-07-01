@@ -11,6 +11,11 @@ export default handleActions({
 
   [chat.priv.chatReceived]: (state: ChatRoom, action: Action) => {
     const {contact, id, message} = action.payload
+
+    if(state.history.some((entry: ChatEntry) => entry.id === id)) {
+      return state
+    }
+
     return state.set(writable.history, state.history.push(
       ChatEntry.create(id, contact.pubkey, message)
     ))

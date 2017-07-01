@@ -2,6 +2,9 @@
 import { createAction } from 'redux-actions'
 import Contact from 'models/Contact'
 import ContactList from 'models/ContactList'
+import ChatRoomList from 'models/ChatRoomList'
+import ChatRoom from 'models/ChatRoom'
+import ChatEntry from 'models/ChatEntry'
 import Profile from 'models/Profile'
 import type { Store } from 'utils/types'
 import { mainWindowVisible } from 'utils/constants'
@@ -29,6 +32,32 @@ export const priv = {
   chatAckReceived: createAction('CHAT_MESSAGE_ACK',
     (contact: Contact, id: string) => ({contact, id})
   ),
+}
+
+// Execute anything needed when we find that a contact in online
+//  - send message that are not ACKed
+export function onContactPong(contact: Contact) {
+  return async function(dispatch, getState) {
+    const state: Store = getState()
+    const chatRoomList : ChatRoomList = state.chatRoomList
+    const room : ChatRoom = chatRoomList.findRoom(contact.pubkey)
+
+    // TODO:
+    // - potentially send multiple time the same message when a contact is online (network overload for nothing)
+    // - the message will be receive with an incorrect time
+
+    // Stop on the first fail
+    return await Promise.all(
+      room.unAcknoledgedLastDay.map((entry: ChatEntry) => {
+        const data = protocol.message(
+          entry.id,
+          state.profile,
+          entry.message
+        )
+        return dispatch(pubsub.send(contact.chatPubsubTopic, data))
+      })
+    )
+  }
 }
 
 /* Network messages */

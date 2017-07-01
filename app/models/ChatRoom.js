@@ -19,6 +19,12 @@ export default class ChatRoom extends ChatRoomRecord {
     return this.history.count() - this.lastRead
   }
 
+  get unAcknoledgedLastDay(): Array<ChatEntry> {
+    return this.history
+      .filter((entry: ChatEntry) => !entry.ack && entry.isAuthor && (Date.now() - entry.time < 24*50*60*1000))
+      .toArray()
+  }
+
   get chunks(): Array<Array<ChatEntry>> {
     let contact = undefined
     let time = 0

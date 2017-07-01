@@ -1,6 +1,7 @@
 // @flow
 import { createAction } from 'redux-actions'
 import * as contactActions from 'actions/contact'
+import * as chatActions from 'actions/chat'
 import type { Store } from 'utils/types'
 import ContactList from 'models/ContactList'
 import Contact from 'models/Contact'
@@ -301,6 +302,9 @@ function handlePong(dispatch, getState, payload) {
   console.log('Got a pong from ' + contact.identity)
 
   dispatch(contactActions.pingResult(contact.pubkey, true))
+
+  // trigger actions to be done when we find that a contact is online
+  dispatch(chatActions.onContactPong(contact))
 }
 
 export function addedAsContact(contact: Contact) {
