@@ -119,7 +119,6 @@ export function fetchContactIfMissing(pubkey: string) {
 }
 
 export function fetchAllMissingContacts() {
-  // TODO: + scheduler
   return async function(dispatch, getState) {
     const state: Store = getState()
     const contactList: ContactList = state.contactList

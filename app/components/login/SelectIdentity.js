@@ -62,8 +62,8 @@ const styleSheet = createStyleSheet('SelectIdentity', theme => ({
     extend: identity,
     backgroundColor: theme.palette.background.paper,
     borderColor: theme.palette.grey[500],
-    '& > span': {
-      margiLeft: 10,
+    '& > :last-child': {
+      marginLeft: 10,
       userSelect: 'none',
     }
   },
