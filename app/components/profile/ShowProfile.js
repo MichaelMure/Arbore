@@ -7,7 +7,7 @@ import Typography from 'material-ui/Typography'
 import FontAwesome from 'react-fontawesome'
 import Avatar from 'components/common/Avatar'
 import Pubkey from 'components/common/Pubkey'
-import Bio from 'components/common/Bio'
+import InsetText from 'components/common/InsetText'
 
 class ShowProfile extends Component {
 
@@ -29,7 +29,7 @@ class ShowProfile extends Component {
           : <div className={classes.noAvatar}><Typography>No avatar</Typography></div>
         }
 
-        <Bio bio={profile.bio} />
+        <InsetText text={profile.bio} placeholder='No biography' />
 
         <Typography align="center" type="body2">
           Share your Arbore ID

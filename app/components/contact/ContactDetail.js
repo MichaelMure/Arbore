@@ -11,7 +11,7 @@ import Dialog, {
 } from 'material-ui/Dialog';
 import Contact, { ContactStatus } from 'models/Contact'
 import Pubkey from 'components/common/Pubkey'
-import Bio from 'components/common/Bio'
+import InsetText from 'components/common/InsetText'
 import AvatarWithStatus from 'components/common/AvatarWithStatus'
 
 class ContactDetail extends Component {
@@ -57,7 +57,7 @@ class ContactDetail extends Component {
           </div>
         </div>
 
-        <Bio bio={contact.bio} />
+        <InsetText text={contact.bio} placeholder='No biography' />
 
         <LabelSwitch
           checked={contact.privacyHidden}

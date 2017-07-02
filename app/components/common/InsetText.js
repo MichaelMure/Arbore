@@ -4,23 +4,24 @@ import { withStyles, createStyleSheet } from 'material-ui/styles'
 
 import Typography from 'material-ui/Typography'
 
-class Bio extends Component {
+class InsetText extends Component {
 
   props: {
-    bio: ?string
+    text: ?string,
+    placeholder: string
   }
 
   render() {
-    const { classes, bio } = this.props
+    const { classes, text, placeholder } = this.props
 
-    return bio
-        ? <Typography paragraph className={classes.bio}>{bio}</Typography>
-        : <Typography paragraph className={classes.bioEmpty}>No biography</Typography>
+    return text
+        ? <Typography paragraph className={classes.text}>{text}</Typography>
+        : <Typography paragraph className={classes.placeholder}>{placeholder}</Typography>
   }
 }
 
-const styleSheet = createStyleSheet('Bio', theme => ({
-  bio: {
+const styleSheet = createStyleSheet('InsetText', theme => ({
+  text: {
     minHeight: 150,
     maxHeight: 300,
     overflow: 'auto',
@@ -29,7 +30,7 @@ const styleSheet = createStyleSheet('Bio', theme => ({
     marginTop: '10px !important',
     whiteSpace: 'pre-line',
   },
-  bioEmpty: {
+  placeholder: {
     minHeight: 150,
     color: 'gray !important',
     backgroundColor: theme.palette.background.appBar,
@@ -38,4 +39,4 @@ const styleSheet = createStyleSheet('Bio', theme => ({
   }
 }))
 
-export default withStyles(styleSheet)(Bio)
+export default withStyles(styleSheet)(InsetText)

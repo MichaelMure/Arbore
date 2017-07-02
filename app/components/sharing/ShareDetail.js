@@ -11,6 +11,7 @@ import * as humanize from 'utils/humanize'
 import ShareFiles from './ShareFiles'
 import Avatar from 'components/common/Avatar'
 import ContactList from 'models/ContactList'
+import InsetText from 'components/common/InsetText'
 
 class ShareDetail extends Component {
 
@@ -74,9 +75,7 @@ class ShareDetail extends Component {
           <Typography>3/4 peers</Typography>
           <Typography>1.03Mo/s</Typography>
         </div>
-        <div className={styles.spacer} />
-        <Typography type="subheading" component="h2">Description</Typography>
-        <div className={styles.spacer} />
+        <InsetText text={share.description} placeholder='No description' />
         <ShareFiles share={share} style="margin:30px"/>
       </div>
     );
