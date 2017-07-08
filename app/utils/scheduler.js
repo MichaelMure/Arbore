@@ -15,8 +15,14 @@ export const startTimeBetween = (dispatch, id: string, action, timeBetween: numb
   dispatch(async () => {
     do {
       console.log('Run scheduled action ' + id)
-      dispatch(action)
-      await new Promise(resolve => setTimeout(resolve, timeBetween));
+
+      try {
+        await dispatch(action)
+      } catch (err) {
+        console.error(`Error while running the scheduled task ${id}`, err)
+      }
+
+      await new Promise(resolve => setTimeout(resolve, timeBetween))
     } while (timers[id])
   })
 }
