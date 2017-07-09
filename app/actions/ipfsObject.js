@@ -2,6 +2,9 @@
 import { createAction } from 'redux-actions'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
+import { createWriteStream, mkdirSync } from 'fs'
+import { join } from 'path'
+import { Readable } from 'stream'
 
 /*
  * This is what we use for now:
@@ -95,6 +98,41 @@ export function fetchLocalObject() {
           // console.log(result)
           console.log('RESULT')
         })
+    })
+  }
+}
+
+/**
+ * Export an ipfs object on disk
+ * @param hash the hash of the object
+ * @param name the name of the object
+ * @param basepath the directory where to put the data
+ */
+export function exportObject(hash: string, name: string, basepath: string) {
+  return async function (dispatch) {
+    const instance = IpfsConnector.getInstance()
+
+    await waitForIpfsReady()
+
+    const stream = await instance.api.apiClient.get(hash)
+
+    await new Promise(function(resolve, reject) {
+      stream.on('data', (file) => {
+
+        const finalDest = join(basepath, name, file.path.replace(hash, ''))
+
+        // First make all the directories
+        if (!file.content) {
+          mkdirSync(finalDest)
+        } else {
+          // Pipe the file content into an actual write stream
+          const writeStream = createWriteStream(finalDest)
+          file.content.pipe(writeStream)
+        }
+      })
+
+      stream.on('error', reject)
+      stream.on('end', resolve)
     })
   }
 }
