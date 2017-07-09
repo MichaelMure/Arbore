@@ -12,6 +12,7 @@ import { waitForIpfsReady } from 'ipfs/index'
 import { Map } from 'immutable'
 import path from 'path'
 import * as shareList from 'actions/shareList'
+import * as ipfsObject from 'actions/ipfsObject'
 
 export const addEmptyObject = createAction('SHARE_EMPTY_OBJECT_ADD',
   (id: number, name: string, hash: string) => ({id, name, hash})
@@ -155,7 +156,6 @@ export function publishShare(share: Share) {
 /**
  * Fetch and decode a Share description
  * @param hash
- * @returns {Function}
  */
 export function fetchShareDescription(hash: string) {
   return async function (dispatch) {
@@ -168,5 +168,24 @@ export function fetchShareDescription(hash: string) {
     console.log(data)
 
     return Share.fromData(hash, data)
+  }
+}
+
+/**
+ * Export a Share to disk
+ * @param share
+ * @param basepath the directory to put the data to
+ */
+export function exportShare(share: Share, basepath: string) {
+  return async function*(dispatch, getState) {
+    for(const [name, object] of share.content.entrySeq()) {
+
+      // Feedback
+      yield {
+        export: name
+      }
+
+      await dispatch(ipfsObject.exportObject(object.hash, name, basepath))
+    }
   }
 }
