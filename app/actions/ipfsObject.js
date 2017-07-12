@@ -170,3 +170,19 @@ export function isLocal(hash: string) {
   }
 }
 
+/**
+ * Trigger a download. Resolve when the download is done or when an error occured.
+ * @param hash
+ * @returns {Function}
+ */
+export function triggerDownload(hash: string) {
+  return async function() {
+    console.log(`triggerDownload: ${hash}`)
+
+    const instance = IpfsConnector.getInstance()
+
+    await waitForIpfsReady()
+
+    return instance.api.apiClient.pin.add(hash)
+  }
+}
