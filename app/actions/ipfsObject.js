@@ -110,6 +110,8 @@ export function fetchLocalObject() {
  */
 export function exportObject(hash: string, name: string, basepath: string) {
   return async function (dispatch) {
+    console.log(`Exporting ${name} to ${basepath}`)
+
     const instance = IpfsConnector.getInstance()
 
     await waitForIpfsReady()
@@ -136,3 +138,35 @@ export function exportObject(hash: string, name: string, basepath: string) {
     })
   }
 }
+
+/**
+ * Check if an object is fully local
+ * @param hash
+ */
+export function isLocal(hash: string) {
+  return async function() {
+    console.log(`IsLocal: ${hash}`)
+
+    const instance = IpfsConnector.getInstance()
+
+    await waitForIpfsReady()
+
+    // This is mostly a hack, it assume the fact that the pinner add a pin only
+    // when an object is fully local
+    return new Promise(function(resolve, reject) {
+      instance.api.apiClient.pin.ls(hash, (err, pinset) => {
+        if(err) {
+          resolve(false)
+          return
+        }
+
+        try {
+          resolve(pinset[hash].Type === 'recursive')
+        } catch (e) {
+          reject(e)
+        }
+      })
+    })
+  }
+}
+
