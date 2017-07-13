@@ -161,7 +161,7 @@ export function isLocal(hash: string) {
         }
 
         try {
-          resolve(pinset[hash].Type === 'recursive')
+          resolve(pinset[hash].Type !== 'direct')
         } catch (e) {
           reject(e)
         }
