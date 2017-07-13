@@ -40,18 +40,6 @@ export default class IpfsDirectory extends IpfsDirectoryRecord {
     );
   }
 
-  get blockTotal(): number {
-    return this.children.reduce(
-      (accu, child : IpfsObject) => accu + child.blockTotal, 0
-    );
-  }
-
-  get blockLocal(): number {
-    return this.children.reduce(
-      (accu, child : IpfsObject) => accu + child.blockLocal, 0
-    );
-  }
-
   get fileTotal(): number {
     return this.children.reduce(
       (accu, child : IpfsObject) => accu + child.fileTotal, 0

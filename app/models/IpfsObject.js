@@ -15,8 +15,6 @@ export type IpfsObject = {
   type: ObjectTypeType,
   sizeTotal: number,
   sizeLocal: number,
-  blockTotal: number,
-  blockLocal: number,
   fileTotal: number,
   fileLocal: number,
   metadataLocal: boolean,
@@ -47,14 +45,6 @@ export default class EmptyIpfsObject extends IpfsObjectRecord {
   }
 
   get sizeLocal() {
-    return 0;
-  }
-
-  get blockTotal() {
-    return 0;
-  }
-
-  get blockLocal() {
     return 0;
   }
 
