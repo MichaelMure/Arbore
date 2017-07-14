@@ -157,6 +157,7 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "bs58": "^4.0.1",
     "classnames": "^2.2.5",
     "electron-canvas-to-buffer": "^2.0.0",
     "electron-debug": "^1.1.0",

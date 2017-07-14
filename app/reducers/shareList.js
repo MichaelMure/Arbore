@@ -13,12 +13,6 @@ import { REHYDRATE } from 'redux-persist/constants'
 
 let initialState = new ShareList()
 
-// TODO: remove
-// import shareFxt from 'models/fixtures/share'
-// shareFxt.forEach((share) => {
-//   initialState = initialState.set(writable.list, initialState.list.push(share))
-// })
-
 export default handleActions({
 
   // Reset part of the state app re-launch
@@ -65,7 +59,6 @@ export default handleActions({
   )] : (state: ShareList, action: Action) => shareById(state, action),
 
   [combineActions(
-    ipfs.receivedFileMetadata,
     ipfs.receivedDirMetadata
   )] : (state: ShareList, action: Action) => allShares(state, action),
 

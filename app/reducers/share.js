@@ -7,24 +7,13 @@ import ShareRecipient, { writable as recipientWritable } from 'models/ShareRecip
 import type { IpfsObject } from 'models/IpfsObject'
 import { handleActions, combineActions } from 'redux-actions'
 import { Action } from 'utils/types'
-import EmptyIpfsObject from 'models/IpfsObject'
 import ipfsObjectReducer from 'reducers/ipfsObject'
 import hashEquals from 'utils/hashEquals'
 import { ObjectType } from 'models/IpfsObject'
-import { Set } from 'immutable'
 
 const initialState = null
 
 export default handleActions({
-
-  [actions.addEmptyObject]: (state: Share, action: Action<IpfsObject>) => {
-    const { name, hash } = action.payload
-    if(state.has(name)) {
-      console.warn('ignored dupplicate content ${name} in share')
-      return state
-    }
-    return state.set(writable.content, state.content.set(name, new EmptyIpfsObject(hash)))
-  },
 
   [actions.toggleFavorite]: (state: Share, action: Action) => (
     state.update(writable.favorite, (x : boolean) => (!x))
@@ -40,7 +29,6 @@ export default handleActions({
   ),
 
   [combineActions(
-    ipfs.receivedFileMetadata,
     ipfs.receivedDirMetadata
   )] : (state: Share, action) => chainToObjects(state, action)
 

@@ -8,33 +8,35 @@ export const writable = {
   hash: 'hash',
   sizeTotal: 'sizeTotal',
   sizeLocal: 'sizeLocal',
-  metadataLocal: 'metadataLocal',
 }
 
 export const IpfsFileRecord = Record({
   hash: null,
   sizeTotal: 0,
   sizeLocal: 0,
-  metadataLocal: false,
 }, 'IpfsFile')
 
 export default class IpfsFile extends IpfsFileRecord {
   hash: string
   sizeTotal: number
   sizeLocal: number
-  metadataLocal: boolean
 
-  static create(hash: string) {
+  static create(hash: string, sizeTotal: number) {
     if(!isIpfs.multihash(hash)) {
       throw 'invalid hash'
     }
 
     return new this()
       .set(writable.hash, hash)
+      .set(writable.sizeTotal, sizeTotal)
   }
 
   get type(): ObjectTypeType {
     return ObjectType.FILE
+  }
+
+  get metadataLocal() : boolean {
+    return true
   }
 
   get fileTotal(): number {

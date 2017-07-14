@@ -130,6 +130,9 @@ export function createShare(title: string, description: string, recipients: Arra
     share.recipients.forEach((recipient: ShareRecipient) => {
       dispatch(shareList.sendShare(share, recipient.pubkey))
     })
+
+    // Fetch content metadata
+    dispatch(ipfsObject.fetchDirectoryMetadata(share.content.hash))
   }
 }
 
