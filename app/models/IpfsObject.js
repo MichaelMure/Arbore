@@ -1,5 +1,6 @@
 // @flow
 import { Record } from 'immutable'
+import isIpfs from 'is-ipfs'
 
 export const ObjectType = {
   INVALID : 'INVALID',
@@ -28,6 +29,10 @@ export const IpfsObjectRecord = Record({
 export default class EmptyIpfsObject extends IpfsObjectRecord {
 
   static create(hash: string) {
+    if(!isIpfs.multihash(hash)) {
+      throw 'invalid hash'
+    }
+
     return new this()
       .set('hash', hash)
   }

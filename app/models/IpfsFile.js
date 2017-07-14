@@ -2,6 +2,7 @@
 import { Record } from 'immutable'
 import { ObjectType } from './IpfsObject'
 import type { ObjectTypeType } from './IpfsObject'
+import isIpfs from 'is-ipfs'
 
 export const writable = {
   hash: 'hash',
@@ -24,6 +25,10 @@ export default class IpfsFile extends IpfsFileRecord {
   metadataLocal: boolean
 
   static create(hash: string) {
+    if(!isIpfs.multihash(hash)) {
+      throw 'invalid hash'
+    }
+
     return new this()
       .set(writable.hash, hash)
   }

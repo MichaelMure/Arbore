@@ -2,6 +2,7 @@
 import { ObjectType } from './IpfsObject'
 import type { IpfsObject, ObjectTypeType } from './IpfsObject'
 import { Record, Map } from 'immutable'
+import isIpfs from 'is-ipfs'
 
 export const writable = {
   hash: 'hash',
@@ -20,6 +21,10 @@ export default class IpfsDirectory extends IpfsDirectoryRecord {
   children: Map<string, IpfsObject>
 
   static create(hash: string) {
+    if(!isIpfs.multihash(hash)) {
+      throw 'invalid hash'
+    }
+
     return new this()
       .set(writable.hash, hash)
   }

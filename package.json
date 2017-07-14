@@ -164,6 +164,7 @@
     "font-awesome": "^4.7.0",
     "get-folder-size": "^1.0.0",
     "immutable": "^3.8.1",
+    "is-ipfs": "^0.3.0",
     "material-ui": "1.0.0-alpha.14",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
