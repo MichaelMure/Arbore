@@ -34,8 +34,7 @@ class ShareFiles extends Component {
   }
 
   renderFile(file: IpfsFile, name: string, path: string, level: number) {
-    // const progress: number = file.sizeLocal / file.sizeTotal * 100
-    const progress = Math.round(Math.random() * 100)
+    const progress: number = file.sizeLocal / file.sizeTotal * 100
     this.buffer.push(
       <div key={path} className={styles.object}>
         <span style={{width: `${20*level}px`, display: 'inline-block'}} />
