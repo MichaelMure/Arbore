@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import styles from './Room.css'
+import { withStyles, createStyleSheet } from 'material-ui/styles'
 import TextField from 'material-ui/TextField'
 import ChatRoom from 'models/ChatRoom'
 import HistoryChunk from 'components/chat/HistoryChunk'
@@ -28,11 +28,11 @@ class Room extends Component {
   }
 
   render() {
-    const { selectedRoom, contacts, profile } = this.props
+    const { classes, selectedRoom, contacts, profile } = this.props
 
     if(!selectedRoom) {
       return (
-        <div className={styles.chat}> </div>
+        <div className={classes.chat}> </div>
       )
     }
 
@@ -45,18 +45,18 @@ class Room extends Component {
     )
 
     return (
-      <div className={styles.chat}>
-        <div className={styles.scroller}>
-          <div className={styles.history}>
+      <div className={classes.chat}>
+        <div className={classes.scroller}>
+          <div className={classes.history}>
             { history }
             <div ref={(bottom) => { this.bottom = bottom }} > </div>
           </div>
         </div>
-        <div className={styles.prompt}>
-          <Avatar person={profile} className={styles.promptAvatar} />
+        <div className={classes.prompt}>
+          <Avatar person={profile} className={classes.promptAvatar} />
           <TextField
             label='Write something'
-            className={styles.promptInput}
+            className={classes.promptInput}
             onKeyDown={this.props.onPromptKeyDown}
             onChange={this.props.onPromptChange}
             value={this.props.promptValue}
@@ -67,4 +67,44 @@ class Room extends Component {
   }
 }
 
-export default Room
+const styleSheet = createStyleSheet('Room', theme => ({
+  chat: {
+    flexDirection: 'column',
+    flex: 1,
+    /*
+     * This is hacky, the goal is to avoid the scroller to overflow in the bottom
+     * because of the search bar and the .scroller { height: 100% }
+     */
+    paddingBottom: 50,
+    backgroundColor: theme.palette.background.appBar,
+  },
+  scroller: {
+    height: '100%',
+    width: '100%',
+    overflow: 'auto',
+  },
+  history: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'flex-end',
+    minHeight: '100%',
+    padding: '0 10px 5px',
+  },
+  prompt: {
+    height: 50,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: '0 10px 0',
+  },
+  promptAvatar: {
+    width: '42px !important',
+    height: '42px !important',
+    marginRight: 10,
+  },
+  promptInput: {
+    flex: 1
+  },
+}))
+
+export default withStyles(styleSheet)(Room)

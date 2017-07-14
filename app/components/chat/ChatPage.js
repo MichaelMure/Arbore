@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import styles from './ChatPage.css'
+import { withStyles, createStyleSheet } from 'material-ui/styles'
 import RoomList from 'containers/chat/RoomList'
 import Room from 'containers/chat/Room'
 import ContactList from 'models/ContactList'
@@ -15,21 +15,23 @@ class ChatPage extends Component {
   }
 
   render() {
-    if(this.props.contacts.directory.count() <= 0) {
+    const { classes, contacts } = this.props
+
+    if(contacts.directory.count() <= 0) {
       return (
-        <div className={styles.noContact}>
+        <div className={classes.noContact}>
           <Typography type="subheading">Ho no !</Typography>
           <Typography>It seems that you have no contact yet.</Typography>
-          <div className={styles.spacer} />
+          <div className={classes.spacer} />
           <Button raised primary onClick={this.props.onGoToContactClick}>Go to the contact management</Button>
         </div>
       )
     }
 
     return (
-      <div className={styles.wrapper}>
-        <div className={styles.contacts}>
-          <div className={styles.scrollerContact}>
+      <div className={classes.wrapper}>
+        <div className={classes.contacts}>
+          <div className={classes.scrollerContact}>
             <RoomList />
           </div>
         </div>
@@ -39,4 +41,35 @@ class ChatPage extends Component {
   }
 }
 
-export default ChatPage
+const styleSheet = createStyleSheet('ChatPage', theme => ({
+  wrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    height: '100vh',
+  },
+  contacts: {
+    flexDirection: 'column',
+    width: 200,
+    margin: 4,
+    overflow: 'hidden'
+  },
+  scrollerContact: {
+    height: '100%',
+    width: '100%',
+    overflow: 'auto',
+    padding: 3,
+  },
+  noContact: {
+    display: 'flex',
+    height: '100%',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  spacer: {
+    height: 30,
+  }
+}))
+
+export default withStyles(styleSheet)(ChatPage)

@@ -45,7 +45,9 @@ class RoomContainer extends Component {
   }
 
   componentDidMount() {
-    this.room.scrollToBottom()
+    if(this.room) {
+      this.room.scrollToBottom()
+    }
   }
 
   componentDidUpdate(prevProps, prevState, prevContext) {
@@ -55,7 +57,7 @@ class RoomContainer extends Component {
       return
     }
 
-    if(chatRoomList !== prevProps.chatRoomList) {
+    if(chatRoomList !== prevProps.chatRoomList && this.room) {
       this.room.scrollToBottom()
     }
   }
