@@ -11,9 +11,6 @@ import * as shareList from 'actions/shareList'
 import * as ipfsObject from 'actions/ipfsObject'
 import bs58 from 'bs58'
 
-export const addEmptyObject = createAction('SHARE_EMPTY_OBJECT_ADD',
-  (id: number, name: string, hash: string) => ({id, name, hash})
-)
 export const toggleFavorite = createAction('SHARE_FAVORITE_TOGGLE',
   (id: number) => ({id})
 )
@@ -25,31 +22,6 @@ export const priv = {
   setHash: createAction('SHARE_HASH_SET',
     (id: number, hash: string) => ({id, hash})
   )
-}
-
-// Trigger the download of content by pinning the root hashes
-// Update the state accordingly
-export function triggerDownload(share: Share) {
-  return async function (dispatch) {
-    console.log('Trigger download of ' + share.title)
-
-    dispatch(setStarted(share.id))
-
-    const instance = IpfsConnector.getInstance()
-
-    await waitForIpfsReady()
-
-    try {
-      await Promise.all(
-        share.content.map((x: IpfsObject) =>
-          instance.api.apiClient.pin.add(x.hash)
-        )
-      )
-      console.log('all pin added')
-    } catch (error) {
-      console.error(error)
-    }
-  }
 }
 
 // Add the content to IPFS, create and store a new Share
