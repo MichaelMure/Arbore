@@ -40,7 +40,7 @@ export const ShareRecord = Record({
   title: null,
   description: null,
   status: null,
-  content: Map(),
+  content: null,
   recipients: Map(),
   favorite: false
 }, 'Share')
@@ -55,7 +55,7 @@ export default class Share extends ShareRecord {
   title: string
   description: string
   status: ShareStateType
-  content: Map<string,IpfsObject>
+  content: ?IpfsDirectory
   recipients: Map<string,ShareRecipient>
   favorite: boolean
 
@@ -75,14 +75,6 @@ export default class Share extends ShareRecord {
       throw 'Unexpected share data version'
     }
 
-    const _content = Map(content.map(({name, hash, type}) => {
-      switch(type) {
-        case ObjectType.DIRECTORY: return [name, IpfsDirectory.create(hash)]
-        case ObjectType.FILE:      return [name, IpfsFile.create(hash)]
-        default: throw 'Unknow object type'
-      }
-    }))
-
     const _recipients = Set(
       recipients.map(({pubkey}) => ShareRecipient.create(pubkey))
     )
@@ -93,19 +85,13 @@ export default class Share extends ShareRecord {
       .set(writable.author, author)
       .set(writable.title, title)
       .set(writable.description, description || '')
-      .set(writable.content, _content)
+      .set(writable.content, IpfsDirectory.create(content))
       .set(writable.recipients, _recipients)
     )
   }
 
   // Return the object to be published in IPFS
   getPublishObject(profile: Profile): {} {
-    const content = this.content.entrySeq().map(([name, object]) => ({
-      name,
-      hash: object.hash,
-      type: object.type
-    }))
-
     const recipients = this.recipients.valueSeq().map((recipient: ShareRecipient) => ({
       pubkey: recipient.pubkey
     }))
@@ -115,41 +101,25 @@ export default class Share extends ShareRecord {
       author: this.author ? this.author.pubkey : profile.pubkey,
       title: this.title,
       description: this.description,
-      content,
+      content: this.content.hash,
       recipients
     }
   }
 
-  get progress() {
-    if(this.content.count() === 0) {
-      return 1
-    }
-
-    if(!this.metadataLocal) {
-      return 0
-    }
-
-    const [sumLocal, sumTotal] = this.content
-      .map((x: IpfsObject) => [x.sizeLocal, x.sizeTotal])
-      .reduce((accu, [local, total]) => ([accu[0] + local, accu[1] + total]), [0,0])
-
-    return sumLocal / sumTotal
+  get progress(): number {
+    return this.content.progress
   }
 
   get sizeTotal(): number {
-    return this.content.reduce(
-      (accu, child : IpfsObject) => accu + child.sizeTotal, 0
-    );
+    return this.content.sizeTotal
   }
 
   get sizeLocal(): number {
-    return this.content.reduce(
-      (accu, child : IpfsObject) => accu + child.sizeLocal, 0
-    );
+    return this.content.sizeLocal
   }
 
   get metadataLocal() {
-    return this.content.every(object => object.metadataLocal)
+    return this.content.metadataLocal
   }
 
   get isAuthor() {

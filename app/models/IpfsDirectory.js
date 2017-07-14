@@ -66,4 +66,20 @@ export default class IpfsDirectory extends IpfsDirectoryRecord {
       (child: IpfsObject) => child.metadataLocal
     )
   }
+
+  get progress() {
+    if(!this.metadataLocal) {
+      return 0
+    }
+
+    if(this.children.count() === 0) {
+      return 1
+    }
+
+    const [sumLocal, sumTotal] = this.children.valueSeq()
+      .map((x: IpfsObject) => [x.sizeLocal, x.sizeTotal])
+      .reduce((accu, [local, total]) => ([accu[0] + local, accu[1] + total]), [0,0])
+
+    return sumLocal / sumTotal
+  }
 }

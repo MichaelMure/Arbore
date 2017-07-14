@@ -15,9 +15,9 @@ const reducer = handleActions({
     const { links } = action.payload
 
     // If needed, replace the empty object by a real one now that we know what it is
-    const dir: IpfsDirectory = ((state.type === ObjectType.INVALID) ?
-      new IpfsDirectory(state.hash) :
-      state)
+    const dir: IpfsDirectory = (state.type === ObjectType.INVALID)
+      ? new IpfsDirectory(state.hash)
+      : state
 
     // Transform the links data
     const children: Map<string, IpfsObject> = new Map(links.map(
@@ -35,12 +35,11 @@ const reducer = handleActions({
     const { size } = action.payload
 
     // If needed, replace the empty object by a real one now that we know what it is
-    const file: IpfsFile = state.type === ObjectType.INVALID ?
-      new IpfsFile(state.hash) :
-      state
+    const file: IpfsFile = (state.type === ObjectType.INVALID)
+      ? new IpfsFile(state.hash)
+      : state
 
     // Update the metadata
-    // TODO: child block
     return file.withMutations((file: IpfsFile) =>
       file.set(fileWritable.sizeTotal, size))
           .set(fileWritable.metadataLocal, true)

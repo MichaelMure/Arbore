@@ -48,11 +48,11 @@ export default handleActions({
 
 // Apply the IpfsObject reducer on all the childs Share content recursively
 function chainToObjects(state: Share, action: Action) {
-  return state.set(writable.content,
-    state.content.map(
-      (child: IpfsObject) => objectsDfsMutation(child, action)
-    )
-  )
+  if(!state.content) {
+    return state
+  }
+
+  return state.set(writable.content, objectsDfsMutation(state.content, action))
 }
 
 // Perform a depth-first mutation on the IpfsObject graph with the IpfsObject reducer

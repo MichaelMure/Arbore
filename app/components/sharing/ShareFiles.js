@@ -68,7 +68,7 @@ class ShareFiles extends Component {
       return (<div>Waiting for metadata...</div>)
     }
 
-    const content = this.props.share.content
+    const content = this.props.share.content.children
     this.buffer = []
 
     content.entrySeq().forEach(([name, object]) =>
