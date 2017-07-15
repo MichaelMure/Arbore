@@ -13,7 +13,9 @@ Arbore is a peer-to-peer file sharing application with the following caracterist
 - low friction: it should be as easy as possible
 - encryption should be used to maintain privacy and to control the diffusion of the data
 
-This application will be build on top of [IPFS](http://ipfs.io/).
+This application is build on top of [IPFS](http://ipfs.io/).
+
+[Download it here !](https://github.com/MichaelMure/TotallyNotArbore/releases/latest)
 
 ![login snapshot](https://raw.githubusercontent.com/MichaelMure/TotallyNotArbore/5ffc00385bd863596038dc1546fb2b8e90d3cc8f/resources/arbore%20login%20page.png)
 
