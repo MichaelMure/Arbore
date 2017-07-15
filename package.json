@@ -21,6 +21,7 @@
     "contactAdder": "npm run build-contactAdder && cross-env NODE_ENV=production node ./app/contactAdder",
     "package-win": "npm run build && build --win --x64 --ia32",
     "package-linux": "npm run build && build --linux --x64 --ia32",
+    "package-mac": "npm run build && build --mac --x64 --ia32",
     "package-all": "npm run build && build -mwl --x64 --ia32"
   },
   "browserslist": "electron 1.6",
