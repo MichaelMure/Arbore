@@ -7,7 +7,14 @@
   ],
   "src": {
     "commitMessage": "Release %s-preview",
-    "tagName": "v%s-preview"
+    "tagName": "v%s-preview",
+    "githubAssets": [
+      "release/*.rpm",
+      "release/*.AppImage",
+      "release/*.deb",
+      "release/*.exe",
+      "release/*.dmg"
+    ]
   },
   "dist": {
     "baseDir": false
@@ -18,6 +25,7 @@
   "github": {
     "release": true,
     "preRelease": true,
+    "draft": true,
     "tokenRef": "GITHUB_TOKEN"
   }
 }
