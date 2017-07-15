@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import styles from './ShareFiles.css'
+import { withStyles, createStyleSheet } from 'material-ui/styles'
 import Share from 'models/Share'
 import { ObjectType } from 'models/IpfsObject'
 import type { IpfsObject } from 'models/IpfsObject'
@@ -34,26 +34,28 @@ class ShareFiles extends Component {
   }
 
   renderFile(file: IpfsFile, name: string, path: string, level: number) {
+    const { classes } = this.props
     const progress: number = file.sizeLocal / file.sizeTotal * 100
     this.buffer.push(
-      <div key={path} className={styles.object}>
+      <div key={path} className={classes.object}>
         <span style={{width: `${20*level}px`, display: 'inline-block'}} />
-        <span className={styles.icon}><FontAwesome name="file-o"/></span>
-        <span className={styles.name}>{ name }</span>
-        <div className={styles.progress}>
+        <span className={classes.icon}><FontAwesome name="file-o"/></span>
+        <span className={classes.name}>{ name }</span>
+        <div className={classes.progress}>
           <div style={{width: `${progress}%`, backgroundColor: 'green'}} >{progress}%</div>
         </div>
-        <span className={styles.size}>{humanize.filesize(file.sizeTotal)}</span>
+        <span className={classes.size}>{humanize.filesize(file.sizeTotal)}</span>
       </div>
     )
   }
 
   renderDirectory(dir: IpfsDirectory, name: string, path: string, level: number) {
+    const { classes } = this.props
     this.buffer.push(
-      <div key={path} className={styles.object}>
+      <div key={path} className={classes.object}>
         <span style={{width: `${20*level}px`, display: 'inline-block'}} />
-        <span className={styles.expander}><FontAwesome name="folder-open-o"/></span>
-        <span className={styles.name}>{ name }</span>
+        <span className={classes.expander}><FontAwesome name="folder-open-o"/></span>
+        <span className={classes.name}>{ name }</span>
       </div>
     )
 
@@ -67,7 +69,8 @@ class ShareFiles extends Component {
       return (<div>Waiting for metadata...</div>)
     }
 
-    const content = this.props.share.content.children
+    const { classes, share } = this.props
+    const content = share.content.children
     this.buffer = []
 
     content.entrySeq().forEach(([name, object]) =>
@@ -75,11 +78,45 @@ class ShareFiles extends Component {
     )
 
     return (
-      <div className={styles.wrapper}>
+      <div className={classes.wrapper}>
         { this.buffer }
       </div>
     );
   }
 }
 
-export default ShareFiles;
+const styleSheet = createStyleSheet('ShareFiles', theme => ({
+  wrapper: {
+    backgroundColor: theme.palette.background.appBar,
+    borderRadius: 5,
+  },
+  object: {
+    height: 20,
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  expander: {
+    width: 20,
+    textAlign: 'center',
+    display: 'inline-block',
+    cursor: 'pointer',
+  },
+  icon: {
+    width: 20,
+    textAlign: 'center',
+    display: 'inline-block',
+  },
+  name: {
+    flexGrow: 1,
+  },
+  progress: {
+    width: 60,
+    border: '1px solid gray',
+  },
+  size: {
+    width: 100,
+    textAlign: 'center',
+  },
+}))
+
+export default withStyles(styleSheet)(ShareFiles)
