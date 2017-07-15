@@ -76,10 +76,12 @@ class ContentInput extends Component {
 
     return (
       <div key={path} className={styles.object}>
-        <FontAwesome className={styles.icon} name={ directory ? "folder" : 'file-o' }/>
-        <Typography noWrap className={styles.name}>{ nodePath.basename(path) }</Typography>
+        <Typography noWrap className={styles.name}>
+          <FontAwesome className={styles.icon} name={ directory ? "folder" : 'file-o' }/>
+          { nodePath.basename(path) }
+        </Typography>
         { displaySize !== null && <Typography className={styles.size}>{ humanize.filesize(displaySize) }</Typography> }
-        <FontAwesome className={styles.remove} name='times' onClick={() => {::this.handleRemove(index)}}/>
+        <Typography><FontAwesome className={styles.remove} name='times' onClick={() => {::this.handleRemove(index)}}/></Typography>
       </div>
     )
   }
@@ -97,15 +99,13 @@ class ContentInput extends Component {
                  onClick={() => { ::this.handleOpen(false) }}
                  onKeyPress={ ::this.enterToClick }
             >
-              <FontAwesome className={styles.icon} name='file-o'/>
-              Add files
+              <Typography><FontAwesome className={styles.icon} name='file-o'/>Add files</Typography>
             </div>
             <div className={styles.button} tabIndex={0}
                  onClick={() => { ::this.handleOpen(true) }}
                  onKeyPress={ ::this.enterToClick }
             >
-              <FontAwesome className={styles.icon} name="folder"/>
-              Add directories
+              <Typography><FontAwesome className={styles.icon} name="folder"/>Add directories</Typography>
             </div>
           </div>
         </div>
