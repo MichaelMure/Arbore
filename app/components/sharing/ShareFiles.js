@@ -8,6 +8,7 @@ import IpfsFile from 'models/IpfsFile'
 import IpfsDirectory from 'models/IpfsDirectory'
 import FontAwesome from 'react-fontawesome'
 import * as humanize from 'utils/humanize'
+import Typography from 'material-ui/Typography'
 
 class ShareFiles extends Component {
 
@@ -39,12 +40,14 @@ class ShareFiles extends Component {
     this.buffer.push(
       <div key={path} className={classes.object}>
         <span style={{width: `${20*level}px`, display: 'inline-block'}} />
-        <span className={classes.icon}><FontAwesome name="file-o"/></span>
-        <span className={classes.name}>{ name }</span>
+        <Typography className={classes.name}>
+          <span className={classes.icon}><FontAwesome name="file-o"/></span>
+          { name }
+        </Typography>
         <div className={classes.progress}>
-          <div style={{width: `${progress}%`, backgroundColor: 'green'}} >{progress}%</div>
+          <div style={{width: `${progress}%`, backgroundColor: 'green'}} ><Typography>{progress}%</Typography></div>
         </div>
-        <span className={classes.size}>{humanize.filesize(file.sizeTotal)}</span>
+        <Typography className={classes.size}>{humanize.filesize(file.sizeTotal)}</Typography>
       </div>
     )
   }
@@ -54,8 +57,10 @@ class ShareFiles extends Component {
     this.buffer.push(
       <div key={path} className={classes.object}>
         <span style={{width: `${20*level}px`, display: 'inline-block'}} />
-        <span className={classes.expander}><FontAwesome name="folder-open-o"/></span>
-        <span className={classes.name}>{ name }</span>
+        <Typography className={classes.name}>
+          <span className={classes.expander}><FontAwesome name="folder-open-o"/></span>
+          { name }
+        </Typography>
       </div>
     )
 
@@ -66,7 +71,7 @@ class ShareFiles extends Component {
 
   render() {
     if(! this.props.share.metadataLocal) {
-      return (<div>Waiting for metadata...</div>)
+      return (<div><Typography>Waiting for metadata...</Typography></div>)
     }
 
     const { classes, share } = this.props
@@ -91,7 +96,6 @@ const styleSheet = createStyleSheet('ShareFiles', theme => ({
     borderRadius: 5,
   },
   object: {
-    height: 20,
     display: 'flex',
     flexDirection: 'row',
   },
@@ -108,8 +112,10 @@ const styleSheet = createStyleSheet('ShareFiles', theme => ({
   },
   name: {
     flexGrow: 1,
+    flexShrink: 1000,
   },
   progress: {
+    height: 20,
     width: 60,
     border: '1px solid gray',
   },
