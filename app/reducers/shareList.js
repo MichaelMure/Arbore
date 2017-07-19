@@ -59,7 +59,8 @@ export default handleActions({
   )] : (state: ShareList, action: Action) => shareById(state, action),
 
   [combineActions(
-    ipfs.receivedDirMetadata
+    ipfs.priv.receivedDirMetadata,
+    ipfs.priv.isLocal
   )] : (state: ShareList, action: Action) => allShares(state, action),
 
 }, initialState )

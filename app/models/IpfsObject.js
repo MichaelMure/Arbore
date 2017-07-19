@@ -1,7 +1,6 @@
 // @flow
 
 export const ObjectType = {
-  INVALID : 'INVALID',
   RAW : 'RAW',
   DIRECTORY : 'DIRECTORY',
   FILE : 'FILE',

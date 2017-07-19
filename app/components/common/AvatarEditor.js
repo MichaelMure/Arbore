@@ -139,7 +139,10 @@ class AvatarEditor extends Component {
             width={200}
             height={200}
             borderRadius={5000}
-            color={[255, 255, 255, 1]}
+
+            // TODO: match with the background color of the material-ui theme
+            color={[250, 250, 250, 1]}
+
             style={{margin: '0 auto'}}
             scale={parseFloat(this.state.scale)}
             rotate={this.state.rotation}

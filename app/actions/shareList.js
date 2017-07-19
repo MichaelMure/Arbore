@@ -64,6 +64,20 @@ export function fetchShareDescription(hash: string) {
   }
 }
 
+/**
+ * Update the locality of all shares
+ */
+export function updateAllLocalities() {
+  return async function(dispatch, getState) {
+    const state: Store = getState()
+    const shareList: ShareList = state.shareList
+
+    await Promise.all(
+      shareList.list.map((share: Share) => dispatch(shareActions.updateLocality(share)))
+    )
+  }
+}
+
 // Execute anything needed when we find that a contact in online
 //  - push the shares that has not been notified properly
 export function onContactPong(contact: Contact) {

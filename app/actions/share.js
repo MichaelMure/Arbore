@@ -4,6 +4,8 @@ import Share, { ShareState, writable } from 'models/Share'
 import ShareRecipient from 'models/ShareRecipient'
 import Contact from 'models/Contact'
 import IpfsDirectory from 'models/IpfsDirectory'
+import ShareList from 'models/ShareList'
+import type { Store } from 'utils/types'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 import path from 'path'
@@ -52,6 +54,7 @@ export function createShare(title: string, description: string, recipients: Arra
         adding: path.basename(contentPath)
       }
 
+      // TODO: do not pin intermediate hash
       result = await instance.api.apiClient.util.addFromFs(contentPath, {
         recursive: true,
         hidden: true,
@@ -79,8 +82,13 @@ export function createShare(title: string, description: string, recipients: Arra
       wrapper = result.multihash
     }
 
+    const contentHash = bs58.encode(wrapper)
+
+    // Pin the content in IPFS
+    await instance.api.apiClient.pin.add(contentHash)
+
     // store the content
-    share = share.set(writable.content, IpfsDirectory.create(bs58.encode(wrapper)))
+    share = share.set(writable.content, IpfsDirectory.create(contentHash))
 
     // store the recipients
     recipients.forEach((recipient: Contact) => {
@@ -145,6 +153,22 @@ export function fetchShareDescription(hash: string) {
     console.log(data)
 
     return Share.fromData(hash, data)
+  }
+}
+
+/**
+ * Update the locality of a Share
+ * @param share
+ */
+export function updateLocality(share: Share) {
+  return async function (dispatch) {
+    console.log(`update locality of ${share.title}`)
+
+    if(!share.content) {
+      return
+    }
+
+    await dispatch(ipfsObject.isLocalRecursive(share.content))
   }
 }
 

@@ -29,7 +29,8 @@ export default handleActions({
   ),
 
   [combineActions(
-    ipfs.receivedDirMetadata
+    ipfs.priv.receivedDirMetadata,
+    ipfs.priv.isLocal
   )] : (state: Share, action) => chainToObjects(state, action)
 
 }, initialState )

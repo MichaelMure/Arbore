@@ -59,6 +59,9 @@ export function login(identity: Identity) {
       contactList.queryAllContactsList(),
       10 * 60 * 1000 // 10 minutes
     )
+
+    // Check the locality of the content
+    fullStoreDispatch(shareList.updateAllLocalities())
   }
 }
 
