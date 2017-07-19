@@ -11,6 +11,6 @@
   },
   "license": "GPL-3.0",
   "dependencies": {
-    "@akashaproject/ipfs-connector": "1.9.12"
+    "@akashaproject/ipfs-connector": "1.10.2"
   }
 }
