@@ -79,8 +79,13 @@ export function createShare(title: string, description: string, recipients: Arra
       wrapper = result.multihash
     }
 
+    const contentHash = bs58.encode(wrapper)
+
+    // Pin the content in IPFS
+    await instance.api.apiClient.pin.add(contentHash)
+
     // store the content
-    share = share.set(writable.content, IpfsDirectory.create(bs58.encode(wrapper)))
+    share = share.set(writable.content, IpfsDirectory.create(contentHash))
 
     // store the recipients
     recipients.forEach((recipient: Contact) => {
