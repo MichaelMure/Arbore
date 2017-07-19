@@ -19,6 +19,28 @@ export const ShareState = {
 }
 export type ShareStateType = $Keys<typeof ShareState>
 
+/**
+ * PlantUML diagram (http://plantuml.com/state-diagram)
+ *
+ * @startuml
+ *
+ * [*] --> Available : got a notification
+ *
+ * Available --> Downloading : start()
+ * Downloading --> Available : abort()
+ *
+ * Downloading --> Paused : pause()
+ * Paused --> Downloading : start()
+ *
+ * Paused --> Available : abort()
+ *
+ * [*] --> Sharing : created a Share locally
+ *
+ * Downloading --> Sharing : download done
+ *
+ * @enduml
+ */
+
 export const writable = {
   dataVersion: 'dataVersion',
   id: 'id',
