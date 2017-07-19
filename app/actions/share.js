@@ -4,6 +4,8 @@ import Share, { ShareState, writable } from 'models/Share'
 import ShareRecipient from 'models/ShareRecipient'
 import Contact from 'models/Contact'
 import IpfsDirectory from 'models/IpfsDirectory'
+import ShareList from 'models/ShareList'
+import type { Store } from 'utils/types'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 import path from 'path'
@@ -151,6 +153,22 @@ export function fetchShareDescription(hash: string) {
     console.log(data)
 
     return Share.fromData(hash, data)
+  }
+}
+
+/**
+ * Update the locality of a Share
+ * @param share
+ */
+export function updateLocality(share: Share) {
+  return async function (dispatch) {
+    console.log(`update locality of ${share.title}`)
+
+    if(!share.content) {
+      return
+    }
+
+    await dispatch(ipfsObject.isLocalRecursive(share.content))
   }
 }
 
