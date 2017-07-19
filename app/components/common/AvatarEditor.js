@@ -4,6 +4,7 @@ import styles from './AvatarEditor.css'
 import ReactAvatarEditor from 'react-avatar-editor'
 import canvasBuffer from 'electron-canvas-to-buffer'
 import FontAwesome from 'react-fontawesome'
+import Typography from 'material-ui/Typography'
 
 const dialog = require('electron').remote.dialog
 
@@ -124,7 +125,7 @@ class AvatarEditor extends Component {
       } else {
         return (
           <div className={ styles.selectAvatar } onClick={::this.openFileDialog} >
-            Select an avatar
+            <Typography>Select an avatar</Typography>
           </div>
         )
       }

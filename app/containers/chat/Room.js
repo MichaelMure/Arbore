@@ -67,7 +67,7 @@ class RoomContainer extends Component {
 
     return (
       <Room
-        ref={(room) => { this.room = room }}
+        ref={(room) => { this.room = room ? room.innerRef : room }}
         selectedRoom={ui.selectedChat ? chatRoomList.findRoom(ui.selectedChat) : null}
         contacts={contacts}
         profile={profile}

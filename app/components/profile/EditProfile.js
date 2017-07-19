@@ -70,7 +70,7 @@ class EditProfile extends Component {
         <div className={styles.buttons}>
           <Button raised onClick={onCancelClick} disabled={waiting}>Cancel</Button>
           <Button
-            raised primary
+            raised color='primary'
             type='submit'
             disabled={(pristine && avatarPristine) || submitting || waiting}
           >

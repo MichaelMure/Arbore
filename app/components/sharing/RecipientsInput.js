@@ -64,7 +64,7 @@ class RecipientsInput extends Component {
 
           {/* TODO: need https://github.com/callemall/material-ui/issues/4783 */}
           <Input
-            ref={(input) => { this.recipientsInput = input }}
+            inputRef={(input) => { this.recipientsInput = input }}
             disableUnderline
             className={styles.recipientsInput}
             onKeyPress={ ::this.handleRecipientInputChange }
