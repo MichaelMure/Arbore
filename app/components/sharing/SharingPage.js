@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styles from './SharingPage.css'
+import Typography from 'material-ui/Typography'
 import TextField from 'material-ui/TextField'
 import Share from 'models/Share'
 import Profile from 'models/Profile'
@@ -36,7 +37,7 @@ class SharingPage extends Component {
       })
     }
 
-    return (<span>Nothing here yet.</span>)
+    return (<Typography>Nothing here yet.</Typography>)
   }
 
   render() {

@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import styles from './ContactAdder.css'
+import Typography from 'material-ui/Typography'
 import Collapse from 'material-ui/transitions/Collapse'
 import Fade from 'material-ui/transitions/Fade'
 import AddByPubkey from 'containers/contact/AddByPubkey'
@@ -56,7 +57,7 @@ class ContactAdder extends Component {
         <Collapse in={this.state.step === Steps.START} >
           <Fade in={this.state.step === Steps.START} >
             <div className={styles.ghost} onClick={::this.showChoices}>
-              Add a new contact
+              <Typography>Add a new contact</Typography>
             </div>
           </Fade>
         </Collapse>

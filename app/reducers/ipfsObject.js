@@ -30,8 +30,6 @@ const reducer = handleActions({
       }
     ))
 
-    console.log(children)
-
     // Update the metadata
     return dir.withMutations((dir: IpfsDirectory) =>
       dir.set(dirWritable.metadataLocal, true)

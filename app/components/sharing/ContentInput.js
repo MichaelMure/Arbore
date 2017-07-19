@@ -32,7 +32,6 @@ class ContentInput extends Component {
 
   // Helper for the keyboard navigation
   enterToClick(e) {
-    console.log(e)
     if (e.key === 'Enter') {
       e.target.click()
     }
