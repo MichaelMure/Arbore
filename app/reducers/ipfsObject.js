@@ -40,7 +40,11 @@ const reducer = handleActions({
         // Set the file fully complete
         return state.set(fileWritable.sizeLocal, isLocal ? state.sizeTotal : 0)
       case ObjectType.DIRECTORY:
-        // Recursively call the reducer on children
+        // If isLocal, recursively call the reducer on children to set them all as local
+        if(!isLocal) {
+          return state
+        }
+
         return state.set(dirWritable.children,
           state.children.update((children) => children.map((obj: IpfsObject) => reducer(obj, action)))
         )
