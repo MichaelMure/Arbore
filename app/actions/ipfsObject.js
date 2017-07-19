@@ -4,6 +4,8 @@ import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 import { createWriteStream, mkdirSync } from 'fs'
 import { join } from 'path'
+import IpfsDirectory from 'models/IpfsDirectory'
+import { IpfsObject, ObjectType } from 'models/IpfsObject'
 
 /*
  * This is what we use for now:
@@ -43,9 +45,6 @@ export function fetchDirectoryMetadata(hash) {
 
     // Store what we have
     dispatch(priv.receivedDirMetadata(hash, Links))
-
-    // Check if the object is local
-    dispatch(isLocal(hash))
 
     // Request metadatas for each child directory
     await Promise.all(
@@ -90,6 +89,32 @@ export function exportObject(hash: string, name: string, basepath: string) {
       stream.on('error', reject)
       stream.on('end', resolve)
     })
+  }
+}
+
+/**
+ * Inspect a graph of IPFS object to update what is local or not
+ * @param obj
+ */
+export function isLocalRecursive(obj: IpfsObject) {
+  return async function(dispatch) {
+    console.log(`IsLocalRecursive: ${obj.hash}`)
+
+    const local = await dispatch(isLocal(obj.hash))
+
+    if(local) {
+      // Nothing more to do, everything under (if any) is local as well
+      return true
+    }
+
+    if(obj.type === ObjectType.DIRECTORY) {
+      // Request locality for each child directory
+      await Promise.all(
+        obj.children.map((child: IpfsObject) => dispatch(isLocalRecursive(child)))
+      )
+    }
+
+    return false
   }
 }
 
