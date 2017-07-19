@@ -20,9 +20,14 @@ import { join } from 'path'
  *  -> TODO
  */
 
-export const receivedDirMetadata = createAction('DIR_METADATA_RECEIVED',
-  (hash: string, links: []) => ({hash, links})
-)
+export const priv = {
+  receivedDirMetadata: createAction('DIR_METADATA_RECEIVED',
+    (hash: string, links: []) => ({hash, links})
+  ),
+  isLocal: createAction('IPFS_OBJECT_LOCAL',
+    (hash: string, isLocal: boolean) => ({hash, isLocal})
+  )
+}
 
 // Request metadata from ipfs for an unknow object
 export function fetchDirectoryMetadata(hash) {
@@ -36,33 +41,18 @@ export function fetchDirectoryMetadata(hash) {
     const result = await instance.api.apiClient.ls(hash)
     const { Links } = result.Objects[0]
 
-    console.log(result)
-
     // Store what we have
-    dispatch(receivedDirMetadata(hash, Links))
+    dispatch(priv.receivedDirMetadata(hash, Links))
+
+    // Check if the object is local
+    dispatch(isLocal(hash))
 
     // Request metadatas for each child directory
-    Links.forEach(({Hash, Type}) => {
-      if(Type === 1) {
-        dispatch(fetchDirectoryMetadata(Hash))
-      }
-    })
-  }
-}
-
-export function fetchLocalObject() {
-  console.log('FETCH LOCAL OBJECT')
-
-  return function (dispatch) {
-    const instance = IpfsConnector.getInstance()
-
-    waitForIpfsReady().then(() => {
-      instance.api.apiClient.refs.local()
-        .then(result => {
-          // console.log(result)
-          console.log('RESULT')
-        })
-    })
+    await Promise.all(
+      Links
+        .filter(({Type}) => Type === 1)
+        .map(({Hash}) => dispatch(fetchDirectoryMetadata(Hash)))
+    )
   }
 }
 
@@ -108,7 +98,7 @@ export function exportObject(hash: string, name: string, basepath: string) {
  * @param hash
  */
 export function isLocal(hash: string) {
-  return async function() {
+  return async function(dispatch) {
     console.log(`IsLocal: ${hash}`)
 
     const instance = IpfsConnector.getInstance()
@@ -125,11 +115,15 @@ export function isLocal(hash: string) {
         }
 
         try {
-          resolve(pinset[hash].Type !== 'direct')
+          resolve(pinset[hash].Type === 'indirect' || pinset[hash].Type === 'recursive')
         } catch (e) {
           reject(e)
         }
       })
+    }).then((isLocal: boolean) => {
+      // Update redux
+      dispatch(priv.isLocal(hash, isLocal))
+      return isLocal
     })
   }
 }

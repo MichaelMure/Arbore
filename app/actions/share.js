@@ -52,6 +52,7 @@ export function createShare(title: string, description: string, recipients: Arra
         adding: path.basename(contentPath)
       }
 
+      // TODO: do not pin intermediate hash
       result = await instance.api.apiClient.util.addFromFs(contentPath, {
         recursive: true,
         hidden: true,

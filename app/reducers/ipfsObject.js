@@ -4,19 +4,14 @@ import { Action } from 'utils/types'
 import * as ipfs from 'actions/ipfsObject'
 import type { IpfsObject } from 'models/IpfsObject'
 import { ObjectType } from 'models/IpfsObject'
-import IpfsDirectory, { writable as dirWritable} from 'models/IpfsDirectory'
-import IpfsFile from 'models/IpfsFile'
+import IpfsDirectory, { writable as dirWritable } from 'models/IpfsDirectory'
+import IpfsFile, { writable as fileWritable } from 'models/IpfsFile'
 import { Map } from 'immutable'
 
 const reducer = handleActions({
 
-  [ipfs.receivedDirMetadata]: (state: IpfsObject, action: Action) => {
+  [ipfs.priv.receivedDirMetadata]: (state: IpfsDirectory, action: Action) => {
     const { links } = action.payload
-
-    // If needed, replace the empty object by a real one now that we know what it is
-    const dir: IpfsDirectory = (state.type === ObjectType.INVALID)
-      ? IpfsDirectory.create(state.hash)
-      : state
 
     // Transform the links data
     const children: Map<string, IpfsObject> = new Map(links.map(
@@ -31,11 +26,26 @@ const reducer = handleActions({
     ))
 
     // Update the metadata
-    return dir.withMutations((dir: IpfsDirectory) =>
-      dir.set(dirWritable.metadataLocal, true)
+    return state.withMutations((state: IpfsDirectory) =>
+      state.set(dirWritable.metadataLocal, true)
          .set(dirWritable.children, children)
     )
   },
+
+  [ipfs.priv.isLocal]: (state: IpfsObject, action: Action) => {
+    const {isLocal} = action.payload
+
+    switch(state.type) {
+      case ObjectType.FILE:
+        // Set the file fully complete
+        return state.set(fileWritable.sizeLocal, isLocal ? state.sizeTotal : 0)
+      case ObjectType.DIRECTORY:
+        // Recursively call the reducer on children
+        return state.set(dirWritable.children,
+          state.children.update((children) => children.map((obj: IpfsObject) => reducer(obj, action)))
+        )
+    }
+  }
 }, null)
 
 export default reducer
