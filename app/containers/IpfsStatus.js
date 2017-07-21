@@ -5,15 +5,23 @@ import { ConnectorState } from '@akashaproject/ipfs-connector'
 import { ipcRenderer } from 'electron'
 import { ipfsEvents } from '@akashaproject/ipfs-connector'
 import { getServiceStatus } from 'ipfs/ipfsMain'
+import { throttle } from 'throttle-debounce'
 
 class IpfsStatus extends Component {
+  progressHandler: any
 
   state = {
-    state: ConnectorState.UNKNOW
+    state: ConnectorState.UNKNOW,
+    progress: null,
+    error: null
   }
 
   componentDidMount() {
+    this.progressHandler = throttle(200, this.handleDownloadProgress)
+
     ipcRenderer.on(ipfsEvents.STATUS_UPDATE, this.handleStatusUpdate)
+    ipcRenderer.on(ipfsEvents.DOWNLOAD_PROGRESS, this.progressHandler)
+    ipcRenderer.on(ipfsEvents.DOWNLOAD_ERROR, this.handleDownloadError)
 
     this.setState({
       state: ipcRenderer.sendSync(getServiceStatus)
@@ -22,6 +30,8 @@ class IpfsStatus extends Component {
 
   componentWillUnmount() {
     ipcRenderer.removeListener(ipfsEvents.STATUS_UPDATE, this.handleStatusUpdate)
+    ipcRenderer.removeListener(ipfsEvents.DOWNLOAD_PROGRESS, this.progressHandler)
+    ipcRenderer.removeListener(ipfsEvents.DOWNLOAD_ERROR, this.handleDownloadError)
   }
 
   // this syntax capture 'this' automatically
@@ -30,9 +40,17 @@ class IpfsStatus extends Component {
     this.setState({state})
   }
 
+  handleDownloadProgress = (e, progress) => {
+    this.setState({progress})
+  }
+
+  handleDownloadError = (e, error) => {
+    this.setState({error})
+  }
+
   render() {
     return (
-      <IpfsStatusComponent state={this.state.state} />
+      <IpfsStatusComponent {...this.state} />
     )
   }
 }

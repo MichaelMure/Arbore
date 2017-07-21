@@ -52,12 +52,16 @@ export const start = () => {
     '--enable-pubsub-experiment'
   ])
 
+  instance.enableDownloadEvents()
+
   // install some event listeners
   instance.on(ipfsEvents.SERVICE_STARTED, onServiceStarted)
   instance.on(ipfsEvents.UPGRADING_BINARY, onServiceUpgrade)
   instance.on(ipfsEvents.SERVICE_STOPPING, onServiceStopping)
   instance.on(ipfsEvents.SERVICE_FAILED, onServiceFailed)
   instance.on(ipfsEvents.STATUS_UPDATE, onStatusUpdate)
+  instance.on(ipfsEvents.DOWNLOAD_PROGRESS, onDownloadProgress)
+  instance.on(ipfsEvents.DOWNLOAD_ERROR, onDownloadError)
 
   // reply when a renderer process ask if ipfs is ready
   ipcMain.on(isServiceStarted, (event) => {
@@ -68,6 +72,7 @@ export const start = () => {
   ipcMain.on(getServiceStatus, (event) => {
     event.returnValue = instance.serviceStatus.state
   })
+
 
   // start ipfs daemon and download binaries if needed
   instance.start()
@@ -120,6 +125,23 @@ const onStatusUpdate = (state) => {
   BrowserWindow.getAllWindows()
     .forEach(win => win.webContents.send(ipfsEvents.STATUS_UPDATE, state))
 }
+
+const onDownloadProgress = (progress) => {
+  console.log(`Main: Ipfs daemon download progress: ${progress.completed} / ${progress.total}`)
+
+  // Inform all renderer process
+  BrowserWindow.getAllWindows()
+    .forEach(win => win.webContents.send(ipfsEvents.DOWNLOAD_PROGRESS, progress))
+}
+
+const onDownloadError = (error) => {
+  console.log(`Main: Ipfs download error: ${error}`)
+
+  // Inform all renderer process
+  BrowserWindow.getAllWindows()
+    .forEach(win => win.webContents.send(ipfsEvents.DOWNLOAD_ERROR, error))
+}
+
 
 export const stop = () => {
   const instance = IpfsConnector.getInstance()
