@@ -22,7 +22,7 @@ class GlobalError extends Component {
 
     return (
       <div className={classes.wrapper}>
-        <Typography><strong>Error:</strong> {error.text}</Typography>
+        <Typography className={classes.text}><strong>Error:</strong> {error.text}</Typography>
         <IconButton className={classes.button} onClick={ onCloseClick }>
           <FontAwesome name='close' />
         </IconButton>
@@ -31,30 +31,36 @@ class GlobalError extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('GlobalError', theme => ({
-  wrapper: {
-    position: 'absolute',
-    bottom: 0,
-    width: '70%',
-    margin: '0 auto 20px',
-    left: 0,
-    right: 0,
-    backgroundColor: '#f2dede',
-    paddingLeft: 10,
-    borderRadius: 4,
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    zIndex: 20,
-  },
-  text: {
-    marginTop: '10px !important',
-    color: '#a94442 !important',
-  },
-  button: {
-    width: '30px !important',
-    height: '30px !important',
+const styleSheet = createStyleSheet('GlobalError', theme => {
+
+  const backgroundColor = theme.palette.error[theme.palette.type === 'light' ? 300 : 600]
+  const textColor = theme.palette.getContrastText(backgroundColor)
+
+  return {
+    wrapper: {
+      position: 'absolute',
+      bottom: 0,
+      width: '70%',
+      margin: '0 auto 20px',
+      left: 0,
+      right: 0,
+      backgroundColor: backgroundColor,
+      paddingLeft: 10,
+      borderRadius: 4,
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      zIndex: 20,
+    },
+    text: {
+      color: textColor + ' !important',
+    },
+    button: {
+      color: textColor + ' !important',
+      width: '30px !important',
+      height: '30px !important',
+    }
   }
-}))
+})
 
 export default withStyles(styleSheet)(GlobalError)

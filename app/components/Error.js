@@ -20,14 +20,20 @@ class Error extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('Error', theme => ({
-  error: {
-    backgroundColor: '#f2dede',
-    marginTop: '10px !important',
-    color: '#a94442 !important',
-    paddingLeft: 10,
-    borderRadius: 4,
+const styleSheet = createStyleSheet('Error', theme => {
+
+  const backgroundColor = theme.palette.error[theme.palette.type === 'light' ? 300 : 600]
+  const textColor = theme.palette.getContrastText(backgroundColor)
+
+  return {
+    error: {
+      backgroundColor: backgroundColor,
+      marginTop: '10px !important',
+      color: textColor + ' !important',
+      paddingLeft: 10,
+      borderRadius: 4,
+    }
   }
-}))
+})
 
 export default withStyles(styleSheet)(Error)
