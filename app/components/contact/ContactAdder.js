@@ -104,10 +104,11 @@ const styleSheet = createStyleSheet('ContactAdder', theme => ({
       textAlign: 'center',
       verticalAlign: 'middle',
       height: 52,
-      lineHeight: 52,
+      lineHeight: '52px',
       cursor: 'pointer',
       userSelect: 'none',
       fontFamily: 'Roboto',
+      color: theme.palette.text.primary,
     },
     '& > *:hover': {
       backgroundColor: 'lightgray',
