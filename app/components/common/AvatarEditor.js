@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles, withTheme, createStyleSheet } from 'material-ui/styles'
 import ReactAvatarEditor from 'react-avatar-editor'
 import canvasBuffer from 'electron-canvas-to-buffer'
 import FontAwesome from 'react-fontawesome'
@@ -109,7 +109,7 @@ class AvatarEditor extends Component {
   }
 
   render() {
-    const { classes, placeholder } = this.props
+    const { classes, theme, placeholder } = this.props
 
     if( this.state.image === null) {
       if(placeholder !== null && !this.state.imageChanged) {
@@ -142,10 +142,7 @@ class AvatarEditor extends Component {
             width={200}
             height={200}
             borderRadius={5000}
-
-            // TODO: match with the background color of the material-ui theme
-            color={[250, 250, 250, 1]}
-
+            color={convertThemeColor(theme.palette.background.default)}
             style={{margin: '0 auto'}}
             scale={parseFloat(this.state.scale)}
             rotate={this.state.rotation}
@@ -177,6 +174,15 @@ class AvatarEditor extends Component {
       </div>
     )
   }
+}
+
+function convertThemeColor(hex) {
+  const res = hex.match(/[a-f0-9]{2}/gi)
+  if(!res || !res.length === 3) {
+    throw 'Bad color'
+  }
+
+  return res.map(function(v) { return parseInt(v, 16) }).concat([1])
 }
 
 const styleSheet = createStyleSheet('AvatarEditor', theme => ({
@@ -242,4 +248,4 @@ const styleSheet = createStyleSheet('AvatarEditor', theme => ({
   }
 }))
 
-export default withStyles(styleSheet)(AvatarEditor)
+export default withStyles(styleSheet)(withTheme(AvatarEditor))
