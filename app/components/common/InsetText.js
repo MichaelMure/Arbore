@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react'
 import { withStyles, createStyleSheet } from 'material-ui/styles'
-
 import Typography from 'material-ui/Typography'
 
 class InsetText extends Component {
