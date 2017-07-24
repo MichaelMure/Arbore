@@ -22,7 +22,7 @@ async function run() {
     console.log('Generate new profile ...')
 
     await loginStore.dispatch(
-      profileActions.generateProfile("Contact adder", 'blah', 'I\'m a bot! I help you to find other people.')
+      profileActions.generate("Contact adder", 'blah', 'I\'m a bot! I help you to find other people.')
     )
   }
 

@@ -4,8 +4,6 @@ import Share, { ShareState, writable } from 'models/Share'
 import ShareRecipient from 'models/ShareRecipient'
 import Contact from 'models/Contact'
 import IpfsDirectory from 'models/IpfsDirectory'
-import ShareList from 'models/ShareList'
-import type { Store } from 'utils/types'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 import path from 'path'
@@ -27,7 +25,7 @@ export const priv = {
 }
 
 // Add the content to IPFS, create and store a new Share
-export function createShare(title: string, description: string, recipients: Array<Contact>, content: Array) {
+export function create(title: string, description: string, recipients: Array<Contact>, content: Array) {
   return async function* (dispatch) {
     const instance = IpfsConnector.getInstance()
     await waitForIpfsReady()
@@ -104,7 +102,7 @@ export function createShare(title: string, description: string, recipients: Arra
     share = await dispatch(shareList.storeShare(share))
 
     // Publish the share
-    share = await dispatch(publishShare(share))
+    share = await dispatch(publish(share))
 
     // Notify each recipients if possible
     share.recipients.forEach((recipient: ShareRecipient) => {
@@ -120,7 +118,7 @@ export function createShare(title: string, description: string, recipients: Arra
  * Publish the share description data in IPFS
  * @param share
  */
-export function publishShare(share: Share) {
+export function publish(share: Share) {
   return async function (dispatch, getState) {
     console.log('Publish share ' + share.title)
     const ipfs: IpfsConnector = IpfsConnector.getInstance()
@@ -142,7 +140,7 @@ export function publishShare(share: Share) {
  * Fetch and decode a Share description
  * @param hash
  */
-export function fetchShareDescription(hash: string) {
+export function fetchDescription(hash: string) {
   return async function (dispatch) {
     console.log('fetch share description: ' + hash)
     const ipfs = IpfsConnector.getInstance()
@@ -177,7 +175,7 @@ export function updateLocality(share: Share) {
  * @param share
  * @param basepath the directory to put the data to
  */
-export function exportShare(share: Share, basepath: string) {
+export function writeOnDisk(share: Share, basepath: string) {
   return async function*(dispatch) {
     if(!share.content) {
       throw 'No content to export'

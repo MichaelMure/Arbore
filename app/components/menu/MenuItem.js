@@ -36,7 +36,7 @@ class MenuItem extends Component {
             : children
         }
         <ReactTooltip ref={(tooltip) => { this.tooltip = tooltip }}
-          id={name} place="right" type="dark" effect="solid" delayShow={300} className={classes.tooltip}>
+          id={name} place='right' type='dark' effect='solid' delayShow={300} className={classes.tooltip}>
           {label}
         </ReactTooltip>
       </IconButton>

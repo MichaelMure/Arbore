@@ -4,7 +4,6 @@ import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 import { createWriteStream, mkdirSync } from 'fs'
 import { join } from 'path'
-import IpfsDirectory from 'models/IpfsDirectory'
 import { IpfsObject, ObjectType } from 'models/IpfsObject'
 
 /*

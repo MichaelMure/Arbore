@@ -27,7 +27,7 @@ export const setBio = createAction('PROFILE_BIO_SET',
 )
 export const deleteAvatar = createAction('PROFILE_AVATAR_DELETE')
 
-export function generateProfile(identity: string, passphrase: string, bio: ?string, avatar: ?Buffer) {
+export function generate(identity: string, passphrase: string, bio: ?string, avatar: ?Buffer) {
   return async function (dispatch) {
     let profile = Profile.create(identity, passphrase, bio)
     const storageKey = profile.storageKey
@@ -104,7 +104,7 @@ export function updateAvatar(avatar: ?Buffer) {
       await loginStore.dispatch(identityActions.setAvatarHash(getState().profile.storageKey, hash))
     ])
 
-    return dispatch(publishProfile())
+    return dispatch(publish())
   }
 }
 
@@ -112,7 +112,7 @@ export function updateAvatar(avatar: ?Buffer) {
  * Publish the full profile (+avatar) in IPFS and IPNS
  * @returns {Promise}
  */
-export function publishProfile() {
+export function publish() {
   return async function (dispatch, getState) {
     console.log('Publish profile')
     const ipfs: IpfsConnector = IpfsConnector.getInstance()

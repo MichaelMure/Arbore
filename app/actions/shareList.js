@@ -57,7 +57,7 @@ export function fetchShareDescription(hash: string) {
       return share
     }
 
-    share = await dispatch(shareActions.fetchShareDescription(hash))
+    share = await dispatch(shareActions.fetchDescription(hash))
     share = await dispatch(storeShare(share))
 
     return share
@@ -195,7 +195,7 @@ export function sendShare(share: Share, pubkey: string) {
 
     // Publish the share if needed
     if(! share.hash) {
-      share = await dispatch(shareActions.publishShare(share))
+      share = await dispatch(shareActions.publish(share))
     }
 
     const data = protocol.sharePush(profile, share.hash)

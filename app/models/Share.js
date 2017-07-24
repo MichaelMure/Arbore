@@ -3,10 +3,7 @@ import { Record, Map, Set } from 'immutable'
 import Contact from './Contact'
 import Profile from 'models/Profile'
 import ShareRecipient from 'models/ShareRecipient'
-import { ObjectType } from 'models/IpfsObject'
 import IpfsDirectory from 'models/IpfsDirectory'
-import IpfsFile from 'models/IpfsFile'
-import type { IpfsObject } from './IpfsObject'
 
 const LOCAL_DATA_VERSION = 1
 const PUBLISH_DATA_VERSION = 1
@@ -144,23 +141,23 @@ export default class Share extends ShareRecord {
     return this.content.metadataLocal
   }
 
-  get isAuthor() {
+  get isAuthor() : boolean {
     return this.author === null
   }
 
-  get isAvailable() {
+  get isAvailable() : boolean {
     return this.status === ShareState.AVAILABLE
   }
 
-  get isDownloading() {
+  get isDownloading() : boolean {
     return this.status === ShareState.DOWNLOADING
   }
 
-  get isPaused() {
+  get isPaused() : boolean {
     return this.status === ShareState.PAUSED
   }
 
-  get isSharing() {
+  get isSharing() : boolean {
     return this.status === ShareState.SHARING
   }
 
