@@ -27,7 +27,8 @@ class ShareDetail extends Component {
   }
 
   render() {
-    const { share, profile, contactList } = this.props
+    const share: Share = this.props.share
+    const { profile, contactList } = this.props
 
     const author = share.author
       ? contactList.findContact(share.author)
@@ -70,12 +71,19 @@ class ShareDetail extends Component {
             </IconButton>
           </div>
         </div>
-        <LinearProgress mode="determinate" value={share.progress * 100}/>
-        <div className={styles.stats}>
-          <Typography>{humanize.filesizeNoUnit(share.sizeLocal)} of {humanize.filesize(share.sizeTotal)} ({share.progress * 100}%)</Typography>
-          <Typography>3/4 peers</Typography>
-          <Typography>1.03Mo/s</Typography>
-        </div>
+
+        { share.isDownloading || share.isPaused &&
+          <div>
+            <LinearProgress mode="determinate" value={share.progress * 100}/>
+            <div className={styles.stats}>
+              <Typography>{humanize.filesizeNoUnit(share.sizeLocal)} of {humanize.filesize(share.sizeTotal)} ({share.progress * 100}%)</Typography>
+              <Typography>3/4 peers</Typography>
+              <Typography>1.03Mo/s</Typography>
+            </div>
+          </div>
+        }
+
+
         <InsetText text={share.description} placeholder='No description' />
         <ShareRecipients recipients={share.recipients} contactList={contactList} />
         <ShareFiles share={share} style="margin:30px"/>

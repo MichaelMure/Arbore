@@ -24,7 +24,8 @@ class CompactShare extends Component {
   }
 
   render() {
-    const { share, author } = this.props
+    const share: Share = this.props.share
+    const { author } = this.props
 
     const cardClass = cx({
       card: true,
@@ -38,7 +39,13 @@ class CompactShare extends Component {
           title={share.title}
           subheader={share.description}
         />
-        <LinearProgress mode="determinate" value={share.progress * 100}/>
+
+        { share.isDownloading || share.isPaused &&
+          <LinearProgress
+            mode='determinate'
+            value={share.progress * 100}
+          />
+        }
       </Card>
     );
   }
