@@ -17,7 +17,7 @@ export default class ChatRoomList extends ChatRoomListRecord {
   dataVersion: number
   rooms: Map<string, ChatRoom>
 
-  findRoom(pubkey: string) {
+  findRoom(pubkey: string) : ?ChatRoom {
     return this.rooms.get(pubkey)
   }
 }

@@ -253,5 +253,5 @@ function handleShareAck(dispatch, getState, payload) {
     return
   }
 
-  dispatch(shareActions.setRecipientNotified(share.id, contact.pubkey))
+  dispatch(shareActions.setRecipientNotified(share, contact.pubkey))
 }

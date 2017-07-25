@@ -12,17 +12,17 @@ const mapStateToProps = (state: Store) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  onFavoriteClickGenerator: (share: Share) => async () => {
-    dispatch(shareActions.toggleFavorite(share.id))
+  onFavoriteClickGenerator: (share: Share) => () => {
+    dispatch(shareActions.toggleFavorite(share))
   },
   onStartClickGenerator: (share: Share) => () => {
-    // TODO
+    dispatch(shareActions.start(share))
   },
   onPauseClickGenerator: (share: Share) => () => {
-    // TODO
+    dispatch(shareActions.pause(share))
   },
   onStopClickGenerator: (share: Share) => () => {
-    // TODO
+    dispatch(shareActions.abort(share))
   }
 })
 

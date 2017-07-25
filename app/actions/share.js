@@ -12,16 +12,25 @@ import * as ipfsObject from 'actions/ipfsObject'
 import bs58 from 'bs58'
 
 export const toggleFavorite = createAction('SHARE_FAVORITE_TOGGLE',
-  (id: number) => ({id})
+  (share: Share) => ({id: share.id})
 )
 export const setRecipientNotified = createAction('SHARE_RECIPIENT_NOTIFIED',
-  (id: number, pubkey: string) => ({id, pubkey})
+  (share: Share, pubkey: string) => ({id: share.id, pubkey})
 )
 
 export const priv = {
   setHash: createAction('SHARE_HASH_SET',
-    (id: number, hash: string) => ({id, hash})
-  )
+    (share: Share, hash: string) => ({id: share.id, hash})
+  ),
+  start: createAction('SHARE_START',
+    (share: Share) => ({id: share.id})
+  ),
+  pause: createAction('SHARE_PAUSE',
+    (share: Share) => ({id: share.id})
+  ),
+  abort: createAction('SHARE_ABORT',
+    (share: Share) => ({id: share.id})
+  ),
 }
 
 // Add the content to IPFS, create and store a new Share
@@ -130,7 +139,7 @@ export function publish(share: Share) {
 
     const {hash} = await ipfs.api.createNode(data, [])
     console.log('share hash: ' + hash)
-    await dispatch(priv.setHash(share.id, hash))
+    await dispatch(priv.setHash(share, hash))
 
     return getState().shareList.findById(share.id)
   }
@@ -151,6 +160,41 @@ export function fetchDescription(hash: string) {
     console.log(data)
 
     return Share.fromData(hash, data)
+  }
+}
+
+/**
+ * Start downloading a Share
+ * @param share
+ */
+export function start(share: Share) {
+  return async function (dispatch) {
+    dispatch(priv.start(share))
+    return ipfsObject.triggerDownload(share.content.hash)
+  }
+}
+
+/**
+ * Pause a Share
+ * @param share
+ * @returns {Function}
+ */
+export function pause(share: Share) {
+  return async function (dispatch) {
+    // TODO
+    dispatch(priv.pause(share))
+  }
+}
+
+/**
+ * Abort the download of a Share
+ * @param share
+ * @returns {Function}
+ */
+export function abort(share: Share) {
+  return async function (dispatch) {
+    // TODO
+    dispatch(priv.abort(share))
   }
 }
 

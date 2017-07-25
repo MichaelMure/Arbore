@@ -28,12 +28,14 @@ export type ShareStateType = $Keys<typeof ShareState>
  *
  * Downloading --> Paused : pause()
  * Paused --> Downloading : start()
+ * Paused --> Sharing : download done
  *
  * Paused --> Available : abort()
  *
  * [*] --> Sharing : created a Share locally
  *
  * Downloading --> Sharing : download done
+ * Sharing --> Available : data lost
  *
  * @enduml
  */
@@ -137,8 +139,12 @@ export default class Share extends ShareRecord {
     return this.content.sizeLocal
   }
 
-  get metadataLocal() {
-    return this.content.metadataLocal
+  get metadataLocal() : boolean {
+    return this.content && this.content.metadataLocal
+  }
+
+  get isLocal() : boolean {
+    return this.metadataLocal && this.content.isLocal
   }
 
   get isAuthor() : boolean {

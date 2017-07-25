@@ -63,6 +63,10 @@ export default class IpfsDirectory extends IpfsDirectoryRecord {
     )
   }
 
+  get isLocal(): boolean {
+    return this._metadataLocal && (this.fileLocal === this.fileTotal)
+  }
+
   get progress() {
     if(!this.metadataLocal) {
       return 0
