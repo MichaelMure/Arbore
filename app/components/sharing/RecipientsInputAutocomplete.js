@@ -66,6 +66,7 @@ class RecipientsInputAutocomplete extends Component {
         onSuggestionSelected={::this.handleSuggestionSelected}
         getSuggestionValue={getSuggestionValue}
         renderSuggestion={renderSuggestion}
+        highlightFirstSuggestion
         inputProps={{
           autoFocus: true,
           placeholder: 'Search a contact...',
