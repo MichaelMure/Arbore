@@ -4,6 +4,7 @@ import Contact from 'models/Contact'
 import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 import removeIpfsPrefix from 'utils/removeIpfsPrefix'
+import * as contactListAction from 'actions/contactList'
 
 export const updateContact = createAction('CONTACTLIST_CONTACT_UPDATE',
   (contact: Contact) => (contact)
@@ -38,6 +39,34 @@ export function fetchProfile(pubkey: string) {
     console.log(data)
 
     const contact: Contact = Contact.fromProfileData(pubkey, data)
+    await dispatch(fetchProfileAvatar(pubkey, contact.avatarHash))
+
+    return contact
+  }
+}
+
+export function forceFetchProfile(pubkey){
+  return async function (dispatch,getState) {
+    const contactList: ContactList = getState().contactList
+    let contact : ?Contact = contactList.findContact(pubkey)
+
+    if(contact)
+      return contact;
+
+    console.log('fetch contact profile: ' + pubkey)
+    const ipfs = IpfsConnector.getInstance()
+
+    await waitForIpfsReady()
+
+
+    const { Path } = await ipfs.api.apiClient.name.resolve(pubkey)
+    console.log(pubkey + ' resolve to ' + Path)
+
+    const data = await ipfs.api.getObject(removeIpfsPrefix(Path))
+    console.log(data)
+
+    contact = Contact.fromProfileData(pubkey, data)
+    await dispatch(contactListAction.priv.storeContactInDirectory(contact))
     await dispatch(fetchProfileAvatar(pubkey, contact.avatarHash))
 
     return contact

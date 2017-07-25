@@ -10,6 +10,7 @@ import type { Store } from 'utils/types'
 import { mainWindowVisible } from 'utils/constants'
 import createProtocol from 'ipfs/createProtocol'
 import { nextToken } from 'utils/tokenGenerator'
+import { forceFetchProfile } from 'actions/contact'
 
 /// #if isElectron
 import { ipcRenderer } from 'electron'
@@ -45,7 +46,7 @@ export function onContactPong(contact: Contact) {
     if(!room) {
       return
     }
-    
+
     // TODO:
     // - potentially send multiple time the same message when a contact is online (network overload for nothing)
     // - the message will be receive with an incorrect time
@@ -100,26 +101,20 @@ export function unsubscribe() {
 function handleMessage(dispatch, getState, payload) {
   const {id, from, message} = payload
 
-  const contactList: ContactList = getState().contactList
-  const contact = contactList.findContact(from)
-
-  if(!contact) {
-    console.log('Received message from unknow contact ' + from)
-    return
-  }
-
-  console.log('Received \'' + message + '\' from ' + contact.identity)
-  dispatch(priv.chatReceived(contact, id, message))
-  dispatch(sendChatAck(contact, id))
-
+  var contact = dispatch(forceFetchProfile(from,getState)).then(function (cont) {
+      contact = cont;
+      console.log('Received \'' + message + '\' from ' + (contact) ? contact.identity : "NO CONTACT")
+      dispatch(priv.chatReceived(contact, id, message))
+      dispatch(sendChatAck(contact, id))
 /// #if isElectron
-  if(!ipcRenderer.sendSync(mainWindowVisible)) {
-    new Notification(contact.identity, {
-      icon: contact.avatarUrl,
-      body: message
-    })
-  }
+      if (!ipcRenderer.sendSync(mainWindowVisible)) {
+        new Notification(contact.identity, {
+          icon: contact.avatarUrl,
+          body: message
+        })
+      }
 /// #endif
+    });
 }
 
 function handleAck(dispatch, getState, payload) {
@@ -155,7 +150,10 @@ export function sendChat(contact: Contact, message: string) {
   }
 }
 
-export function sendChatAck(contact: Contact, id: string) {
+export function sendChatAck(contact?: Contact, id: string) {
+  if(!contact)
+    return;
+
   return async function (dispatch, getState) {
     console.log('Sending message ACK ' + id + ' to ' + contact.identity)
 
