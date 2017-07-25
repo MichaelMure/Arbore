@@ -45,18 +45,19 @@ export function fetchProfile(pubkey: string) {
   }
 }
 
-export function forceFetchProfile(pubkey,getState){
-  return async function (dispatch) {
+export function forceFetchProfile(pubkey){
+  return async function (dispatch,getState) {
     const contactList: ContactList = getState().contactList
-    var cont = contactList.findContact(pubkey)
+    let contact : ?Contact = contactList.findContact(pubkey)
 
-    if(cont)
-      return cont;
+    if(contact)
+      return contact;
 
     console.log('fetch contact profile: ' + pubkey)
     const ipfs = IpfsConnector.getInstance()
 
     await waitForIpfsReady()
+
 
     const { Path } = await ipfs.api.apiClient.name.resolve(pubkey)
     console.log(pubkey + ' resolve to ' + Path)
@@ -64,9 +65,8 @@ export function forceFetchProfile(pubkey,getState){
     const data = await ipfs.api.getObject(removeIpfsPrefix(Path))
     console.log(data)
 
-    const contact: Contact = Contact.fromProfileData(pubkey, data)
+    contact = Contact.fromProfileData(pubkey, data)
     await dispatch(contactListAction.priv.storeContactInDirectory(contact))
-    await dispatch(contactListAction.priv.storeContactInPool(contact))
     await dispatch(fetchProfileAvatar(pubkey, contact.avatarHash))
 
     return contact

@@ -46,6 +46,7 @@ export function addContactInDirectory(pubkey: string) {
   return async function (dispatch, getState) {
     const contactList: ContactList = getState().contactList
 
+
     // Use a cached contact if available, otherwise fetch the profile
     const contact: Contact = contactList.pool.has(pubkey)
       ? contactList.pool.get(pubkey)

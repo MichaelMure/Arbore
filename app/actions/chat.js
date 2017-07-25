@@ -46,7 +46,7 @@ export function onContactPong(contact: Contact) {
     if(!room) {
       return
     }
-    
+
     // TODO:
     // - potentially send multiple time the same message when a contact is online (network overload for nothing)
     // - the message will be receive with an incorrect time
