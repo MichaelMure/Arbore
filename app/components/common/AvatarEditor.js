@@ -1,9 +1,10 @@
 // @flow
 import React, { Component } from 'react'
-import styles from './AvatarEditor.css'
+import { withStyles, withTheme, createStyleSheet } from 'material-ui/styles'
 import ReactAvatarEditor from 'react-avatar-editor'
 import canvasBuffer from 'electron-canvas-to-buffer'
 import FontAwesome from 'react-fontawesome'
+import Typography from 'material-ui/Typography'
 
 const dialog = require('electron').remote.dialog
 
@@ -108,12 +109,14 @@ class AvatarEditor extends Component {
   }
 
   render() {
+    const { classes, theme, placeholder } = this.props
+
     if( this.state.image === null) {
-      if(this.props.placeholder !== null && !this.state.imageChanged) {
+      if(placeholder !== null && !this.state.imageChanged) {
         return (
-          <div className={styles.avatar}>
-            <img src={this.props.placeholder} className={styles.placeholder} />
-            <div className={styles.actions}>
+          <div className={classes.avatar}>
+            <img src={placeholder} className={classes.placeholder} />
+            <div className={classes.actions}>
               <div>
                 <div> </div>
                 <FontAwesome name='times' onClick={ ::this.handleCloseImage } />
@@ -123,31 +126,28 @@ class AvatarEditor extends Component {
         )
       } else {
         return (
-          <div className={ styles.selectAvatar } onClick={::this.openFileDialog} >
-            Select an avatar
+          <div className={ classes.selectAvatar } onClick={::this.openFileDialog} >
+            <Typography>Select an avatar</Typography>
           </div>
         )
       }
     }
 
     return (
-      <div className={styles.wrapper}>
-        <div className={styles.avatar}>
+      <div className={classes.wrapper}>
+        <div className={classes.avatar}>
           <ReactAvatarEditor
             image={this.state.image}
             ref={(editor) => { this.avatarEditor = editor }}
             width={200}
             height={200}
             borderRadius={5000}
-
-            // TODO: match with the background color of the material-ui theme
-            color={[250, 250, 250, 1]}
-
+            color={convertThemeColor(theme.palette.background.default)}
             style={{margin: '0 auto'}}
             scale={parseFloat(this.state.scale)}
             rotate={this.state.rotation}
           />
-          <div className={styles.actions}>
+          <div className={classes.actions}>
             <div>
               <div> </div>
               <FontAwesome name='times' onClick={ ::this.handleCloseImage } />
@@ -159,7 +159,7 @@ class AvatarEditor extends Component {
           </div>
           {/* TODO: replace with Slider once material-ui is ready */}
           {/* https://github.com/callemall/material-ui/issues/4793 */}
-          <div className={styles.zoomWrapper}>
+          <div className={classes.zoomWrapper}>
             <input
               type='range'
               min={1}
@@ -176,4 +176,76 @@ class AvatarEditor extends Component {
   }
 }
 
-export default AvatarEditor
+function convertThemeColor(hex) {
+  const res = hex.match(/[a-f0-9]{2}/gi)
+  if(!res || !res.length === 3) {
+    throw 'Bad color'
+  }
+
+  return res.map(function(v) { return parseInt(v, 16) }).concat([1])
+}
+
+const styleSheet = createStyleSheet('AvatarEditor', theme => ({
+  wrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  placeholder: {
+    width: 200,
+    height: 200,
+    margin: '25px 25px 42px',
+    borderRadius: '50%',
+    userSelect: 'none',
+    pointerEvents: 'none',
+  },
+  selectAvatar: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 200,
+    height: 200,
+    margin: '25px 25px 42px',
+    borderRadius: '50%',
+    border: '4px dashed gray',
+    cursor: 'pointer',
+    userSelect: 'none',
+  },
+  avatar: {
+    position: 'relative',
+  },
+  actions: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    top: 0,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    pointerEvents: 'none',
+    padding: 24,
+    '& > div': {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'stretch',
+      justifyContent: 'space-between',
+      width: '100%',
+    },
+    '& > div > *': {
+      fontSize: '1.5em',
+      cursor: 'pointer',
+      pointerEvents: 'auto',
+      color: 'gray',
+    }
+  },
+  zoomWrapper: {
+    position: 'relative',
+    verticalAlign: 'middle',
+    marginTop: -12,
+    '& > *': {
+      width: '100%',
+      padding: 0,
+    }
+  }
+}))
+
+export default withStyles(styleSheet)(withTheme(AvatarEditor))

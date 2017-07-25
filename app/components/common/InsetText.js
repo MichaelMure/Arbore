@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react'
 import { withStyles, createStyleSheet } from 'material-ui/styles'
-
 import Typography from 'material-ui/Typography'
 
 class InsetText extends Component {
@@ -29,6 +28,7 @@ const styleSheet = createStyleSheet('InsetText', theme => ({
     borderRadius: 5,
     marginTop: '10px !important',
     whiteSpace: 'pre-line',
+    padding: 2
   },
   placeholder: {
     minHeight: 150,

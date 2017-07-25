@@ -158,6 +158,7 @@
     "webpack-merge": "^4.1.0"
   },
   "dependencies": {
+    "autosuggest-highlight": "^3.1.0",
     "bs58": "^4.0.1",
     "classnames": "^2.2.5",
     "electron-canvas-to-buffer": "^2.0.0",
@@ -167,11 +168,12 @@
     "get-folder-size": "^1.0.0",
     "immutable": "^3.8.1",
     "is-ipfs": "^0.3.0",
-    "material-ui": "1.0.0-alpha.14",
+    "material-ui": "1.0.0-alpha.22",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
     "rand-token": "^0.3.0",
     "react": "15.6.1",
+    "react-autosuggest": "^9.3.1",
     "react-avatar-editor": "9.1.1",
     "react-dom": "15.6.1",
     "react-fontawesome": "^1.5.0",
@@ -189,7 +191,8 @@
     "redux-persist-transform-immutable": "^4.2.0",
     "redux-thunk": "^2.2.0",
     "roboto-fontface": "^0.7.0",
-    "source-map-support": "^0.4.10"
+    "source-map-support": "^0.4.10",
+    "throttle-debounce": "^1.0.1"
   },
   "devEngines": {
     "node": ">=6.x",

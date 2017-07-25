@@ -1,7 +1,7 @@
 // @flow
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { withStyles, createStyleSheet } from 'material-ui/styles'
-import classNames from 'classnames';
+import classNames from 'classnames'
 
 class Drawer extends Component {
 

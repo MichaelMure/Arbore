@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import styles from './ContactAdder.css'
+import { withStyles, createStyleSheet } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
 import Collapse from 'material-ui/transitions/Collapse'
 import Fade from 'material-ui/transitions/Fade'
@@ -52,18 +52,20 @@ class ContactAdder extends Component {
   }
 
   render() {
+    const { classes } = this.props
+
     return (
-      <div className={styles.wrapper}>
+      <div className={classes.wrapper}>
         <Collapse in={this.state.step === Steps.START} >
           <Fade in={this.state.step === Steps.START} >
-            <div className={styles.ghost} onClick={::this.showChoices}>
+            <div className={classes.ghost} onClick={::this.showChoices}>
               <Typography>Add a new contact</Typography>
             </div>
           </Fade>
         </Collapse>
         <Collapse in={this.state.step === Steps.CHOICE} >
           <Fade in={this.state.step === Steps.CHOICE} >
-            <div className={styles.choices}>
+            <div className={classes.choices}>
               <div onClick={::this.handleChoice(Adder.ID)}>ID</div>
               <div onClick={::this.handleChoice(Adder.SUGGEST)}>Suggest</div>
             </div>
@@ -82,4 +84,36 @@ class ContactAdder extends Component {
   }
 }
 
-export default ContactAdder
+const styleSheet = createStyleSheet('ContactAdder', theme => ({
+  wrapper: {
+    border: '2px dashed gray',
+    minHeight: 56,
+  },
+  ghost: {
+    padding: 16.5,
+    textAlign: 'center',
+    cursor: 'pointer',
+    userSelect: 'none',
+    fontFamily: 'Roboto',
+  },
+  choices: {
+    display: 'flex',
+    flexDirection: 'row',
+    '& > *': {
+      flex: 1,
+      textAlign: 'center',
+      verticalAlign: 'middle',
+      height: 52,
+      lineHeight: '52px',
+      cursor: 'pointer',
+      userSelect: 'none',
+      fontFamily: 'Roboto',
+      color: theme.palette.text.primary,
+    },
+    '& > *:hover': {
+      backgroundColor: 'lightgray',
+    },
+  }
+}))
+
+export default withStyles(styleSheet)(ContactAdder)

@@ -1,7 +1,7 @@
 // @flow
 import * as actions from 'actions/share'
 import * as ipfs from 'actions/ipfsObject'
-import Share, { writable } from 'models/Share'
+import Share, { ShareState, writable } from 'models/Share'
 import IpfsDirectory, { writable as dirWritable } from 'models/IpfsDirectory'
 import ShareRecipient, { writable as recipientWritable } from 'models/ShareRecipient'
 import type { IpfsObject } from 'models/IpfsObject'
@@ -28,10 +28,55 @@ export default handleActions({
     state.set(writable.hash, action.payload.hash)
   ),
 
+  [actions.priv.start]: (state: Share, action: Action) => {
+    switch(state.status) {
+      case ShareState.AVAILABLE:
+      case ShareState.PAUSED:
+        return state.set(writable.status, ShareState.DOWNLOADING)
+
+      default:
+        return state
+    }
+  },
+
+  [actions.priv.pause]: (state: Share, action: Action) => {
+    switch(state.status) {
+      case ShareState.DOWNLOADING:
+        return state.set(writable.status, ShareState.PAUSED)
+
+      default:
+        return state
+    }
+  },
+
+  [actions.priv.abort]: (state: Share, action: Action) => {
+    switch(state.status) {
+      case ShareState.DOWNLOADING:
+      case ShareState.PAUSED:
+        return state.set(writable.status, ShareState.AVAILABLE)
+
+      default:
+        return state
+    }
+  },
+
   [combineActions(
     ipfs.priv.receivedDirMetadata,
     ipfs.priv.isLocal
-  )] : (state: Share, action) => chainToObjects(state, action)
+  )] : (state: Share, action) => {
+    let newState: Share = chainToObjects(state, action)
+
+    switch(newState.status) {
+      case ShareState.DOWNLOADING:
+      case ShareState.PAUSED:
+      case ShareState.SHARING:
+        newState = newState.set(writable.status,
+          newState.isLocal ? ShareState.SHARING : ShareState.AVAILABLE
+        )
+    }
+
+    return newState
+  }
 
 }, initialState )
 

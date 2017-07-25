@@ -22,7 +22,7 @@ class NewSharePage extends Component {
     const { dispatch } = this.props
 
     try {
-      const progressGen = dispatch(shareActions.createShare(
+      const progressGen = dispatch(shareActions.create(
         values.title,
         values.description || '',
         values.recipients,

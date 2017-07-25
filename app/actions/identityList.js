@@ -37,7 +37,7 @@ export function login(identity: Identity) {
     // Start publishing the profile periodically
     scheduler.startTimeBetween(fullStoreDispatch,
       'publishProfile',
-      profile.publishProfile(),
+      profile.publish(),
       5 * 60 * 1000 // 5 minutes
     )
 

@@ -25,7 +25,7 @@ class AddByPubkey extends Component {
 
         <div className={styles.buttons}>
           <Button raised onClick={this.props.onCancelClick} disabled={waiting}>Cancel</Button>
-          <Button raised primary type='submit' disabled={pristine || submitting || waiting}>
+          <Button raised color='primary' type='submit' disabled={pristine || submitting || waiting}>
             { waiting && <FontAwesome name='cog' spin /> }
             Submit
           </Button>

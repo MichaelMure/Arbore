@@ -5,6 +5,10 @@ import Profile from 'models/Profile'
 import Contact from 'models/Contact'
 import Identity from 'models/Identity'
 
+/**
+ * Component that encapsulate Material-ui's Avatar component to render properly
+ * any type of person we can have. If passed null, it render an 'unknow' person.
+ */
 class Avatar extends Component {
 
   props: {

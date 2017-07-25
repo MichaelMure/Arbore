@@ -42,7 +42,7 @@ class EditProfile extends Component {
         <FormLabel>Avatar</FormLabel>
         <div className={styles.avatarEditor}>
           <AvatarEditor
-            ref={(avatarEditor) => { this.avatarEditor = avatarEditor }}
+            ref={(avatarEditor) => { this.avatarEditor = avatarEditor ? avatarEditor.innerRef : avatarEditor }}
             placeholder={this.props.initialValues.avatar}
             onPristineChanged={::this.handlePristineChanged}
           />
@@ -70,7 +70,7 @@ class EditProfile extends Component {
         <div className={styles.buttons}>
           <Button raised onClick={onCancelClick} disabled={waiting}>Cancel</Button>
           <Button
-            raised primary
+            raised color='primary'
             type='submit'
             disabled={(pristine && avatarPristine) || submitting || waiting}
           >

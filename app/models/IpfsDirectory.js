@@ -58,13 +58,13 @@ export default class IpfsDirectory extends IpfsDirectoryRecord {
   }
 
   get metadataLocal(): boolean {
-    if(! this._metadataLocal) {
-      return false
-    }
-
-    return this.children.every(
+    return this._metadataLocal && this.children.every(
       (child: IpfsObject) => child.metadataLocal
     )
+  }
+
+  get isLocal(): boolean {
+    return this._metadataLocal && (this.fileLocal === this.fileTotal)
   }
 
   get progress() {

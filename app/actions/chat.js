@@ -41,8 +41,12 @@ export function onContactPong(contact: Contact) {
   return async function(dispatch, getState) {
     const state: Store = getState()
     const chatRoomList : ChatRoomList = state.chatRoomList
-    const room : ChatRoom = chatRoomList.findRoom(contact.pubkey)
+    const room : ?ChatRoom = chatRoomList.findRoom(contact.pubkey)
 
+    if(!room) {
+      return
+    }
+    
     // TODO:
     // - potentially send multiple time the same message when a contact is online (network overload for nothing)
     // - the message will be receive with an incorrect time

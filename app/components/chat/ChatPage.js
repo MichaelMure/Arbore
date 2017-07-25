@@ -23,7 +23,7 @@ class ChatPage extends Component {
           <Typography type="subheading">Ho no !</Typography>
           <Typography>It seems that you have no contact yet.</Typography>
           <div className={classes.spacer} />
-          <Button raised primary onClick={this.props.onGoToContactClick}>Go to the contact management</Button>
+          <Button raised color='primary' onClick={this.props.onGoToContactClick}>Go to the contact management</Button>
         </div>
       )
     }
