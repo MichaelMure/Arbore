@@ -94,6 +94,7 @@ const styleSheet = createStyleSheet('ShareFiles', theme => ({
   wrapper: {
     backgroundColor: theme.palette.background.appBar,
     borderRadius: 5,
+    padding: 2,
   },
   object: {
     display: 'flex',

@@ -28,6 +28,7 @@ const styleSheet = createStyleSheet('InsetText', theme => ({
     borderRadius: 5,
     marginTop: '10px !important',
     whiteSpace: 'pre-line',
+    padding: 2
   },
   placeholder: {
     minHeight: 150,
