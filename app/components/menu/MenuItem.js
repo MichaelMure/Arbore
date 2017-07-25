@@ -32,7 +32,7 @@ class MenuItem extends Component {
     return (
       <IconButton color={ accent ? 'accent' : 'default'} data-tip data-for={name} onClick={::this.handleClick}>
         { badgeValue > 0
-            ? <Badge badgeContent={badgeValue} className={classes.badge}>{children}</Badge>
+            ? <Badge badgeContent={badgeValue} classes={{badge: classes.badge}}>{children}</Badge>
             : children
         }
         <ReactTooltip ref={(tooltip) => { this.tooltip = tooltip }}
@@ -46,6 +46,7 @@ class MenuItem extends Component {
 
 const styleSheet = createStyleSheet('MenuItem', {
   badge: {
+    backgroundColor: 'rgba(0,0,0,0)',
     color: 'red'
   },
   tooltip: {
