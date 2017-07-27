@@ -41,7 +41,7 @@ class ContactPage extends Component {
         </div>
         <div className={styles.details}>
           <div className={styles.scroller}>
-            { selectedPubKey && contacts.contactInSearched(selectedPubKey) && <ContactDetail /> }
+            { selectedPubKey && <ContactDetail /> }
           </div>
         </div>
       </div>

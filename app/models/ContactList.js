@@ -73,7 +73,7 @@ export default class ContactList extends ContactListRecord {
   // Return the selected contact, if any
   get selected() : ?Contact {
     return this.selectedPubkey
-      ? this.findContact(this.selectedPubkey)
+      ? this.findContactInPool(this.selectedPubkey)
       : null
   }
 

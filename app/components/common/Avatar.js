@@ -21,7 +21,6 @@ class Avatar extends Component {
     if(!person) {
       return <MUIAvatar
         {...extra}
-        style={{ pointerEvents: 'none'}}
         alt='Unknow'
       >?</MUIAvatar>
     }
@@ -31,7 +30,6 @@ class Avatar extends Component {
         {...extra}
         src={person.avatarUrl}
         alt={person.identity}
-        style={{ pointerEvents: 'none'}}
       />
     } else {
       return <MUIAvatar {...extra} alt={person.identity}>{person.initials}</MUIAvatar>

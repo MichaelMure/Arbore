@@ -12,7 +12,7 @@ import ShareFiles from './ShareFiles'
 import Avatar from 'components/common/Avatar'
 import ContactList from 'models/ContactList'
 import InsetText from 'components/common/InsetText'
-import ShareRecipients from 'components/sharing/ShareRecipients'
+import ShareRecipients from 'containers/sharing/ShareRecipients'
 
 class ShareDetail extends Component {
 
@@ -85,7 +85,7 @@ class ShareDetail extends Component {
 
 
         <InsetText text={share.description} placeholder='No description' />
-        <ShareRecipients recipients={share.recipients} contactList={contactList} />
+        <ShareRecipients recipients={share.recipients} />
         <ShareFiles share={share} style="margin:30px"/>
       </div>
     );

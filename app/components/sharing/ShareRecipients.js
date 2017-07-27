@@ -11,16 +11,22 @@ class ShareRecipients extends Component {
 
   props: {
     recipients: Map<string,ShareRecipient>,
-    contactList: ContactList
+    contactList: ContactList,
+    onContactClickGenerator: (?Contact) => any
   }
 
   render() {
-    const { classes, recipients, contactList } = this.props
+    const { classes, recipients, contactList, onContactClickGenerator } = this.props
 
     const avatars = recipients.keySeq()
       .map((pubkey: string) => contactList.findContactInPool(pubkey))
       .map((contact: ?Contact, index) => (
-        <Avatar key={contact ? contact.pubkey : index} person={contact} className={classes.avatar} />
+        <Avatar
+          key={contact ? contact.pubkey : index}
+          person={contact}
+          className={classes.avatar}
+          onClick={onContactClickGenerator(contact)}
+        />
       ))
 
     return (
@@ -39,7 +45,7 @@ const styleSheet = createStyleSheet('ShareRecipients', theme => ({
   avatar: {
     margin: 5,
     userSelect: 'none',
-    pointerEvents: 'none',
+    cursor: 'pointer',
   },
 }))
 
