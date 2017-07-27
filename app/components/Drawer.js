@@ -56,10 +56,9 @@ const styleSheet = createStyleSheet('Drawer', theme => ({
     backgroundColor: theme.palette.background.default,
     borderLeft: '1px solid rgba(0, 0, 0, 0.12)',
     transition: 'transform 225ms ease-in-out 0ms',
-    display: 'flex',
-    flexDirection: 'column',
     padding: '10px',
-    pointerEvents: 'all'
+    pointerEvents: 'all',
+    overflow: 'auto',
   },
   drawerSmall: {
     transform: 'translate(-300px)',
