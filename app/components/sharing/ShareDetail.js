@@ -31,7 +31,7 @@ class ShareDetail extends Component {
     const { profile, contactList } = this.props
 
     const author = share.author
-      ? contactList.findContact(share.author)
+      ? contactList.findContactInDirectory(share.author)
       : profile
 
     const avatar = (

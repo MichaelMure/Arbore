@@ -101,7 +101,7 @@ function handleMessage(dispatch, getState, payload) {
   const {id, from, message} = payload
 
   const contactList: ContactList = getState().contactList
-  const contact = contactList.findContact(from)
+  const contact = contactList.findContactInDirectory(from)
 
   if(!contact) {
     console.log('Received message from unknow contact ' + from)
@@ -126,7 +126,7 @@ function handleAck(dispatch, getState, payload) {
   const {id, from} = payload
 
   const contactList: ContactList = getState().contactList
-  const contact = contactList.findContact(from)
+  const contact = contactList.findContactInDirectory(from)
 
   if(!contact) {
     console.log('Received ACK from unknow contact ' + from)

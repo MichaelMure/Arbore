@@ -24,7 +24,7 @@ class SharingPage extends Component {
     if(shares.count() > 0) {
       return shares.map((share : Share) => {
         const author = share.author
-          ? contactList.findContact(share.author)
+          ? contactList.findContactInDirectory(share.author)
           : profile
 
         return <CompactShare

@@ -40,7 +40,7 @@ class Room extends Component {
       <HistoryChunk
         key={index}
         chunk={chunk}
-        person={chunk[0].contactPubkey ? contacts.findContact(chunk[0].contactPubkey) : profile}
+        person={chunk[0].contactPubkey ? contacts.findContactInDirectory(chunk[0].contactPubkey) : profile}
       />
     )
 

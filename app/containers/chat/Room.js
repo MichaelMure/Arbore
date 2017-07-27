@@ -37,7 +37,7 @@ class RoomContainer extends Component {
 
     if(event.keyCode === 13 && this.state.promptValue !== '') {
       this.props.dispatch(chat.sendChat(
-        contacts.findContact(ui.selectedChat),
+        contacts.findContactInDirectory(ui.selectedChat),
         this.state.promptValue
       ))
       this.setState({ promptValue: ''})

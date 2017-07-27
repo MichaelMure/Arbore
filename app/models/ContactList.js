@@ -3,7 +3,6 @@ import { Record, Map, Set, List } from 'immutable'
 import Contact from './Contact'
 import ShareList from 'models/ShareList'
 import ChatRoomList from 'models/ChatRoomList'
-import ChatRoom from 'models/ChatRoom'
 import Share from 'models/Share'
 
 export const LOCAL_DATA_VERSION = 1
@@ -49,7 +48,7 @@ export default class ContactList extends ContactListRecord {
   follower: Set<string>
 
   // Find a contact by its public key in the directory
-  findContact(pubkey: string) : ?Contact {
+  findContactInDirectory(pubkey: string) : ?Contact {
     return this.directory.has(pubkey) ? this.pool.get(pubkey, null) : null
   }
 
@@ -60,7 +59,7 @@ export default class ContactList extends ContactListRecord {
 
   get directoryMapped() {
     return this.directory.valueSeq()
-      .map((pubkey: string) => this.findContact(pubkey))
+      .map((pubkey: string) => this.findContactInDirectory(pubkey))
   }
 
   // Return a list of contacts that match the search pattern

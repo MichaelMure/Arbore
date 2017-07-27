@@ -149,7 +149,7 @@ function handleQueryShares(dispatch, getState, payload) {
 
   const state: Store = getState()
   const contactList: ContactList = state.contactList
-  const contact = contactList.findContact(from)
+  const contact = contactList.findContactInDirectory(from)
 
   if(!contact) {
     console.log('Got a shareList query from unknow contact ' + from)
@@ -173,7 +173,7 @@ async function handleSharesReply(dispatch, getState, payload) {
 
   const state: Store = getState()
   const contactList: ContactList = state.contactList
-  const contact = contactList.findContact(from)
+  const contact = contactList.findContactInDirectory(from)
 
   if(!contact) {
     console.log('Got a shareList from unknow contact ' + from)
@@ -208,7 +208,7 @@ async function handleSharePush(dispatch, getState, payload) {
 
   const state: Store = getState()
   const contactList: ContactList = state.contactList
-  const contact = contactList.findContact(from)
+  const contact = contactList.findContactInDirectory(from)
 
   if(!contact) {
     console.log('Got a share notification from unknow contact ' + from)
@@ -229,7 +229,7 @@ function handleShareAck(dispatch, getState, payload) {
 
   const state: Store = getState()
   const contactList: ContactList = state.contactList
-  const contact = contactList.findContact(from)
+  const contact = contactList.findContactInDirectory(from)
 
   if(!contact) {
     console.log('Got a share notification ack from unknow contact ' + from)
