@@ -45,7 +45,7 @@ export function onContactPong(contact: Contact) {
     if(!room) {
       return
     }
-    
+
     // TODO:
     // - potentially send multiple time the same message when a contact is online (network overload for nothing)
     // - the message will be receive with an incorrect time
@@ -53,7 +53,7 @@ export function onContactPong(contact: Contact) {
     // Stop on the first fail
     return await Promise.all(
       room.unAcknoledgedLastDay.map((entry: ChatEntry) => {
-        const data = protocol.message(
+        const data = protocol.chat(
           entry.id,
           state.profile,
           entry.message
@@ -67,10 +67,10 @@ export function onContactPong(contact: Contact) {
 /* Network messages */
 
 const protocol = {
-  message: createAction('MESSAGE',
+  chat: createAction('CHAT',
     (id: string, profile: Profile, message: string) => ({id, from: profile.pubkey, message})
   ),
-  ack: createAction('ACK',
+  chatAck: createAction('CHAT_ACK',
     (id: string, profile: Profile) => ({id, from: profile.pubkey})
   )
 }
@@ -82,8 +82,8 @@ export function subscribe() {
 
     const profile: Profile = getState().profile
     pubsub = createProtocol('chat', profile.chatPubsubTopic, {
-      [protocol.message.toString()]: handleMessage,
-      [protocol.ack.toString()]: handleAck,
+      [protocol.chat.toString()]: handleMessage,
+      [protocol.chatAck.toString()]: handleAck,
     })
 
     await dispatch(pubsub.subscribe())
@@ -144,7 +144,7 @@ export function sendChat(contact: Contact, message: string) {
     const state: Store = getState()
     const messageId = nextToken()
 
-    const data = protocol.message(
+    const data = protocol.chat(
       messageId,
       state.profile,
       message
@@ -160,7 +160,7 @@ export function sendChatAck(contact: Contact, id: string) {
     console.log('Sending message ACK ' + id + ' to ' + contact.identity)
 
     const state: Store = getState()
-    const data = protocol.ack(id, state.profile)
+    const data = protocol.chatAck(id, state.profile)
 
     await dispatch(pubsub.send(contact.chatPubsubTopic, data))
   }
