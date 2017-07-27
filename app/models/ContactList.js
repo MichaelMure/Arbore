@@ -81,6 +81,11 @@ export default class ContactList extends ContactListRecord {
     return this.searched.some((contact: Contact) => contact.pubkey === pubkey)
   }
 
+  // Return true if the selected contact is present in the directory
+  selectedInDirectory() : boolean {
+    return this.selectedPubkey && this.directory.has(this.selectedPubkey)
+  }
+
   // Build an autocomplete list with a string pattern
   autoComplete(pattern: string) : Array<Contact> {
     return this.directoryMapped

@@ -19,8 +19,10 @@ class ContactDetail extends Component {
 
   props: {
     contact: Contact,
+    isInDirectory: boolean,
     onPrivacyChange: (Contact, boolean) => any,
     onDeleteClickGenerator: (Contact) =>  any,
+    onAddClickGenerator: (Contact) => any,
   }
 
   state = {
@@ -41,6 +43,13 @@ class ContactDetail extends Component {
     this.setState({
       confirmOpen: false,
     })
+  }
+
+  handleDeleteContact() {
+    this.setState({
+      confirmOpen: false,
+    })
+    this.props.onDeleteClickGenerator(this.props.contact)()
   }
 
   render() {
@@ -69,9 +78,17 @@ class ContactDetail extends Component {
           <Typography>Last ping: { contact.lastPongDelay } ms</Typography>
         }
 
-        <Button raised color='primary' onClick={::this.handleOpenConfirm}>
-          Delete contact
-        </Button>
+        { this.props.isInDirectory &&
+          <Button raised color='primary' onClick={::this.handleOpenConfirm}>
+            Delete contact
+          </Button>
+        }
+
+        { !this.props.isInDirectory &&
+          <Button raised color='primary' onClick={this.props.onAddClickGenerator(contact)}>
+            Add contact
+          </Button>
+        }
 
         { this.state.confirmOpen &&
           <Dialog open={true} onRequestClose={this.handleCloseConfirm}>
@@ -83,7 +100,7 @@ class ContactDetail extends Component {
             </DialogContent>
             <DialogActions>
               <Button onClick={::this.handleCloseConfirm} color='primary'>Cancel</Button>
-              <Button onClick={this.props.onDeleteClickGenerator(this.props.contact)} color='primary'>Confirm</Button>
+              <Button onClick={::this.handleDeleteContact} color='primary'>Confirm</Button>
             </DialogActions>
           </Dialog>
         }

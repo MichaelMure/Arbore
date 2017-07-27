@@ -7,7 +7,8 @@ import ContactDetail from 'components/contact/ContactDetail'
 import Contact from 'models/Contact'
 
 const mapStateToProps = (state: Store) => ({
-  contact: state.contactList.selected
+  contact: state.contactList.selected,
+  isInDirectory: state.contactList.selectedInDirectory(),
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -17,6 +18,9 @@ const mapDispatchToProps = dispatch => ({
   onDeleteClickGenerator: (contact: Contact) => () => (
     dispatch(contactListActions.removeContact(contact))
   ),
+  onAddClickGenerator: (contact: Contact) => () => {
+    dispatch(contactListActions.addContactInDirectory(contact.pubkey))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactDetail)
