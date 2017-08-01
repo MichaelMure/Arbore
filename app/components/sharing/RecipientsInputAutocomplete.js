@@ -18,7 +18,8 @@ class RecipientsInputAutocomplete extends Component {
 
   props: {
     contactList: ContactList,
-    onRecipientSelect: (contact: Contact) => any
+    onRecipientSelect: (contact: Contact) => any,
+    inputRef: any
   }
 
   handleSuggestionsFetchRequested({ value }) {
@@ -49,10 +50,11 @@ class RecipientsInputAutocomplete extends Component {
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, inputRef } = this.props
 
     return (
       <Autosuggest
+        ref={inputRef ? inputRef : () => {} }
         theme={{
           container: classes.container,
           suggestionsContainerOpen: classes.suggestionsContainerOpen,

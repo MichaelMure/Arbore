@@ -9,6 +9,7 @@ import ContactList from 'models/ContactList'
 import RecipientsInputAutocomplete from 'components/sharing/RecipientsInputAutocomplete'
 
 class RecipientsInput extends Component {
+  recipientsInput: any
 
   props: {
     contactList: ContactList,
@@ -40,7 +41,7 @@ class RecipientsInput extends Component {
     return (
       <FormControl error={touched && (error != null)} style={{ marginTop: '10px' }} >
         <FormLabel>{label}</FormLabel>
-        <div className={styles.recipients}>
+        <div className={styles.recipients} onClick={ () => { if(this.recipientsInput) { this.recipientsInput.input.focus() }}}>
           {
             (value || []).map((contact: Contact) => (
               <Chip
@@ -53,6 +54,7 @@ class RecipientsInput extends Component {
           }
 
           <RecipientsInputAutocomplete
+            inputRef={(input) => { this.recipientsInput = input }}
             contactList={contactList}
             onRecipientSelect={::this.handleRecipientSelect}
           />

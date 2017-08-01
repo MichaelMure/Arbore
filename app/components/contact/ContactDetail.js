@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import styles from './ContactDetail.css'
 import { FormControlLabel } from 'material-ui/Form'
-import Switch from 'material-ui/Switch';
+import Switch from 'material-ui/Switch'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
 import Dialog, {
@@ -9,7 +9,7 @@ import Dialog, {
   DialogContent,
   DialogContentText,
   DialogTitle,
-} from 'material-ui/Dialog';
+} from 'material-ui/Dialog'
 import Contact, { ContactStatus } from 'models/Contact'
 import Pubkey from 'components/common/Pubkey'
 import InsetText from 'components/common/InsetText'
@@ -109,4 +109,4 @@ class ContactDetail extends Component {
   }
 }
 
-export default ContactDetail;
+export default ContactDetail
