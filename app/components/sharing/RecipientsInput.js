@@ -41,7 +41,7 @@ class RecipientsInput extends Component {
     return (
       <FormControl error={touched && (error != null)} style={{ marginTop: '10px' }} >
         <FormLabel>{label}</FormLabel>
-        <div className={styles.recipients} onClick={ () => { if(this.recipientsInput) { this.recipientsInput.input.focus() }}}>
+        <div className={styles.recipients} onClick={ () => this.recipientsInput.focus() }>
           {
             (value || []).map((contact: Contact) => (
               <Chip
@@ -54,7 +54,7 @@ class RecipientsInput extends Component {
           }
 
           <RecipientsInputAutocomplete
-            inputRef={(input) => { this.recipientsInput = input }}
+            inputRef={(autocomplete) => { if(autocomplete) { this.recipientsInput = autocomplete.input }}}
             contactList={contactList}
             onRecipientSelect={::this.handleRecipientSelect}
           />
