@@ -40,15 +40,27 @@ class NewSharePage extends Component {
       // Wait for the end of the UI animation
       setTimeout(() => { dispatch(reset(formName)) }, 500)
     } catch(err) {
-      console.log(err)
       throw new SubmissionError({ _error: err })
     }
+  }
+
+  handleCancel() {
+    const { dispatch } = this.props
+
+    dispatch(uiActions.closeNewShare())
+
+    // Wait for the end of the UI animation
+    setTimeout(() => {
+      this.setState({progress: null})
+      dispatch(reset(formName))
+    }, 500)
   }
 
   render() {
     return (
       <NewShare
         onSubmit={::this.handleSubmit}
+        onCancelClick={::this.handleCancel}
         progress={this.state.progress}
         { ...this.props }
       />
@@ -62,13 +74,6 @@ const mapStateToProps = (state: Store) => ({
 
 const mapDispatchToProps = dispatch => ({
   dispatch,
-
-  onCancelClick: () => {
-    dispatch(uiActions.closeNewShare())
-
-    // Wait for the end of the UI animation
-    setTimeout(() => { dispatch(reset(formName)) }, 500)
-  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewSharePage)
