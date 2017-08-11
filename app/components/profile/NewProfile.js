@@ -47,7 +47,7 @@ class NewProfile extends Component {
         <div className={styles.row} >
           <div className={styles.column} >
             <FormLabel>Avatar</FormLabel>
-            <AvatarEditor ref={(avatarEditor) => { this.avatarEditor = avatarEditor ? avatarEditor.innerRef : avatarEditor }} />
+            <AvatarEditor innerRef={(avatarEditor) => { if(avatarEditor) { this.avatarEditor = avatarEditor }}} />
           </div>
           <div className={styles.column}>
             <Field name='identity' component={renderTextField} required label='Identity'/>

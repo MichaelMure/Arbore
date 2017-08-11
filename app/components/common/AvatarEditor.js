@@ -248,4 +248,4 @@ const styleSheet = createStyleSheet('AvatarEditor', theme => ({
   }
 }))
 
-export default withStyles(styleSheet)(withTheme(AvatarEditor))
+export default withStyles(styleSheet, { withTheme: true })(AvatarEditor)
