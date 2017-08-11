@@ -4,6 +4,7 @@ import Contact from './Contact'
 import Profile from 'models/Profile'
 import ShareRecipient from 'models/ShareRecipient'
 import IpfsDirectory from 'models/IpfsDirectory'
+import isIpfs from 'is-ipfs'
 
 const LOCAL_DATA_VERSION = 1
 const PUBLISH_DATA_VERSION = 1
@@ -96,8 +97,12 @@ export default class Share extends ShareRecord {
       throw 'Unexpected share data version'
     }
 
-    const _recipients = Set(
-      recipients.map(({pubkey}) => ShareRecipient.create(pubkey))
+    if(!isIpfs.multihash(hash)) {
+      throw 'invalid hash'
+    }
+
+    const _recipients = Map(
+      recipients.map(({pubkey}) => [pubkey, ShareRecipient.create(pubkey)])
     )
 
     return new this().withMutations(share => share
