@@ -42,7 +42,7 @@ class EditProfile extends Component {
         <FormLabel>Avatar</FormLabel>
         <div className={styles.avatarEditor}>
           <AvatarEditor
-            ref={(avatarEditor) => { this.avatarEditor = avatarEditor ? avatarEditor.innerRef : avatarEditor }}
+            innerRef={(avatarEditor) => { if(avatarEditor) { this.avatarEditor = avatarEditor }}}
             placeholder={this.props.initialValues.avatar}
             onPristineChanged={::this.handlePristineChanged}
           />

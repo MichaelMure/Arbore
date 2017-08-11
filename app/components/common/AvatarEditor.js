@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, withTheme, createStyleSheet } from 'material-ui/styles'
+import { withStyles, createStyleSheet } from 'material-ui/styles'
 import ReactAvatarEditor from 'react-avatar-editor'
 import canvasBuffer from 'electron-canvas-to-buffer'
 import FontAwesome from 'react-fontawesome'
