@@ -156,7 +156,7 @@ export default class ContactList extends ContactListRecord {
       })
     })
 
-    return Array.from(result.values())
+    return [...result]
   }
 
   // Return an array of pubkey that can be shared

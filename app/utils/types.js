@@ -9,6 +9,8 @@ import UiState from 'models/UiState'
 export type Action<T> = {
   type: string,
   payload: T,
+} | {
+  type: string,
   error: ?boolean
 }
 
