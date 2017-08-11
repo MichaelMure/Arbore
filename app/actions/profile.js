@@ -104,7 +104,8 @@ export function updateAvatar(avatar: ?Buffer) {
       await loginStore.dispatch(identityActions.setAvatarHash(getState().profile.storageKey, hash))
     ])
 
-    return dispatch(publish())
+    // don't wait while the profile is published
+    dispatch(publish())
   }
 }
 
