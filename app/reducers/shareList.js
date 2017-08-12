@@ -54,6 +54,7 @@ export default handleActions({
 
   [combineActions(
     share.priv.setHash,
+    share.priv.setOutputPath,
     share.priv.start,
     share.priv.pause,
     share.priv.abort,

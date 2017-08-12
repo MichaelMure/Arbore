@@ -28,6 +28,10 @@ export default handleActions({
     state.set(writable.hash, action.payload.hash)
   ),
 
+  [actions.priv.setOutputPath]: (state: Share, action: Action) => (
+    state.set(writable.outputPath, action.payload.outputPath)
+  ),
+
   [actions.priv.start]: (state: Share, action: Action) => {
     switch(state.status) {
       case ShareState.AVAILABLE:

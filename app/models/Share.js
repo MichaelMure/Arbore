@@ -51,7 +51,8 @@ export const writable = {
   status: 'status',
   content: 'content',
   recipients: 'recipients',
-  favorite: 'favorite'
+  favorite: 'favorite',
+  outputPath: 'outputPath'
 }
 
 export const ShareRecord = Record({
@@ -64,7 +65,8 @@ export const ShareRecord = Record({
   status: null,
   content: null,
   recipients: Map(),
-  favorite: false
+  favorite: false,
+  outputPath: null
 }, 'Share')
 
 export default class Share extends ShareRecord {
@@ -80,6 +82,7 @@ export default class Share extends ShareRecord {
   content: ?IpfsDirectory
   recipients: Map<string,ShareRecipient>
   favorite: boolean
+  outputPath: ?string
 
   static create(author: ?Contact, title: string, description: ?string = null) {
     return new this().withMutations(share => share

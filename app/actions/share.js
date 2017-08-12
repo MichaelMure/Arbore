@@ -11,6 +11,8 @@ import * as shareList from 'actions/shareList'
 import * as ipfsObject from 'actions/ipfsObject'
 import bs58 from 'bs58'
 
+const dialog = require('electron').remote.dialog
+
 export const toggleFavorite = createAction('SHARE_FAVORITE_TOGGLE',
   (share: Share) => ({id: share.id})
 )
@@ -21,6 +23,9 @@ export const setRecipientNotified = createAction('SHARE_RECIPIENT_NOTIFIED',
 export const priv = {
   setHash: createAction('SHARE_HASH_SET',
     (share: Share, hash: string) => ({id: share.id, hash})
+  ),
+  setOutputPath: createAction('SHARE_OUTPUT_SET',
+    (share: Share, outputPath: string) => ({id: share.id, outputPath})
   ),
   start: createAction('SHARE_START',
     (share: Share) => ({id: share.id})
@@ -169,6 +174,15 @@ export function fetchDescription(hash: string) {
  */
 export function start(share: Share) {
   return async function (dispatch) {
+    const result = dialog.showOpenDialog({
+      properties: ['openDirectory'],
+    })
+
+    if(!result) {
+      return
+    }
+
+    dispatch(priv.setOutputPath(share, result[0]))
     dispatch(priv.start(share))
     return ipfsObject.triggerDownload(share.content.hash)
   }
