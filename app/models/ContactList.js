@@ -146,8 +146,8 @@ export default class ContactList extends ContactListRecord {
     })
 
     shareList.list.forEach((share: Share) => {
-      if(share.author && !this.pool.has(share.author.pubkey)) {
-        result.add(share.author.pubkey)
+      if(share.authorPubkey && !this.pool.has(share.authorPubkey)) {
+        result.add(share.authorPubkey)
       }
       share.recipients.keySeq().forEach((pubkey: string) => {
         if(!this.pool.has(pubkey)) {

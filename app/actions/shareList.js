@@ -288,7 +288,7 @@ function handleShareAck(dispatch, getState, payload) {
     return
   }
 
-  if(share.author) {
+  if(!share.isAuthor) {
     console.log('Got a share notification ACK for a Share that we didn\'t authored')
     return
   }

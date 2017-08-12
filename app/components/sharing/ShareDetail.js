@@ -30,9 +30,9 @@ class ShareDetail extends Component {
     const share: Share = this.props.share
     const { profile, contactList } = this.props
 
-    const author = share.author
-      ? contactList.findContactInDirectory(share.author)
-      : profile
+    const author = share.isAuthor
+      ? profile
+      : contactList.findContactInDirectory(share.authorPubkey)
 
     const avatar = (
       <Avatar person={author} />

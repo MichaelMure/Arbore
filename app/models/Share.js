@@ -45,7 +45,7 @@ export const writable = {
   dataVersion: 'dataVersion',
   id: 'id',
   hash: 'hash',
-  author: 'author',
+  authorPubkey: 'authorPubkey',
   title: 'title',
   description: 'description',
   status: 'status',
@@ -58,7 +58,7 @@ export const ShareRecord = Record({
   dataVersion: LOCAL_DATA_VERSION,
   id: null,
   hash: null,
-  author: null,
+  authorPubkey: null,
   title: null,
   description: null,
   status: null,
@@ -72,8 +72,8 @@ export default class Share extends ShareRecord {
   // local identifier
   id: number
   hash: ?string
-  // (author == null) mean that the user is the author
-  author: ?Contact
+  // (authorPubkey == null) mean that the user is the author
+  authorPubkey: ?string
   title: string
   description: string
   status: ShareStateType
@@ -83,7 +83,7 @@ export default class Share extends ShareRecord {
 
   static create(author: ?Contact, title: string, description: ?string = null) {
     return new this().withMutations(share => share
-      .set(writable.author, author)
+      .set(writable.authorPubkey, author ? author.pubkey : null)
       .set(writable.title, title)
       .set(writable.description, description)
       .set(writable.status, ShareState.AVAILABLE)
@@ -108,7 +108,7 @@ export default class Share extends ShareRecord {
     return new this().withMutations(share => share
       .set(writable.hash, hash)
       .set(writable.status, ShareState.AVAILABLE)
-      .set(writable.author, author)
+      .set(writable.authorPubkey, author)
       .set(writable.title, title)
       .set(writable.description, description || '')
       .set(writable.content, IpfsDirectory.create(content))
@@ -124,7 +124,7 @@ export default class Share extends ShareRecord {
 
     return {
       dataVersion: PUBLISH_DATA_VERSION,
-      author: this.author ? this.author.pubkey : profile.pubkey,
+      author: this.isAuthor ? this.authorPubkey : profile.pubkey,
       title: this.title,
       description: this.description,
       content: this.content.hash,
@@ -153,7 +153,7 @@ export default class Share extends ShareRecord {
   }
 
   get isAuthor() : boolean {
-    return this.author === null
+    return this.authorPubkey === null
   }
 
   get isAvailable() : boolean {
