@@ -1,13 +1,18 @@
 // @flow
 import { app, BrowserWindow, ipcMain } from 'electron';
 import * as ipfs from './ipfs/ipfsMain'
-import { mainWindowVisible } from './utils/constants'
+import { mainWindowVisible, showMainWindow } from './utils/constants'
 
 let mainWindow = null;
 let splashScreen = null
 
 ipcMain.on(mainWindowVisible, (event) => {
   event.returnValue = mainWindow && mainWindow.isVisible()
+})
+
+ipcMain.on(showMainWindow, () => {
+  mainWindow.restore()
+  mainWindow.focus()
 })
 
 if (process.env.NODE_ENV === 'production') {
