@@ -35,7 +35,7 @@ class HistoryChunk extends Component {
               <div className={styles.entry} key={index}>
                 <Typography>{entry.message}</Typography>
                 { (entry.contactPubkey === null) &&
-                  <FontAwesome name={ entry.ack ? 'check' : 'clock-o' } />
+                  <Typography><FontAwesome name={ entry.ack ? 'check' : 'clock-o' } /></Typography>
                 }
               </div>
             ))
