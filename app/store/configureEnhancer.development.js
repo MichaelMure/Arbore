@@ -13,8 +13,11 @@ export default function configureEnhancer(storeName) {
   }
 
   const logger = createLogger({
+    predicate: (getState, action) => action.type !== '@@redux-form',
     level: 'info',
-    collapsed: true
+    collapsed: true,
+    timestamp: false,
+    duration: true,
   })
 
 
