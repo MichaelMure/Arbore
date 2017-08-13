@@ -104,6 +104,8 @@ export default class Share extends ShareRecord {
       throw 'invalid hash'
     }
 
+    // TODO: more check, author should be set...
+
     const _recipients = Map(
       recipients.map(({pubkey}) => [pubkey, ShareRecipient.create(pubkey)])
     )
@@ -127,7 +129,7 @@ export default class Share extends ShareRecord {
 
     return {
       dataVersion: PUBLISH_DATA_VERSION,
-      author: this.isAuthor ? this.authorPubkey : profile.pubkey,
+      author: this.isAuthor ? profile.pubkey : this.authorPubkey,
       title: this.title,
       description: this.description,
       content: this.content.hash,
