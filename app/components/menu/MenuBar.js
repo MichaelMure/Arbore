@@ -74,18 +74,21 @@ class MenuBar extends Component {
           <FontAwesome name='download'/>
         </MenuItem>
 
+        <MenuItem name="active" label="Actives" onClick={this.props.onActiveClick}
+                  badgeValue={this.props.active} accent={this.props.activeSelected}>
+          <FontAwesome name='bolt'/>
+        </MenuItem>
+
         <MenuItem name="inbox" label="Inbox" onClick={this.props.onInboxClick}
             badgeValue={this.props.inbox} accent={this.props.inboxSelected}>
             <FontAwesome name='inbox'/>
         </MenuItem>
-        <MenuItem name="active" label="Actives" onClick={this.props.onActiveClick}
-            badgeValue={this.props.active} accent={this.props.activeSelected}>
-            <FontAwesome name='bolt'/>
-        </MenuItem>
+
         <MenuItem name="upload" label="Upload" onClick={this.props.onSharingClick}
             badgeValue={this.props.sharing} accent={this.props.sharingSelected}>
             <FontAwesome name='upload'/>
         </MenuItem>
+
         <MenuItem name="fav" label="Favorites" onClick={this.props.onFavoriteClick}
             badgeValue={this.props.favorite} accent={this.props.favoriteSelected}>
             <FontAwesome name='heart'/>
