@@ -63,7 +63,7 @@ class EditProfile extends Component {
           label='Repeat passphrase'
           type='password'
         />
-        <Field name='bio' component={renderTextField} label='Bio' multiline rows="6"/>
+        <Field name='bio' component={renderTextField} label='Bio' multiline rows='6' placeholder='Who are you ?'/>
 
         { error && <Error>{error}</Error>}
 
