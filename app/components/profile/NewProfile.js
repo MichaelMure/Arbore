@@ -53,7 +53,7 @@ class NewProfile extends Component {
             <Field name='identity' component={renderTextField} required label='Identity'/>
             <Field name='passphrase' component={renderTextField} required label='Passphrase' type='password'/>
             <Field name='passphrase2' component={renderTextField} required label='Repeat passphrase' type='password'/>
-            <Field name='bio' component={renderTextField} label='Bio' multiline rows="4"/>
+            <Field name='bio' component={renderTextField} label='Bio' multiline rows="4" placeholder='Who are you ?'/>
           </div>
         </div>
 
@@ -84,7 +84,7 @@ const validate = (values, props) => {
   })
 
   if(values.passphrase !== values.passphrase2) {
-    errors['passphrase2'] = 'Both passphrases should be equals'
+    errors['passphrase2'] = 'Both passphrases should match'
   }
 
   if(props.forbiddenIdentities.includes(values.identity)) {
