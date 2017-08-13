@@ -1,12 +1,11 @@
 // @flow
 import React, { Component } from 'react'
-import styles from './CompactContact.css'
+import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { darken } from 'material-ui/styles/colorManipulator'
 import Card, { CardHeader } from 'material-ui/Card'
 import Contact from 'models/Contact'
-import classNames from 'classnames/bind'
+import classNames from 'classnames'
 import Avatar from 'components/common/Avatar'
-
-const cx = classNames.bind(styles);
 
 class CompactContact extends Component {
 
@@ -21,17 +20,16 @@ class CompactContact extends Component {
   }
 
   render() {
-    const { contact, selected } = this.props
+    const { classes, contact, selected } = this.props
 
-    const cardClass = cx({
-      card: true,
-      cardSelected: selected
+    const cardClass = classNames(classes.card, {
+      [classes.cardSelected]: selected,
     })
 
     return (
       <Card className={cardClass} onClick={ ::this.props.onClick }>
         <CardHeader
-          className={styles.header}
+          className={classes.header}
           avatar={<Avatar person={contact} />}
           title={ contact.identity }
         />
@@ -40,4 +38,17 @@ class CompactContact extends Component {
   }
 }
 
-export default CompactContact
+const styleSheet = createStyleSheet('CompactContact', theme => ({
+  card: {
+    marginTop: 10
+  },
+  cardSelected: {
+    backgroundColor: darken(theme.palette.background.default, 0.20)
+  },
+  header: {
+    paddingBottom: '10px !important',
+    paddingTop: '10px !important'
+  }
+}))
+
+export default withStyles(styleSheet)(CompactContact)
