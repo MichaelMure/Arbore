@@ -1,14 +1,13 @@
 import React, { Component } from 'react'
-import styles from './CompactShare.css'
+import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { darken } from 'material-ui/styles/colorManipulator'
 import Card, { CardHeader } from 'material-ui/Card'
 import { LinearProgress } from 'material-ui/Progress'
-import classNames from 'classnames/bind'
+import classNames from 'classnames'
 import Share from "models/Share"
 import Contact from 'models/Contact'
 import Profile from 'models/Profile'
 import Avatar from 'components/common/Avatar'
-
-const cx = classNames.bind(styles);
 
 class CompactShare extends Component {
 
@@ -25,11 +24,10 @@ class CompactShare extends Component {
 
   render() {
     const share: Share = this.props.share
-    const { author } = this.props
+    const { classes, author, selected } = this.props
 
-    const cardClass = cx({
-      card: true,
-      cardSelected: this.props.selected
+    const cardClass = classNames(classes.card, {
+      [classes.cardSelected]: selected,
     })
 
     return (
@@ -51,4 +49,15 @@ class CompactShare extends Component {
   }
 }
 
-export default CompactShare;
+const styleSheet = createStyleSheet('CompactShare', theme => ({
+  card: {
+    '&:not(:last-of-type)': {
+      marginBottom: 10
+    }
+  },
+  cardSelected: {
+    backgroundColor: darken(theme.palette.background.default, 0.20)
+  }
+}))
+
+export default withStyles(styleSheet)(CompactShare)

@@ -176,6 +176,10 @@ class AvatarEditor extends Component {
   }
 }
 
+/**
+ * Convert a hex color ("#303030") to an array of rgba values ([48,48,48,1])
+ * @param hex
+ */
 function convertThemeColor(hex) {
   const res = hex.match(/[a-f0-9]{2}/gi)
   if(!res || !res.length === 3) {

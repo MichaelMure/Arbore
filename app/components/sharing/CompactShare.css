@@ -1,7 +1,0 @@
-.card:not(:last-of-type) {
-  margin-bottom: 10px;
-}
-
-.cardSelected {
-  background-color: rgba(0,0,0,0.12) !important;
-}
