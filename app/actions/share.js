@@ -169,22 +169,39 @@ export function fetchDescription(hash: string) {
 }
 
 /**
+ * Trigger the download of the share content metadata
+ * @param share
+ */
+export function fetchMetadata(share: Share) {
+  return async function (dispatch) {
+    await dispatch(ipfsObject.fetchDirectoryMetadata(share.content.hash))
+  }
+}
+
+/**
  * Start downloading a Share
  * @param share
  */
 export function start(share: Share) {
   return async function (dispatch) {
+    // Request the export path from the user
     const result = dialog.showOpenDialog({
       properties: ['openDirectory'],
     })
 
     if(!result) {
+      // User clicked cancel, aborting
       return
     }
 
     dispatch(priv.setOutputPath(share, result[0]))
     dispatch(priv.start(share))
-    return ipfsObject.triggerDownload(share.content.hash)
+
+    await ipfsObject.triggerDownload(share.content.hash)
+
+    // triggerDownload return when everything is completed or an
+    // error occured. Update locality to find out
+    dispatch(updateLocality(share))
   }
 }
 

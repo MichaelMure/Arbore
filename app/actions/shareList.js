@@ -15,6 +15,7 @@ import isIpfs from 'is-ipfs'
 import { Page } from 'models/UiState'
 import { ipcRenderer } from 'electron'
 import { showMainWindow } from 'utils/constants'
+import { updateLocality } from 'actions/share'
 
 export const setFilter = createAction('SHARELIST_FILTER_SET',
   (filter: ShareListFilterType) => (filter)
@@ -250,8 +251,12 @@ async function handleNewShare(dispatch, contact: Contact, hash: string) {
   let share: Share = await dispatch(fetchShareDescription(hash))
   share = await dispatch(storeShare(share))
 
+  // Run in background
+  dispatch(shareActions.fetchMetadata(share))
+    .then(() => dispatch(updateLocality(share)))
+
   /// #if isElectron
-  const notification = new Notification(`New share from ${contact.identity}`, {
+  const notification = new Notification(`New share available from ${contact.identity}`, {
     icon: contact.avatarUrl,
     body: share.title,
     requireInteraction: true
