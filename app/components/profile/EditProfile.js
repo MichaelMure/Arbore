@@ -55,6 +55,7 @@ class EditProfile extends Component {
           required
           label='Passphrase'
           type='password'
+          fullWidth
         />
         <Field
           name='passphrase2'
@@ -62,8 +63,16 @@ class EditProfile extends Component {
           required
           label='Repeat passphrase'
           type='password'
+          fullWidth
         />
-        <Field name='bio' component={renderTextField} label='Bio' multiline rows='6' placeholder='Who are you ?'/>
+        <Field
+          name='bio'
+          component={renderTextField}
+          label='Bio'
+          multiline rows='6'
+          placeholder='Who are you ?'
+          fullWidth
+        />
 
         { error && <Error>{error}</Error>}
 
@@ -94,7 +103,7 @@ const validate = (values, props) => {
   })
 
   if(values.passphrase !== values.passphrase2) {
-    errors['passphrase2'] = 'Both passphrases should be equals'
+    errors['passphrase2'] = 'Both passphrases should match'
   }
 
   return errors
