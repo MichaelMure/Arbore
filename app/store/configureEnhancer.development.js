@@ -5,7 +5,7 @@ import { createLogger } from 'redux-logger'
 import allActions from 'actions/allActions'
 import createActionBuffer from 'redux-action-buffer'
 import {REHYDRATE} from 'redux-persist/constants'
-
+import shareListenerMiddleware from './shareListenerMiddleware'
 
 export default function configureEnhancer(storeName) {
   const actionCreators = {
@@ -33,7 +33,7 @@ export default function configureEnhancer(storeName) {
     compose;
 
   return composeEnhancers(
-    applyMiddleware(thunk, createActionBuffer(REHYDRATE), logger),
+    applyMiddleware(thunk, createActionBuffer(REHYDRATE), logger, shareListenerMiddleware),
     autoRehydrate({log: true})
   )
 }

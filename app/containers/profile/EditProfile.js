@@ -8,7 +8,7 @@ import { AVATAR_DELETED } from 'components/common/AvatarEditor'
 import { isBuffer } from 'util'
 import { SubmissionError } from 'redux-form'
 
-// TODO: this could be done best with a real placeholder in the textfield
+// This is a bit hacky but looks good (better than a textfiled placeholder)
 const passphrasePlaceholder = 'ⓟⓛⓐⓒⓔⓗⓞⓛⓓⓔⓡ'
 
 /**

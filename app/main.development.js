@@ -11,7 +11,9 @@ ipcMain.on(mainWindowVisible, (event) => {
 })
 
 ipcMain.on(showMainWindow, () => {
-  mainWindow.restore()
+  if(mainWindow.isMinimized()) {
+    mainWindow.restore()
+  }
   mainWindow.focus()
 })
 
