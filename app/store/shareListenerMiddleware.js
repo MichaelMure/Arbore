@@ -1,4 +1,5 @@
 // @flow
+import * as shareActions from 'actions/share'
 import * as sharelistActions from 'actions/shareList'
 import * as ipfsObjectActions from 'actions/ipfsObject'
 import * as uiActions from 'actions/ui'
@@ -33,6 +34,8 @@ export default ({dispatch, getState}) => next => action => {
             || share.status === ShareState.PAUSED)
           && newShare.status === ShareState.SHARING) {
 
+          // a Share just completed
+
           if(share.isAuthor) {
             continue
           }
@@ -55,6 +58,9 @@ export default ({dispatch, getState}) => next => action => {
             ipcRenderer.send(showMainWindow)
           }
           /// #endif
+
+          // Export files
+          dispatch(shareActions.writeOnDisk(share))
         }
       }
 

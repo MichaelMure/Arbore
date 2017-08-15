@@ -247,23 +247,21 @@ export function updateLocality(share: Share) {
 
 /**
  * Export a Share to disk
+ *
  * @param share
- * @param basepath the directory to put the data to
  */
-export function writeOnDisk(share: Share, basepath: string) {
-  return async function*(dispatch) {
+export function writeOnDisk(share: Share) {
+  return async function(dispatch) {
     if(!share.content) {
       throw 'No content to export'
     }
 
+    if(!share.outputPath) {
+      throw 'No output path'
+    }
+
     for(const [name, object] of share.content.children.entrySeq()) {
-
-      // Feedback
-      yield {
-        export: name
-      }
-
-      await dispatch(ipfsObject.exportObject(object.hash, name, basepath))
+      await dispatch(ipfsObject.exportObject(object.hash, name, share.outputPath))
     }
   }
 }
