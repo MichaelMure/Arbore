@@ -38,14 +38,14 @@ export function login(identity: Identity) {
     scheduler.startTimeBetween(fullStoreDispatch,
       'publishProfile',
       profile.publish(),
-      5 * 60 * 1000 // 5 minutes
+      60 * 60 * 1000 // 1 hour
     )
 
     // Start updating contacts persiodically
     scheduler.startTimeBetween(fullStoreDispatch,
       'updateAllContacts',
       contactList.updateAllContacts(),
-      5 * 60 * 1000 //5 minutes
+      60 * 60 * 1000 // 1 hour
     )
 
     scheduler.startTimeBetween(fullStoreDispatch,
@@ -57,7 +57,13 @@ export function login(identity: Identity) {
     scheduler.startTimeBetween(fullStoreDispatch,
       'queryAllContactsList',
       contactList.queryAllContactsList(),
-      10 * 60 * 1000 // 10 minutes
+      60 * 60 * 1000 // 1 hour
+    )
+
+    scheduler.startTimeBetween(fullStoreDispatch,
+      'updateDownloadingLocalities',
+      shareList.updateDownloadingLocalities(),
+      30 * 1000 // 30 seconds
     )
 
     // Check the locality of the content

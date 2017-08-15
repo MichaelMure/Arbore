@@ -1,7 +1,7 @@
 // @flow
 import { createAction } from 'redux-actions'
 import ShareList, { ShareListFilter } from 'models/ShareList'
-import Share, { writable as shareWritable } from 'models/Share'
+import Share, { ShareState, writable as shareWritable } from 'models/Share'
 import ContactList from 'models/ContactList'
 import Profile from 'models/Profile'
 import type { ShareListFilterType } from 'models/ShareList'
@@ -36,7 +36,6 @@ export const priv = {
 /**
  * Assign an Id and store the share in the Sharelist
  * @param share
- * @returns {Function}
  */
 export function storeShare(share: Share) {
   return async function(dispatch, getState) {
@@ -51,7 +50,6 @@ export function storeShare(share: Share) {
 /**
  * Add to the sharelist a Share found in the network
  * @param hash
- * @returns {Function}
  */
 export function fetchShareDescription(hash: string) {
   return async function(dispatch, getState) {
@@ -83,8 +81,29 @@ export function updateAllLocalities() {
   }
 }
 
-// Execute anything needed when we find that a contact in online
-//  - push the shares that has not been notified properly
+/**
+ * Update the locality of the downloading shares
+ */
+export function updateDownloadingLocalities() {
+  return async function(dispatch, getState) {
+    const state: Store = getState()
+    const shareList: ShareList = state.shareList
+
+    await Promise.all(
+      shareList.list
+        .filter((share: Share) => share.status === ShareState.DOWNLOADING)
+        .map((share: Share) => dispatch(shareActions.updateLocality(share)))
+    )
+  }
+}
+
+/**
+ * Execute anything needed when we find that a contact in online
+ *  - push the shares that has not been notified properly
+ *
+ * @param contact
+ * @returns {Function}
+ */
 export function onContactPong(contact: Contact) {
   return async function(dispatch, getState) {
     const state: Store = getState()
