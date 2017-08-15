@@ -9,6 +9,7 @@ import NewShareDrawer from 'containers/sharing/NewShareDrawer'
 import NewSharePage from 'containers/sharing/NewSharePage'
 import ProfileDrawer from 'containers/profile/ProfileDrawer'
 import ProfilePage from 'containers/profile/ProfilePage'
+import SettingsPage from 'containers/settings/SettingsPage'
 import { Page } from 'models/UiState'
 import type { PageType } from 'models/UiState'
 
@@ -27,9 +28,10 @@ class Home extends Component {
           <MenuBar />
         </div>
         <div className={classes.content}>
-          { this.props.page === Page.SHARING  &&  <SharingPage /> }
-          { this.props.page === Page.CHAT     &&  <ChatPage />    }
-          { this.props.page === Page.CONTACT  &&  <ContactPage /> }
+          { this.props.page === Page.SHARING  &&  <SharingPage />  }
+          { this.props.page === Page.CHAT     &&  <ChatPage />     }
+          { this.props.page === Page.CONTACT  &&  <ContactPage />  }
+          { this.props.page === Page.SETTINGS &&  <SettingsPage /> }
 
           <ProfileDrawer>
             <ProfilePage />

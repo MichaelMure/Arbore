@@ -21,6 +21,7 @@ class MenuBar extends Component {
     onFavoriteClick: () => void,
     onContactClick: () => void,
     onChatClick: () => void,
+    onSettingsClick: () => void,
 
     profileSelected: boolean,
     newShareSelected: boolean,
@@ -99,6 +100,13 @@ class MenuBar extends Component {
         <MenuItem name="chat" label="Chat" onClick={this.props.onChatClick} accent={this.props.chatSelected}>
             <FontAwesome name='comments'/>
         </MenuItem>
+
+        <div className={styles.spacer} />
+
+        <MenuItem name="settings" label="Settings" onClick={this.props.onSettingsClick}>
+          <FontAwesome name='cog'/>
+        </MenuItem>
+
       </nav>
     )
   }

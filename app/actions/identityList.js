@@ -5,6 +5,7 @@ import * as profile from './profile'
 import * as scheduler from 'utils/scheduler'
 import * as chat from './chat'
 import * as contactList from './contactList'
+import * as settings from './settings'
 import * as shareList from './shareList'
 import { getLoginStore, getFullStore } from 'store/index'
 
@@ -28,6 +29,8 @@ export function login(identity: Identity) {
 
     await dispatch(priv.selectIdenty(identity))
 
+    // Update the theme with the user settings
+    dispatch(settings.setTheme(fullStore.getState().settings.theme))
 
     // Start listening to network events
     fullStoreDispatch(chat.subscribe())
@@ -85,6 +88,7 @@ export function logout() {
     scheduler.stop('updateAllContacts')
     scheduler.stop('pingAllContacts')
     scheduler.stop('queryAllContactsList')
+    scheduler.stop('updateDownloadingLocalities')
 
     // Stop listening to network events
     dispatch(chat.unsubscribe())

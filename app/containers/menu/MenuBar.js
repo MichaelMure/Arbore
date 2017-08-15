@@ -37,6 +37,7 @@ const mapDispatchToProps = dispatch => ({
   onFavoriteClick:  () => { dispatch(sharelist.setFilter(ShareListFilter.FAV));       dispatch(ui.setPage(Page.SHARING)) },
   onContactClick:   () => { dispatch(ui.setPage(Page.CONTACT)) },
   onChatClick:      () => { dispatch(ui.setPage(Page.CHAT)) },
+  onSettingsClick:  () => { dispatch(ui.setPage(Page.SETTINGS))},
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)

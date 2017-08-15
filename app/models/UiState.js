@@ -5,6 +5,7 @@ export const Page = {
   SHARING: 'SHARING',
   CHAT: 'CHAT',
   CONTACT: 'CONTACT',
+  SETTINGS: 'SETTINGS'
 }
 export type PageType = $Keys<typeof Page>
 

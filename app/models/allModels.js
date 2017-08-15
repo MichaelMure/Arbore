@@ -9,6 +9,7 @@ import IdentityList from './IdentityList'
 import IpfsFile from './IpfsFile'
 import IpfsDirectory from './IpfsDirectory'
 import Profile from './Profile'
+import Settings from './Settings'
 import Share from './Share'
 import ShareList from './ShareList'
 import ShareRecipient from './ShareRecipient'
@@ -25,6 +26,7 @@ export default [
   IpfsDirectory,
   IpfsFile,
   Profile,
+  Settings,
   Share,
   ShareList,
   ShareRecipient,

@@ -3,10 +3,12 @@ import IdentityList, { writable} from 'models/IdentityList'
 import { handleActions, combineActions } from 'redux-actions'
 import * as actions from 'actions/identityList'
 import * as identity from 'actions/identity'
+import * as settings from 'actions/settings'
 import type { Action } from 'utils/types'
 import Identity from 'models/Identity'
 import { REHYDRATE } from 'redux-persist/constants'
 import identityReducer from './identity'
+import type { ThemeType } from 'models/Settings'
 
 let initialState = new IdentityList()
 
@@ -27,6 +29,11 @@ export default handleActions({
 
   [actions.priv.resetIdentity]: (state: IdentityList, action: Action) => (
     state.set(writable.selected, null)
+  ),
+
+  // Use the last selected theme setting for the login screen
+  [settings.setTheme]: (state: IdentityList, action: Action<ThemeType>) => (
+    state.set(writable.theme, action.payload)
   ),
 
   [combineActions(
