@@ -19,7 +19,7 @@ class AddByPubkey extends Component {
     const { error, pristine, submitting, waiting, handleSubmit } = this.props
     return (
       <form className={styles.wrapper} onSubmit={handleSubmit}>
-        <Field name='pubkey' component={renderTextField} required label='Contact'/>
+        <Field name='pubkey' component={renderTextField} required fullWidth label='Contact'/>
 
         { error && <Error>{error}</Error>}
 
