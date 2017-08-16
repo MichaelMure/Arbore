@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import RoomList from 'containers/chat/RoomList'
 import Room from 'containers/chat/Room'
 import ContactList from 'models/ContactList'
@@ -41,7 +41,7 @@ class ChatPage extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('ChatPage', theme => ({
+const style = theme => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'row',
@@ -70,6 +70,6 @@ const styleSheet = createStyleSheet('ChatPage', theme => ({
   spacer: {
     height: 30,
   }
-}))
+})
 
-export default withStyles(styleSheet)(ChatPage)
+export default withStyles(style)(ChatPage)

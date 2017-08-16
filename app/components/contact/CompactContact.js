@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import { darken } from 'material-ui/styles/colorManipulator'
 import Card, { CardHeader } from 'material-ui/Card'
 import Contact from 'models/Contact'
@@ -38,7 +38,7 @@ class CompactContact extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('CompactContact', theme => ({
+const style = theme => ({
   card: {
     marginTop: 10
   },
@@ -49,6 +49,6 @@ const styleSheet = createStyleSheet('CompactContact', theme => ({
     paddingBottom: '10px !important',
     paddingTop: '10px !important'
   }
-}))
+})
 
-export default withStyles(styleSheet)(CompactContact)
+export default withStyles(style)(CompactContact)

@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
 import { LinearProgress } from 'material-ui/Progress'
 import { ConnectorState } from '@akashaproject/ipfs-connector'
@@ -68,7 +68,7 @@ class IpfsStatus extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('IpfsStatus', theme => ({
+const style = theme => ({
   wrapper: {
     position: 'fixed',
     top: 0,
@@ -90,6 +90,6 @@ const styleSheet = createStyleSheet('IpfsStatus', theme => ({
     width: 300,
     height: 40
   }
-}))
+})
 
-export default withStyles(styleSheet)(IpfsStatus);
+export default withStyles(style)(IpfsStatus);

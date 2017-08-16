@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import ReactAvatarEditor from 'react-avatar-editor'
 import canvasBuffer from 'electron-canvas-to-buffer'
 import FontAwesome from 'react-fontawesome'
@@ -189,7 +189,7 @@ function convertThemeColor(hex) {
   return res.map(function(v) { return parseInt(v, 16) }).concat([1])
 }
 
-const styleSheet = createStyleSheet('AvatarEditor', theme => ({
+const style = theme => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'column',
@@ -250,6 +250,6 @@ const styleSheet = createStyleSheet('AvatarEditor', theme => ({
       padding: 0,
     }
   }
-}))
+})
 
-export default withStyles(styleSheet, { withTheme: true })(AvatarEditor)
+export default withStyles(style, { withTheme: true })(AvatarEditor)

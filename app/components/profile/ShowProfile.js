@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import Profile from 'models/Profile'
 import Button from 'material-ui/Button'
 import Typography from 'material-ui/Typography'
@@ -48,7 +48,7 @@ class ShowProfile extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('ShowProfile', theme => ({
+const style = theme => ({
   header: {
     display: 'flex',
     flexDirection: 'row',
@@ -86,6 +86,6 @@ const styleSheet = createStyleSheet('ShowProfile', theme => ({
       minWidth: 100,
     }
   }
-}))
+})
 
-export default withStyles(styleSheet)(ShowProfile)
+export default withStyles(style)(ShowProfile)

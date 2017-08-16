@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import Collapse from 'material-ui/transitions/Collapse'
 import Fade from 'material-ui/transitions/Fade'
 import NewProfile from 'containers/profile/NewProfile'
@@ -50,7 +50,7 @@ class LoginPage extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('LoginPage', theme => ({
+const style = theme => ({
   wrapper: {
     top: 0,
     left: 0,
@@ -69,6 +69,6 @@ const styleSheet = createStyleSheet('LoginPage', theme => ({
     userSelect: 'none',
     pointerEvents: 'none',
   }
-}))
+})
 
-export default withStyles(styleSheet)(LoginPage)
+export default withStyles(style)(LoginPage)

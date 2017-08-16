@@ -168,7 +168,7 @@
     "get-folder-size": "^1.0.0",
     "immutable": "^3.8.1",
     "is-ipfs": "^0.3.0",
-    "material-ui": "1.0.0-beta.4",
+    "material-ui": "1.0.0-beta.5",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
     "rand-token": "^0.3.0",

@@ -1,11 +1,11 @@
 // @flow
 import React, { Component } from 'react'
+import { withStyles } from 'material-ui/styles'
 import Autosuggest from 'react-autosuggest'
 import Input from 'material-ui/Input'
 import { MenuItem } from 'material-ui/Menu'
 import match from 'autosuggest-highlight/match'
 import parse from 'autosuggest-highlight/parse'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
 import ContactList from 'models/ContactList'
 import Contact from 'models/Contact'
 import { emphasize } from 'material-ui/styles/colorManipulator'
@@ -119,7 +119,7 @@ function getSuggestionValue(suggestion: Contact) {
   return suggestion.identity
 }
 
-const styleSheet = createStyleSheet('IntegrationAutosuggest', theme => {
+const style = theme => {
   const backgroundColor = emphasize(theme.palette.background.default, 0.12)
 
   return {
@@ -145,6 +145,6 @@ const styleSheet = createStyleSheet('IntegrationAutosuggest', theme => {
       listStyleType: 'none',
     },
   }
-})
+}
 
-export default withStyles(styleSheet)(RecipientsInputAutocomplete)
+export default withStyles(style)(RecipientsInputAutocomplete)

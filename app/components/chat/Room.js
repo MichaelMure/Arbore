@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import TextField from 'material-ui/TextField'
 import ChatRoom from 'models/ChatRoom'
 import HistoryChunk from 'components/chat/HistoryChunk'
@@ -67,7 +67,7 @@ class Room extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('Room', theme => ({
+const style = theme => ({
   chat: {
     flexDirection: 'column',
     flex: 1,
@@ -105,6 +105,6 @@ const styleSheet = createStyleSheet('Room', theme => ({
   promptInput: {
     flex: 1
   },
-}))
+})
 
-export default withStyles(styleSheet)(Room)
+export default withStyles(style)(Room)

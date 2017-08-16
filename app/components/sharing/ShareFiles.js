@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import Share from 'models/Share'
 import { ObjectType } from 'models/IpfsObject'
 import type { IpfsObject } from 'models/IpfsObject'
@@ -90,7 +90,7 @@ class ShareFiles extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('ShareFiles', theme => ({
+const style = theme => ({
   wrapper: {
     backgroundColor: theme.palette.background.appBar,
     borderRadius: 5,
@@ -124,6 +124,6 @@ const styleSheet = createStyleSheet('ShareFiles', theme => ({
     width: 100,
     textAlign: 'center',
   },
-}))
+})
 
-export default withStyles(styleSheet)(ShareFiles)
+export default withStyles(style)(ShareFiles)

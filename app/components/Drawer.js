@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import classNames from 'classnames'
 
 class Drawer extends Component {
@@ -40,7 +40,7 @@ class Drawer extends Component {
 }
 
 
-const styleSheet = createStyleSheet('Drawer', theme => ({
+const style = theme => ({
   wrapper: {
     position: 'absolute',
     height: '100%',
@@ -85,6 +85,6 @@ const styleSheet = createStyleSheet('Drawer', theme => ({
     opacity: 100,
     visibility: 'visible'
   }
-}))
+})
 
-export default withStyles(styleSheet)(Drawer);
+export default withStyles(style)(Drawer);

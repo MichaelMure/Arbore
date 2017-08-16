@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
 import IdentityList from 'models/IdentityList'
 import Identity from 'models/Identity'
@@ -53,7 +53,7 @@ const identity = {
   cursor: 'pointer',
 };
 
-const styleSheet = createStyleSheet('SelectIdentity', theme => ({
+const style = theme => ({
   wrapper: {
     maxHeight: 500,
     overflowY: 'auto',
@@ -74,6 +74,6 @@ const styleSheet = createStyleSheet('SelectIdentity', theme => ({
     justifyContent: 'center',
     userSelect: 'none',
   }
-}))
+})
 
-export default withStyles(styleSheet)(SelectIdentity)
+export default withStyles(style)(SelectIdentity)

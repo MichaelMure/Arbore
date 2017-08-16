@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
 import Collapse from 'material-ui/transitions/Collapse'
 import Fade from 'material-ui/transitions/Fade'
@@ -84,7 +84,7 @@ class ContactAdder extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('ContactAdder', theme => ({
+const style = theme => ({
   wrapper: {
     border: '2px dashed gray',
     minHeight: 56,
@@ -114,6 +114,6 @@ const styleSheet = createStyleSheet('ContactAdder', theme => ({
       backgroundColor: 'lightgray',
     },
   }
-}))
+})
 
-export default withStyles(styleSheet)(ContactAdder)
+export default withStyles(style)(ContactAdder)

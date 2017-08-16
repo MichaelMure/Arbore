@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import Settings, { Theme } from 'models/Settings'
 import Radio, { RadioGroup } from 'material-ui/Radio'
 import { FormLabel, FormControl, FormControlLabel } from 'material-ui/Form'
@@ -36,13 +36,13 @@ class SettingsPage extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('Home', theme => ({
+const style = theme => ({
   wrapper: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     height: '100%',
   },
-}))
+})
 
-export default withStyles(styleSheet)(SettingsPage)
+export default withStyles(style)(SettingsPage)

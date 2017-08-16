@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
 
 class Error extends Component {
@@ -20,7 +20,7 @@ class Error extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('Error', theme => {
+const style = theme => {
 
   const backgroundColor = theme.palette.error[theme.palette.type === 'light' ? 300 : 600]
   const textColor = theme.palette.getContrastText(backgroundColor)
@@ -34,6 +34,6 @@ const styleSheet = createStyleSheet('Error', theme => {
       borderRadius: 4,
     }
   }
-})
+}
 
-export default withStyles(styleSheet)(Error)
+export default withStyles(style)(Error)

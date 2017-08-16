@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import { darken } from 'material-ui/styles/colorManipulator'
 import Card, { CardHeader } from 'material-ui/Card'
 import { LinearProgress } from 'material-ui/Progress'
@@ -49,7 +49,7 @@ class CompactShare extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('CompactShare', theme => ({
+const style = theme => ({
   card: {
     '&:not(:last-of-type)': {
       marginBottom: 10
@@ -58,6 +58,6 @@ const styleSheet = createStyleSheet('CompactShare', theme => ({
   cardSelected: {
     backgroundColor: darken(theme.palette.background.default, 0.20)
   }
-}))
+})
 
-export default withStyles(styleSheet)(CompactShare)
+export default withStyles(style)(CompactShare)

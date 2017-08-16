@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import GlobalErrorModel from 'models/GlobalError'
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
@@ -31,7 +31,7 @@ class GlobalError extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('GlobalError', theme => {
+const style = theme => {
 
   const backgroundColor = theme.palette.error[theme.palette.type === 'light' ? 300 : 600]
   const textColor = theme.palette.getContrastText(backgroundColor)
@@ -61,6 +61,6 @@ const styleSheet = createStyleSheet('GlobalError', theme => {
       height: '30px !important',
     }
   }
-})
+}
 
-export default withStyles(styleSheet)(GlobalError)
+export default withStyles(style)(GlobalError)

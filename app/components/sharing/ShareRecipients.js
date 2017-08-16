@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import { Map } from 'immutable'
 import ContactList from 'models/ContactList'
 import ShareRecipient from 'models/ShareRecipient'
@@ -37,7 +37,7 @@ class ShareRecipients extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('ShareRecipients', theme => ({
+const style = theme => ({
   wrapper: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -47,6 +47,6 @@ const styleSheet = createStyleSheet('ShareRecipients', theme => ({
     userSelect: 'none',
     cursor: 'pointer',
   },
-}))
+})
 
-export default withStyles(styleSheet)(ShareRecipients)
+export default withStyles(style)(ShareRecipients)

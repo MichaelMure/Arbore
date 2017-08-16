@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import Badge from 'material-ui/Badge'
 import IconButton from 'material-ui/IconButton'
 import ReactTooltip from 'react-tooltip'
@@ -44,7 +44,7 @@ class MenuItem extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('MenuItem', {
+const style = {
   badge: {
     backgroundColor: 'rgba(0,0,0,0)',
     color: 'red'
@@ -52,6 +52,6 @@ const styleSheet = createStyleSheet('MenuItem', {
   tooltip: {
     fontFamily: 'Roboto'
   }
-})
+}
 
-export default withStyles(styleSheet)(MenuItem)
+export default withStyles(style)(MenuItem)

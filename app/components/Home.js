@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import MenuBar from 'containers/menu/MenuBar'
 import SharingPage from 'containers/sharing/SharingPage'
 import ContactPage from 'containers/contact/ContactPage'
@@ -46,7 +46,7 @@ class Home extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('Home', theme => ({
+const style = theme => ({
   wrapper: {
     display: 'flex',
     flexDirection: 'row',
@@ -61,6 +61,6 @@ const styleSheet = createStyleSheet('Home', theme => ({
     flex: 1,
     position: 'relative'
   }
-}))
+})
 
-export default withStyles(styleSheet)(Home)
+export default withStyles(style)(Home)

@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import Profile from 'models/Profile'
 import Contact from 'models/Contact'
 import Identity from 'models/Identity'
@@ -39,7 +39,7 @@ class AvatarWithStatus extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('AvatarWithStatus', theme => ({
+const style = theme => ({
   wrapper: {
     position: 'relative',
   },
@@ -57,6 +57,6 @@ const styleSheet = createStyleSheet('AvatarWithStatus', theme => ({
   gray: {
     backgroundColor: 'gray',
   }
-}))
+})
 
-export default withStyles(styleSheet)(AvatarWithStatus)
+export default withStyles(style)(AvatarWithStatus)

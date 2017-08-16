@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles, createStyleSheet } from 'material-ui/styles'
+import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
 import { fade } from 'material-ui/styles/colorManipulator'
 
@@ -20,7 +20,7 @@ class InsetText extends Component {
   }
 }
 
-const styleSheet = createStyleSheet('InsetText', theme => {
+const style = theme => {
   const backgroundColor = theme.palette.grey[theme.palette.type === 'light' ? 300 : 900]
   const color = theme.palette.getContrastText(backgroundColor)
 
@@ -45,6 +45,6 @@ const styleSheet = createStyleSheet('InsetText', theme => {
       padding: 2
     }
   }
-})
+}
 
-export default withStyles(styleSheet)(InsetText)
+export default withStyles(style)(InsetText)
