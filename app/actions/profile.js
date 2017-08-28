@@ -100,8 +100,8 @@ export function updateAvatar(avatar: ?Buffer) {
     const loginStore = await getLoginStore()
 
     await Promise.all([
-      await dispatch(priv.setAvatarHash(hash)),
-      await loginStore.dispatch(identityActions.setAvatarHash(getState().profile.storageKey, hash))
+      dispatch(priv.setAvatarHash(hash)),
+      loginStore.dispatch(identityActions.setAvatarHash(getState().profile.storageKey, hash))
     ])
 
     // don't wait while the profile is published
