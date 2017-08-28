@@ -6,8 +6,8 @@
     "app/package.json"
   ],
   "src": {
-    "commitMessage": "Release %s-preview",
-    "tagName": "v%s-preview",
+    "commitMessage": "Release %s-alpha",
+    "tagName": "v%s-alpha",
     "githubAssets": [
       "release/*.rpm",
       "release/*.AppImage",
