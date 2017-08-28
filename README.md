@@ -15,13 +15,17 @@ Arbore is a peer-to-peer file sharing application with the following caracterist
 
 This application is build on top of [IPFS](http://ipfs.io/).
 
-[Download it here !](https://github.com/MichaelMure/TotallyNotArbore/releases/latest)
+----> [Download it here !](https://github.com/MichaelMure/TotallyNotArbore/releases/latest) <----
 
-![login snapshot](https://raw.githubusercontent.com/MichaelMure/TotallyNotArbore/5ffc00385bd863596038dc1546fb2b8e90d3cc8f/resources/arbore%20login%20page.png)
+![identity creation](https://user-images.githubusercontent.com/294669/29781730-2c971282-8c55-11e7-8725-b957a9a89b25.png)
 
-![registration snapshot](https://github.com/MichaelMure/TotallyNotArbore/blob/5ffc00385bd863596038dc1546fb2b8e90d3cc8f/resources/arbore%20registration%20page.png)
+![login](https://user-images.githubusercontent.com/294669/29781741-3082e4a2-8c55-11e7-9558-7a9ee8e68f3c.png)
 
-![sharing snapshot](https://github.com/MichaelMure/TotallyNotArbore/blob/5ffc00385bd863596038dc1546fb2b8e90d3cc8f/resources/arbore%20sharing%20page.png)
+![sharing](https://user-images.githubusercontent.com/294669/29781805-5d6a42da-8c55-11e7-9d9e-173c581cea99.png)
+
+![shares](https://user-images.githubusercontent.com/294669/29781769-3f64b40a-8c55-11e7-95ef-f75292758c7d.png)
+
+![chat](https://user-images.githubusercontent.com/294669/29781783-487a3ff6-8c55-11e7-9ec5-2a39b66ee50f.png)
 
 ## GETTING STARTED
 
