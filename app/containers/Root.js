@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
-import createPalette from 'material-ui/styles/palette'
+import createPalette from 'material-ui/styles/createPalette'
 import Home from 'containers/Home'
 import LoginPage from 'components/login/LoginPage'
 import GlobalError from 'containers/GlobalError'

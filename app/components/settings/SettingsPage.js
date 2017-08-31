@@ -24,7 +24,7 @@ class SettingsPage extends Component {
           <RadioGroup
             aria-label='theme'
             name='theme'
-            selectedValue={settings.theme}
+            value={settings.theme}
             onChange={onThemeChange}
           >
             <FormControlLabel value={Theme.LIGHT} control={<Radio />} label='Light' />
