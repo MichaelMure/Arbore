@@ -49,7 +49,7 @@ class SharingPage extends Component {
     return (
       <div className={styles.wrapper}>
         <div className={styles.list} >
-          <TextField label='Search' fullWidth onChange={this.props.onSearchChange} />
+          <TextField label='Search' fullWidth onChange={this.props.onSearchChange} className={styles.search}/>
           <div className={styles.scroller}>
             { this.renderShares(shares, selectedId) }
           </div>

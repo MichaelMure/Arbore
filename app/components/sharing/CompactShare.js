@@ -51,9 +51,7 @@ class CompactShare extends Component {
 
 const style = theme => ({
   card: {
-    '&:not(:last-of-type)': {
-      marginBottom: 10
-    }
+    marginTop: 10
   },
   cardSelected: {
     backgroundColor: darken(theme.palette.background.default, 0.20)

@@ -88,6 +88,7 @@ const style = theme => ({
   wrapper: {
     border: '2px dashed gray',
     minHeight: 56,
+    marginTop: 20,
   },
   ghost: {
     padding: 16.5,

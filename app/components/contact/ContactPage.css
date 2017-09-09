@@ -14,7 +14,7 @@
    * This is hacky, the goal is to avoid the scroller to overflow in the bottom
    * because of the search bar and the .scroller { height: 100% }
    */
-  padding-bottom: 50px;
+  padding-bottom: 66px;
 }
 
 .scroller {
@@ -27,4 +27,10 @@
 .details {
   flex-direction: column;
   flex: 3;
+  margin-top: 48px;
+}
+
+.search {
+  margin-bottom: 10px !important;
+  margin-top: 10px !important;
 }

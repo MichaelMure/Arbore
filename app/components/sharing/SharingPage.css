@@ -27,4 +27,10 @@
 .details {
   flex-direction: column;
   flex: 3;
+  margin-top: 48px;
+}
+
+.search {
+  margin-bottom: 10px !important;
+  margin-top: 10px !important;
 }
