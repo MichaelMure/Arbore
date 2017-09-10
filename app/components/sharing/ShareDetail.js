@@ -67,7 +67,7 @@ class ShareDetail extends Component {
             <IconButton
               color={ share.favorite ? 'accent' : 'default'}
               onClick={ this.props.onFavoriteClickGenerator(share) }>
-              <FontAwesome name='heart' />
+              <FontAwesome name={ share.favorite ? 'star' :  'star-o' } />
             </IconButton>
           </div>
         </div>

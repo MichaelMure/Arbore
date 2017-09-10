@@ -92,7 +92,7 @@ class MenuBar extends Component {
 
         <MenuItem name="fav" label="Favorites" onClick={this.props.onFavoriteClick}
             badgeValue={this.props.favorite} accent={this.props.favoriteSelected}>
-            <FontAwesome name='heart'/>
+            <FontAwesome name='star'/>
         </MenuItem>
 
         <div className={styles.spacer} />
