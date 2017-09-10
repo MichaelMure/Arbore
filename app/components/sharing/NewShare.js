@@ -28,7 +28,7 @@ class NewShare extends Component {
 
     return (
       <form className={styles.wrapper} onSubmit={handleSubmit}>
-        <Field name='title' component={renderTextField} required label='Title' autoFocus />
+        <Field name='title' component={renderTextField} required label='Title' />
         <Field name='description' component={renderTextField} multiline rows="6" label='Description'/>
         <Field name='recipients' component={RecipientsInput} contactList={contactList} label="Recipients"/>
         <Field name='content' component={ContentInput} label='Content'/>

@@ -57,6 +57,7 @@ class RecipientsInput extends Component {
             inputRef={(autocomplete) => { if(autocomplete) { this.recipientsInput = autocomplete.input }}}
             contactList={contactList}
             onRecipientSelect={::this.handleRecipientSelect}
+            selected={value || []}
           />
         </div>
       </FormControl>

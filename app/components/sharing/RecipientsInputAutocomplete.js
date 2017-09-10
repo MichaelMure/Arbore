@@ -19,12 +19,13 @@ class RecipientsInputAutocomplete extends Component {
   props: {
     contactList: ContactList,
     onRecipientSelect: (contact: Contact) => any,
-    inputRef: any
+    inputRef: any,
+    selected: Contact[]
   }
 
   handleSuggestionsFetchRequested({ value }) {
     this.setState({
-      suggestions: this.props.contactList.autoComplete(value),
+      suggestions: this.props.contactList.autoComplete(value, this.props.selected),
     })
   }
 

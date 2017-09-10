@@ -87,9 +87,9 @@ export default class ContactList extends ContactListRecord {
   }
 
   // Build an autocomplete list with a string pattern
-  autoComplete(pattern: string) : Array<Contact> {
+  autoComplete(pattern: string, selected: Array<Contact>) : Array<Contact> {
     return this.directoryMapped
-      .filter((contact: Contact) => contact.match(pattern))
+      .filter((contact: Contact) => contact.match(pattern) && !selected.includes(contact))
       .toArray()
   }
 
