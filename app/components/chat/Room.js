@@ -75,7 +75,7 @@ const style = theme => ({
      * This is hacky, the goal is to avoid the scroller to overflow in the bottom
      * because of the search bar and the .scroller { height: 100% }
      */
-    paddingBottom: 50,
+    paddingBottom: 70,
     backgroundColor: theme.palette.background.appBar,
   },
   scroller: {

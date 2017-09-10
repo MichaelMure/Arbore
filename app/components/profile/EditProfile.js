@@ -68,7 +68,7 @@ class EditProfile extends Component {
         <Field
           name='bio'
           component={renderTextField}
-          label='Bio'
+          label='About you'
           multiline rows='6'
           placeholder='Who are you ?'
           fullWidth

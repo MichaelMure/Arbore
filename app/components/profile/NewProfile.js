@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import styles from './NewProfile.css'
 import Button from 'material-ui/Button'
 import { FormLabel } from 'material-ui/Form'
-import Typography from 'material-ui/Typography'
 import { Field, reduxForm } from 'redux-form'
 import { renderTextField } from 'utils/forms'
 import AvatarEditor from 'components/common/AvatarEditor'
@@ -53,11 +52,9 @@ class NewProfile extends Component {
             <Field name='identity' component={renderTextField} required label='Identity'/>
             <Field name='passphrase' component={renderTextField} required label='Passphrase' type='password'/>
             <Field name='passphrase2' component={renderTextField} required label='Repeat passphrase' type='password'/>
-            <Field name='bio' component={renderTextField} label='Bio' multiline rows="4" placeholder='Who are you ?'/>
+            <Field name='bio' component={renderTextField} label='About you (optional)' multiline rows="4" placeholder='Who are you ?'/>
           </div>
         </div>
-
-        <Typography>Warning: Neither your data nor your local profile is protected for now.</Typography>
 
         { error && <Error>{error}</Error>}
 
@@ -65,7 +62,7 @@ class NewProfile extends Component {
           <Button raised onClick={this.props.onCancelClick} disabled={waiting}>Cancel</Button>
           <Button raised color='primary' type='submit' disabled={pristine || submitting || waiting}>
             { waiting && <FontAwesome name='cog' spin /> }
-            Submit
+            Create identity
           </Button>
         </div>
       </form>
