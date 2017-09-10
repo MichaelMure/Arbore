@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import NewProfile from 'components/profile/NewProfile'
 import * as profile from 'actions/profile'
+import * as identityList from 'actions/identityList'
 import Identity from 'models/Identity'
 import type {Action} from 'utils/types'
 import { SubmissionError } from 'redux-form'
@@ -19,7 +20,7 @@ class NewProfileContainer extends Component {
 
   props: {
     forbiddenIdentities: string[],
-    showIdentityList: () => any,
+    onCancel: () => any,
     dispatch: (Action) => any
   }
 
@@ -30,9 +31,9 @@ class NewProfileContainer extends Component {
     this.setState({ waiting: true })
 
     try {
-      await dispatch(profile.generate(identity, passphrase, bio, avatar))
+      const _identity = await dispatch(profile.generate(identity, passphrase, bio, avatar))
       this.setState({ waiting: false })
-      this.props.showIdentityList()
+      dispatch(identityList.login(_identity))
     } catch(err) {
       this.setState({ waiting: false })
       throw new SubmissionError({ _error: err })
@@ -41,7 +42,7 @@ class NewProfileContainer extends Component {
 
   // Intercept the cancel click to reset the form
   handleCancel() {
-    this.props.showIdentityList()
+    this.props.onCancel()
 
     // Wait for the end of the UI animation
     setTimeout(::this.newProfile.reset, 1000)

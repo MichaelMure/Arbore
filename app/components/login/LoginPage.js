@@ -42,7 +42,7 @@ class LoginPage extends Component {
         </Collapse>
         <Collapse in={this.state.newIdentityOpen} >
           <Fade in={this.state.newIdentityOpen} >
-            <NewProfile showIdentityList={ ::this.showIdentityList } />
+            <NewProfile onCancel={ ::this.showIdentityList } />
           </Fade>
         </Collapse>
       </div>

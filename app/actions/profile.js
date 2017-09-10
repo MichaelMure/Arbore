@@ -54,6 +54,8 @@ export function generate(identity: string, passphrase: string, bio: ?string, ava
 
     const fullStore = await getFullStore(storageKey, identity)
     await fullStore.dispatch(priv.storeNewProfile(profile))
+
+    return _identity
   }
 }
 
