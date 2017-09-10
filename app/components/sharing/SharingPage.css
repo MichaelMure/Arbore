@@ -28,6 +28,8 @@
   flex-direction: column;
   flex: 3;
   margin-top: 48px;
+  margin-left: 10px;
+  margin-right: 20px;
 }
 
 .search {
