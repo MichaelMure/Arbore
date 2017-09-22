@@ -7,7 +7,7 @@ import * as chat from './chat'
 import * as contactList from './contactList'
 import * as settings from './settings'
 import * as shareList from './shareList'
-import { getLoginStore, getFullStore } from 'store/index'
+import { getLoginStore, getFullStore, dropFullStore } from 'store/index'
 
 
 export const priv = {
@@ -80,6 +80,8 @@ export function login(identity: Identity) {
  */
 export function logout() {
   return async function (dispatch) {
+    dropFullStore()
+
     const loginStore = await getLoginStore()
     await loginStore.dispatch(priv.resetIdentity())
 

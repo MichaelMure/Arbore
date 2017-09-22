@@ -15,7 +15,7 @@ let fullStore = null
 let currentPrefix = null
 const fullStoreChangeCallbacks = []
 
-export function createLoginStore() {
+function createLoginStore() {
   const enhancerCreator = (process.env.NODE_ENV === 'production')
     ? require('./configureEnhancer.production')
     : require('./configureEnhancer.development')
@@ -44,7 +44,7 @@ export function createLoginStore() {
   return { store, onComplete }
 }
 
-export function createFullStore(prefix: string, name: string) {
+function createFullStore(prefix: string, name: string) {
   const enhancerCreator = (process.env.NODE_ENV === 'production')
     ? require('./configureEnhancer.production')
     : require('./configureEnhancer.development')
@@ -74,10 +74,17 @@ export function createFullStore(prefix: string, name: string) {
   return { store, onComplete }
 }
 
+/**
+ * Register a callback that will be triggered when the full store change for another profile
+ * @param callback
+ */
 export function addfullStoreChangeCallback(callback: (any) => any) {
   fullStoreChangeCallbacks.push(callback)
 }
 
+/**
+ * Get the login store
+ */
 export function getLoginStore() {
   if(!loginStore) {
     const { store, onComplete } = createLoginStore()
@@ -89,6 +96,11 @@ export function getLoginStore() {
   return Promise.resolve(loginStore)
 }
 
+/**
+ * Get the asked full store. If the current full store is different, it will be unloaded and replaced by the one asked.
+ * @param prefix storage identifier
+ * @param name debugging helper name
+ */
 export function getFullStore(prefix, name) {
   if(prefix !== currentPrefix) {
     const { store, onComplete } = createFullStore(prefix, name)
@@ -100,4 +112,12 @@ export function getFullStore(prefix, name) {
     return onComplete
   }
   return Promise.resolve(fullStore)
+}
+
+/**
+ * Force unloading the current full store
+ */
+export function dropFullStore() {
+  fullStore = null
+  currentPrefix = null
 }
