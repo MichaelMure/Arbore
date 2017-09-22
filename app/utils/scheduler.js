@@ -24,6 +24,8 @@ export const startTimeBetween = (dispatch, id: string, action, timeBetween: numb
 
       await new Promise(resolve => setTimeout(resolve, timeBetween))
     } while (timers[id])
+
+    console.log('Stop scheduled action ' + id)
   })
 }
 
@@ -33,4 +35,14 @@ export const startTimeBetween = (dispatch, id: string, action, timeBetween: numb
  */
 export const stop = (id) => {
   timers[id] = false
+}
+
+/**
+ * Stop all timers
+ */
+export const stopAll = () =>
+{
+  Object.keys(timers).forEach((key) => {
+    timers[key] = false
+  })
 }

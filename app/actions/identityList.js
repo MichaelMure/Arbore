@@ -84,11 +84,7 @@ export function logout() {
     await loginStore.dispatch(priv.resetIdentity())
 
     // Stop any scheduled tasks
-    scheduler.stop('publishProfile')
-    scheduler.stop('updateAllContacts')
-    scheduler.stop('pingAllContacts')
-    scheduler.stop('queryAllContactsList')
-    scheduler.stop('updateDownloadingLocalities')
+    scheduler.stopAll()
 
     // Stop listening to network events
     dispatch(chat.unsubscribe())
