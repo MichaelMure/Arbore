@@ -3,11 +3,9 @@ import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
 import Badge from 'material-ui/Badge'
 import IconButton from 'material-ui/IconButton'
-import ReactTooltip from 'react-tooltip'
+import Tooltip from 'material-ui/Tooltip'
 
 class MenuItem extends Component {
-  tooltip: ReactTooltip
-
   props: {
     name: string,
     label: string,
@@ -21,25 +19,18 @@ class MenuItem extends Component {
     accent: false
   }
 
-  handleClick() {
-    this.tooltip.hideTooltip()
-    this.props.onClick()
-  }
-
   render() {
-    const { classes, name, label, accent, badgeValue, children } = this.props
+    const { classes, name, label, accent, badgeValue, children, onClick } = this.props
 
     return (
-      <IconButton color={ accent ? 'accent' : 'default'} data-tip data-for={name} onClick={::this.handleClick}>
-        { badgeValue > 0
-            ? <Badge badgeContent={badgeValue} classes={{badge: classes.badge}}>{children}</Badge>
-            : children
-        }
-        <ReactTooltip ref={(tooltip) => { this.tooltip = tooltip }}
-          id={name} place='right' type='dark' effect='solid' delayShow={300} className={classes.tooltip}>
-          {label}
-        </ReactTooltip>
-      </IconButton>
+      <Tooltip id={name} title={label} placement='right'>
+        <IconButton color={ accent ? 'accent' : 'default'} data-tip data-for={name} onClick={onClick}>
+          { badgeValue > 0
+              ? <Badge badgeContent={badgeValue} classes={{badge: classes.badge}}>{children}</Badge>
+              : children
+          }
+        </IconButton>
+      </Tooltip>
     )
   }
 }
