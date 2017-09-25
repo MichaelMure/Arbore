@@ -1,21 +1,18 @@
-sudo: false
+dist: trusty
 
 language: node_js
 
+os:
+  - linux
+  - osx
+
 node_js:
   - 7
-  - 6
 
 cache:
   directories:
     - node_modules
-
-# Enable when https://github.com/yarnpkg/yarn/issues/1233 and
-# https://github.com/yarnpkg/yarn/issues/1059 are resolved and disable npm cache
-#
-# cache:
-#   directories:
-#   - $HOME/.yarn-cache
+    - app/node_modules
 
 addons:
   apt:
@@ -23,31 +20,24 @@ addons:
       - ubuntu-toolchain-r-test
     packages:
       - g++-4.8
+      - xz-utils
       - icnsutils
       - graphicsmagick
-      - xz-utils
-      - xorriso
+      - rpm
 
 install:
   - export CXX="g++-4.8"
   - npm install -g npm@latest
   - npm install
-  - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
-
-# Enable when https://github.com/yarnpkg/yarn/issues/1233 and
-# https://github.com/yarnpkg/yarn/issues/1059 are resolved and disable npm cache
-#
-# install:
-#   - export CXX="g++-4.8"
-#   - npm install -g yarnpkg
-#   - yarn
-#   - "/sbin/start-stop-daemon --start --quiet --pidfile /tmp/custom_xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -ac -screen 0 1280x1024x16"
-
-before_script:
-  - export DISPLAY=:99.0
-  - sh -e /etc/init.d/xvfb start &
-  - sleep 3
 
 script:
-  - npm run build
-  - npm run package
+  - if [[ "$TRAVIS_OS_NAME" == "osx"   ]]; then npm run package-mac    ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then npm run package-linux  ; fi
+
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/964abb64511d66538c2d
+    on_success: change
+    on_failure: always
+    on_start: never
