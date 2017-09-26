@@ -84,7 +84,7 @@ class EditProfile extends Component {
             disabled={(pristine && avatarPristine) || submitting || waiting}
           >
             { waiting && <FontAwesome name='cog' spin /> }
-            Submit
+            Save
           </Button>
         </div>
       </form>
