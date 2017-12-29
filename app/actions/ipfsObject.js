@@ -39,17 +39,16 @@ export function fetchDirectoryMetadata(hash) {
 
     await waitForIpfsReady()
 
-    const result = await instance.api.apiClient.ls(hash)
-    const { Links } = result.Objects[0]
+    const links = await instance.api.apiClient.ls(hash)
 
     // Store what we have
-    dispatch(priv.receivedDirMetadata(hash, Links))
+    dispatch(priv.receivedDirMetadata(hash, links))
 
     // Request metadatas for each child directory
     await Promise.all(
-      Links
-        .filter(({Type}) => Type === 1)
-        .map(({Hash}) => dispatch(fetchDirectoryMetadata(Hash)))
+      links
+        .filter(({type}) => type === 'dir')
+        .map(({hash}) => dispatch(fetchDirectoryMetadata(hash)))
     )
   }
 }

@@ -15,12 +15,12 @@ const reducer = handleActions({
 
     // Transform the links data
     const children: Map<string, IpfsObject> = new Map(links.map(
-      ({Hash, Name, Size, Type}) => {
-        switch (Type) {
-          case 1: return [Name, IpfsDirectory.create(Hash)]
-          case 2: return [Name, IpfsFile.create(Hash, Size)]
+      ({hash, name, size, type}) => {
+        switch (type) {
+          case 'dir': return [name, IpfsDirectory.create(hash)]
+          case 'file': return [name, IpfsFile.create(hash, size)]
           default:
-            throw `Unknow ipfs object type ${Type}`
+            throw `Unknow ipfs object type ${type}`
         }
       }
     ))
