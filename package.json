@@ -189,7 +189,7 @@
     "redux-persist-node-storage": "^1.0.2",
     "redux-persist-transform-immutable": "^4.2.0",
     "redux-thunk": "^2.2.0",
-    "roboto-fontface": "^0.7.0",
+    "roboto-fontface": "^0.8.0",
     "source-map-support": "^0.4.10",
     "throttle-debounce": "^1.0.1"
   },
