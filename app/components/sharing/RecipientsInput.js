@@ -48,7 +48,7 @@ class RecipientsInput extends Component {
                 key={contact.pubkey}
                 avatar={<Avatar person={contact} />}
                 label={contact.identity}
-                onRequestDelete={ () => ::this.handleRemoveContact(contact.pubkey) }
+                onDelete={ () => ::this.handleRemoveContact(contact.pubkey) }
               />
             ))
           }

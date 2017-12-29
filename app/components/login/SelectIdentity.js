@@ -42,35 +42,40 @@ class SelectIdentity extends Component {
   }
 }
 
-const identity = {
-  width: 300,
-  height: 42,
-  display: 'flex',
-  alignItems: 'center',
-  border: '1px solid',
-  borderRadius: 20,
-  marginBottom: 5,
-  cursor: 'pointer',
-};
-
 const style = theme => ({
   wrapper: {
     maxHeight: 500,
     overflowY: 'auto',
   },
   identity: {
-    extend: identity,
+    width: 300,
+    height: 42,
+    display: 'flex',
+    alignItems: 'center',
+    border: '1px solid',
+    borderRadius: 20,
+    marginBottom: 5,
+    cursor: 'pointer',
     backgroundColor: theme.palette.background.paper,
     borderColor: theme.palette.grey[500],
+
     '& > :last-child': {
       marginLeft: 10,
       userSelect: 'none',
     }
   },
   newIdentity: {
-    extend: identity,
+    width: 300,
+    height: 42,
+    display: 'flex',
+    alignItems: 'center',
+    border: '1px solid',
+    borderRadius: 20,
+    marginBottom: 5,
+    cursor: 'pointer',
     backgroundColor: theme.palette.background.paper,
     borderColor: theme.palette.grey[500],
+
     justifyContent: 'center',
     userSelect: 'none',
   }

@@ -91,7 +91,7 @@ class ContactDetail extends Component {
         }
 
         { this.state.confirmOpen &&
-          <Dialog open={true} onRequestClose={this.handleCloseConfirm}>
+          <Dialog open={true} onClose={this.handleCloseConfirm}>
             <DialogTitle>Confirm contact deletion</DialogTitle>
             <DialogContent>
               <DialogContentText>
