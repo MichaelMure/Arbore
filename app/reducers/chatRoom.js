@@ -5,7 +5,7 @@ import ChatEntry, {writable as entryWritable} from 'models/ChatEntry'
 import { handleActions } from 'redux-actions'
 import { Action } from 'utils/types'
 
-const initialState = null
+const initialState = new ChatRoom()
 
 export default handleActions({
 
