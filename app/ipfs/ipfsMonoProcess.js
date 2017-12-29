@@ -31,11 +31,18 @@ export const start = () => {
 
   // install some event listeners
   instance.on(ipfsEvents.SERVICE_STARTED, onServiceStarted)
+  instance.on(ipfsEvents.SERVICE_STARTING, onServiceStarting)
   instance.on(ipfsEvents.SERVICE_STOPPING, onServiceStopping)
   instance.on(ipfsEvents.SERVICE_FAILED, onServiceFailed)
 
   // start ipfs daemon and download binaries if needed
   instance.start()
+}
+
+const onServiceStarting = async () => {
+  console.log('Main: Ipfs service starting')
+
+  serviceStarted = false
 }
 
 const onServiceStarted = async () => {

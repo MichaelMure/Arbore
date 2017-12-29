@@ -55,6 +55,7 @@ export const start = () => {
   instance.enableDownloadEvents()
 
   // install some event listeners
+  instance.on(ipfsEvents.SERVICE_STARTING, onServiceStarting)
   instance.on(ipfsEvents.SERVICE_STARTED, onServiceStarted)
   instance.on(ipfsEvents.UPGRADING_BINARY, onServiceUpgrade)
   instance.on(ipfsEvents.SERVICE_STOPPING, onServiceStopping)
@@ -76,6 +77,16 @@ export const start = () => {
 
   // start ipfs daemon and download binaries if needed
   instance.start()
+}
+
+const onServiceStarting = async () => {
+  console.log('Main: Ipfs service starting')
+
+  serviceStarted = false
+
+  // Inform all renderer process
+  BrowserWindow.getAllWindows()
+    .forEach(win => win.webContents.send(ipfsEvents.SERVICE_STARTING))
 }
 
 const onServiceStarted = async () => {
