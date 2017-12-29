@@ -130,7 +130,7 @@ export function isLocal(hash: string) {
     await waitForIpfsReady()
 
     // This is mostly a hack, it assume the fact that the pinner add a pin only
-    // when an object is fully local and not when it aquire block during a pinning
+    // when an object is fully local and not when it acquire block during a pinning
     return new Promise(function(resolve, reject) {
       instance.api.apiClient.pin.ls(hash, (err, pinset) => {
         if(err) {
@@ -138,8 +138,15 @@ export function isLocal(hash: string) {
           return
         }
 
+        // Extract pin from the pinset
+        const pin = pinset.find((val) => val.hash === hash)
+
+        if(!pin) {
+          resolve(false)
+        }
+
         try {
-          resolve(pinset[hash].Type === 'indirect' || pinset[hash].Type === 'recursive')
+          resolve(pin.type === 'indirect' || pin.type === 'recursive')
         } catch (e) {
           reject(e)
         }
