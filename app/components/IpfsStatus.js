@@ -26,12 +26,12 @@ class IpfsStatus extends Component {
     let stateStr
     switch (state) {
       case ConnectorState.UNKNOW:      stateStr = 'Initializing ...';    break
-      case ConnectorState.NO_BINARY:   stateStr = 'Daemon not found';    break
-      case ConnectorState.DOWNLOADING: stateStr = 'Downloading daemon';  break
-      case ConnectorState.STOPPED:     stateStr = 'Daemon stopped';      break
-      case ConnectorState.STARTING:    stateStr = 'Daemon starting...';  break
-      case ConnectorState.STOPPING:    stateStr = 'Daemon stopping...';  break
-      case ConnectorState.UPGRADING:   stateStr = 'Daemon upgrading...'; break
+      case ConnectorState.NO_BINARY:   stateStr = 'IPFS not found';    break
+      case ConnectorState.DOWNLOADING: stateStr = 'Downloading IPFS';  break
+      case ConnectorState.STOPPED:     stateStr = 'IPFS stopped';      break
+      case ConnectorState.STARTING:    stateStr = 'IPFS starting...';  break
+      case ConnectorState.STOPPING:    stateStr = 'IPFS stopping...';  break
+      case ConnectorState.UPGRADING:   stateStr = 'IPFS upgrading...'; break
     }
 
     // TODO: remove
