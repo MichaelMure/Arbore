@@ -64,7 +64,7 @@ export function addContactInDirectory(pubkey: string) {
   }
 }
 
-async function addContactInPool(pubkey: string) {
+function addContactInPool(pubkey: string) {
   return async function(dispatch, getState) {
     const contactList: ContactList = getState().contactList
 
