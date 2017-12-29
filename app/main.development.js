@@ -99,10 +99,6 @@ app.on('ready', async () => {
     }
     splashScreen = null
 
-    if (process.env.NODE_ENV === 'development') {
-      mainWindow.maximize()
-    }
-
     mainWindow.show()
     mainWindow.focus()
   })
