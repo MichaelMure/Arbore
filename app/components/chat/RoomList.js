@@ -18,7 +18,7 @@ class RoomList extends Component {
     contacts: ContactList,
     ui: UiState,
     onRoomClickGenerator: (Contact) => any,
-    onContactClickgenerator: (Contact) => any
+    onContactClickGenerator: (Contact) => any
   }
 
   render() {
@@ -27,7 +27,7 @@ class RoomList extends Component {
       contacts,
       ui,
       onRoomClickGenerator,
-      onContactClickgenerator
+      onContactClickGenerator
     } = this.props
 
     const roomsSeq = rooms.rooms.entrySeq()
@@ -69,7 +69,7 @@ class RoomList extends Component {
           contactsSeq.map((contact: Contact) => (
             <div
               key={contact.pubkey}
-              onClick={onContactClickgenerator(contact)}
+              onClick={onContactClickGenerator(contact)}
               className={styles.item}
             >
               <AvatarWithStatus person={contact} status={contact.status} avatarClass={styles.avatar} rootClass={styles.status} />

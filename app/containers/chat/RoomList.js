@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(ui.selectChatRoom(contact.pubkey))
     dispatch(chat.readAllRoom(contact))
   },
-  onContactClickgenerator: (contact: Contact) => () => {
+  onContactClickGenerator: (contact: Contact) => () => {
     dispatch(chat.createRoom(contact))
     dispatch(ui.selectChatRoom(contact.pubkey))
     dispatch(chat.readAllRoom(contact))
