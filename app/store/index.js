@@ -1,5 +1,5 @@
 // @flow
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore } from 'redux'
 import { persistStore } from 'redux-persist'
 import allModels from 'models/allModels'
 import immutableTransform from 'redux-persist-transform-immutable'
