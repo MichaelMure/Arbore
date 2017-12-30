@@ -84,12 +84,12 @@ export default class Share extends ShareRecord {
   favorite: boolean
   outputPath: ?string
 
-  static create(author: ?Contact, title: string, description: ?string = null) {
+  static create(title: string, description: ?string = null) {
     return new this().withMutations(share => share
-      .set(writable.authorPubkey, author ? author.pubkey : null)
+      .set(writable.authorPubkey, null)
       .set(writable.title, title)
       .set(writable.description, description)
-      .set(writable.status, ShareState.AVAILABLE)
+      .set(writable.status, ShareState.SHARING)
     )
   }
 

@@ -44,7 +44,7 @@ export function create(title: string, description: string, recipients: Array<Con
     const instance = IpfsConnector.getInstance()
     await waitForIpfsReady()
 
-    let share: Share = Share.create(null, title, description)
+    let share: Share = Share.create(title, description)
 
     let addedSize = 0
     let totalSize = 0
