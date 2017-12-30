@@ -36,7 +36,7 @@ export const priv = {
 
 // Execute anything needed when we find that a contact in online
 //  - send message that are not ACKed
-export function onContactPong(contact: Contact) {
+export function onContactAlive(contact: Contact) {
   return async function(dispatch, getState) {
     const state: Store = getState()
     const chatRoomList : ChatRoomList = state.chatRoomList

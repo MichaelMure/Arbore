@@ -308,8 +308,8 @@ function handlePong(dispatch, getState, payload) {
   dispatch(contactActions.pingResult(contact.pubkey, true))
 
   // trigger actions to be done when we find that a contact is online
-  dispatch(shareListActions.onContactPong(contact))
-  dispatch(chatActions.onContactPong(contact))
+  dispatch(shareListActions.onContactAlive(contact))
+  dispatch(chatActions.onContactAlive(contact))
 }
 
 export function addedAsContact(contact: Contact) {

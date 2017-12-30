@@ -104,7 +104,7 @@ export function updateDownloadingLocalities() {
  * @param contact
  * @returns {Function}
  */
-export function onContactPong(contact: Contact) {
+export function onContactAlive(contact: Contact) {
   return async function(dispatch, getState) {
     const state: Store = getState()
     const sharelist : ShareList = state.shareList
