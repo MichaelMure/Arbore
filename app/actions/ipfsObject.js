@@ -166,12 +166,6 @@ export function isLocal(hash: string) {
 export function triggerDownload(hash: string) {
   return async function() {
 
-    // TODO: instead of pinning the root content hash that come from the author, we should
-    // generate a new root with the share ID that link to the root content hash. This way,
-    // we don't have to worry about when we need to garbage collect the ipfs repo. We have
-    // a unique pinned object for each share, and ipfs will take care of cleaning properly
-    // even if we have two share with the same content.
-
     console.log(`triggerDownload: ${hash}`)
 
     const instance = IpfsConnector.getInstance()
