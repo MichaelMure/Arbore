@@ -20,4 +20,10 @@ export default class ChatRoomList extends ChatRoomListRecord {
   findRoom(pubkey: string) : ?ChatRoom {
     return this.rooms.get(pubkey)
   }
+
+  get unread(): number {
+    return this.rooms.reduce(
+      (accu, room : ChatRoom) => accu + room.unread, 0
+    )
+  }
 }

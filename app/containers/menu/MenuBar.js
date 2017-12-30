@@ -9,12 +9,13 @@ import { Page } from 'models/UiState'
 
 
 const mapStateToProps = (state: Store) => ({
-  profile:   state.profile,
-  available: state.shareList.available,
-  inbox:     state.shareList.inbox,
-  active:    state.shareList.active,
-  sharing:   state.shareList.sharing,
-  favorite:  state.shareList.favorite,
+  profile:    state.profile,
+  available:  state.shareList.available,
+  inbox:      state.shareList.inbox,
+  active:     state.shareList.active,
+  sharing:    state.shareList.sharing,
+  favorite:   state.shareList.favorite,
+  chatUnread: state.chatRoomList.unread,
 
   profileSelected:   state.ui.profileOpen,
   newShareSelected:  state.ui.newShareOpen,

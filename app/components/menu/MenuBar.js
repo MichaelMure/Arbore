@@ -38,6 +38,7 @@ class MenuBar extends Component {
     active: number,
     sharing: number,
     favorite: number,
+    chatUnread: number,
   }
 
   render() {
@@ -46,7 +47,8 @@ class MenuBar extends Component {
     return (
       <nav className={styles.wrapper}>
 
-        <MenuItem name="profile" label="Profile" onClick={this.props.onProfileClick} accent={this.props.profileSelected}>
+        <MenuItem name="profile" label="Profile" onClick={this.props.onProfileClick}
+          accent={this.props.profileSelected}>
           { profile.avatarUrl
             ? <Avatar src={profile.avatarUrl} />
             : <FontAwesome name='user-circle-o' className={styles.profile} />
@@ -55,7 +57,8 @@ class MenuBar extends Component {
 
         <div className={styles.spacer} />
 
-        <MenuItem name="contact" label="Contacts" onClick={this.props.onContactClick} accent={this.props.contactSelected}>
+        <MenuItem name="contact" label="Contacts" onClick={this.props.onContactClick}
+          accent={this.props.contactSelected}>
           <FontAwesome name='users'/>
         </MenuItem>
 
@@ -97,7 +100,8 @@ class MenuBar extends Component {
 
         <div className={styles.spacer} />
 
-        <MenuItem name="chat" label="Chat" onClick={this.props.onChatClick} accent={this.props.chatSelected}>
+        <MenuItem name="chat" label="Chat" onClick={this.props.onChatClick}
+            badgeValue={this.props.chatUnread} accent={this.props.chatSelected}>
             <FontAwesome name='comments'/>
         </MenuItem>
 

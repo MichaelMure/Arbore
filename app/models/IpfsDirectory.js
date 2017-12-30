@@ -36,25 +36,25 @@ export default class IpfsDirectory extends IpfsDirectoryRecord {
   get sizeTotal(): number {
     return this.children.reduce(
       (accu, child : IpfsObject) => accu + child.sizeTotal, 0
-    );
+    )
   }
 
   get sizeLocal(): number {
     return this.children.reduce(
       (accu, child : IpfsObject) => accu + child.sizeLocal, 0
-    );
+    )
   }
 
   get fileTotal(): number {
     return this.children.reduce(
       (accu, child : IpfsObject) => accu + child.fileTotal, 0
-    );
+    )
   }
 
   get fileLocal(): number {
     return this.children.reduce(
       (accu, child : IpfsObject) => accu + child.fileLocal, 0
-    );
+    )
   }
 
   get metadataLocal(): boolean {
