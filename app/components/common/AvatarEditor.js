@@ -182,7 +182,7 @@ class AvatarEditor extends Component {
  */
 function convertThemeColor(hex) {
   const res = hex.match(/[a-f0-9]{2}/gi)
-  if(!res || !res.length === 3) {
+  if(!res || res.length !== 3) {
     throw 'Bad color'
   }
 
