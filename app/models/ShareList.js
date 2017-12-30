@@ -61,7 +61,7 @@ export default class ShareList extends ShareListRecord {
   get filtered() : List<Share> {
     switch(this.filter) {
       case ShareListFilter.AVAILABLE:
-        return this.searched.filter((x: Share) => x.isAvailable)
+        return this.searched.filter((x: Share) => x.isAvailable && !x.isAuthor)
       case ShareListFilter.INBOX:
         return this.searched.filter((x: Share) => x.isSharing && !x.isAuthor)
       case ShareListFilter.ACTIVE:
@@ -92,7 +92,7 @@ export default class ShareList extends ShareListRecord {
 
   // Return the number of available (not author, not flagged for download yet) Share
   get available() : number {
-    return this.list.filter((x: Share) => x.isAvailable).count()
+    return this.list.filter((x: Share) => x.isAvailable && !x.isAuthor).count()
   }
 
   // Return the number of inbox (not author, downloaded) Share
