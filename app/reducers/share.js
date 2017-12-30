@@ -73,10 +73,16 @@ export default handleActions({
     switch(newState.status) {
       case ShareState.DOWNLOADING:
       case ShareState.PAUSED:
+        if(newState.isLocal) {
+          newState = newState.set(writable.status, ShareState.SHARING)
+        }
+        break
+
       case ShareState.SHARING:
-        newState = newState.set(writable.status,
-          newState.isLocal ? ShareState.SHARING : ShareState.AVAILABLE
-        )
+        if(! newState.isLocal) {
+          newState = newState.set(writable.status, ShareState.AVAILABLE)
+        }
+        break
     }
 
     return newState
