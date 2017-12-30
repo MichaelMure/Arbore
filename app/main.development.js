@@ -1,7 +1,8 @@
 // @flow
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron'
 import * as ipfs from './ipfs/ipfsMain'
 import { mainWindowVisible, showMainWindow } from './utils/constants'
+import windowStateKeeper from 'electron-window-state'
 
 let mainWindow = null;
 let splashScreen = null
@@ -81,13 +82,23 @@ app.on('ready', async () => {
 
   splashScreen.loadURL(`file://${__dirname}/splashScreen.html`)
 
+  // Load the previous window state with fallback to defaults
+  const mainWindowState = windowStateKeeper({
+    defaultWidth: 1000,
+    defaultHeight: 800
+  });
+
   mainWindow = new BrowserWindow({
+    x: mainWindowState.x,
+    y: mainWindowState.y,
+    width: mainWindowState.width,
+    height: mainWindowState.height,
     show: false,
-    width: 1024,
-    height: 728,
     toolbar: false
   })
   mainWindow.setMenu(null)
+
+  mainWindowState.manage(mainWindow)
 
   // mainWindow.on('ready-to-show', () => {
   mainWindow.webContents.on('did-finish-load', () => {

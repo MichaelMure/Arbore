@@ -163,6 +163,7 @@
     "classnames": "^2.2.5",
     "electron-canvas-to-buffer": "^2.0.0",
     "electron-debug": "^1.1.0",
+    "electron-window-state": "^4.1.1",
     "extract-text-webpack-plugin": "^2.0.0",
     "font-awesome": "^4.7.0",
     "get-folder-size": "^1.0.0",
