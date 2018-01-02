@@ -342,6 +342,7 @@ function handleAddedContactAck(dispatch, getState, payload) {
 
   if(!contact) {
     console.log('Got a added contact ack from unknow contact ' + from)
+    return
   }
 
   console.log(contact.identity + ' is aware we have added him as a contact')

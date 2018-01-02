@@ -1,6 +1,5 @@
 // @flow
 import { Record, Map } from 'immutable'
-import Contact from './Contact'
 import Profile from 'models/Profile'
 import ShareRecipient from 'models/ShareRecipient'
 import IpfsDirectory from 'models/IpfsDirectory'
