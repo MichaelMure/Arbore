@@ -7,6 +7,7 @@
 [![codebeat badge](https://codebeat.co/badges/b645c684-c495-4010-87aa-54829b6e4279)](https://codebeat.co/projects/github-com-michaelmure-totallynotarbore-master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1e15cfc3aa7e4bae9662d035ed720b0d)](https://www.codacy.com/app/batolettre/TotallyNotArbore?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MichaelMure/TotallyNotArbore&amp;utm_campaign=Badge_Grade)
 [![GitHub (pre-)release](https://img.shields.io/github/release/MichaelMure/TotallyNotArbore/all.svg)](https://github.com/MichaelMure/TotallyNotArbore/releases/latest)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FMichaelMure%2FArbore.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FMichaelMure%2FArbore?ref=badge_shield)
 
 Arbore is a peer-to-peer file sharing application with the following caracteristics:
 - targeted for private/low diffusion data between people that know each-others. Main use case: friends want to share between each-others their holidays pictures.
@@ -73,6 +74,9 @@ Installation package will be provided later.
 >You can check out the full license [here](https://github.com/MichaelMure/TotallyNotArbore/blob/master/LICENSE)
 
 This project is licensed under the terms of the **GPL v3** license.
+
+
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FMichaelMure%2FArbore.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FMichaelMure%2FArbore?ref=badge_large)
 
 ## Questions/feedback (or just want to help out?)
 Every little bit of help counts!  
