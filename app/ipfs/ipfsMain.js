@@ -2,6 +2,7 @@
 
 import { IpfsConnector, ipfsEvents, ConnectorState } from '@akashaproject/ipfs-connector'
 import { BrowserWindow, ipcMain, app } from 'electron'
+import path from 'path'
 
 /*
  * Note: This is hacky and will bite me in the future.
@@ -40,12 +41,15 @@ export const getServiceStatus = 'get-service-status'
 export const start = () => {
   const instance = IpfsConnector.getInstance()
 
-  console.log('Application data path: ' + app.getPath('userData'))
+  const userData = app.getPath('userData')
+
+  console.log('Application data path: ' + userData)
 
   // set the download path for ipfs
-  instance.setBinPath(
-    app.getPath('userData')
-  )
+  instance.setBinPath(userData)
+
+  // set the ipfs repository path
+  instance.setIpfsFolder(path.join(userData, '/repo'))
 
   instance.setOption('args', [
     'daemon',
