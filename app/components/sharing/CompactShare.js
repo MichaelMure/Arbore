@@ -37,8 +37,7 @@ class CompactShare extends Component {
           title={share.title}
           subheader={share.description}
         />
-
-        { share.isDownloading || share.isPaused &&
+        { (share.isDownloading || share.isPaused) &&
           <LinearProgress
             mode='determinate'
             value={share.progress * 100}
