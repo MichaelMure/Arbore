@@ -1,8 +1,8 @@
 {
   "assetsByChunkName": {
     "component---src-pages-index-js": [
-      "component---src-pages-index-js-64e1cb161b1292b29e44.js",
-      "component---src-pages-index-js-64e1cb161b1292b29e44.js.map"
+      "component---src-pages-index-js-06b7d61f2fe84a7cbb8b.js",
+      "component---src-pages-index-js-06b7d61f2fe84a7cbb8b.js.map"
     ],
     "path---": [
       "path----557518bd178906f8d58a.js",
@@ -13,12 +13,12 @@
       "component---node-modules-gatsby-plugin-offline-app-shell-js-5c4c5a0f7af9dc69d6d7.js.map"
     ],
     "component---src-layouts-index-js": [
-      "component---src-layouts-index-js-8334fb03a50ad3d73bed.js",
-      "component---src-layouts-index-js-8334fb03a50ad3d73bed.js.map"
+      "component---src-layouts-index-js-cc5239537d7c66e0ff75.js",
+      "component---src-layouts-index-js-cc5239537d7c66e0ff75.js.map"
     ],
     "component---src-pages-releases-js": [
-      "component---src-pages-releases-js-f433aa533a4e8bf7ebac.js",
-      "component---src-pages-releases-js-f433aa533a4e8bf7ebac.js.map"
+      "component---src-pages-releases-js-d121fb0145cb0cb9fb57.js",
+      "component---src-pages-releases-js-d121fb0145cb0cb9fb57.js.map"
     ],
     "path---page-2": [
       "path---page-2-a0e39f21c11f6a62c5ab.js",
@@ -45,8 +45,8 @@
       "path---404-html-a0e39f21c11f6a62c5ab.js.map"
     ],
     "path---releases": [
-      "path---releases-cf9bd9f409a4afd9d833.js",
-      "path---releases-cf9bd9f409a4afd9d833.js.map"
+      "path---releases-a0e39f21c11f6a62c5ab.js",
+      "path---releases-a0e39f21c11f6a62c5ab.js.map"
     ],
     "path---team": [
       "path---team-a0e39f21c11f6a62c5ab.js",
