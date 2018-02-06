@@ -11,14 +11,14 @@ import { Map } from 'immutable'
 const reducer = handleActions({
 
   [ipfs.priv.receivedDirMetadata]: (state: IpfsDirectory, action: Action) => {
-    const { links } = action.payload
+    const { links, isLocal } = action.payload
 
     // Transform the links data
     const children: Map<string, IpfsObject> = new Map(links.map(
       ({hash, name, size, type}) => {
         switch (type) {
           case 'dir': return [name, IpfsDirectory.create(hash)]
-          case 'file': return [name, IpfsFile.create(hash, size)]
+          case 'file': return [name, IpfsFile.create(hash, size, isLocal ? size : 0)]
           default:
             throw `Unknow ipfs object type ${type}`
         }

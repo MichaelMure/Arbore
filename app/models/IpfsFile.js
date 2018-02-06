@@ -21,7 +21,7 @@ export default class IpfsFile extends IpfsFileRecord {
   sizeTotal: number
   sizeLocal: number
 
-  static create(hash: string, sizeTotal: number) {
+  static create(hash: string, sizeTotal: number, sizeLocal: number = 0) {
     if(!isIpfs.multihash(hash)) {
       throw 'invalid hash'
     }
@@ -29,6 +29,7 @@ export default class IpfsFile extends IpfsFileRecord {
     return new this()
       .set(writable.hash, hash)
       .set(writable.sizeTotal, sizeTotal)
+      .set(writable.sizeLocal, sizeLocal)
   }
 
   get type(): ObjectTypeType {

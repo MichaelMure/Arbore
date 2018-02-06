@@ -27,6 +27,7 @@ export const priv = {
   setOutputPath: createAction('SHARE_OUTPUT_SET',
     (share: Share, outputPath: string) => ({id: share.id, outputPath})
   ),
+  // State machine events
   start: createAction('SHARE_START',
     (share: Share) => ({id: share.id})
   ),
@@ -124,7 +125,7 @@ export function create(title: string, description: string, recipients: Array<Con
     })
 
     // Fetch content metadata
-    dispatch(ipfsObject.fetchDirectoryMetadata(share.content.hash))
+    dispatch(ipfsObject.fetchDirectoryMetadata(share.content.hash, true))
   }
 }
 

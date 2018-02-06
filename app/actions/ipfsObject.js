@@ -23,7 +23,7 @@ import { IpfsObject, ObjectType } from 'models/IpfsObject'
 
 export const priv = {
   receivedDirMetadata: createAction('DIR_METADATA_RECEIVED',
-    (hash: string, links: []) => ({hash, links})
+    (hash: string, links: [], isLocal: boolean) => ({hash, links, isLocal})
   ),
   isLocal: createAction('IPFS_OBJECT_LOCAL',
     (hash: string, isLocal: boolean) => ({hash, isLocal})
@@ -31,7 +31,7 @@ export const priv = {
 }
 
 // Request metadata from ipfs for an unknow object
-export function fetchDirectoryMetadata(hash) {
+export function fetchDirectoryMetadata(hash: string, islocal: boolean = false) {
   return async function (dispatch) {
     console.log('FETCH DIRECTORY METADATA OF ' + hash)
 
@@ -42,7 +42,7 @@ export function fetchDirectoryMetadata(hash) {
     const links = await instance.api.apiClient.ls(hash)
 
     // Store what we have
-    dispatch(priv.receivedDirMetadata(hash, links))
+    dispatch(priv.receivedDirMetadata(hash, links, islocal))
 
     // Request metadatas for each child directory
     await Promise.all(
