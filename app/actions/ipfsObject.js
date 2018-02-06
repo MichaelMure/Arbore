@@ -67,25 +67,22 @@ export function exportObject(hash: string, name: string, basepath: string) {
 
     await waitForIpfsReady()
 
-    const stream = await instance.api.apiClient.get(hash)
+    const results = await instance.api.apiClient.get(hash)
+    const result = results[0]
 
-    await new Promise(function(resolve, reject) {
-      stream.on('data', (file) => {
+    return new Promise((resolve, reject) => {
+      const finalDest = join(basepath, name)
 
-        const finalDest = join(basepath, name, file.path.replace(hash, ''))
-
-        // First make all the directories
-        if (!file.content) {
-          mkdirSync(finalDest)
-        } else {
-          // Pipe the file content into an actual write stream
-          const writeStream = createWriteStream(finalDest)
-          file.content.pipe(writeStream)
-        }
+      // Pipe the file content into an actual write stream
+      const writeStream = createWriteStream(finalDest, {
+        flags: 'wx', // write, fail if exist
       })
 
-      stream.on('error', reject)
-      stream.on('end', resolve)
+      writeStream.on('error', reject)
+
+      writeStream.write(result.content)
+      writeStream.end()
+      resolve()
     })
   }
 }
