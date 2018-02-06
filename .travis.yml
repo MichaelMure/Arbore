@@ -41,3 +41,14 @@ notifications:
     on_success: change
     on_failure: always
     on_start: never
+
+deploy:
+  provider: releases
+  api_key:
+    secure: p9AheahBjpBjaM7SKuxS3RfTvwIu4WfCeKT6AVti68BnLRQ203mSNjB+/A5Slhh8qg1jcfMSi/X9/uvB5H+GDHdkpSBaWvlOAOzhjgaosRBo1RjyfU/M1Vg2tDI5LFkjARhDrkX75NhVP34Jxng8S4ohu7FAR0fmkOKrcR1XKrXQsCIOb+fY/pV0LswYgZXX1u4y9aEsAMVmKH075eL3OxOo/hSIE8q+jSbWKU9NEggBYLpwOx5WBMi7/V0t6RrUftcxNu4gJZZdsGW8MV0S/0ytDwwEi9zZ79kMG8ctp/wKu5/56rSMagbXQisYVAJxxzXkqrYBz0mBPnvNFvEoHejXxdyBxq1m3HEo5UkTJaUWpX/TwaiAW/NVt7IGbNjWvekXXXMwnJ1YmJ+mwl2NSHq9aLvqBpoquHUviggDnsTxNcfywnu6zXbJXxFcafFTzBH8TGuqL0ypuCgivSfqxeTq9e0nTJCEB/ALEVaAQUzR5UfySBYWrsYUkl0FMCaekoXaI7owx0VsWp6CCUJOkWHBKVQWyY1suPAsfhvvfmyMWb8XaNS/hKD4vDlV7tPscmUXud5Cf/TTUb+Mg2ZSlAoZQpOVAV/QYqO0h+7Im1Haj1egne29z8RVWpbAorby6sq5wlrV4FghSaCTxiLYE+X8WH3kWoaOWnS0MwpxtD4=
+  file: release/*.dmg
+  on:
+    repo: MichaelMure/Arbore
+    tags: true
+
+
