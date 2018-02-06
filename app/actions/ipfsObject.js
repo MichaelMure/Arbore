@@ -125,33 +125,15 @@ export function isLocal(hash: string) {
 
     await waitForIpfsReady()
 
-    // This is mostly a hack, it assume the fact that the pinner add a pin only
-    // when an object is fully local and not when it acquire block during a pinning
-    return new Promise(function(resolve, reject) {
-      instance.api.apiClient.pin.ls(hash, (err, pinset) => {
-        if(err) {
-          resolve(false)
-          return
-        }
+    const stats = await instance.api.apiClient.files.stat('/ipfs/' + hash, {'with-local': true})
 
-        // Extract pin from the pinset
-        const pin = pinset.find((val) => val.hash === hash)
+    const {WithLocality, Local, SizeLocal, CumulativeSize} = stats
+    const isLocal = WithLocality && (Local === true)
 
-        if(!pin) {
-          resolve(false)
-        }
+    // Update redux
+    dispatch(priv.isLocal(hash, isLocal))
 
-        try {
-          resolve(pin.type === 'indirect' || pin.type === 'recursive')
-        } catch (e) {
-          reject(e)
-        }
-      })
-    }).then((isLocal: boolean) => {
-      // Update redux
-      dispatch(priv.isLocal(hash, isLocal))
-      return isLocal
-    })
+    return isLocal
   }
 }
 
