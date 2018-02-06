@@ -198,7 +198,7 @@ export function start(share: Share) {
     dispatch(priv.setOutputPath(share, result[0]))
     dispatch(priv.start(share))
 
-    await ipfsObject.triggerDownload(share.content.hash)
+    await dispatch(ipfsObject.triggerDownload(share.content.hash))
 
     // triggerDownload return when everything is completed or an
     // error occured. Update locality to find out
