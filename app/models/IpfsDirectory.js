@@ -63,6 +63,13 @@ export default class IpfsDirectory extends IpfsDirectoryRecord {
     )
   }
 
+  get metadataProgress(): [] {
+    return this.children.reduce(
+      ([known, total], child: IpfsObject) => { const p = child.metadataProgress; return [known + p[0], total + p[1]]},
+      [1,1]
+    )
+  }
+
   get isLocal(): boolean {
     return this._metadataLocal && (this.fileLocal === this.fileTotal)
   }

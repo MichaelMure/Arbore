@@ -40,6 +40,10 @@ export default class IpfsFile extends IpfsFileRecord {
     return true
   }
 
+  get metadataProgress(): [] {
+    return [1, 1]
+  }
+
   get fileTotal(): number {
     return 1;
   }

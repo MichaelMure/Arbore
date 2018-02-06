@@ -70,11 +70,13 @@ class ShareFiles extends Component {
   }
 
   render() {
+    const { classes, share } = this.props
+
     if(! this.props.share.metadataLocal) {
-      return (<div><Typography>Waiting for metadata...</Typography></div>)
+      const progress = share.metadataProgress
+      return (<div><Typography>Waiting for metadata ({progress[0]} of {progress[1]})</Typography></div>)
     }
 
-    const { classes, share } = this.props
     const content = share.content.children
     this.buffer = []
 

@@ -152,6 +152,10 @@ export default class Share extends ShareRecord {
     return this.content && this.content.metadataLocal
   }
 
+  get metadataProgress(): [] {
+    return this.content && this.content.metadataProgress
+  }
+
   get isLocal() : boolean {
     return this.metadataLocal && this.content.isLocal
   }

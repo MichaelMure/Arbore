@@ -16,4 +16,5 @@ export type IpfsObject = {
   fileTotal: number,
   fileLocal: number,
   metadataLocal: boolean,
+  metadataProgress: []
 }
