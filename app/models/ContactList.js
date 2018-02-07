@@ -107,7 +107,7 @@ export default class ContactList extends ContactListRecord {
         ))
         // compute a rating
         .forEach((pubkey: string) => {
-          ratings.set(pubkey, 1)
+          ratings.set(pubkey, ratings.get(pubkey) + 1)
         })
     })
 
@@ -165,5 +165,10 @@ export default class ContactList extends ContactListRecord {
       .filter((contact: Contact) => !contact.privacyHidden)
       .valueSeq().map((contact: Contact) => contact.pubkey)
       .toArray()
+
+    // Idea for a better suggestion:
+    // advertise when the contact also added us. This way, link in the social graph
+    // that are in both direction get a stronger rating.
+    // How about privacy ?
   }
 }
