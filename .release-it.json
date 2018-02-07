@@ -7,25 +7,26 @@
   ],
   "src": {
     "commitMessage": "Release %s-alpha",
-    "tagName": "v%s-alpha",
-    "githubAssets": [
+    "tagName": "v%s-alpha"
+  },
+  "dist": {
+    "baseDir": false
+  },
+  "npm": {
+    "publish": false
+  },
+  "github": {
+    "release": true,
+    "releaseName": "%s",
+    "preRelease": true,
+    "draft": true,
+    "tokenRef": "GITHUB_TOKEN",
+    "assets": [
       "release/*.rpm",
       "release/*.AppImage",
       "release/*.deb",
       "release/*.exe",
       "release/*.dmg"
     ]
-  },
-  "dist": {
-    "baseDir": false
-  },
-  "npm": {
-    "private": "true"
-  },
-  "github": {
-    "release": true,
-    "preRelease": true,
-    "draft": true,
-    "tokenRef": "GITHUB_TOKEN"
   }
 }
