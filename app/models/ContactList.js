@@ -97,25 +97,34 @@ export default class ContactList extends ContactListRecord {
   suggestForAdd(number: number): Array<Contact> {
     const ratings = new global.Map()
 
+    // filter out invalid candidates
+    const invalidCandidateFilter = (pubkey: string) => (
+        !this.rejected.has(pubkey) && // already rejected
+        !this.directory.has(pubkey) && // already added contact
+        this.pool.has(pubkey) // not available in the pool
+    )
+
     this.graph.forEach((set: Set<string>) => {
       set
-      // filter out invalid candidates
-        .filter((pubkey: string) => (
-          !this.rejected.has(pubkey) && // already rejected
-          !this.directory.has(pubkey) && // already added contact
-          this.pool.has(pubkey) // not available in the pool
-        ))
+        .filter(invalidCandidateFilter)
         // compute a rating
         .forEach((pubkey: string) => {
           ratings.set(pubkey, ratings.get(pubkey) + 1)
         })
     })
 
+    // Add the followers with a low ratings
+    this.follower
+      .filter(invalidCandidateFilter)
+      .forEach((pubkey: string) => {
+        ratings.set(pubkey, ratings.get(pubkey) + 0.2)
+      })
+
     // sort the rating by descending order and map to the pubkeys
     const candidates = [...ratings.keys()]
     candidates.sort((a,b) => ratings.get(b) - ratings.get(a))
 
-    // map to the *number* best contacts
+    // map to the |number| best contacts
     return candidates
       .slice(0, number)
       .map((pubkey: string) => this.pool.get(pubkey))
