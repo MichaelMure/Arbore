@@ -3,10 +3,10 @@
 </p>
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
-[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/TotallyNotArbore/Lobby)
+[![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/Arbore/Lobby)
 [![codebeat badge](https://codebeat.co/badges/b645c684-c495-4010-87aa-54829b6e4279)](https://codebeat.co/projects/github-com-michaelmure-totallynotarbore-master)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1e15cfc3aa7e4bae9662d035ed720b0d)](https://www.codacy.com/app/batolettre/TotallyNotArbore?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MichaelMure/TotallyNotArbore&amp;utm_campaign=Badge_Grade)
-[![GitHub (pre-)release](https://img.shields.io/github/release/MichaelMure/TotallyNotArbore/all.svg)](https://github.com/MichaelMure/TotallyNotArbore/releases/latest)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1e15cfc3aa7e4bae9662d035ed720b0d)](https://www.codacy.com/app/batolettre/Arbore?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MichaelMure/Arbore&amp;utm_campaign=Badge_Grade)
+[![GitHub (pre-)release](https://img.shields.io/github/release/MichaelMure/TotallyNotArbore/all.svg)](https://github.com/MichaelMure/Arbore/releases/latest)
 
 Arbore is a peer-to-peer file sharing application with the following caracteristics:
 - targeted for private/low diffusion data between people that know each-others. Main use case: friends want to share between each-others their holidays pictures.
@@ -15,7 +15,7 @@ Arbore is a peer-to-peer file sharing application with the following caracterist
 
 This application is build on top of [IPFS](http://ipfs.io/).
 
-----> [Download it here !](https://github.com/MichaelMure/TotallyNotArbore/releases/latest) <----
+----> [Download it here !](https://github.com/MichaelMure/Arbore/releases/latest) <----
 
 ![identity creation](https://user-images.githubusercontent.com/294669/29781730-2c971282-8c55-11e7-8725-b957a9a89b25.png)
 
@@ -40,6 +40,7 @@ Installation package will be provided later.
 ### Version 1 (minimal first version)
 * profile management
 * basic contact management (adding with a hash)
+* contact suggestion and privacy settings
 * targeted sharing (notification and download)
 * basic 1 to 1 chat
 
@@ -49,7 +50,6 @@ Installation package will be provided later.
 ### Version 3
 ### contact-related features: 
 * public sharing and contact following (kind of like Twitter)
-* contact suggestion and privacy settings
 * contact blocking (for abuse)
 * contact groups
 * contact management: mitigation strategy (maintaining your contacts files online because you like them)
@@ -70,11 +70,11 @@ Installation package will be provided later.
 * ability to close the main windows while still having the app running + system tray icon with stats
 
 ## License
->You can check out the full license [here](https://github.com/MichaelMure/TotallyNotArbore/blob/master/LICENSE)
+>You can check out the full license [here](https://github.com/MichaelMure/Arbore/blob/master/LICENSE)
 
 This project is licensed under the terms of the **GPL v3** license.
 
 ## Questions/feedback (or just want to help out?)
 Every little bit of help counts!  
 
-If you want to build something awesome or help out in any other way, please [contact us](https://gitter.im/TotallyNotArbore/Lobby) :)
+If you want to build something awesome or help out in any other way, please [contact us](https://gitter.im/Arbore/Lobby) :)
