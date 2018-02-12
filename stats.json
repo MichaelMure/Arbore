@@ -1,8 +1,8 @@
 {
   "assetsByChunkName": {
     "component---src-pages-index-js": [
-      "component---src-pages-index-js-2f1da5c2d60edb1aa911.js",
-      "component---src-pages-index-js-2f1da5c2d60edb1aa911.js.map"
+      "component---src-pages-index-js-ba18b600d1d690ebc9db.js",
+      "component---src-pages-index-js-ba18b600d1d690ebc9db.js.map"
     ],
     "path---": [
       "path----557518bd178906f8d58a.js",
@@ -13,16 +13,16 @@
       "component---node-modules-gatsby-plugin-offline-app-shell-js-5c4c5a0f7af9dc69d6d7.js.map"
     ],
     "component---src-layouts-index-js": [
-      "component---src-layouts-index-js-5adafe37c094a2a432a3.js",
-      "component---src-layouts-index-js-5adafe37c094a2a432a3.js.map"
+      "component---src-layouts-index-js-0ae5116279a68088277e.js",
+      "component---src-layouts-index-js-0ae5116279a68088277e.js.map"
     ],
     "component---src-pages-releases-js": [
-      "component---src-pages-releases-js-1231b00856380322b147.js",
-      "component---src-pages-releases-js-1231b00856380322b147.js.map"
+      "component---src-pages-releases-js-16e2f94855ba53ffdb94.js",
+      "component---src-pages-releases-js-16e2f94855ba53ffdb94.js.map"
     ],
-    "path---page-2": [
-      "path---page-2-a0e39f21c11f6a62c5ab.js",
-      "path---page-2-a0e39f21c11f6a62c5ab.js.map"
+    "component---src-pages-team-js": [
+      "component---src-pages-team-js-e230af8d2fbe93fbf11b.js",
+      "component---src-pages-team-js-e230af8d2fbe93fbf11b.js.map"
     ],
     "path---index": [
       "path---index-a0e39f21c11f6a62c5ab.js",
@@ -33,8 +33,8 @@
       "component---src-pages-404-js-4503918ea3a16cfcdb75.js.map"
     ],
     "commons": [
-      "commons-40baf04d3c7f6d98ed8c.js",
-      "commons-40baf04d3c7f6d98ed8c.js.map"
+      "commons-d6c044b34f294eb98fae.js",
+      "commons-d6c044b34f294eb98fae.js.map"
     ],
     "path---404-html": [
       "path---404-html-a0e39f21c11f6a62c5ab.js",
@@ -44,18 +44,18 @@
       "path---releases-a0e39f21c11f6a62c5ab.js",
       "path---releases-a0e39f21c11f6a62c5ab.js.map"
     ],
+    "path---team": [
+      "path---team-a0e39f21c11f6a62c5ab.js",
+      "path---team-a0e39f21c11f6a62c5ab.js.map"
+    ],
     "path---offline-plugin-app-shell-fallback": [
       "path---offline-plugin-app-shell-fallback-a0e39f21c11f6a62c5ab.js",
       "path---offline-plugin-app-shell-fallback-a0e39f21c11f6a62c5ab.js.map"
     ],
-    "component---src-pages-page-2-js": [
-      "component---src-pages-page-2-js-814c3250cda4a015aef7.js",
-      "component---src-pages-page-2-js-814c3250cda4a015aef7.js.map"
-    ],
     "app": [
-      "app-192c22adf4b36926919b.js",
+      "app-5ed69e000826b5a99807.js",
       "build-js-styles.css",
-      "app-192c22adf4b36926919b.js.map",
+      "app-5ed69e000826b5a99807.js.map",
       "build-js-styles.css.map"
     ],
     "path---404": [
