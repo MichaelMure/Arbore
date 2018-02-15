@@ -5,8 +5,8 @@
       "path---contribute-a0e39f21c11f6a62c5ab.js.map"
     ],
     "component---src-pages-index-js": [
-      "component---src-pages-index-js-328e7a35702635559104.js",
-      "component---src-pages-index-js-328e7a35702635559104.js.map"
+      "component---src-pages-index-js-1c370942af7f2f5b0a54.js",
+      "component---src-pages-index-js-1c370942af7f2f5b0a54.js.map"
     ],
     "path---": [
       "path----557518bd178906f8d58a.js",
@@ -25,8 +25,8 @@
       "component---src-layouts-index-js-7b42d3ff3424b6d64be9.js.map"
     ],
     "component---src-pages-releases-js": [
-      "component---src-pages-releases-js-5629c93fa30af50a8276.js",
-      "component---src-pages-releases-js-5629c93fa30af50a8276.js.map"
+      "component---src-pages-releases-js-cb499def908096a693ac.js",
+      "component---src-pages-releases-js-cb499def908096a693ac.js.map"
     ],
     "path---index": [
       "path---index-a0e39f21c11f6a62c5ab.js",
@@ -53,9 +53,9 @@
       "path---offline-plugin-app-shell-fallback-a0e39f21c11f6a62c5ab.js.map"
     ],
     "app": [
-      "app-3215bfe6d82b9d1ac968.js",
+      "app-94da762e8887fe408519.js",
       "build-js-styles.css",
-      "app-3215bfe6d82b9d1ac968.js.map",
+      "app-94da762e8887fe408519.js.map",
       "build-js-styles.css.map"
     ],
     "path---404": [
