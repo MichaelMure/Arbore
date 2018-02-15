@@ -6,6 +6,7 @@ import { Field, reduxForm } from 'redux-form'
 import { renderTextField } from 'utils/forms'
 import FontAwesome from 'react-fontawesome'
 import Error from 'components/Error'
+import isIpfs from 'is-ipfs'
 
 class AddByPubkey extends Component {
 
@@ -38,8 +39,12 @@ class AddByPubkey extends Component {
 const validate = (values, props) => {
   const errors = {}
 
-  if (!values[ 'pubkey' ]) {
-    errors[ 'pubkey' ] = 'Required'
+  if(!values['pubkey']) {
+    errors['pubkey'] = 'Required'
+  }
+
+  if(!isIpfs.multihash(values['pubkey'])) {
+    errors['pubkey'] = 'Invalid Arbore ID'
   }
 
   return errors
