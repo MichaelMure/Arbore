@@ -30,12 +30,17 @@ export const ProfileRecord = Record({
 
 export default class Profile extends ProfileRecord {
   dataVersion: number
+  // storage key in redux-persist
   storageKey: string
+  // hash of the published in ipfs profile's data, if published
   hash: ?string
+  // Displayed name of the user
   identity: string
   bio: string
+  // Arbore ID, or stringified public key of the user
   pubkey: string
   passphrase: string
+  // hash of the avatar file, if any
   avatarHash: ?string
 
   static create(identity: string, passphrase: string, bio: string) {

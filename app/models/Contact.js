@@ -42,8 +42,11 @@ export const ContactRecord = Record({
 
 export default class Contact extends ContactRecord {
   dataVersion: number
+  // Arbore ID, or stringified public key of the user
   pubkey: string
+  // hash of the avatar file, if any
   avatarHash: ?string
+  // Displayed name of the user
   identity: string
   bio: string
   privacyHidden: boolean
