@@ -22,7 +22,7 @@ class Error extends Component {
 
 const style = theme => {
 
-  const backgroundColor = theme.palette.error[theme.palette.type === 'light' ? 300 : 600]
+  const backgroundColor = theme.palette.error[300]
   const textColor = theme.palette.getContrastText(backgroundColor)
 
   return {
