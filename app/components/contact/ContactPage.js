@@ -1,12 +1,12 @@
 // @flow
 import React, { Component } from 'react'
 import styles from './ContactPage.css'
-import TextField from 'material-ui/TextField'
 import ContactList from 'models/ContactList'
 import Contact from 'models/Contact'
 import CompactContact from './CompactContact'
 import ContactDetail from 'containers/contact/ContactDetail'
 import ContactAdder from 'components/contact/ContactAdder'
+import SearchField from '../SearchField'
 
 class ContactPage extends Component {
 
@@ -24,7 +24,7 @@ class ContactPage extends Component {
     return (
       <div className={styles.wrapper}>
         <div className={styles.list} >
-          <TextField label='Search' fullWidth onChange={onSearchChange} className={ styles.search }/>
+          <SearchField onChange={onSearchChange} />
           <div className={styles.scroller}>
             <ContactAdder/>
             {

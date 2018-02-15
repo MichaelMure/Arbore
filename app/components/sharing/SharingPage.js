@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import styles from './SharingPage.css'
 import Typography from 'material-ui/Typography'
-import TextField from 'material-ui/TextField'
 import Share from 'models/Share'
 import Profile from 'models/Profile'
 import ShareList from 'models/ShareList'
 import CompactShare from './CompactShare'
 import ShareDetail from 'containers/sharing/ShareDetail'
 import ContactList from 'models/ContactList'
+import SearchField from '../SearchField'
 
 class SharingPage extends Component {
   props: {
@@ -41,7 +41,7 @@ class SharingPage extends Component {
   }
 
   render() {
-    const { shareList } = this.props
+    const { shareList, onSearchChange } = this.props
     const shares = shareList.filtered
     const selectedShare = shareList.selected
     const selectedId = shareList.selectedId
@@ -49,7 +49,7 @@ class SharingPage extends Component {
     return (
       <div className={styles.wrapper}>
         <div className={styles.list} >
-          <TextField label='Search' fullWidth onChange={this.props.onSearchChange} className={styles.search}/>
+          <SearchField onChange={onSearchChange} />
           <div className={styles.scroller}>
             { this.renderShares(shares, selectedId) }
           </div>
