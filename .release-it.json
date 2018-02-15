@@ -1,7 +1,6 @@
 {
   "verbose": true,
   "buildCommand": "npm run package-win && npm run package-linux",
-  "preReleaseId": "alpha",
   "pkgFiles": [
     "package.json",
     "app/package.json"
