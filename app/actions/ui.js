@@ -4,6 +4,7 @@ import UiState, { Page } from 'models/UiState'
 import type { PageType } from 'models/UiState'
 import type { Store } from 'utils/types'
 import * as contactListActions from './contactList'
+import * as chatActions from './chat'
 import Contact from 'models/Contact'
 
 export const openProfile = createAction('UI_PROFILE_OPEN')
@@ -34,6 +35,12 @@ export function setPage(page: PageType) {
           if(!state.contactList.selected) {
             const firstContact : ?Contact = state.contactList.searched.first()
             dispatch(contactListActions.setSelected(firstContact.pubkey))
+          }
+          break
+        case Page.CHAT:
+          if(!state.chatRoomList.selected) {
+            const firstRoom : ?string = state.chatRoomList.rooms.keySeq().first()
+            dispatch(chatActions.selectChatRoom(firstRoom))
           }
           break
         // for Page.SHARING, the same process is done in the shareList reducer
