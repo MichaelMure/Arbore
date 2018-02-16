@@ -140,6 +140,11 @@ export default class Share extends ShareRecord {
     return this.content.progress
   }
 
+  // return the progress formated and rounded at 2 decimal (ex: '83.25%')
+  get progressFormatted() : string {
+    return `${Math.round(this.content.progress * 10000) / 100}%`
+  }
+
   get sizeTotal(): number {
     return this.content.sizeTotal
   }

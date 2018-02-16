@@ -72,13 +72,11 @@ class ShareDetail extends Component {
           </div>
         </div>
 
-        { share.isDownloading || share.isPaused &&
+        { (share.isDownloading || share.isPaused) &&
           <div>
             <LinearProgress mode="determinate" value={share.progress * 100}/>
             <div className={styles.stats}>
-              <Typography>{humanize.filesizeNoUnit(share.sizeLocal)} of {humanize.filesize(share.sizeTotal)} ({share.progress * 100}%)</Typography>
-              <Typography>3/4 peers</Typography>
-              <Typography>1.03Mo/s</Typography>
+              <Typography>{humanize.filesizeNoUnit(share.sizeLocal)} of {humanize.filesize(share.sizeTotal)} ({share.progressFormatted})</Typography>
             </div>
           </div>
         }

@@ -36,7 +36,7 @@ class ShareFiles extends Component {
 
   renderFile(file: IpfsFile, name: string, path: string, level: number) {
     const { classes } = this.props
-    const progress: number = file.sizeLocal / file.sizeTotal * 100
+
     this.buffer.push(
       <div key={path} className={classes.object}>
         <span style={{width: `${20*level}px`, display: 'inline-block'}} />
@@ -45,8 +45,8 @@ class ShareFiles extends Component {
           { name }
         </Typography>
         <div className={classes.progress}>
-          <div style={{width: `${progress}%`, backgroundColor: 'green'}} >
-            <Typography>{Math.round(progress)}%</Typography>
+          <div style={{width: `${100 * file.progress}%`, backgroundColor: 'green'}} >
+            <Typography>{Math.round(100 * file.progress)}%</Typography>
           </div>
         </div>
         <Typography className={classes.size}>{humanize.filesize(file.sizeTotal)}</Typography>

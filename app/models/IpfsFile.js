@@ -1,7 +1,7 @@
 // @flow
 import { Record } from 'immutable'
 import { ObjectType } from './IpfsObject'
-import type { ObjectTypeType } from './IpfsObject'
+import type {IpfsObject, ObjectTypeType} from './IpfsObject'
 import isIpfs from 'is-ipfs'
 
 export const writable = {
@@ -50,6 +50,10 @@ export default class IpfsFile extends IpfsFileRecord {
 
   get fileLocal(): number {
     return (this.sizeLocal === this.sizeTotal) ? 1 : 0;
+  }
+
+  get progress() {
+    return this.sizeLocal / this.sizeTotal
   }
 }
 
