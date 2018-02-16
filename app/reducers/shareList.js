@@ -40,9 +40,16 @@ export default handleActions({
     return state.set(writable.list, state.list.push(share))
   },
 
-  [sharelist.setFilter]: (state: ShareList, action: Action<ShareListFilterType>) => (
-    state.set(writable.filter, action.payload)
-  ),
+  [sharelist.setFilter]: (state: ShareList, action: Action<ShareListFilterType>) => {
+    state = state.set(writable.filter, action.payload)
+
+    if(!state.selected || !state.filtered.find((share: Share) => share.id === state.selected.id)) {
+      const firstShare : ?Share = state.filtered.first()
+      state = state.set(writable.selectedId, firstShare.id)
+    }
+
+    return state
+  },
 
   [sharelist.setSelected]: (state: ShareList, action: Action<number>) => (
     state.set(writable.selectedId, action.payload)

@@ -42,6 +42,7 @@ export function setPage(page: PageType) {
             dispatch(contactListActions.setSelected(firstContact.pubkey))
           }
           break
+        // for Page.SHARING, the same process is done in the shareList reducer
       }
     }
 
