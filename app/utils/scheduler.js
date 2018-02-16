@@ -3,16 +3,21 @@
 const timers = {}
 
 /**
- * Dispatch a Redux action with a fixed time between each firing
+ * Dispatch a Redux action with a fixed time between an action's end to the start of the next one
  * @param dispatch
  * @param id
  * @param action
  * @param timeBetween
+ * @param delay start the first action after waiting the duration
  */
-export const startTimeBetween = (dispatch, id: string, action, timeBetween: number) => {
+export const startTimeBetween = (dispatch, id: string, action, timeBetween: number, delay: number = 0) => {
   timers[id] = true
 
   dispatch(async () => {
+    if(delay > 0) {
+      await new Promise(resolve => setTimeout(resolve, delay))
+    }
+
     do {
       console.log('Run scheduled action ' + id)
 
