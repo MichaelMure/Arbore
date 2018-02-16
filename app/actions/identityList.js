@@ -48,7 +48,8 @@ export function login(identity: Identity) {
     scheduler.startTimeBetween(fullStoreDispatch,
       'updateAllContacts',
       contactList.updateAllContacts(),
-      60 * 60 * 1000 // 1 hour
+      60 * 60 * 1000, // 1 hour
+      3 * 60 * 1000 // 3 minutes delay
     )
 
     scheduler.startTimeBetween(fullStoreDispatch,
@@ -60,7 +61,9 @@ export function login(identity: Identity) {
     scheduler.startTimeBetween(fullStoreDispatch,
       'queryAllContactsList',
       contactList.queryAllContactsList(),
-      60 * 60 * 1000 // 1 hour
+      60 * 60 * 1000, // 1 hour
+      2 * 60 * 1000 // 2 minutes delay
+    )
     )
 
     scheduler.startTimeBetween(fullStoreDispatch,
