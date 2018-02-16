@@ -33,12 +33,13 @@ const reducer = handleActions({
   },
 
   [ipfs.priv.isLocal]: (state: IpfsObject, action: Action) => {
-    const {isLocal} = action.payload
+    const {isLocal, sizeLocal, sizeTotal} = action.payload
 
     switch(state.type) {
       case ObjectType.FILE:
-        // Set the file fully complete
-        return state.set(fileWritable.sizeLocal, isLocal ? state.sizeTotal : 0)
+        return state
+          .set(fileWritable.sizeLocal, sizeLocal)
+          .set(fileWritable.sizeTotal, sizeTotal)
       case ObjectType.DIRECTORY:
         if(!isLocal) {
           return state

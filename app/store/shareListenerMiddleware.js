@@ -16,6 +16,8 @@ import Contact from 'models/Contact'
  * Monitor status change for each Share to trigger a notification
  */
 export default ({dispatch, getState}) => next => action => {
+
+  // intercept some action, process them down the chain, analyse the result
   switch (action.type) {
     case ipfsObjectActions.priv.isLocal.toString():
       const state: Store = getState()

@@ -26,7 +26,7 @@ export const priv = {
     (hash: string, links: [], isLocal: boolean) => ({hash, links, isLocal})
   ),
   isLocal: createAction('IPFS_OBJECT_LOCAL',
-    (hash: string, isLocal: boolean) => ({hash, isLocal})
+    (hash: string, isLocal: boolean, sizeLocal: number, sizeTotal: number) => ({hash, isLocal, sizeLocal, sizeTotal})
   )
 }
 
@@ -130,8 +130,10 @@ export function isLocal(hash: string) {
     const {WithLocality, Local, SizeLocal, CumulativeSize} = stats
     const isLocal = WithLocality && (Local === true)
 
+    console.log(`${hash} is ${isLocal ? 'local' : 'not local'}, ${SizeLocal}/${CumulativeSize} - ${100*SizeLocal/CumulativeSize}%`)
+
     // Update redux
-    dispatch(priv.isLocal(hash, isLocal))
+    dispatch(priv.isLocal(hash, isLocal, SizeLocal, CumulativeSize))
 
     return isLocal
   }
