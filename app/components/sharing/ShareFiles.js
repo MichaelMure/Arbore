@@ -45,7 +45,9 @@ class ShareFiles extends Component {
           { name }
         </Typography>
         <div className={classes.progress}>
-          <div style={{width: `${progress}%`, backgroundColor: 'green'}} ><Typography>{progress}%</Typography></div>
+          <div style={{width: `${progress}%`, backgroundColor: 'green'}} >
+            <Typography>{Math.round(progress)}%</Typography>
+          </div>
         </div>
         <Typography className={classes.size}>{humanize.filesize(file.sizeTotal)}</Typography>
       </div>
