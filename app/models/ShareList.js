@@ -73,6 +73,11 @@ export default class ShareList extends ShareListRecord {
     }
   }
 
+  // Return all currently downloading shares
+  get downloading() : List<Share> {
+    return this.list.filter((share: Share) => share.isDownloading)
+  }
+
   findById(id: number) : ?Share {
     return this.list.find((share: Share) => share.id === id)
   }

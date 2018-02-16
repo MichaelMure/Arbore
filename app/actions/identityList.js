@@ -64,15 +64,23 @@ export function login(identity: Identity) {
       60 * 60 * 1000, // 1 hour
       2 * 60 * 1000 // 2 minutes delay
     )
-    )
 
+    // slow timer to check all share's data
     scheduler.startTimeBetween(fullStoreDispatch,
-      'updateDownloadingLocalities',
-      shareList.updateDownloadingLocalities(),
-      30 * 1000 // 30 seconds
+      'updateAllLocalities',
+      shareList.updateAllLocalities(),
+      5 * 60 * 1000, // 5 minutes
+      60 * 1000 // 1 minute delay
     )
 
-    // Check the locality of the content
+    // fast timer to check active shares's data
+    scheduler.startTimeBetween(fullStoreDispatch,
+      'updateActivesLocalities',
+      shareList.updateActivesLocalities(),
+      1000 // 1 seconds
+    )
+
+    // Check the locality of the content on start
     fullStoreDispatch(shareList.updateAllLocalities())
   }
 }

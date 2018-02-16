@@ -1,7 +1,7 @@
 // @flow
 import { createAction } from 'redux-actions'
 import ShareList, { ShareListFilter } from 'models/ShareList'
-import Share, { ShareState, writable as shareWritable } from 'models/Share'
+import Share, { writable as shareWritable } from 'models/Share'
 import ContactList from 'models/ContactList'
 import Profile from 'models/Profile'
 import type { ShareListFilterType } from 'models/ShareList'
@@ -82,17 +82,18 @@ export function updateAllLocalities() {
 }
 
 /**
- * Update the locality of the downloading shares
+ * Update the locality of all active shares
  */
-export function updateDownloadingLocalities() {
+export function updateActivesLocalities() {
   return async function(dispatch, getState) {
     const state: Store = getState()
     const shareList: ShareList = state.shareList
 
     await Promise.all(
-      shareList.list
-        .filter((share: Share) => share.status === ShareState.DOWNLOADING)
-        .map((share: Share) => dispatch(shareActions.updateLocality(share)))
+      shareList.downloading.map((share: Share) => dispatch(shareActions.updateLocality(share)))
+    )
+  }
+}
     )
   }
 }
