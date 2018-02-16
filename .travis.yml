@@ -50,6 +50,8 @@ deploy:
   file_glob: true
   file: release/*.dmg
   skip_cleanup: true
+  prerelease: true
+  draft: true
   on:
     repo: MichaelMure/Arbore
     tags: true
