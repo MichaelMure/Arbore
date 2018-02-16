@@ -56,8 +56,4 @@ export default handleActions({
       .set(writable.profileOpen, false)
   ),
 
-  [actions.selectChatRoom]: (state: UiState, action: Action<string>) => (
-    state.set(writable.selectedChat, action.payload)
-  )
-
 }, initialState )

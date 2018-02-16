@@ -19,6 +19,10 @@ export default handleActions({
     )
   ),
 
+  [chat.selectChatRoom]: (state: ChatRoomList, action: Action<string>) => (
+    state.set(writable.selectedChat, action.payload)
+  ),
+
   [combineActions(
     chat.priv.chatSent,
     chat.priv.chatReceived,

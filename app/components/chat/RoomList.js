@@ -4,7 +4,6 @@ import styles from './RoomList.css'
 import Typography from 'material-ui/Typography'
 import ChatRoomList from 'models/ChatRoomList'
 import ContactList from 'models/ContactList'
-import UiState from 'models/UiState'
 import Contact  from 'models/Contact'
 import classNames from 'classnames/bind'
 import AvatarWithStatus from 'components/common/AvatarWithStatus'
@@ -16,7 +15,6 @@ class RoomList extends Component {
   props: {
     rooms: ChatRoomList,
     contacts: ContactList,
-    ui: UiState,
     onRoomClickGenerator: (Contact) => any,
     onContactClickGenerator: (Contact) => any
   }
@@ -25,7 +23,6 @@ class RoomList extends Component {
     const {
       rooms,
       contacts,
-      ui,
       onRoomClickGenerator,
       onContactClickGenerator
     } = this.props
@@ -43,7 +40,7 @@ class RoomList extends Component {
         {
           roomsSeq.map(([pubkey, room]) => {
             const contact: Contact = contacts.findContactInPool(pubkey)
-            const selected = ui.selectedChat === pubkey
+            const selected = rooms.selectedChat === pubkey
 
             const itemClass = cx({
               item: true,

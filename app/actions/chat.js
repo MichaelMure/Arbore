@@ -21,6 +21,9 @@ export const createRoom = createAction('CHAT_ROOM_CREATE',
 export const readAllRoom = createAction('CHAT_ROOM_READALL',
   (contact: Contact) => ({contact})
 )
+export const selectChatRoom = createAction('CHAT_ROOM_SELECT',
+  (pubkey: string) => (pubkey)
+)
 
 export const priv = {
   chatReceived: createAction('CHAT_MESSAGE_RECEIVED',

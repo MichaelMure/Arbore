@@ -7,7 +7,6 @@ import Profile from 'models/Profile'
 import * as chat from 'actions/chat'
 import type {Action} from 'utils/types'
 import ContactList from 'models/ContactList'
-import UiState from 'models/UiState'
 import ChatRoomList from 'models/ChatRoomList'
 
 class RoomContainer extends Component {
@@ -18,7 +17,6 @@ class RoomContainer extends Component {
     profile: Profile,
     contacts: ContactList,
     chatRoomList: ChatRoomList,
-    ui: UiState,
   }
 
   constructor(props) {
@@ -33,11 +31,11 @@ class RoomContainer extends Component {
   }
 
   handlePromptKeyDown(event) {
-    const { contacts, ui } = this.props
+    const { contacts, chatRoomList } = this.props
 
     if(event.keyCode === 13 && this.state.promptValue !== '') {
       this.props.dispatch(chat.sendChat(
-        contacts.findContactInDirectory(ui.selectedChat),
+        contacts.findContactInDirectory(chatRoomList.selectedChat),
         this.state.promptValue
       ))
       this.setState({ promptValue: ''})
@@ -51,9 +49,9 @@ class RoomContainer extends Component {
   }
 
   componentDidUpdate(prevProps, prevState, prevContext) {
-    const { ui, chatRoomList } = this.props
+    const { chatRoomList } = this.props
 
-    if(!ui.selectedChat) {
+    if(!chatRoomList.selectedChat) {
       return
     }
 
@@ -63,12 +61,12 @@ class RoomContainer extends Component {
   }
 
   render() {
-    const { profile, contacts, chatRoomList, ui } = this.props
+    const { profile, contacts, chatRoomList } = this.props
 
     return (
       <Room
         ref={(room) => { this.room = room ? room.innerRef : room }}
-        selectedRoom={ui.selectedChat ? chatRoomList.findRoom(ui.selectedChat) : null}
+        selectedRoom={chatRoomList.selected}
         contacts={contacts}
         profile={profile}
         promptValue={this.state.promptValue}
@@ -83,7 +81,6 @@ const mapStateToProps = (state: Store) => ({
   profile: state.profile,
   contacts: state.contactList,
   chatRoomList: state.chatRoomList,
-  ui: state.ui,
 })
 
 const mapDispatchToProps = dispatch => ({

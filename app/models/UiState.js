@@ -13,21 +13,18 @@ export const writable = {
   profileOpen: 'profileOpen',
   newShareOpen: 'newShareOpen',
   page: 'page',
-  selectedChat: 'selectedChat',
 }
 
 export const UiRecord = Record({
   profileOpen: false,
   newShareOpen: false,
   page: Page.CONTACT,
-  selectedChat: null,
 }, 'UiState')
 
 export default class UiState extends UiRecord {
   profileOpen: boolean
   newShareOpen: boolean
   page: PageType
-  selectedChat: string
 
   // indicate if any drawer is open
   get drawerOpen() : boolean {
