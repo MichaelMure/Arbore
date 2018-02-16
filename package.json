@@ -195,7 +195,7 @@
     "throttle-debounce": "^1.0.1"
   },
   "devEngines": {
-    "node": ">=6.x",
-    "npm": ">=3.x"
+    "node": ">=7.x",
+    "npm": ">=4.x"
   }
 }
