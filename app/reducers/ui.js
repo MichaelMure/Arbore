@@ -2,8 +2,8 @@
 import * as actions from 'actions/ui';
 import UiState, { writable } from 'models/UiState'
 import type { PageType } from 'models/UiState'
+import type { Action } from 'utils/types'
 import { handleActions } from 'redux-actions'
-import { Action } from 'utils/types'
 import { REHYDRATE } from 'redux-persist/constants'
 
 const initialState = new UiState()
@@ -49,7 +49,7 @@ export default handleActions({
       .set(writable.profileOpen, false)
   ),
 
-  [actions.setPage]: (state: UiState, action: Action<PageType>) => (
+  [actions.priv.setPage]: (state: UiState, action: Action<PageType>) => (
     state
       .set(writable.page, action.payload)
       .set(writable.newShareOpen, false)
