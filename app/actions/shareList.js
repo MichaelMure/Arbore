@@ -10,6 +10,7 @@ import createProtocol from 'ipfs/createProtocol'
 import * as shareActions from 'actions/share'
 import * as contactListActions from 'actions/contactList'
 import * as uiActions from 'actions/ui'
+import * as ipfsObjectActions from 'actions/ipfsObject'
 import Contact from 'models/Contact'
 import isIpfs from 'is-ipfs'
 import { Page } from 'models/UiState'
@@ -94,6 +95,14 @@ export function updateActivesLocalities() {
     )
   }
 }
+
+export function restartDownloadings() {
+  return async function(dispach, getState) {
+    const state: Store = getState()
+    const shareList: ShareList = state.shareList
+
+    await Promise.all(
+      shareList.downloading.map((share: Share) => dispach(ipfsObjectActions.triggerDownload(share.content.hash)))
     )
   }
 }
