@@ -153,8 +153,12 @@ export function checkKeys() {
 
     const { Keys } = await ipfs.api.apiClient.key.list()
 
-    return Keys.some((element) => (
+    const present = Keys.some((element) => (
       element.Name === profile.storageKey && element.Id === profile.pubkey
     ))
+
+    if(!present) {
+      throw 'Identity keys are not present in IPFS'
+    }
   }
 }

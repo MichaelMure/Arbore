@@ -2,38 +2,36 @@
 import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
+import IdentityPrompt from 'containers/login/IdentityPrompt'
 import IdentityList from 'models/IdentityList'
 import Identity from 'models/Identity'
-import Avatar from 'components/common/Avatar'
 
 class SelectIdentity extends Component {
 
   props: {
     identities: IdentityList,
     onNewIdentityClick: () => any,
-    onIdentityClickGenerator: (identity: Identity) => any,
-  }
-
-  renderIdentity(identity: Identity, onClick, classes) {
-    return (
-      <div key={identity.storageKey} className={classes.identity} onClick={onClick}>
-        <Avatar person={identity} />
-        <Typography type="subheading">{identity.identity}</Typography>
-      </div>
-    )
+    onIdentityOpen: (identity: Identity) => any,
+    opened: ?Identity
   }
 
   render() {
-    const { classes } = this.props
+    const { classes, onIdentityOpen, opened, onFinish } = this.props
     const identities = this.props.identities.identities
 
     return (
       <div className={classes.wrapper}>
-        {
-          identities.valueSeq().map((id: Identity) =>
-            this.renderIdentity(id, this.props.onIdentityClickGenerator(id), classes)
-          )
-        }
+
+        { identities.valueSeq().map((id: Identity) =>
+          <IdentityPrompt
+            key={id.storageKey}
+            identity={id}
+            open={id === opened}
+            onNameClick={() => onIdentityOpen(id)}
+            onFinish={onFinish}
+          />
+        )}
+
         <div className={classes.newIdentity} onClick={ ::this.props.onNewIdentityClick }>
           <Typography type="subheading">Create a new identity</Typography>
         </div>
@@ -46,23 +44,6 @@ const style = theme => ({
   wrapper: {
     maxHeight: 500,
     overflowY: 'auto',
-  },
-  identity: {
-    width: 300,
-    height: 42,
-    display: 'flex',
-    alignItems: 'center',
-    border: '1px solid',
-    borderRadius: 20,
-    marginBottom: 5,
-    cursor: 'pointer',
-    backgroundColor: theme.palette.background.paper,
-    borderColor: theme.palette.grey[500],
-
-    '& > :last-child': {
-      marginLeft: 10,
-      userSelect: 'none',
-    }
   },
   newIdentity: {
     width: 300,

@@ -28,12 +28,7 @@ export function login(identity: Identity) {
     const fullStore = await getFullStore(identity.storageKey, identity.identity)
     const fullStoreDispatch = fullStore.dispatch
 
-    const exist = await fullStoreDispatch(profile.checkKeys())
-    if(!exist) {
-      dispatch(globalError.setError('Identity keys are not present in IPFS'))
-      return
-    }
-
+    await fullStoreDispatch(profile.checkKeys())
     // TODO: check password
 
     await dispatch(priv.selectIdenty(identity))
