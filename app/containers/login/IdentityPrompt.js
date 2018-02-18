@@ -36,6 +36,7 @@ class IdentityPromptContainer extends Component {
         open={this.props.open}
         onNameClick={!this.props.open ? this.props.onNameClick : () => {}}
         onSubmit={::this.handleSubmit}
+        onPasswordBlur={this.props.onFinish}
       />
     )
   }

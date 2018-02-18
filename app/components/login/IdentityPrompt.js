@@ -17,11 +17,12 @@ class IdentityPrompt extends Component {
     identity: Identity,
     open: boolean,
     onNameClick: () => any,
-    handleSubmit: (Array) => any
+    handleSubmit: (Array) => any,
+    onPasswordBlur: () => any,
   }
 
   render() {
-    const { classes, identity, open, error, onNameClick, handleSubmit } = this.props
+    const { classes, identity, open, error, onNameClick, handleSubmit, onPasswordBlur } = this.props
 
     const passwordClasses = classNames(classes.password, {
       [classes.passwordClosed]: !open,
@@ -43,6 +44,7 @@ class IdentityPrompt extends Component {
                      component={renderTextField}
                      required fullWidth autoFocus
                      type='password'
+                     onBlur={onPasswordBlur}
                />
             )}
           </div>
