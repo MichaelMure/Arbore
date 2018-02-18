@@ -95,7 +95,7 @@ const style = theme => ({
     border: '1px solid',
     borderRadius: 20,
     boxSizing: 'border-box',
-    backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.default,
     borderColor: theme.palette.grey[500],
     marginBottom: 5,
   },
