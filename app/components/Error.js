@@ -5,15 +5,19 @@ import Typography from 'material-ui/Typography'
 
 class Error extends Component {
 
+  props: {
+    className: any
+  }
+
   render() {
-    const { classes, children } = this.props
+    const { classes, className, children } = this.props
 
     const text = (typeof children === 'string')
       ? children
       : children.toString()
 
     return (
-      <Typography className={classes.error}>
+      <Typography className={classes.error + ' ' + className}>
         <strong>Error:</strong> {text}
       </Typography>
     )
