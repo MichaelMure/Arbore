@@ -13,7 +13,7 @@ export const writable = {
   identity: 'identity',
   bio: 'bio',
   pubkey: 'pubkey',
-  passphrase: 'passphrase',
+  password: 'password',
   avatarHash: 'avatarHash'
 }
 
@@ -24,7 +24,7 @@ export const ProfileRecord = Record({
   identity: '',
   bio: '',
   pubkey: null,
-  passphrase: null,
+  password: null,
   avatarHash: null
 }, 'Profile')
 
@@ -39,15 +39,15 @@ export default class Profile extends ProfileRecord {
   bio: string
   // Arbore ID, or stringified public key of the user
   pubkey: string
-  passphrase: string
+  password: string
   // hash of the avatar file, if any
   avatarHash: ?string
 
-  static create(identity: string, passphrase: string, bio: string) {
+  static create(identity: string, password: string, bio: string) {
     return new this().withMutations(profile => profile
       .set(writable.storageKey, nextToken(16))
       .set(writable.identity, identity)
-      .set(writable.passphrase, passphrase)
+      .set(writable.password, password)
       .set(writable.bio, bio)
     )
   }

@@ -11,8 +11,8 @@ export const priv = {
   storeNewProfile: createAction('PROFILE_CREATE',
     (profile: Profile) => (profile)
   ),
-  setPassphrase: createAction('PROFILE_PASSPHRASE_SET',
-    (passphrase: string) => (passphrase)
+  setPassword: createAction('PROFILE_PASSWORD_SET',
+    (password: string) => (password)
   ),
   setAvatarHash: createAction('PROFILE_AVATAR_HASH_SET',
     (hash: ?string) => (hash)
@@ -27,15 +27,15 @@ export const setBio = createAction('PROFILE_BIO_SET',
 )
 export const deleteAvatar = createAction('PROFILE_AVATAR_DELETE')
 
-export function generate(identity: string, passphrase: string, bio: ?string, avatar: ?Buffer) {
+export function generate(identity: string, password: string, bio: ?string, avatar: ?Buffer) {
   return async function (dispatch) {
-    let profile = Profile.create(identity, passphrase, bio)
+    let profile = Profile.create(identity, password, bio)
     const storageKey = profile.storageKey
 
     const ipfs: IpfsConnector = IpfsConnector.getInstance()
 
     await waitForIpfsReady()
-    const { Id } = await dispatch(generateKeys(storageKey, passphrase))
+    const { Id } = await dispatch(generateKeys(storageKey, password))
 
     // Store in IPFS and pin the avatar if any
     let hash = null
@@ -63,11 +63,11 @@ export function generate(identity: string, passphrase: string, bio: ?string, ava
  * Generate a local keypair in the IPFS keystore
  *
  * @param name the name of the key in IPFS
- * @param passphrase the passphrase to lock it (NOT USED YET !)
+ * @param password the password to lock it (NOT USED YET !)
  * @returns {Promise<{ Id: string, Name: string }>} Name: the chosen name, Id: the hash of the public key
  */
-export function generateKeys(name: string, passphrase: string) {
- // TODO: use passphrase once ipfs keystore is ready
+export function generateKeys(name: string, password: string) {
+ // TODO: use password once ipfs keystore is ready
   return function (dispatch) {
     console.log('Generate keys')
     const ipfs: IpfsConnector = IpfsConnector.getInstance()
@@ -80,10 +80,10 @@ export function generateKeys(name: string, passphrase: string) {
   }
 }
 
-export function updatePassphrase(passphrase: string) {
+export function updatePassword(password: string) {
   return function (dispatch) {
-    // TODO: change keys passphrase once it's ready in IPFS
-    return dispatch(priv.setPassphrase(passphrase))
+    // TODO: change keys password once it's ready in IPFS
+    return dispatch(priv.setPassword(password))
   }
 }
 
@@ -140,7 +140,6 @@ export function publish() {
 
 /**
  * Check if the correct key for the profile is present in IPFS
- * @returns {bool}
  */
 export function checkKeys() {
   return async function(dispatch, getState) {

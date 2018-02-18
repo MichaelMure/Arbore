@@ -8,8 +8,8 @@ import { AVATAR_DELETED } from 'components/common/AvatarEditor'
 import { isBuffer } from 'util'
 import { SubmissionError } from 'redux-form'
 
-// This is a bit hacky but looks good (better than a textfiled placeholder)
-const passphrasePlaceholder = 'ⓟⓛⓐⓒⓔⓗⓞⓛⓓⓔⓡ'
+// This is a bit hacky but looks good (better than a textfield placeholder)
+const passwordPlaceholder = 'ⓟⓛⓐⓒⓔⓗⓞⓛⓓⓔⓡ'
 
 /**
  * Container around the edit Profile form
@@ -29,7 +29,7 @@ class EditProfileContainer extends Component {
 
   async handleSubmit(values) {
     const dispatch = this.props.dispatch
-    const { bio, avatar, passphrase } = values
+    const { bio, avatar, password } = values
 
     this.setState({ waiting: true })
 
@@ -42,8 +42,8 @@ class EditProfileContainer extends Component {
         await dispatch(profile.updateAvatar(avatar))
       }
 
-      if(passphrase !== passphrasePlaceholder) {
-        await dispatch(profile.updatePassphrase(passphrase))
+      if(password !== passwordPlaceholder) {
+        await dispatch(profile.updatePassword(password))
       }
 
       this.setState({ waiting: false })
@@ -70,8 +70,8 @@ const mapStateToProps = (state: Store) => ({
   initialValues: {
     bio: state.profile.bio,
     avatar: state.profile.avatarUrl,
-    passphrase: passphrasePlaceholder,
-    passphrase2: passphrasePlaceholder
+    password: passwordPlaceholder,
+    password2: passwordPlaceholder
   }
 })
 

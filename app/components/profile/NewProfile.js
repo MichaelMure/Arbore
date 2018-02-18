@@ -33,7 +33,7 @@ class NewProfile extends Component {
     // Pass it up ↑
     return this.props.onSubmit({
       identity: values.identity,
-      passphrase: values.passphrase || '',
+      password: values.password || '',
       bio: values.bio || '',
       avatar: this.avatarEditor.getImage()
     })
@@ -50,8 +50,8 @@ class NewProfile extends Component {
           </div>
           <div className={styles.column}>
             <Field name='identity' component={renderTextField} required label='Identity'/>
-            <Field name='passphrase' component={renderTextField} required label='Passphrase' type='password'/>
-            <Field name='passphrase2' component={renderTextField} required label='Repeat passphrase' type='password'/>
+            <Field name='password' component={renderTextField} required label='password' type='password'/>
+            <Field name='password2' component={renderTextField} required label='Repeat password' type='password'/>
             <Field name='bio' component={renderTextField} label='About you (optional)' multiline rows="4" placeholder='Who are you ?'/>
           </div>
         </div>
@@ -73,15 +73,15 @@ class NewProfile extends Component {
 const validate = (values, props) => {
   const errors = {}
 
-  const requiredFields = [ 'identity', 'passphrase', 'passphrase2' ]
+  const requiredFields = [ 'identity', 'password', 'password2' ]
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
     }
   })
 
-  if(values.passphrase !== values.passphrase2) {
-    errors['passphrase2'] = 'Both passphrases should match'
+  if(values.password !== values.password2) {
+    errors['password2'] = 'Both passwords should match'
   }
 
   if(props.forbiddenIdentities.includes(values.identity)) {

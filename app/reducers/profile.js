@@ -22,8 +22,8 @@ export default handleActions({
       .set(writable.hash, null)
   ),
 
-  [profile.priv.setPassphrase]: (state: Profile, action: Action<string>) => (
-    state.set(writable.passphrase, action.payload)
+  [profile.priv.setPassword]: (state: Profile, action: Action<string>) => (
+    state.set(writable.password, action.payload)
   ),
 
   [profile.setBio]: (state: Profile, action: Action<string>) => (

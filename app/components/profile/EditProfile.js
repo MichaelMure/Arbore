@@ -23,7 +23,7 @@ class EditProfile extends Component {
   handleSubmit(values) {
     // Pass it up ↑
     return this.props.onSubmit({
-      passphrase: values.passphrase|| '',
+      password: values.password|| '',
       bio: values.bio || '',
       avatar: this.avatarEditor.getImage()
     })
@@ -48,20 +48,20 @@ class EditProfile extends Component {
           />
         </div>
 
-        {/* TODO: passphrase values shoud be cleared on select && pristine*/}
+        {/* TODO: password values shoud be cleared on select && pristine*/}
         <Field
-          name='passphrase'
+          name='password'
           component={renderTextField}
           required
-          label='Passphrase'
+          label='password'
           type='password'
           fullWidth
         />
         <Field
-          name='passphrase2'
+          name='password2'
           component={renderTextField}
           required
-          label='Repeat passphrase'
+          label='Repeat password'
           type='password'
           fullWidth
         />
@@ -95,15 +95,15 @@ class EditProfile extends Component {
 const validate = (values, props) => {
   const errors = {}
 
-  const requiredFields = [ 'passphrase', 'passphrase2' ]
+  const requiredFields = [ 'password', 'password2' ]
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'
     }
   })
 
-  if(values.passphrase !== values.passphrase2) {
-    errors['passphrase2'] = 'Both passphrases should match'
+  if(values.password !== values.password2) {
+    errors['password2'] = 'Both passwords should match'
   }
 
   return errors

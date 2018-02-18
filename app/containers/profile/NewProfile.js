@@ -26,12 +26,12 @@ class NewProfileContainer extends Component {
 
   async handleSubmit(values) {
     const dispatch = this.props.dispatch
-    const { identity, bio, avatar, passphrase } = values
+    const { identity, bio, avatar, password } = values
 
     this.setState({ waiting: true })
 
     try {
-      const _identity = await dispatch(profile.generate(identity, passphrase, bio, avatar))
+      const _identity = await dispatch(profile.generate(identity, password, bio, avatar))
       this.setState({ waiting: false })
       dispatch(identityList.login(_identity))
     } catch(err) {
