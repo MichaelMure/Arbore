@@ -46,6 +46,9 @@ class EditProfileContainer extends Component {
         await dispatch(profile.updatePassword(password))
       }
 
+      // publish in the background
+      dispatch(profile.publish())
+
       this.setState({ waiting: false })
       this.props.onDone()
     } catch(err) {
