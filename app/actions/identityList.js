@@ -7,6 +7,7 @@ import * as chat from './chat'
 import * as contactList from './contactList'
 import * as settings from './settings'
 import * as shareList from './shareList'
+import * as globalError from './globalError'
 import { getLoginStore, getFullStore, dropFullStore } from 'store/index'
 
 
@@ -26,6 +27,14 @@ export function login(identity: Identity) {
   return async function (dispatch) {
     const fullStore = await getFullStore(identity.storageKey, identity.identity)
     const fullStoreDispatch = fullStore.dispatch
+
+    const exist = await fullStoreDispatch(profile.checkKeys())
+    if(!exist) {
+      dispatch(globalError.setError('Identity keys are not present in IPFS'))
+      return
+    }
+
+    // TODO: check password
 
     await dispatch(priv.selectIdenty(identity))
 

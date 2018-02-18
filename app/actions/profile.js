@@ -113,7 +113,6 @@ export function updateAvatar(avatar: ?Buffer) {
 
 /**
  * Publish the full profile (+avatar) in IPFS and IPNS
- * @returns {Promise}
  */
 export function publish() {
   return async function (dispatch, getState) {
@@ -136,5 +135,26 @@ export function publish() {
     })
 
     console.log('profile published on IPNS: ', result)
+  }
+}
+
+/**
+ * Check if the correct key for the profile is present in IPFS
+ * @returns {bool}
+ */
+export function checkKeys() {
+  return async function(dispatch, getState) {
+    console.log('Check Id keys')
+    const ipfs: IpfsConnector = IpfsConnector.getInstance()
+
+    await waitForIpfsReady()
+
+    const profile: Profile = getState().profile
+
+    const { Keys } = await ipfs.api.apiClient.key.list()
+
+    return Keys.some((element) => (
+      element.Name === profile.storageKey && element.Id === profile.pubkey
+    ))
   }
 }
