@@ -12,12 +12,13 @@ class SelectIdentity extends Component {
   props: {
     identities: IdentityList,
     onNewIdentityClick: () => any,
-    onIdentityOpen: (identity: Identity) => any,
+    onIdentityClick: (identity: Identity) => any,
+    onFinish: () => any,
     opened: ?Identity
   }
 
   render() {
-    const { classes, onIdentityOpen, opened, onFinish } = this.props
+    const { classes, onIdentityClick, opened, onFinish } = this.props
     const identities = this.props.identities.identities
 
     return (
@@ -28,7 +29,7 @@ class SelectIdentity extends Component {
             key={id.storageKey}
             identity={id}
             open={id === opened}
-            onNameClick={() => onIdentityOpen(id)}
+            onNameClick={() => onIdentityClick(id)}
             onFinish={onFinish}
           />
         )}
