@@ -31,10 +31,10 @@ export function fetchProfile(pubkey: string) {
 
     await waitForIpfsReady()
 
-    const { Path } = await ipfs.api.apiClient.name.resolve(pubkey)
-    console.log(pubkey + ' resolve to ' + Path)
+    const path = await ipfs.api.apiClient.name.resolve(pubkey)
+    console.log(pubkey + ' resolve to ' + path)
 
-    const data = await ipfs.api.getObject(removeIpfsPrefix(Path))
+    const data = await ipfs.api.getObject(removeIpfsPrefix(path))
     console.log(data)
 
     const contact: Contact = Contact.fromProfileData(pubkey, data)

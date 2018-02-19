@@ -35,7 +35,7 @@ export function generate(identity: string, password: string, bio: ?string, avata
     const ipfs: IpfsConnector = IpfsConnector.getInstance()
 
     await waitForIpfsReady()
-    const { Id } = await dispatch(generateKeys(storageKey, password))
+    const { id } = await dispatch(generateKeys(storageKey, password))
 
     // Store in IPFS and pin the avatar if any
     let hash = null
@@ -48,7 +48,7 @@ export function generate(identity: string, password: string, bio: ?string, avata
     const _identity = Identity.create(identity, hash, storageKey)
     profile = profile
       .set(writable.avatarHash, hash)
-      .set(writable.pubkey, Id)
+      .set(writable.pubkey, id)
 
     dispatch(identityActions.createNewIdentity(_identity))
 
@@ -150,10 +150,10 @@ export function checkKeys() {
 
     const profile: Profile = getState().profile
 
-    const { Keys } = await ipfs.api.apiClient.key.list()
+    const keys = await ipfs.api.apiClient.key.list()
 
-    const present = Keys.some((element) => (
-      element.Name === profile.storageKey && element.Id === profile.pubkey
+    const present = keys.some((element) => (
+      element.name === profile.storageKey && element.id === profile.pubkey
     ))
 
     if(!present) {

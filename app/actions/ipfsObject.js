@@ -129,17 +129,22 @@ export function isLocal(hash: string) {
     try {
       stats = await instance.api.apiClient.files.stat('/ipfs/' + hash, {'with-local': true})
     } catch(err) {
+      console.error(err)
       dispatch(priv.isLocal(hash, false))
       return false
     }
 
-    const {WithLocality, Local, SizeLocal, CumulativeSize} = stats
+    const {WithLocality, Local, SizeLocal, cumulativeSize} = stats
     const isLocal = WithLocality && (Local === true)
 
-    console.log(`${hash} is ${isLocal ? 'local' : 'not local'}, ${SizeLocal}/${CumulativeSize} - ${100*SizeLocal/CumulativeSize}%`)
+    console.log(`${hash} is ${isLocal ? 'local' : 'not local'}, ${SizeLocal}/${cumulativeSize} - ${100*SizeLocal/cumulativeSize}%`)
+
+    if(SizeLocal === undefined) {
+      throw 'efrd'
+    }
 
     // Update redux
-    dispatch(priv.isLocal(hash, isLocal, SizeLocal, CumulativeSize))
+    dispatch(priv.isLocal(hash, isLocal, SizeLocal, cumulativeSize))
 
     return isLocal
   }
