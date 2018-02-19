@@ -43,7 +43,7 @@ class IdentityPrompt extends Component {
             { open && (
               <Field name='password'
                      component={renderTextField}
-                     required fullWidth autoFocus
+                     /* required */ fullWidth autoFocus
                      type='password'
                      onBlur={onPasswordBlur}
                />
@@ -60,9 +60,9 @@ class IdentityPrompt extends Component {
 const validate = (values, props) => {
   const errors = {}
 
-  if(!values['password']) {
-    errors['password'] = 'Required'
-  }
+  // if(!values['password']) {
+  //   errors['password'] = 'Required'
+  // }
 
   return errors
 }
