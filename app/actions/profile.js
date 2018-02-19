@@ -161,3 +161,17 @@ export function checkKeys() {
     }
   }
 }
+
+/**
+ * Check if the password provided is correct
+ */
+export function checkPassword(password: string) {
+  return async function(dispatch, getState) {
+    console.log('Check password')
+
+    const profile: Profile = getState().profile
+    if(profile.password !== password) {
+      throw 'Invalid password'
+    }
+  }
+}

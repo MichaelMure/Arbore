@@ -33,7 +33,7 @@ class NewProfileContainer extends Component {
     try {
       const _identity = await dispatch(profile.generate(identity, password, bio, avatar))
       this.setState({ waiting: false })
-      dispatch(identityList.login(_identity))
+      dispatch(identityList.login(_identity, password))
     } catch(err) {
       this.setState({ waiting: false })
       throw new SubmissionError({ _error: err })

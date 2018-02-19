@@ -22,7 +22,7 @@ class IdentityPromptContainer extends Component {
     const { password } = values
 
     try {
-      await dispatch(identyListActions.login(identity))
+      await dispatch(identyListActions.login(identity, password))
       this.props.onFinish()
     } catch(err) {
       throw new SubmissionError({ _error: err })

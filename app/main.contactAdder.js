@@ -30,7 +30,7 @@ async function run() {
   const identity: Identity = identityList.identities.first()
   console.log('Login with identity ' + identity.identity)
 
-  await loginStore.dispatch(identityListActions.login(identity))
+  await loginStore.dispatch(identityListActions.login(identity, 'blah'))
 
   fullStore = await getFullStore(identity.storageKey, 'contactAdder')
 
