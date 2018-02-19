@@ -22,8 +22,6 @@ class IdentityPrompt extends Component {
     onPasswordBlur: () => any,
   }
 
-
-
   render() {
     const { classes, identity, open, error, onNameClick, handleSubmit, onPasswordBlur } = this.props
 

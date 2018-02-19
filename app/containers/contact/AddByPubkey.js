@@ -1,7 +1,6 @@
 // @flow
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import type { Store } from 'utils/types'
 import type {Action} from 'utils/types'
 import AddByPubkey from 'components/contact/AddByPubkey'
 import * as contactList from 'actions/contactList'
@@ -49,11 +48,4 @@ class AddByPubkeyContainer extends Component {
   }
 }
 
-const mapStateToProps = (state: Store) => ({
-})
-
-const mapDispatchToProps = dispatch => ({
-  dispatch
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(AddByPubkeyContainer)
+export default connect()(AddByPubkeyContainer)

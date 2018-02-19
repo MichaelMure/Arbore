@@ -32,6 +32,10 @@ class LoginPage extends Component {
   render() {
     const { classes } = this.props
 
+    // TODO: find a way to not mount <NewProfile> when on the <SelectIdentity> screen
+    // because inputs are selectable even in the background --> bad accessibility
+    // + less perf
+
     return (
       <div className={classes.wrapper}>
         <img src={logo} className={classes.logo} />

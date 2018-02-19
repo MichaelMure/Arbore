@@ -5,6 +5,7 @@ import Typography from 'material-ui/Typography'
 import IdentityPrompt from 'containers/login/IdentityPrompt'
 import IdentityList from 'models/IdentityList'
 import Identity from 'models/Identity'
+import { a11yButton } from 'utils/accessibility'
 
 class SelectIdentity extends Component {
 
@@ -32,7 +33,7 @@ class SelectIdentity extends Component {
           />
         )}
 
-        <div className={classes.newIdentity} onClick={ ::this.props.onNewIdentityClick }>
+        <div className={classes.newIdentity} { ...a11yButton(::this.props.onNewIdentityClick) }>
           <Typography type="subheading">Create a new identity</Typography>
         </div>
       </div>
