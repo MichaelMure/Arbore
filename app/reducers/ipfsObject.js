@@ -37,9 +37,14 @@ const reducer = handleActions({
 
     switch(state.type) {
       case ObjectType.FILE:
-        return state
-          .set(fileWritable.sizeLocal, sizeLocal)
-          .set(fileWritable.sizeTotal, sizeTotal)
+        if(isLocal) {
+          return state
+            .set(fileWritable.sizeLocal, sizeLocal)
+            .set(fileWritable.sizeTotal, sizeTotal)
+        } else {
+          return state.set(fileWritable.sizeLocal, 0)
+        }
+
       case ObjectType.DIRECTORY:
         if(!isLocal) {
           return state

@@ -26,7 +26,7 @@ export const priv = {
     (hash: string, links: [], isLocal: boolean) => ({hash, links, isLocal})
   ),
   isLocal: createAction('IPFS_OBJECT_LOCAL',
-    (hash: string, isLocal: boolean, sizeLocal: number, sizeTotal: number) => ({hash, isLocal, sizeLocal, sizeTotal})
+    (hash: string, isLocal: boolean, sizeLocal: number = 0, sizeTotal: number = 0) => ({hash, isLocal, sizeLocal, sizeTotal})
   )
 }
 
@@ -125,7 +125,13 @@ export function isLocal(hash: string) {
 
     await waitForIpfsReady()
 
-    const stats = await instance.api.apiClient.files.stat('/ipfs/' + hash, {'with-local': true})
+    let stats
+    try {
+      stats = await instance.api.apiClient.files.stat('/ipfs/' + hash, {'with-local': true})
+    } catch(err) {
+      dispatch(priv.isLocal(hash, false))
+      return false
+    }
 
     const {WithLocality, Local, SizeLocal, CumulativeSize} = stats
     const isLocal = WithLocality && (Local === true)
