@@ -126,7 +126,7 @@ const style = theme => ({
   },
   size: {
     width: 100,
-    textAlign: 'center',
+    textAlign: 'right',
   },
 })
 
