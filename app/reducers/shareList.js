@@ -45,7 +45,9 @@ export default handleActions({
 
     if(!state.selected || !state.filtered.find((share: Share) => share.id === state.selected.id)) {
       const firstShare : ?Share = state.filtered.first()
-      state = state.set(writable.selectedId, firstShare.id)
+      if(firstShare) {
+        state = state.set(writable.selectedId, firstShare.id)
+      }
     }
 
     return state
