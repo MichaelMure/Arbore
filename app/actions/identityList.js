@@ -84,9 +84,6 @@ export function login(identity: Identity) {
       1000 // 1 seconds
     )
 
-    // Check the locality of the content on start
-    fullStoreDispatch(shareList.updateAllLocalities())
-
     // re-trigger active shares download
     fullStoreDispatch(shareList.restartDownloadings())
   }
