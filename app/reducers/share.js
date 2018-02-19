@@ -79,7 +79,7 @@ export default handleActions({
         break
 
       case ShareState.SHARING:
-        if(! newState.isLocal) {
+        if(! newState.isLocal && !newState.isAuthor) {
           newState = newState.set(writable.status, ShareState.AVAILABLE)
         }
         break
