@@ -5,6 +5,7 @@ import Typography from 'material-ui/Typography'
 import Avatar from 'components/common/Avatar'
 import Identity from 'models/Identity'
 import { Field, reduxForm } from 'redux-form'
+import { a11yButton } from 'utils/accessibility'
 import { renderTextField } from 'utils/forms'
 import Error from 'components/Error'
 import classNames from 'classnames'
@@ -21,6 +22,8 @@ class IdentityPrompt extends Component {
     onPasswordBlur: () => any,
   }
 
+
+
   render() {
     const { classes, identity, open, error, onNameClick, handleSubmit, onPasswordBlur } = this.props
 
@@ -33,7 +36,7 @@ class IdentityPrompt extends Component {
       <form onSubmit={handleSubmit}>
         <div className={classes.passwordWrapper}>
 
-          <div className={classes.identity} onClick={onNameClick}>
+          <div className={classes.identity} { ...a11yButton(onNameClick) }>
             <Avatar person={identity} />
             <Typography type="subheading">{identity.identity}</Typography>
           </div>
