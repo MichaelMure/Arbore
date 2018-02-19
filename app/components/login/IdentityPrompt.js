@@ -36,7 +36,7 @@ class IdentityPrompt extends Component {
 
           <div className={classes.identity} { ...a11yButton(onNameClick) }>
             <Avatar person={identity} />
-            <Typography type="subheading">{identity.identity}</Typography>
+            <Typography type="subheading" noWrap>{identity.identity}</Typography>
           </div>
 
           <div className={passwordClasses}>
@@ -85,6 +85,7 @@ const style = theme => ({
     backgroundColor: theme.palette.background.paper,
     borderColor: theme.palette.grey[500],
     flexGrow: 1,
+    overflow: 'auto',
 
     '& > :last-child': {
       marginLeft: 10,

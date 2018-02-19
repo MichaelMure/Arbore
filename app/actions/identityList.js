@@ -7,7 +7,6 @@ import * as chat from './chat'
 import * as contactList from './contactList'
 import * as settings from './settings'
 import * as shareList from './shareList'
-import * as globalError from './globalError'
 import { getLoginStore, getFullStore, dropFullStore } from 'store/index'
 
 
