@@ -1,5 +1,4 @@
 // @flow
-import React from 'react'
 import { connect } from 'react-redux'
 import type { Store } from 'utils/types'
 import AddBySuggest from 'components/contact/AddBySuggest'

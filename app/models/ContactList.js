@@ -101,6 +101,7 @@ export default class ContactList extends ContactListRecord {
     const invalidCandidateFilter = (pubkey: string) => (
         !this.rejected.has(pubkey) && // already rejected
         !this.directory.has(pubkey) && // already added contact
+        // TODO: filter the user himself
         this.pool.has(pubkey) // not available in the pool
     )
 

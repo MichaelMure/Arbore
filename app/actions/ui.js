@@ -34,13 +34,17 @@ export function setPage(page: PageType) {
         case Page.CONTACT:
           if(!state.contactList.selected) {
             const firstContact : ?Contact = state.contactList.searched.first()
-            dispatch(contactListActions.setSelected(firstContact.pubkey))
+            if(firstContact) {
+              dispatch(contactListActions.setSelected(firstContact.pubkey))
+            }
           }
           break
         case Page.CHAT:
           if(!state.chatRoomList.selected) {
             const firstRoom : ?string = state.chatRoomList.rooms.keySeq().first()
-            dispatch(chatActions.selectChatRoom(firstRoom))
+            if(firstRoom) {
+              dispatch(chatActions.selectChatRoom(firstRoom))
+            }
           }
           break
         // for Page.SHARING, the same process is done in the shareList reducer
