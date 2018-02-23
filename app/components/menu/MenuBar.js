@@ -9,17 +9,14 @@ import FontAwesome from 'react-fontawesome'
 import Users from 'react-feather/dist/icons/users'
 import Share from 'react-feather/dist/icons/share-2'
 import Download from 'react-feather/dist/icons/download'
-import Zap from 'react-feather/dist/icons/zap'
 import Inbox from 'react-feather/dist/icons/inbox'
 import Upload from 'react-feather/dist/icons/upload'
 import Star from 'react-feather/dist/icons/star'
 import Message from 'react-feather/dist/icons/message-square'
 import Settings from 'react-feather/dist/icons/settings'
 import Activity from 'react-feather/dist/icons/activity'
-import Minimize from 'react-feather/dist/icons/minimize'
-import Maximize from 'react-feather/dist/icons/maximize'
-
-
+import ChevronsLeft from 'react-feather/dist/icons/chevrons-left'
+import ChevronsRight from 'react-feather/dist/icons/chevrons-right'
 
 class MenuBar extends Component {
 
@@ -96,7 +93,6 @@ class MenuBar extends Component {
 
         <MenuItem open={open} name="active" label="Actives" onClick={this.props.onActiveClick}
                   badgeValue={this.props.active} accent={this.props.activeSelected}>
-          {/*<Zap/>*/}
           <Activity/>
         </MenuItem>
 
@@ -129,7 +125,7 @@ class MenuBar extends Component {
         </MenuItem>
 
         <MenuItem open={open} name='toggle' label={open ? 'Collapse' : 'Expand'} onClick={this.props.toggle}>
-          { open ? <Minimize/> : <Maximize/> }
+          { open ? <ChevronsLeft/> : <ChevronsRight/> }
         </MenuItem>
       </nav>
     )
