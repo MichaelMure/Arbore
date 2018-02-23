@@ -8,7 +8,4 @@ const mapStateToProps = (state: Store) => ({
   page: state.ui.page
 })
 
-const mapDispatchToProps = dispatch => ({
-})
-
-export default connect(mapStateToProps, null)(Home)
+export default connect(mapStateToProps)(Home)
