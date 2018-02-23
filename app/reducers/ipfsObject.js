@@ -38,13 +38,16 @@ const reducer = handleActions({
     switch(state.type) {
       case ObjectType.FILE:
         if(isLocal) {
+          if(state.sizeTotal !== 0 && sizeTotal !== state.sizeTotal) {
+            console.warn("size mismatch, something is wrong")
+          }
+
           return state
             .set(fileWritable.sizeLocal, sizeLocal)
             .set(fileWritable.sizeTotal, sizeTotal)
         } else {
           return state.set(fileWritable.sizeLocal, 0)
         }
-
       case ObjectType.DIRECTORY:
         if(!isLocal) {
           return state
