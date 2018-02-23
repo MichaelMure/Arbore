@@ -7,6 +7,10 @@ import * as contactListActions from './contactList'
 import * as chatActions from './chat'
 import Contact from 'models/Contact'
 
+export const openMenu = createAction('UI_MENU_OPEN')
+export const closeMenu = createAction('UI_MENU_CLOSE')
+export const toggleMenu = createAction('UI_MENU_TOGGLE')
+
 export const openProfile = createAction('UI_PROFILE_OPEN')
 export const closeProfile = createAction('UI_PROFILE_CLOSE')
 export const toggleProfile = createAction('UI_PROFILE_TOGGLE')

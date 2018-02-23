@@ -4,10 +4,12 @@ import { withStyles } from 'material-ui/styles'
 import Badge from 'material-ui/Badge'
 import IconButton from 'material-ui/IconButton'
 import Tooltip from 'material-ui/Tooltip'
+import Typography from 'material-ui/Typography'
 
 class MenuItem extends Component {
   props: {
     name: string,
+    open: boolean,
     label: string,
     accent: boolean,
     badgeValue: ?number,
@@ -20,22 +22,46 @@ class MenuItem extends Component {
   }
 
   render() {
-    const { classes, name, label, accent, badgeValue, children, onClick } = this.props
+    const { classes, name, open, label, accent, badgeValue, children, onClick } = this.props
 
-    return (
-      <Tooltip id={name} title={label} placement='right'>
-        <IconButton color={ accent ? 'accent' : 'default'} data-tip data-for={name} onClick={onClick}>
-          { badgeValue > 0
+    if(open) {
+      return (
+        <div className={classes.wrapper} onClick={onClick}>
+          <IconButton color={ accent ? 'accent' : 'default'}>
+            { badgeValue > 0
               ? <Badge badgeContent={badgeValue} classes={{badge: classes.badge}}>{children}</Badge>
               : children
-          }
-        </IconButton>
-      </Tooltip>
+            }
+          </IconButton>
+          <Typography>{label}</Typography>
+        </div>
+      )
+    }
+
+    return (
+      <div className={classes.wrapper} onClick={onClick} data-tip data-for={name}>
+        <Tooltip id={name} title={label} placement='right'>
+          <IconButton color={ accent ? 'accent' : 'default'}>
+            { badgeValue > 0
+                ? <Badge badgeContent={badgeValue} classes={{badge: classes.badge}}>{children}</Badge>
+                : children
+            }
+          </IconButton>
+        </Tooltip>
+      </div>
     )
   }
 }
 
 const style = {
+  wrapper: {
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+    '& > p': {
+      paddingRight: 14,
+    }
+  },
   badge: {
     backgroundColor: 'rgba(0,0,0,0)',
     color: 'red'

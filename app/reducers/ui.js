@@ -10,9 +10,24 @@ const initialState = new UiState()
 
 export default handleActions({
 
-  // Reset the state when the data come from the storage
-  [REHYDRATE]: (state, action: Action) => (
-    initialState
+  // Reset the state when the data come from the storage except the menu state
+  [REHYDRATE]: (state, action: Action) => {
+    console.log(action.payload.ui)
+    return action.payload.ui
+      ? initialState.set(writable.menuOpen, action.payload.ui.menuOpen)
+      : initialState
+  },
+
+  [actions.openMenu]: (state: UiState, action: Action) => (
+    state
+      .set(writable.menuOpen, true)
+  ),
+  [actions.closeMenu]: (state: UiState, action: Action) => (
+    state.set(writable.menuOpen, false)
+  ),
+  [actions.toggleMenu]: (state: UiState, action: Action) => (
+    state
+      .set(writable.menuOpen, ! state.menuOpen)
   ),
 
   [actions.openProfile]: (state: UiState, action: Action) => (

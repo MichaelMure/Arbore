@@ -2,11 +2,12 @@
 import React, {Component} from 'react'
 import styles from './MenuBar.css'
 import Avatar from 'material-ui/Avatar'
-import Badge from 'material-ui/Badge'
-import FontAwesome from 'react-fontawesome'
 import Profile from 'models/Profile'
 import MenuItem from 'components/menu/MenuItem'
+import FontAwesome from 'react-fontawesome'
 
+import Minimize from 'react-feather/dist/icons/minimize'
+import Maximize from 'react-feather/dist/icons/maximize'
 class MenuBar extends Component {
 
   props: {
@@ -39,15 +40,19 @@ class MenuBar extends Component {
     sharing: number,
     favorite: number,
     chatUnread: number,
+
+    open: boolean,
+    toggle: () => void
   }
 
   render() {
     const profile: Profile = this.props.profile
+    const open: boolean = this.props.open
 
     return (
       <nav className={styles.wrapper}>
 
-        <MenuItem name="profile" label="Profile" onClick={this.props.onProfileClick}
+        <MenuItem open={open} name="profile" label="Profile" onClick={this.props.onProfileClick}
           accent={this.props.profileSelected}>
           { profile.avatarUrl
             ? <Avatar src={profile.avatarUrl} />
@@ -57,14 +62,14 @@ class MenuBar extends Component {
 
         <div className={styles.spacer} />
 
-        <MenuItem name="contact" label="Contacts" onClick={this.props.onContactClick}
+        <MenuItem open={open} name="contact" label="Contacts" onClick={this.props.onContactClick}
           accent={this.props.contactSelected}>
           <FontAwesome name='users'/>
         </MenuItem>
 
         <div className={styles.spacer} />
 
-        <MenuItem name="newshare" label="Share something" onClick={this.props.onNewShareClick}
+        <MenuItem open={open} name="newshare" label="Share" onClick={this.props.onNewShareClick}
             accent={this.props.newShareSelected}>
           <Badge badgeContent="+">
             <FontAwesome name='envelope-open-o'/>
@@ -73,44 +78,47 @@ class MenuBar extends Component {
 
         <div className={styles.spacer} />
 
-        <MenuItem name="available" label="Available" onClick={this.props.onAvailableClick}
+        <MenuItem open={open} name="available" label="Available" onClick={this.props.onAvailableClick}
             badgeValue={this.props.available} accent={this.props.availableSelected}>
           <FontAwesome name='download'/>
         </MenuItem>
 
-        <MenuItem name="active" label="Actives" onClick={this.props.onActiveClick}
+        <MenuItem open={open} name="active" label="Actives" onClick={this.props.onActiveClick}
                   badgeValue={this.props.active} accent={this.props.activeSelected}>
           <FontAwesome name='bolt'/>
         </MenuItem>
 
-        <MenuItem name="inbox" label="Inbox" onClick={this.props.onInboxClick}
+        <MenuItem open={open} name="inbox" label="Inbox" onClick={this.props.onInboxClick}
             badgeValue={this.props.inbox} accent={this.props.inboxSelected}>
             <FontAwesome name='inbox'/>
         </MenuItem>
 
-        <MenuItem name="upload" label="Upload" onClick={this.props.onSharingClick}
+        <MenuItem open={open} name="upload" label="Upload" onClick={this.props.onSharingClick}
             badgeValue={this.props.sharing} accent={this.props.sharingSelected}>
             <FontAwesome name='upload'/>
         </MenuItem>
 
-        <MenuItem name="fav" label="Favorites" onClick={this.props.onFavoriteClick}
+        <MenuItem open={open} name="fav" label="Favorites" onClick={this.props.onFavoriteClick}
             badgeValue={this.props.favorite} accent={this.props.favoriteSelected}>
             <FontAwesome name='star'/>
         </MenuItem>
 
         <div className={styles.spacer} />
 
-        <MenuItem name="chat" label="Chat" onClick={this.props.onChatClick}
+        <MenuItem open={open} name="chat" label="Chat" onClick={this.props.onChatClick}
             badgeValue={this.props.chatUnread} accent={this.props.chatSelected}>
             <FontAwesome name='comments'/>
         </MenuItem>
 
-        <div className={styles.spacer} />
+        <div className={styles.expander} />
 
-        <MenuItem name="settings" label="Settings" onClick={this.props.onSettingsClick}>
           <FontAwesome name='cog'/>
+        <MenuItem open={open} name="settings" label="Settings" onClick={this.props.onSettingsClick}>
         </MenuItem>
 
+        <MenuItem open={open} name='toggle' label={open ? 'Collapse' : 'Expand'} onClick={this.props.toggle}>
+          { open ? <Minimize/> : <Maximize/> }
+        </MenuItem>
       </nav>
     )
   }

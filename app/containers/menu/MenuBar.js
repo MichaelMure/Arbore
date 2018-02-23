@@ -26,6 +26,8 @@ const mapStateToProps = (state: Store) => ({
   favoriteSelected:  !state.ui.drawerOpen && state.ui.page === Page.SHARING && state.shareList.filter === ShareListFilter.FAV,
   contactSelected:   !state.ui.drawerOpen && state.ui.page === Page.CONTACT,
   chatSelected:      !state.ui.drawerOpen && state.ui.page === Page.CHAT,
+
+  open: state.ui.menuOpen
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -39,6 +41,8 @@ const mapDispatchToProps = dispatch => ({
   onContactClick:   () => { dispatch(ui.setPage(Page.CONTACT)) },
   onChatClick:      () => { dispatch(ui.setPage(Page.CHAT)) },
   onSettingsClick:  () => { dispatch(ui.setPage(Page.SETTINGS))},
+
+  toggle:           () => { dispatch(ui.toggleMenu()) },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MenuBar)

@@ -10,18 +10,21 @@ export const Page = {
 export type PageType = $Keys<typeof Page>
 
 export const writable = {
+  menuOpen: 'menuOpen',
   profileOpen: 'profileOpen',
   newShareOpen: 'newShareOpen',
   page: 'page',
 }
 
 export const UiRecord = Record({
+  menuOpen: true,
   profileOpen: false,
   newShareOpen: false,
   page: Page.CONTACT,
 }, 'UiState')
 
 export default class UiState extends UiRecord {
+  menuOpen: boolean
   profileOpen: boolean
   newShareOpen: boolean
   page: PageType

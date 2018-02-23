@@ -56,7 +56,7 @@ function createFullStore(prefix: string, name: string) {
 
   const onComplete = new Promise((resolve) => {
     persistStore(store, {
-      blacklist: ['ui', 'form', 'globalError'],
+      blacklist: ['form', 'globalError'],
       transforms: [immutableTransform({records: allModels})],
       keyPrefix: '@'+prefix+':',
 /// #if !isElectron

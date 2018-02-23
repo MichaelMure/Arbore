@@ -1,4 +1,5 @@
 .wrapper {
+  height: 100vh;
   display: flex;
   flex-direction: column;
   padding-left: 2px;
@@ -15,4 +16,8 @@
   margin: 8px;
   border-bottom: lightgray 1px solid;
   border-top: lightgray 1px solid;
+}
+
+.expander {
+  flex-grow: 1;
 }
