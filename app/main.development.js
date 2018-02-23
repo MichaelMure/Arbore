@@ -93,6 +93,8 @@ app.on('ready', async () => {
     y: mainWindowState.y,
     width: mainWindowState.width,
     height: mainWindowState.height,
+    minWidth: 800,
+    minHeight: 600,
     show: false,
     toolbar: false
   })
