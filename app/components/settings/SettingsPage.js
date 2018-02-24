@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
 import Settings, { Theme } from 'models/Settings'
+import SecondaryMenu from 'containers/menu/SecondaryMenu'
 import Radio, { RadioGroup } from 'material-ui/Radio'
 import { FormLabel, FormControl, FormControlLabel } from 'material-ui/Form'
 import type { ThemeType } from 'models/Settings'
@@ -19,7 +20,10 @@ class SettingsPage extends Component {
 
     return (
       <div className={classes.wrapper}>
-        <FormControl>
+        <div />
+        <SecondaryMenu />
+
+        <FormControl className={classes.settings}>
           <FormLabel>Theme</FormLabel>
           <RadioGroup
             aria-label='theme'
@@ -38,6 +42,15 @@ class SettingsPage extends Component {
 
 const style = theme => ({
   wrapper: {
+    display: 'grid',
+    gridTemplateColumns: '2fr 3fr',
+    gridTemplateRows: 'auto 1fr',
+    height: '100vh',
+    backgroundColor: theme.palette.background.appBar,
+  },
+  settings: {
+    backgroundColor: theme.palette.background.default,
+    gridColumn: '1 / 3',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
