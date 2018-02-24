@@ -1,6 +1,7 @@
 // @flow
 import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
+import SecondaryMenu from 'containers/menu/SecondaryMenu'
 import RoomList from 'containers/chat/RoomList'
 import Room from 'containers/chat/Room'
 import ContactList from 'models/ContactList'
@@ -15,26 +16,34 @@ class ChatPage extends Component {
   }
 
   render() {
-    const { classes, contacts } = this.props
+    const { classes, contacts, onGoToContactClick } = this.props
 
     if(contacts.directory.count() <= 0) {
       return (
-        <div className={classes.noContact}>
-          <Typography type="subheading">Ho no !</Typography>
-          <Typography>It seems that you have no contact yet.</Typography>
-          <div className={classes.spacer} />
-          <Button raised color='primary' onClick={this.props.onGoToContactClick}>Go to the contact management</Button>
+        <div className={classes.wrapper}>
+          <div />
+          <SecondaryMenu />
+
+          <div className={classes.noContact}>
+            <Typography type="subheading">Ho no !</Typography>
+            <Typography>It seems that you have no contact yet.</Typography>
+            <div className={classes.spacer} />
+              <Button raised color='primary' onClick={onGoToContactClick}>Go to the contact management</Button>
+          </div>
         </div>
       )
     }
 
     return (
       <div className={classes.wrapper}>
+        <div />
+
+        <SecondaryMenu />
+
         <div className={classes.contacts}>
-          <div className={classes.scrollerContact}>
-            <RoomList />
-          </div>
+          <RoomList />
         </div>
+
         <Room />
       </div>
     )
@@ -43,24 +52,19 @@ class ChatPage extends Component {
 
 const style = theme => ({
   wrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'stretch',
+    display: 'grid',
+    gridTemplateColumns: '200px 1fr',
+    gridTemplateRows: 'auto 1fr',
     height: '100vh',
+    backgroundColor: theme.palette.background.appBar,
   },
   contacts: {
-    flexDirection: 'column',
-    width: 200,
-    margin: 4,
-    overflow: 'hidden'
-  },
-  scrollerContact: {
-    height: '100%',
-    width: '100%',
     overflow: 'auto',
-    padding: 3,
+    backgroundColor: theme.palette.background.default,
   },
   noContact: {
+    backgroundColor: theme.palette.background.default,
+    gridColumn: '1 / 3',
     display: 'flex',
     height: '100%',
     flexDirection: 'column',

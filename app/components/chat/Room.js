@@ -70,13 +70,8 @@ class Room extends Component {
 const style = theme => ({
   chat: {
     flexDirection: 'column',
-    flex: 1,
-    /*
-     * This is hacky, the goal is to avoid the scroller to overflow in the bottom
-     * because of the search bar and the .scroller { height: 100% }
-     */
-    paddingBottom: 70,
     backgroundColor: theme.palette.background.appBar,
+    overflow: 'hidden'
   },
   scroller: {
     height: '100%',
@@ -91,7 +86,7 @@ const style = theme => ({
     padding: '0 10px 5px',
   },
   prompt: {
-    height: 50,
+    height: 60,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
