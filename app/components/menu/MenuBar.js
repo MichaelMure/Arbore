@@ -1,10 +1,7 @@
 // @Flow
 import React, {Component} from 'react'
 import styles from './MenuBar.css'
-import Avatar from 'material-ui/Avatar'
-import Profile from 'models/Profile'
 import MenuItem from 'components/menu/MenuItem'
-import FontAwesome from 'react-fontawesome'
 
 import Users from 'react-feather/dist/icons/users'
 import Share from 'react-feather/dist/icons/share-2'
@@ -21,9 +18,6 @@ import ChevronsRight from 'react-feather/dist/icons/chevrons-right'
 class MenuBar extends Component {
 
   props: {
-    profile: Profile,
-
-    onProfileClick: () => void,
     onNewShareClick: () => void,
     onAvailableClick: () => void,
     onInboxClick: () => void,
@@ -34,7 +28,6 @@ class MenuBar extends Component {
     onChatClick: () => void,
     onSettingsClick: () => void,
 
-    profileSelected: boolean,
     newShareSelected: boolean,
     availableSelected: boolean,
     inboxSelected: boolean,
@@ -56,21 +49,10 @@ class MenuBar extends Component {
   }
 
   render() {
-    const profile: Profile = this.props.profile
     const open: boolean = this.props.open
 
     return (
       <nav className={styles.wrapper}>
-
-        <MenuItem open={open} name="profile" label="Profile" onClick={this.props.onProfileClick}
-          accent={this.props.profileSelected}>
-          { profile.avatarUrl
-            ? <Avatar src={profile.avatarUrl} />
-            : <FontAwesome name='user-circle-o' className={styles.profile} />
-          }
-        </MenuItem>
-
-        <div className={styles.spacer} />
 
         <MenuItem open={open} name="contact" label="Contacts" onClick={this.props.onContactClick}
           accent={this.props.contactSelected}>

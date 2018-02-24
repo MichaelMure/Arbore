@@ -6,11 +6,6 @@
   padding-top: 5px;
 }
 
-.profile {
-  font-size: 40px;
-  user-select: none;
-}
-
 .spacer {
   margin: 8px;
   border-bottom: lightgray 1px solid;

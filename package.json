@@ -91,7 +91,8 @@
     "file sharing",
     "file transfer",
     "social",
-    "ipfs"
+    "ipfs",
+    "chat"
   ],
   "homepage": "http://arbo.re",
   "devDependencies": {
