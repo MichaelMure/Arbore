@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
 import Profile from 'models/Profile'
 import Avatar from 'material-ui/Avatar'
+import Typography from 'material-ui/Typography'
 import FontAwesome from 'react-fontawesome'
 
 class SecondaryMenu extends Component {
@@ -20,6 +21,7 @@ class SecondaryMenu extends Component {
     return (
       <div className={classes.wrapper}>
         <div className={classes.item} onClick={onProfileClick}>
+          <Typography>{profile.identity}</Typography>
           { profile.avatarUrl
             ? <Avatar src={profile.avatarUrl} />
             : <FontAwesome name='user-circle-o' className={classes.profile} />
