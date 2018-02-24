@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import styles from './SharingPage.css'
+import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
 import Share from 'models/Share'
 import Profile from 'models/Profile'
 import ShareList from 'models/ShareList'
 import CompactShare from './CompactShare'
+import SecondaryMenu from 'containers/menu/SecondaryMenu'
 import ShareDetail from 'containers/sharing/ShareDetail'
 import ContactList from 'models/ContactList'
 import SearchField from '../SearchField'
@@ -41,27 +42,44 @@ class SharingPage extends Component {
   }
 
   render() {
-    const { shareList, onSearchChange } = this.props
+    const { classes, shareList, onSearchChange } = this.props
     const shares = shareList.filtered
     const selectedShare = shareList.selected
     const selectedId = shareList.selectedId
 
     return (
-      <div className={styles.wrapper}>
-        <div className={styles.list} >
-          <SearchField onChange={onSearchChange} />
-          <div className={styles.scroller}>
-            { this.renderShares(shares, selectedId) }
-          </div>
+      <div className={classes.wrapper}>
+        <SearchField onChange={onSearchChange} />
+
+        <SecondaryMenu />
+
+        <div className={classes.list} >
+          { this.renderShares(shares, selectedId) }
         </div>
-        <div className={styles.details}>
-          <div className={styles.scroller}>
-            { selectedShare && shareList.idInFiltered(selectedId) && <ShareDetail /> }
-          </div>
+
+        <div className={classes.details}>
+          { selectedShare && shareList.idInFiltered(selectedId) && <ShareDetail /> }
         </div>
       </div>
     )
   }
 }
 
-export default SharingPage;
+const style = theme => ({
+  wrapper: {
+    display: 'grid',
+    gridTemplateColumns: '2fr 3fr',
+    gridTemplateRows: 'auto 1fr',
+    height: '100vh',
+    gridGap: '20px',
+    padding: '5px 10px 10px',
+  },
+  list: {
+    overflow: 'auto',
+  },
+  details: {
+    overflow: 'auto',
+  }
+})
+
+export default withStyles(style)(SharingPage)

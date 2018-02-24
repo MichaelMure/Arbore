@@ -50,7 +50,6 @@ class ContactPage extends Component {
   }
 }
 
-
 const style = theme => ({
   wrapper: {
     display: 'grid',
@@ -63,11 +62,9 @@ const style = theme => ({
   list: {
     overflow: 'auto',
   },
-  scroller: {
-    height: '100%',
-    width: '100%',
+  details: {
     overflow: 'auto',
-  },
+  }
 })
 
 export default withStyles(style)(ContactPage)
