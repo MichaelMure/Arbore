@@ -4,18 +4,21 @@ import { withStyles } from 'material-ui/styles'
 import Profile from 'models/Profile'
 import Avatar from 'material-ui/Avatar'
 import Typography from 'material-ui/Typography'
-import FontAwesome from 'react-fontawesome'
+import IconButton from 'material-ui/IconButton'
+
+import Logout from 'react-feather/dist/icons/log-out'
 
 class SecondaryMenu extends Component {
 
   props: {
     profile: Profile,
     onProfileClick: () => void,
+    onLogoutClick: () => void,
   }
 
   render() {
     const profile : Profile = this.props.profile
-    const { classes, onProfileClick } = this.props
+    const { classes, onProfileClick, onLogoutClick } = this.props
 
     return (
       <div className={classes.wrapper}>
@@ -23,6 +26,9 @@ class SecondaryMenu extends Component {
           <Typography noWrap>{profile.identity}</Typography>
           { profile.avatarUrl && <Avatar src={profile.avatarUrl} /> }
         </div>
+        <IconButton onClick={onLogoutClick}>
+          <Logout/>
+        </IconButton>
       </div>
     )
   }
@@ -32,6 +38,7 @@ const style = theme => ({
   wrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    alignItems: 'center',
     padding: 10,
     height: 60,
   },
