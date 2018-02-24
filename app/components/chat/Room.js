@@ -70,7 +70,7 @@ class Room extends Component {
 const style = theme => ({
   chat: {
     flexDirection: 'column',
-    backgroundColor: theme.palette.background.appBar,
+    backgroundColor: theme.palette.background.paper,
     overflow: 'hidden'
   },
   scroller: {

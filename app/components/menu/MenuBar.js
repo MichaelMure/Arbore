@@ -122,7 +122,7 @@ const style = theme => ({
     flexDirection: 'column',
     paddingLeft: 2,
     paddingTop: 5,
-    backgroundColor: theme.palette.background.appBar,
+    backgroundColor: theme.palette.background.paper,
   },
   spacer: {
     margin: 8,
