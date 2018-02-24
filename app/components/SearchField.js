@@ -1,20 +1,19 @@
 // @flow
 import React, { Component } from 'react'
-import { withStyles } from 'material-ui/styles'
 import TextField from 'material-ui/TextField'
 import IconButton from 'material-ui/IconButton'
 import {InputAdornment} from 'material-ui/Input'
 import FontAwesome from 'react-fontawesome'
 
-
-class SearchField extends Component {
+export default class SearchField extends Component {
 
   props: {
     onChange: () => void,
+    className: string,
   }
 
   render() {
-    const { classes, onChange } = this.props
+    const { className, onChange } = this.props
 
     const adornment = (
       <InputAdornment position="end">
@@ -27,8 +26,9 @@ class SearchField extends Component {
     return (
       <TextField label='Search'
                  fullWidth
+                 margin='none'
                  onChange={onChange}
-                 className={classes.search}
+                 className={className}
                  InputProps={{
                    endAdornment: adornment
                  }}
@@ -37,11 +37,3 @@ class SearchField extends Component {
   }
 }
 
-const style = theme => ({
-  search: {
-    marginBottom: '30px !important',
-    marginTop: '10px !important',
-  },
-})
-
-export default withStyles(style)(SearchField);
