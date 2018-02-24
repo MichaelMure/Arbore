@@ -10,7 +10,6 @@ class SecondaryMenu extends Component {
 
   props: {
     profile: Profile,
-    profileSelected: boolean,
     onProfileClick: () => void,
   }
 
@@ -21,11 +20,8 @@ class SecondaryMenu extends Component {
     return (
       <div className={classes.wrapper}>
         <div className={classes.item} onClick={onProfileClick}>
-          <Typography>{profile.identity}</Typography>
-          { profile.avatarUrl
-            ? <Avatar src={profile.avatarUrl} />
-            : <FontAwesome name='user-circle-o' className={classes.profile} />
-          }
+          <Typography noWrap>{profile.identity}</Typography>
+          { profile.avatarUrl && <Avatar src={profile.avatarUrl} /> }
         </div>
       </div>
     )
@@ -37,6 +33,7 @@ const style = theme => ({
     display: 'flex',
     justifyContent: 'flex-end',
     padding: 10,
+    height: 60,
   },
   item: {
     display: 'flex',

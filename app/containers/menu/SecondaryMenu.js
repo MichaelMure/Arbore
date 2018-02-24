@@ -7,7 +7,6 @@ import { Store } from 'utils/types'
 
 const mapStateToProps = (state: Store) => ({
   profile:    state.profile,
-  profileSelected:   state.ui.profileOpen,
 })
 
 const mapDispatchToProps = dispatch => ({
