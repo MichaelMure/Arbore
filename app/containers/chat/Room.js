@@ -65,7 +65,7 @@ class RoomContainer extends Component {
 
     return (
       <Room
-        ref={(room) => { this.room = room ? room.innerRef : room }}
+        innerRef={(room) => { this.room = room }}
         selectedRoom={chatRoomList.selected}
         contacts={contacts}
         profile={profile}
