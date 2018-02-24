@@ -12,6 +12,10 @@ export default class SearchField extends Component {
     className: string,
   }
 
+  static defaultProps = {
+    className: ''
+  };
+
   render() {
     const { className, onChange } = this.props
 
