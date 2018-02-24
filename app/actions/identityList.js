@@ -59,7 +59,8 @@ export function login(identity: Identity, password: ?string) {
     scheduler.startTimeBetween(fullStoreDispatch,
       'pingAllContacts',
       contactList.pingAllContacts(),
-      2 * 60 * 1000 // 2 minutes
+      2 * 60 * 1000, // 2 minutes,
+      2 * 1000 // 2 seconds delay
     )
 
     scheduler.startTimeBetween(fullStoreDispatch,
