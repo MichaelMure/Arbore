@@ -13,7 +13,6 @@ class ShowProfile extends Component {
 
   props: {
     profile: Profile,
-    onLogoutClick: () => any,
     onEditClick: () => any
   }
 
@@ -41,7 +40,6 @@ class ShowProfile extends Component {
             <FontAwesome name="pencil" />
             Edit profile
           </Button>
-          <Button raised color='primary' onClick={this.props.onLogoutClick}>Logout</Button>
         </div>
       </div>
     )
