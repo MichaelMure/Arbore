@@ -1,11 +1,12 @@
 // @flow
 import React, { Component } from 'react'
+import { withStyles } from 'material-ui/styles'
 import TextField from 'material-ui/TextField'
 import IconButton from 'material-ui/IconButton'
 import {InputAdornment} from 'material-ui/Input'
 import FontAwesome from 'react-fontawesome'
 
-export default class SearchField extends Component {
+class SearchField extends Component {
 
   props: {
     onChange: () => void,
@@ -17,7 +18,7 @@ export default class SearchField extends Component {
   };
 
   render() {
-    const { className, onChange } = this.props
+    const { classes, className, onChange } = this.props
 
     const adornment = (
       <InputAdornment position="end">
@@ -28,16 +29,25 @@ export default class SearchField extends Component {
     )
 
     return (
-      <TextField label='Search'
-                 fullWidth
-                 margin='none'
-                 onChange={onChange}
-                 className={className}
-                 InputProps={{
-                   endAdornment: adornment
-                 }}
-      />
+      // for some reason, the label of the textfield doesn't
+      // respect the padding applied directly
+      <div className={classes.search + ' ' + className}>
+        <TextField label='Search'
+                   fullWidth
+                   onChange={onChange}
+                   InputProps={{
+                     endAdornment: adornment
+                   }}
+        />
+      </div>
     )
   }
 }
 
+const style = theme => ({
+  search: {
+    padding: '0 10px 0',
+  },
+})
+
+export default withStyles(style)(SearchField);
