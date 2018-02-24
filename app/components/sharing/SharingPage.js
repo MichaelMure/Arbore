@@ -71,14 +71,17 @@ const style = theme => ({
     gridTemplateColumns: '2fr 3fr',
     gridTemplateRows: 'auto 1fr',
     height: '100vh',
-    gridGap: '20px',
-    padding: '5px 10px 10px',
+    backgroundColor: theme.palette.background.appBar,
   },
   list: {
     overflow: 'auto',
+    backgroundColor: theme.palette.background.default,
+    padding: 10,
   },
   details: {
     overflow: 'auto',
+    backgroundColor: theme.palette.background.default,
+    padding: 10,
   }
 })
 

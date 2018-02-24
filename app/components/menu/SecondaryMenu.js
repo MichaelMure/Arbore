@@ -36,6 +36,7 @@ const style = theme => ({
   wrapper: {
     display: 'flex',
     justifyContent: 'flex-end',
+    padding: 10,
   },
   item: {
     display: 'flex',
