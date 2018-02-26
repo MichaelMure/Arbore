@@ -13,7 +13,7 @@ class IpfsStatus extends Component {
     state: number,
     // TODO: see below
     progress: any, // ?{ completed: number, total: number },
-    error: ?string
+    error: any
   }
 
   render() {

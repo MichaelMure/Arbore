@@ -6,19 +6,32 @@ import Typography from 'material-ui/Typography'
 class Error extends Component {
 
   props: {
-    className: any
+    className: any,
+    children: any,
+  }
+
+  extractError(value) {
+    if(typeof value === 'string') {
+      return value
+    }
+
+    if(typeof value === 'object') {
+      if(value.error !== undefined) { return value.error }
+      if(value.statusMessage !== undefined) { return value.statusMessage }
+      if(value.text !== undefined) { return value.text }
+
+      return JSON.stringify(value)
+    }
+
+    return 'unknown error'
   }
 
   render() {
     const { classes, className, children } = this.props
 
-    const text = (typeof children === 'string')
-      ? children
-      : children.toString()
-
     return (
       <Typography className={classes.error + ' ' + className}>
-        <strong>Error:</strong> {text}
+        <strong>Error:</strong> {this.extractError(children)}
       </Typography>
     )
   }
