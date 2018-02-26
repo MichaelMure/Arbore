@@ -16,17 +16,10 @@
     "publish": false
   },
   "github": {
-    "release": false,
+    "release": true,
     "releaseName": "%s",
     "preRelease": true,
     "draft": true,
     "tokenRef": "GITHUB_TOKEN",
-    "assets": [
-      "release/*.rpm",
-      "release/*.AppImage",
-      "release/*.deb",
-      "release/*.exe",
-      "release/*.dmg"
-    ]
   }
 }
