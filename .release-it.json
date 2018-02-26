@@ -16,7 +16,7 @@
     "publish": false
   },
   "github": {
-    "release": true,
+    "release": false,
     "releaseName": "%s",
     "preRelease": true,
     "draft": true,
