@@ -61,6 +61,7 @@ const style = theme => ({
   contacts: {
     overflow: 'auto',
     backgroundColor: theme.palette.background.default,
+    padding: 10,
   },
   noContact: {
     backgroundColor: theme.palette.background.default,
