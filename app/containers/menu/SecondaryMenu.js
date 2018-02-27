@@ -5,7 +5,6 @@ import * as identityList from 'actions/identityList'
 import SecondaryMenu from 'components/menu/SecondaryMenu'
 import { Store } from 'utils/types'
 
-
 const mapStateToProps = (state: Store) => ({
   profile:    state.profile,
 })

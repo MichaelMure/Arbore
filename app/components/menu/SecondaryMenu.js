@@ -5,6 +5,7 @@ import Profile from 'models/Profile'
 import Avatar from 'material-ui/Avatar'
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
+import classnames from 'classnames'
 
 import Logout from 'react-feather/dist/icons/log-out'
 
@@ -14,14 +15,15 @@ class SecondaryMenu extends Component {
     profile: Profile,
     onProfileClick: () => void,
     onLogoutClick: () => void,
+    className: any,
   }
 
   render() {
     const profile : Profile = this.props.profile
-    const { classes, onProfileClick, onLogoutClick } = this.props
+    const { classes, className, onProfileClick, onLogoutClick } = this.props
 
     return (
-      <div className={classes.wrapper}>
+      <div className={classnames(classes.wrapper, className)}>
         <div className={classes.item} onClick={onProfileClick}>
           <Typography noWrap>{profile.identity}</Typography>
           { profile.avatarUrl && <Avatar src={profile.avatarUrl} /> }
