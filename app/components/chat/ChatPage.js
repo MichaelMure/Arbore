@@ -36,9 +36,8 @@ class ChatPage extends Component {
 
     return (
       <div className={classes.wrapper}>
-        <div />
 
-        <SecondaryMenu />
+        <SecondaryMenu/>
 
         <div className={classes.contacts}>
           <RoomList />
@@ -59,6 +58,7 @@ const style = theme => ({
     backgroundColor: theme.palette.background.appBar,
   },
   contacts: {
+    gridRow: '1 / 3',
     overflow: 'auto',
     backgroundColor: theme.palette.background.default,
     padding: 10,
