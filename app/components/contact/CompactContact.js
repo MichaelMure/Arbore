@@ -40,10 +40,11 @@ class CompactContact extends Component {
 
 const style = theme => ({
   card: {
-    marginTop: 10
+    marginTop: 10,
+    backgroundColor: theme.palette.background.light,
   },
   cardSelected: {
-    backgroundColor: darken(theme.palette.background.default, 0.20)
+    backgroundColor: theme.palette.background.dark,
   },
   header: {
     paddingBottom: '10px !important',

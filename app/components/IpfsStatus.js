@@ -79,7 +79,7 @@ const style = theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
     zIndex: 30,
   },
   spacer: {

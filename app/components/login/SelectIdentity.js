@@ -56,8 +56,8 @@ const style = theme => ({
     borderRadius: 20,
     marginBottom: 5,
     cursor: 'pointer',
-    backgroundColor: theme.palette.background.paper,
-    borderColor: theme.palette.grey[500],
+    backgroundColor: theme.palette.background.light,
+    borderColor: theme.palette.background.darker,
 
     justifyContent: 'center',
     userSelect: 'none',

@@ -96,7 +96,7 @@ class ShareFiles extends Component {
 
 const style = theme => ({
   wrapper: {
-    backgroundColor: theme.palette.background.appBar,
+    backgroundColor: theme.palette.background.dark,
     borderRadius: 5,
     padding: 2,
   },

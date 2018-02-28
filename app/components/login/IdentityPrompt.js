@@ -82,8 +82,8 @@ const style = theme => ({
     borderRadius: 20,
     margin: '-1px -1px',
     cursor: 'pointer',
-    backgroundColor: theme.palette.background.paper,
-    borderColor: theme.palette.grey[500],
+    backgroundColor: theme.palette.background.light,
+    borderColor: theme.palette.background.darker,
     flexGrow: 1,
     overflow: 'auto',
 
@@ -99,8 +99,8 @@ const style = theme => ({
     border: '1px solid',
     borderRadius: 20,
     boxSizing: 'border-box',
-    backgroundColor: theme.palette.background.default,
-    borderColor: theme.palette.grey[500],
+    backgroundColor: theme.palette.background.main,
+    borderColor: theme.palette.background.darker,
     marginBottom: 5,
   },
   password: {

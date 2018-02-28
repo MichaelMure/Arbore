@@ -53,7 +53,7 @@ const style = theme => ({
     position: 'absolute',
     top: 0,
     height: '100%',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
     borderLeft: '1px solid rgba(0, 0, 0, 0.12)',
     transition: 'transform 225ms ease-in-out 0ms',
     padding: '10px',

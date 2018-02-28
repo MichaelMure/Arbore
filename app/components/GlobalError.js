@@ -33,8 +33,9 @@ class GlobalError extends Component {
 
 const style = theme => {
 
-  const backgroundColor = theme.palette.error[300]
-  const textColor = theme.palette.getContrastText(backgroundColor)
+  console.log(theme)
+  const backgroundColor = theme.palette.error.main
+  const textColor = theme.palette.error.contrastText
 
   return {
     wrapper: {
