@@ -36,7 +36,7 @@ class ShowProfile extends Component {
         <Pubkey pubkey={profile.pubkey} />
 
         <div className={classes.buttons}>
-          <Button raised onClick={this.props.onEditClick}>
+          <Button variant='raised' onClick={this.props.onEditClick}>
             <FontAwesome name="pencil" />
             Edit profile
           </Button>

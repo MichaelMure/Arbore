@@ -79,13 +79,13 @@ class ContactDetail extends Component {
         }
 
         { this.props.isInDirectory &&
-          <Button raised color='primary' onClick={::this.handleOpenConfirm}>
+          <Button variant='raised' color='primary' onClick={::this.handleOpenConfirm}>
             Delete contact
           </Button>
         }
 
         { !this.props.isInDirectory &&
-          <Button raised color='primary' onClick={this.props.onAddClickGenerator(contact)}>
+          <Button variant='raised' color='primary' onClick={this.props.onAddClickGenerator(contact)}>
             Add contact
           </Button>
         }

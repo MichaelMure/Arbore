@@ -77,9 +77,9 @@ class EditProfile extends Component {
         { error && <Error>{error}</Error>}
 
         <div className={styles.buttons}>
-          <Button raised onClick={onCancelClick} disabled={waiting}>Cancel</Button>
+          <Button variant='raised' onClick={onCancelClick} disabled={waiting}>Cancel</Button>
           <Button
-            raised color='primary'
+            variant='raised' color='primary'
             type='submit'
             disabled={(pristine && avatarPristine) || submitting || waiting}
           >

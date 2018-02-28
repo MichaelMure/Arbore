@@ -56,7 +56,7 @@ class IpfsStatus extends Component {
         <div className={classes.progress}>
           { (state === ConnectorState.DOWNLOADING && progress) &&
             <div>
-              <LinearProgress mode="determinate" value={100 * progress.completed / total} />
+              <LinearProgress variant="determinate" value={100 * progress.completed / total} />
               <Typography>{humanize.filesizeNoUnit(progress.completed)} of {humanize.filesize(total)} ({Math.round(100 * progress.completed / total)}%)</Typography>
             </div>
           }

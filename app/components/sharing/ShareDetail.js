@@ -65,7 +65,7 @@ class ShareDetail extends Component {
               </IconButton>
             }
             <IconButton
-              color={ share.favorite ? 'accent' : 'default'}
+              color={ share.favorite ? 'secondary' : 'default'}
               onClick={ this.props.onFavoriteClickGenerator(share) }>
               <FontAwesome name={ share.favorite ? 'star' :  'star-o' } />
             </IconButton>
@@ -74,7 +74,7 @@ class ShareDetail extends Component {
 
         { (share.isDownloading || share.isPaused) &&
           <div>
-            <LinearProgress mode="determinate" value={share.progress * 100}/>
+            <LinearProgress variant="determinate" value={share.progress * 100}/>
             <div className={styles.stats}>
               <Typography>{humanize.filesizeNoUnit(share.sizeLocal)} of {humanize.filesize(share.sizeTotal)} ({share.progressFormatted})</Typography>
             </div>

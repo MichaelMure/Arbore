@@ -22,12 +22,12 @@ class AddBySuggest extends Component {
         <div className={styles.suggestActions}>
           <Avatar person={contact} className={styles.suggestAvatar}/>
           <div className={styles.suggestButtons}>
-            <Button fab
+            <Button variant="fab"
               onClick={this.props.onSuggestRefuseGenerator(contact)}
               className={styles.suggestReject}>
               <FontAwesome name='times' />
             </Button>
-            <Button fab
+            <Button variant="fab"
               onClick={this.props.onSuggestAcceptGenerator(contact)}
               className={styles.suggestAccept}>
               <FontAwesome name='check' />
@@ -58,7 +58,7 @@ class AddBySuggest extends Component {
       <div className={styles.wrapper}>
         { content }
         <div className={styles.buttons}>
-          <Button raised onClick={this.props.onCancelClick}>Close</Button>
+          <Button variant='raised' onClick={this.props.onCancelClick}>Close</Button>
         </div>
       </div>
     )

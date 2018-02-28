@@ -27,7 +27,7 @@ class MenuItem extends Component {
     if(open) {
       return (
         <div className={classes.wrapper} onClick={onClick}>
-          <IconButton color={ accent ? 'accent' : 'default'}>
+          <IconButton color={ accent ? 'secondary' : 'default'}>
             { badgeValue > 0
               ? <Badge badgeContent={badgeValue} classes={{badge: classes.badge}}>{children}</Badge>
               : children
@@ -41,7 +41,7 @@ class MenuItem extends Component {
     return (
       <div className={classes.wrapper} onClick={onClick} data-tip data-for={name}>
         <Tooltip id={name} title={label} placement='right'>
-          <IconButton color={ accent ? 'accent' : 'default'}>
+          <IconButton color={ accent ? 'secondary' : 'default'}>
             { badgeValue > 0
                 ? <Badge badgeContent={badgeValue} classes={{badge: classes.badge}}>{children}</Badge>
                 : children

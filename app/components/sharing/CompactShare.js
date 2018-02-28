@@ -39,7 +39,7 @@ class CompactShare extends Component {
         />
         { (share.isDownloading || share.isPaused) &&
           <LinearProgress
-            mode='determinate'
+            variant='determinate'
             value={share.progress * 100}
           />
         }
