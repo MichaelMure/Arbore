@@ -20,7 +20,7 @@ class SettingsPage extends Component {
 
     return (
       <div className={classes.wrapper}>
-        <div />
+        <div className={classes.empty}/>
         <SecondaryMenu />
 
         <FormControl className={classes.settings}>
@@ -46,6 +46,9 @@ const style = theme => ({
     gridTemplateColumns: '2fr 3fr',
     gridTemplateRows: 'auto 1fr',
     height: '100vh',
+    backgroundColor: theme.palette.background.dark,
+  },
+  empty: {
     backgroundColor: theme.palette.background.dark,
   },
   settings: {

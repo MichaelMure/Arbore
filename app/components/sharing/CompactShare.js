@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
-import { darken } from 'material-ui/styles/colorManipulator'
 import Card, { CardHeader } from 'material-ui/Card'
 import { LinearProgress } from 'material-ui/Progress'
 import classNames from 'classnames'
@@ -54,7 +53,7 @@ const style = theme => ({
     backgroundColor: theme.palette.background.light,
   },
   cardSelected: {
-    backgroundColor: theme.palette.background.darker,
+    backgroundColor: theme.palette.background.dark,
   }
 })
 

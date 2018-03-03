@@ -13,7 +13,7 @@ const dark = createMuiTheme({
     type: 'dark',
     background: {
       main: '#303030',
-      dark: '#212121',
+      dark: '#252525',
       light: '#424242',
       darker: '#202020',
       emphasize: '#484848',

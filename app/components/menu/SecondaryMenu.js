@@ -43,7 +43,7 @@ const style = theme => ({
     alignItems: 'center',
     padding: 10,
     height: 60,
-    backgroundColor: theme.palette.background.darker,
+    backgroundColor: theme.palette.background.dark,
   },
   item: {
     display: 'flex',

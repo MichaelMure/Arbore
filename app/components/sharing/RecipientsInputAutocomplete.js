@@ -8,7 +8,6 @@ import match from 'autosuggest-highlight/match'
 import parse from 'autosuggest-highlight/parse'
 import ContactList from 'models/ContactList'
 import Contact from 'models/Contact'
-import { emphasize } from 'material-ui/styles/colorManipulator'
 
 class RecipientsInputAutocomplete extends Component {
   state = {
