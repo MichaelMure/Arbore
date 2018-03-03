@@ -28,7 +28,7 @@ class ChatPage extends Component {
             <Typography type="subheading">Ho no !</Typography>
             <Typography>It seems that you have no contact yet.</Typography>
             <div className={classes.spacer} />
-              <Button raised color='primary' onClick={onGoToContactClick}>Go to the contact management</Button>
+              <Button variant='raised' color='primary' onClick={onGoToContactClick}>Go to the contact management</Button>
           </div>
         </div>
       )
@@ -55,16 +55,16 @@ const style = theme => ({
     gridTemplateColumns: '200px 1fr',
     gridTemplateRows: 'auto 1fr',
     height: '100vh',
-    backgroundColor: theme.palette.background.appBar,
+    backgroundColor: theme.palette.background.dark,
   },
   contacts: {
+    backgroundColor: theme.palette.background.main,
     gridRow: '1 / 3',
     overflow: 'auto',
-    backgroundColor: theme.palette.background.default,
     padding: 10,
   },
   noContact: {
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
     gridColumn: '1 / 3',
     display: 'flex',
     height: '100%',

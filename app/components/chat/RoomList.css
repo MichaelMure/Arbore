@@ -11,6 +11,7 @@
 }
 
 .selected {
+  /* TODO: use palette emphasize*/
   background-color: rgba(0,0,0,0.12);
   border-radius: 3px;
 }

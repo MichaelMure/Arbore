@@ -108,10 +108,10 @@ const style = theme => ({
       cursor: 'pointer',
       userSelect: 'none',
       fontFamily: 'Roboto',
-      color: theme.palette.text.primary,
+      color: theme.palette.getContrastText(theme.palette.background.emphasize),
     },
     '& > *:hover': {
-      backgroundColor: 'lightgray',
+      backgroundColor: theme.palette.background.emphasize,
     },
   }
 })

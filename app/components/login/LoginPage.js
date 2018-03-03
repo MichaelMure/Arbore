@@ -64,7 +64,7 @@ const style = theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
   },
   logo: {
     width: '200px',

@@ -36,7 +36,7 @@ class ShowProfile extends Component {
         <Pubkey pubkey={profile.pubkey} />
 
         <div className={classes.buttons}>
-          <Button raised onClick={this.props.onEditClick}>
+          <Button variant='raised' onClick={this.props.onEditClick}>
             <FontAwesome name="pencil" />
             Edit profile
           </Button>
@@ -64,7 +64,7 @@ const style = theme => ({
     width: 200,
     height: 200,
     borderRadius: '50%',
-    backgroundColor: theme.palette.background.appBar,
+    backgroundColor: theme.palette.background.dark,
     margin: 'auto',
     display: 'flex',
     justifyContent: 'center',

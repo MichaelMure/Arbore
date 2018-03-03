@@ -46,10 +46,10 @@ const style = theme => ({
     gridTemplateColumns: '2fr 3fr',
     gridTemplateRows: 'auto 1fr',
     height: '100vh',
-    backgroundColor: theme.palette.background.appBar,
+    backgroundColor: theme.palette.background.dark,
   },
   settings: {
-    backgroundColor: theme.palette.background.default,
+    backgroundColor: theme.palette.background.main,
     gridColumn: '1 / 3',
     display: 'flex',
     alignItems: 'center',

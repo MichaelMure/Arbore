@@ -59,8 +59,8 @@ class NewProfile extends Component {
         { error && <Error>{error}</Error>}
 
         <div className={styles.buttons}>
-          <Button raised onClick={this.props.onCancelClick} disabled={waiting}>Cancel</Button>
-          <Button raised color='primary' type='submit' disabled={pristine || submitting || waiting}>
+          <Button variant='raised' onClick={this.props.onCancelClick} disabled={waiting}>Cancel</Button>
+          <Button variant='raised' color='primary' type='submit' disabled={pristine || submitting || waiting}>
             { waiting && <FontAwesome name='cog' spin /> }
             Create identity
           </Button>

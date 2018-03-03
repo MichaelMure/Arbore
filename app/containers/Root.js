@@ -2,7 +2,6 @@
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles'
-import createPalette from 'material-ui/styles/createPalette'
 import Home from 'containers/Home'
 import LoginPage from 'components/login/LoginPage'
 import GlobalError from 'containers/GlobalError'
@@ -10,15 +9,29 @@ import IpfsStatus from 'containers/IpfsStatus'
 import { Theme } from 'models/Settings'
 
 const dark = createMuiTheme({
-  palette: createPalette({
+  palette: {
     type: 'dark',
-  }),
+    background: {
+      main: '#303030',
+      dark: '#212121',
+      light: '#424242',
+      darker: '#202020',
+      emphasize: '#484848',
+    }
+  },
 })
 
 const light = createMuiTheme({
-  palette: createPalette({
+  palette: {
     type: 'light',
-  }),
+    background: {
+      main: '#fafafa',
+      dark: '#f5f5f5',
+      light: '#ffffff',
+      darker: '#e0e0e0',
+      emphasize: '#dcdcdc',
+    }
+  },
 })
 
 export default class Root extends Component {

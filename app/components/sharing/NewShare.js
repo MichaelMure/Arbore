@@ -37,14 +37,14 @@ class NewShare extends Component {
 
         { progress &&
           <div className={styles.progressWrapper}>
-            <LinearProgress mode="buffer" value={progress.progress*100} valueBuffer={progress.nextProgress*100} />
+            <LinearProgress variant="buffer" value={progress.progress*100} valueBuffer={progress.nextProgress*100} />
             <Typography>Adding {progress.adding}</Typography>
           </div>
         }
 
         <div className={styles.buttons}>
-          <Button raised onClick={this.props.onCancelClick} disabled={waiting}>Cancel</Button>
-          <Button raised color='primary' type='submit' disabled={pristine || submitting }>
+          <Button variant='raised' onClick={this.props.onCancelClick} disabled={waiting}>Cancel</Button>
+          <Button variant='raised' color='primary' type='submit' disabled={pristine || submitting }>
             { submitting && <FontAwesome name='cog' spin /> }
             Share
           </Button>
