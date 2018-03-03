@@ -51,11 +51,11 @@ const style = theme => ({
     display: 'flex',
     flexDirection: 'row',
     minHeight: '100vh',
-    backgroundColor: theme.palette.background.default
+    backgroundColor: theme.palette.background.main
   },
   sidebar: {
     zIndex: 10,
-    backgroundColor: theme.palette.background.default
+    backgroundColor: theme.palette.background.main
   },
   content: {
     flex: 1,

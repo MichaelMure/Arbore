@@ -64,7 +64,7 @@ const style = theme => ({
     width: 200,
     height: 200,
     borderRadius: '50%',
-    backgroundColor: theme.palette.background.appBar,
+    backgroundColor: theme.palette.background.dark,
     margin: 'auto',
     display: 'flex',
     justifyContent: 'center',

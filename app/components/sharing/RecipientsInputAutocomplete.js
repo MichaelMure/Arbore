@@ -121,7 +121,7 @@ function getSuggestionValue(suggestion: Contact) {
 }
 
 const style = theme => {
-  const backgroundColor = emphasize(theme.palette.background.default, 0.12)
+  const backgroundColor = theme.palette.background.emphasize
 
   return {
     container: {

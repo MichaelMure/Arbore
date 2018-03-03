@@ -21,7 +21,7 @@ class InsetText extends Component {
 }
 
 const style = theme => {
-  const backgroundColor = theme.palette.grey[theme.palette.type === 'light' ? 300 : 900]
+  const backgroundColor = theme.palette.background.darker
   const color = theme.palette.getContrastText(backgroundColor)
 
   return {

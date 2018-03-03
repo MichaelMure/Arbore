@@ -143,7 +143,7 @@ class AvatarEditor extends Component {
             width={200}
             height={200}
             borderRadius={5000}
-            color={convertThemeColor(theme.palette.background.default)}
+            color={convertThemeColor(theme.palette.background.main)}
             style={{margin: '0 auto'}}
             scale={parseFloat(this.state.scale)}
             rotate={this.state.rotation}
