@@ -9,11 +9,11 @@ class Drawer extends Component {
     onBackgroundClick: () => void,
     open: boolean,
     big: boolean
-  };
+  }
 
   static defaultProps = {
     open: false
-  };
+  }
 
   render() {
     const { classes } = this.props
@@ -35,10 +35,9 @@ class Drawer extends Component {
           {this.props.children}
         </div>
       </div>
-    );
+    )
   }
 }
-
 
 const style = theme => ({
   wrapper: {
@@ -87,4 +86,4 @@ const style = theme => ({
   }
 })
 
-export default withStyles(style)(Drawer);
+export default withStyles(style)(Drawer)

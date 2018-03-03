@@ -9,6 +9,7 @@ import Profile from 'models/Profile'
 import Avatar from 'components/common/Avatar'
 
 class Room extends Component {
+  bottom: any
 
   props: {
     selectedRoom: ?ChatRoom,

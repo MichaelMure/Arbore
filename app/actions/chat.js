@@ -71,6 +71,7 @@ export function onContactAlive(contact: Contact) {
 
 const protocol = {
   chat: createAction('CHAT',
+    // TODO: add a message id for deduplication
     (id: string, profile: Profile, message: string) => ({id, from: profile.pubkey, message})
   ),
   chatAck: createAction('CHAT_ACK',

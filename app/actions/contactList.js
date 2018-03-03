@@ -237,7 +237,7 @@ function handleContactsReply(dispatch, getState, payload) {
     return
   }
 
-  // TODO: check contacts
+  // TODO: validate contacts
 
   console.log('Got contact list from ' + contact.identity)
 
