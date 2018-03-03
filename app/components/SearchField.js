@@ -47,7 +47,7 @@ class SearchField extends Component {
 const style = theme => ({
   search: {
     padding: '0 10px 0',
-    backgroundColor: theme.palette.background.darker,
+    backgroundColor: theme.palette.background.dark,
   },
 })
 
