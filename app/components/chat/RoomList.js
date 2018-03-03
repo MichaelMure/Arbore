@@ -1,14 +1,12 @@
 // @flow
 import React, { Component } from 'react'
-import styles from './RoomList.css'
+import { withStyles } from 'material-ui/styles'
+import classNames from 'classnames'
 import Typography from 'material-ui/Typography'
 import ChatRoomList from 'models/ChatRoomList'
 import ContactList from 'models/ContactList'
 import Contact  from 'models/Contact'
-import classNames from 'classnames/bind'
 import AvatarWithStatus from 'components/common/AvatarWithStatus'
-
-const cx = classNames.bind(styles);
 
 class RoomList extends Component {
 
@@ -21,6 +19,7 @@ class RoomList extends Component {
 
   render() {
     const {
+      classes,
       rooms,
       contacts,
       onRoomClickGenerator,
@@ -42,9 +41,8 @@ class RoomList extends Component {
             const contact: Contact = contacts.findContactInPool(pubkey)
             const selected = rooms.selectedChat === pubkey
 
-            const itemClass = cx({
-              item: true,
-              selected: selected
+            const itemClass = classNames(classes.item, {
+              [classes.selected]: selected
             })
 
             return (
@@ -53,14 +51,14 @@ class RoomList extends Component {
                 onClick={onRoomClickGenerator(contact)}
                 className={itemClass}
               >
-                <AvatarWithStatus person={contact} status={contact.status} avatarClass={styles.avatar} rootClass={styles.status} />
-                <Typography className={styles.identity} noWrap>{contact.identity}</Typography>
-                { room.unread > 0 &&  <div className={styles.unread}>{room.unread}</div> }
+                <AvatarWithStatus person={contact} status={contact.status} avatarClass={classes.avatar} rootClass={classes.status} />
+                <Typography className={classes.identity} noWrap>{contact.identity}</Typography>
+                { room.unread > 0 &&  <div className={classes.unread}>{room.unread}</div> }
               </div>
             )
           })
         }
-        { roomsSeq.count() > 0 && <div className={styles.spacer} /> }
+        { roomsSeq.count() > 0 && <div className={classes.spacer} /> }
         { contactsSeq.count() > 0 && <Typography type="subheading" gutterBottom>Contacts</Typography> }
         {
           contactsSeq.map((contact: Contact) => (
@@ -69,8 +67,8 @@ class RoomList extends Component {
               onClick={onContactClickGenerator(contact)}
               className={styles.item}
             >
-              <AvatarWithStatus person={contact} status={contact.status} avatarClass={styles.avatar} rootClass={styles.status} />
-              <Typography className={styles.identity} noWrap>{contact.identity}</Typography>
+              <AvatarWithStatus person={contact} status={contact.status} avatarClass={classes.avatar} rootClass={classes.status} />
+              <Typography className={classes.identity} noWrap>{contact.identity}</Typography>
             </div>
           ))
         }
@@ -79,4 +77,47 @@ class RoomList extends Component {
   }
 }
 
-export default RoomList
+const style = theme => ({
+  identity: {
+    flex: 1,
+  },
+  item: {
+    display: 'flex',
+    alignItems: 'center',
+    cursor: 'pointer',
+    userSelect: 'none',
+    paddingTop: 6,
+    paddingBottom: 6,
+
+  },
+  selected: {
+    backgroundColor: theme.palette.background.emphasize,
+    borderRadius: 3,
+  },
+  status: {
+    marginRight: 4,
+    marginLeft: 4,
+  },
+  avatar: {
+    width: '24px !important',
+    height: '24px !important',
+    fontSize: '12px !important',
+  },
+  unread: {
+    width: 20,
+    height: 20,
+    backgroundColor: theme.palette.background.emphasize,
+    color: theme.palette.getContrastText(theme.palette.background.emphasize),
+    borderRadius: '50%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 4,
+    marginLeft: 4,
+  },
+  spacer: {
+    height: 20,
+  }
+})
+
+export default withStyles(style)(RoomList)
