@@ -33,7 +33,7 @@ class NewProfile extends Component {
     // Pass it up ↑
     return this.props.onSubmit({
       identity: values.identity,
-      password: values.password || '',
+      password: (!!values.password) ? values.password : null,
       bio: values.bio || '',
       avatar: this.avatarEditor.getImage()
     })
@@ -50,8 +50,8 @@ class NewProfile extends Component {
           </div>
           <div className={styles.column}>
             <Field name='identity' component={renderTextField} required label='Identity'/>
-            <Field name='password' component={renderTextField} required label='password' type='password'/>
-            <Field name='password2' component={renderTextField} required label='Repeat password' type='password'/>
+            <Field name='password' component={renderTextField} label='password (optional)' type='password'/>
+            <Field name='password2' component={renderTextField} label='Repeat password' type='password'/>
             <Field name='bio' component={renderTextField} label='About you (optional)' multiline rows="4" placeholder='Who are you ?'/>
           </div>
         </div>
@@ -73,7 +73,7 @@ class NewProfile extends Component {
 const validate = (values, props) => {
   const errors = {}
 
-  const requiredFields = [ 'identity', 'password', 'password2' ]
+  const requiredFields = [ 'identity' ]
   requiredFields.forEach(field => {
     if (!values[ field ]) {
       errors[ field ] = 'Required'

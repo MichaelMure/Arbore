@@ -10,13 +10,15 @@ import { gatewayRoot } from 'ipfs/index'
 export const writable = {
   identity: 'identity',
   avatarHash: 'avatarHash',
-  storageKey: 'storageKey'
+  storageKey: 'storageKey',
+  hasPassword: 'hasPassword',
 }
 
 export const IdentityRecord = Record({
   identity: '',
   avatarHash: null,
-  storageKey: null
+  storageKey: null,
+  hasPassword: true,
 }, 'Identity')
 
 export default class Identity extends IdentityRecord {
@@ -24,12 +26,15 @@ export default class Identity extends IdentityRecord {
   avatarHash: ?string
   // the redux localstorage prefix for this profile
   storageKey: string
+  // weither or not the profile is password protected
+  hasPassword: boolean
 
-  static create(identity: string, avatarHash: ?string, storageKey: string) {
+  static create(identity: string, avatarHash: ?string, storageKey: string, hasPassword: boolean) {
     return new this().withMutations(id => id
       .set(writable.identity, identity)
       .set(writable.avatarHash, avatarHash)
       .set(writable.storageKey, storageKey)
+      .set(writable.hasPassword, hasPassword)
     )
   }
 
@@ -39,10 +44,10 @@ export default class Identity extends IdentityRecord {
 
   get initials(): string {
     const names = this.identity.split(' ')
-    let initials = names[0].substring(0, 1).toUpperCase();
+    let initials = names[0].substring(0, 1).toUpperCase()
 
     if (names.length > 1) {
-      initials += names[names.length - 1].substring(0, 1).toUpperCase();
+      initials += names[names.length - 1].substring(0, 1).toUpperCase()
     }
     return initials;
   }

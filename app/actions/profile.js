@@ -27,7 +27,7 @@ export const setBio = createAction('PROFILE_BIO_SET',
 )
 export const deleteAvatar = createAction('PROFILE_AVATAR_DELETE')
 
-export function generate(identity: string, password: string, bio: ?string, avatar: ?Buffer) {
+export function generate(identity: string, password: ?string, bio: ?string, avatar: ?Buffer) {
   return async function (dispatch) {
     let profile = Profile.create(identity, password, bio)
     const storageKey = profile.storageKey
@@ -35,7 +35,7 @@ export function generate(identity: string, password: string, bio: ?string, avata
     const ipfs: IpfsConnector = IpfsConnector.getInstance()
 
     await waitForIpfsReady()
-    const { id } = await dispatch(generateKeys(storageKey, password))
+    const pubkey = await dispatch(generateKeys(storageKey, password))
 
     // Store in IPFS and pin the avatar if any
     let hash = null
@@ -45,12 +45,12 @@ export function generate(identity: string, password: string, bio: ?string, avata
       console.log('avatar hash: ' + hash)
     }
 
-    const _identity = Identity.create(identity, hash, storageKey)
+    const _identity = Identity.create(identity, hash, storageKey, password !== null)
+    dispatch(identityActions.createNewIdentity(_identity))
+
     profile = profile
       .set(writable.avatarHash, hash)
-      .set(writable.pubkey, id)
-
-    dispatch(identityActions.createNewIdentity(_identity))
+      .set(writable.pubkey, pubkey)
 
     const fullStore = await getFullStore(storageKey, identity)
     await fullStore.dispatch(priv.storeNewProfile(profile))
@@ -66,17 +66,20 @@ export function generate(identity: string, password: string, bio: ?string, avata
  * @param password the password to lock it (NOT USED YET !)
  * @returns {Promise<{ Id: string, Name: string }>} Name: the chosen name, Id: the hash of the public key
  */
-export function generateKeys(name: string, password: string) {
+export function generateKeys(name: string, password: ?string) {
  // TODO: use password once ipfs keystore is ready
-  return function (dispatch) {
+  return async function (dispatch) {
     console.log('Generate keys')
     const ipfs: IpfsConnector = IpfsConnector.getInstance()
 
-    return waitForIpfsReady()
-      .then(() => ipfs.api.apiClient.key.gen(name, {
-        type: 'ed25519',
-        size: 4096
-      }))
+    await waitForIpfsReady()
+
+    const result = await ipfs.api.apiClient.key.gen(name, {
+      type: 'ed25519',
+      size: 4096
+    })
+
+    return result.id
   }
 }
 
