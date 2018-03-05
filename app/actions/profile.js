@@ -86,7 +86,7 @@ export function generateKeys(name: string, password: ?string) {
 export function updatePassword(password: string) {
   return function (dispatch) {
     // TODO: change keys password once it's ready in IPFS
-    return dispatch(priv.setPassword(password))
+    return dispatch(priv.setPassword(Profile.hashPassword(password)))
   }
 }
 
@@ -174,11 +174,14 @@ export function checkPassword(password: ?string) {
 
     const profile: Profile = getState().profile
 
+    // handle no password
     if(profile.password === null && (password === '' || password === null || password === undefined)) {
       return
     }
 
-    if(profile.password !== password) {
+    const correctPassword = await profile.checkPassword(password)
+
+    if(!correctPassword) {
       throw 'Invalid password'
     }
   }

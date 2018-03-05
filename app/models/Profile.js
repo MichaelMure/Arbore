@@ -2,9 +2,12 @@
 import { Record } from 'immutable'
 import { gatewayRoot } from 'ipfs/index'
 import { nextToken } from 'utils/tokenGenerator'
+import * as bcrypt from 'bcryptjs'
 
 export const LOCAL_DATA_VERSION = 1
 export const PUBLISH_DATA_VERSION = 1
+
+const bcryptRound = 10
 
 export const writable = {
   dataVersion: 'dataVersion',
@@ -47,7 +50,7 @@ export default class Profile extends ProfileRecord {
     return new this().withMutations(profile => profile
       .set(writable.storageKey, nextToken(16))
       .set(writable.identity, identity)
-      .set(writable.password, password)
+      .set(writable.password, password ? Profile.hashPassword(password) : null)
       .set(writable.bio, bio)
     )
   }
@@ -87,5 +90,13 @@ export default class Profile extends ProfileRecord {
 
   get sharesPubsubTopic() : string {
     return this.pubkey + '/shares'
+  }
+
+  static hashPassword(password: string) {
+    return bcrypt.hashSync(password, bcryptRound)
+  }
+
+  async checkPassword(password: string) {
+    return bcrypt.compare(password, this.password)
   }
 }

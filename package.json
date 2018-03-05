@@ -160,6 +160,7 @@
   },
   "dependencies": {
     "autosuggest-highlight": "^3.1.0",
+    "bcryptjs": "^2.4.3",
     "bs58": "^4.0.1",
     "classnames": "^2.2.5",
     "electron-canvas-to-buffer": "^2.0.0",
