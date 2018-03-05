@@ -18,6 +18,7 @@ class Error extends Component {
     if(typeof value === 'object') {
       if(value.error !== undefined) { return value.error }
       if(value.statusMessage !== undefined) { return value.statusMessage }
+      if(value.message !== undefined) { return value.message }
       if(value.text !== undefined) { return value.text }
       if(value.name !== undefined) { return value.name }
 

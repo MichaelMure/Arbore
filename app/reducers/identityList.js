@@ -38,7 +38,8 @@ export default handleActions({
 
   [combineActions(
     identity.createNewIdentity,
-    identity.setAvatarHash
+    identity.setAvatarHash,
+    identity.setHasPassword,
   )] : (state: IdentityList, action) => identityByStorageKey(state, action)
 }, initialState )
 

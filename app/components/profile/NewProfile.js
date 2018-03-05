@@ -50,7 +50,7 @@ class NewProfile extends Component {
           </div>
           <div className={styles.column}>
             <Field name='identity' component={renderTextField} required label='Identity'/>
-            <Field name='password' component={renderTextField} label='password (optional)' type='password'/>
+            <Field name='password' component={renderTextField} label='Password (optional)' type='password'/>
             <Field name='password2' component={renderTextField} label='Repeat password' type='password'/>
             <Field name='bio' component={renderTextField} label='About you (optional)' multiline rows="4" placeholder='Who are you ?'/>
           </div>

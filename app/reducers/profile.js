@@ -22,7 +22,7 @@ export default handleActions({
       .set(writable.hash, null)
   ),
 
-  [profile.priv.setPassword]: (state: Profile, action: Action<string>) => (
+  [profile.setPassword]: (state: Profile, action: Action<?string>) => (
     state.set(writable.password, action.payload)
   ),
 

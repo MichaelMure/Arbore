@@ -14,6 +14,10 @@ export default handleActions({
 
   [identity.setAvatarHash]: (state: Identity, action: Action) => (
     state.set(writable.avatarHash, action.payload.avatarHash)
+  ),
+
+  [identity.setHasPassword]: (state: Identity, action: Action) => (
+    state.set(writable.hasPassword, action.payload.hasPassword)
   )
 
 }, initialState )

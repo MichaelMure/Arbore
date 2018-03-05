@@ -23,7 +23,7 @@ class EditProfile extends Component {
   handleSubmit(values) {
     // Pass it up ↑
     return this.props.onSubmit({
-      password: values.password|| '',
+      password: values.password,
       bio: values.bio || '',
       avatar: this.avatarEditor.getImage()
     })
@@ -52,15 +52,13 @@ class EditProfile extends Component {
         <Field
           name='password'
           component={renderTextField}
-          required
-          label='password'
+          label='Password (optional)'
           type='password'
           fullWidth
         />
         <Field
           name='password2'
           component={renderTextField}
-          required
           label='Repeat password'
           type='password'
           fullWidth
@@ -68,7 +66,7 @@ class EditProfile extends Component {
         <Field
           name='bio'
           component={renderTextField}
-          label='About you'
+          label='About you (optional)'
           multiline rows='6'
           placeholder='Who are you ?'
           fullWidth
@@ -94,13 +92,6 @@ class EditProfile extends Component {
 
 const validate = (values, props) => {
   const errors = {}
-
-  const requiredFields = [ 'password', 'password2' ]
-  requiredFields.forEach(field => {
-    if (!values[ field ]) {
-      errors[ field ] = 'Required'
-    }
-  })
 
   if(values.password !== values.password2) {
     errors['password2'] = 'Both passwords should match'

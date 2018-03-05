@@ -73,8 +73,8 @@ const mapStateToProps = (state: Store) => ({
   initialValues: {
     bio: state.profile.bio,
     avatar: state.profile.avatarUrl,
-    password: passwordPlaceholder,
-    password2: passwordPlaceholder
+    password: (state.profile.password !== null) ? passwordPlaceholder : '',
+    password2: (state.profile.password !== null) ? passwordPlaceholder : ''
   }
 })
 

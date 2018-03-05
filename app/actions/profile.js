@@ -11,9 +11,6 @@ export const priv = {
   storeNewProfile: createAction('PROFILE_CREATE',
     (profile: Profile) => (profile)
   ),
-  setPassword: createAction('PROFILE_PASSWORD_SET',
-    (password: string) => (password)
-  ),
   setAvatarHash: createAction('PROFILE_AVATAR_HASH_SET',
     (hash: ?string) => (hash)
   ),
@@ -26,6 +23,9 @@ export const setBio = createAction('PROFILE_BIO_SET',
   (bio: string) => (bio)
 )
 export const deleteAvatar = createAction('PROFILE_AVATAR_DELETE')
+export const setPassword = createAction('PROFILE_PASSWORD_SET',
+  (password: ?string) => (password)
+)
 
 export function generate(identity: string, password: ?string, bio: ?string, avatar: ?Buffer) {
   return async function (dispatch) {
@@ -84,9 +84,21 @@ export function generateKeys(name: string, password: ?string) {
 }
 
 export function updatePassword(password: string) {
-  return function (dispatch) {
+  return async function(dispatch, getState) {
+
     // TODO: change keys password once it's ready in IPFS
-    return dispatch(priv.setPassword(Profile.hashPassword(password)))
+
+    const profile: Profile = getState().profile
+
+    const loginStore = await getLoginStore()
+
+    if(password === '') {
+      await loginStore.dispatch(identityActions.setHasPassword(profile.storageKey, false))
+      await dispatch(setPassword(null))
+    } else {
+      await loginStore.dispatch(identityActions.setHasPassword(profile.storageKey, true))
+      await dispatch(setPassword(Profile.hashPassword(password)))
+    }
   }
 }
 
