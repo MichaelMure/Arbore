@@ -91,7 +91,7 @@ class AvatarEditor extends Component {
     if(this.state.image === null) {
       return null
     }
-    //TODO: need to return a fixed size (400x400+) to handle high dpi screen
+    //TODO: need to return a fixed size (400x400+) to handle high dpi screen + aliasing
     const canvasScaled = this.avatarEditor.getImageScaledToCanvas()
     return canvasBuffer(canvasScaled, 'image/png')
   }

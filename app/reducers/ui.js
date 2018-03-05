@@ -12,7 +12,6 @@ export default handleActions({
 
   // Reset the state when the data come from the storage except the menu state
   [REHYDRATE]: (state, action: Action) => {
-    console.log(action.payload.ui)
     return action.payload.ui
       ? initialState.set(writable.menuOpen, action.payload.ui.menuOpen)
       : initialState
