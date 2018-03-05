@@ -23,7 +23,7 @@ export const priv = {
  * @param password
  * @returns {Promise}
  */
-export function login(identity: Identity, password: ?string) {
+export function login(identity: Identity, password: ?string = null) {
   return async function (dispatch) {
     const fullStore = await getFullStore(identity.storageKey, identity.identity)
     const fullStoreDispatch = fullStore.dispatch

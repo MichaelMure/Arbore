@@ -16,42 +16,56 @@ class IdentityPrompt extends Component {
 
   props: {
     identity: Identity,
+    active: boolean,
     open: boolean,
     onNameClick: () => any,
     handleSubmit: (Array) => any,
-    onPasswordBlur: () => any,
   }
 
   render() {
-    const { classes, identity, open, error, onNameClick, handleSubmit, onPasswordBlur } = this.props
+    const { classes, identity, active, open, error, onNameClick, handleSubmit } = this.props
+
+    const isOpen = active && open
 
     const passwordClasses = classNames(classes.password, {
-      [classes.passwordClosed]: !open,
-      [classes.passwordOpened]: open,
+      [classes.passwordClosed]: !isOpen,
+      [classes.passwordOpened]: isOpen,
     })
+
+    const hasPassword = identity.hasPassword
 
     return (
       <form onSubmit={handleSubmit}>
         <div className={classes.passwordWrapper}>
 
-          <div className={classes.identity} { ...a11yButton(onNameClick) }>
-            <Avatar person={identity} />
-            <Typography type="subheading" noWrap>{identity.identity}</Typography>
-          </div>
+          { hasPassword && (
+            <div className={classes.identity} { ...a11yButton(onNameClick) }>
+              <Avatar person={identity} />
+              <Typography type="subheading" noWrap>{identity.identity}</Typography>
+            </div>
+          )}
+
+          {/* Directly submit the form when no password is here */}
+          { !hasPassword && (
+            <button className={classes.identity}>
+              <Avatar person={identity} />
+              <Typography type="subheading" noWrap>{identity.identity}</Typography>
+            </button>
+          )}
 
           <div className={passwordClasses}>
-            { open && (
+            { isOpen && (
               <Field name='password'
                      component={renderTextField}
-                     /* required */ fullWidth autoFocus
+                     required={hasPassword}
+                     fullWidth autoFocus
                      type='password'
-                     onBlur={onPasswordBlur}
                />
             )}
           </div>
         </div>
 
-        { (open && error) && <Error className={classes.error}>{error}</Error> }
+        { (active && error) && <Error className={classes.error}>{error}</Error> }
       </form>
     )
   }
@@ -60,9 +74,9 @@ class IdentityPrompt extends Component {
 const validate = (values, props) => {
   const errors = {}
 
-  // if(!values['password']) {
-  //   errors['password'] = 'Required'
-  // }
+  if(props.identity.hasPassword && !values['password']) {
+    errors['password'] = 'Required'
+  }
 
   return errors
 }

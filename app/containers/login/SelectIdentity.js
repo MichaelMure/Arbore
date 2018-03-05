@@ -12,34 +12,39 @@ class SelectIdentityContainer extends Component {
 
   props: {
     identities: IdentityList,
-    dispatch: (Action) => any
+    dispatch: (Action) => any,
+    onNewIdentityClick: () => any,
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      opened: null
+      active: null,
+      open: false,
     }
   }
 
-  handleIdentityClick(identity: Identity) {
-    if(identity !== this.state.opened) {
-      this.setState({opened: identity})
+  handleNameClick(identity: Identity) {
+    if(identity !== this.state.active) {
+      this.setState({active: identity, open: true})
       this.props.dispatch(reset(formName))
     }
   }
 
-  handleFinish() {
+  handleSubmit(identity: Identity) {
+    this.setState({active: identity, open: identity.hasPassword})
     this.props.dispatch(reset(formName))
   }
 
   render() {
     return (
       <SelectIdentity
-        opened={this.state.opened}
-        onIdentityClick={::this.handleIdentityClick}
-        onFinish={::this.handleFinish}
-        { ...this.props }
+        identities={this.props.identities}
+        onNewIdentityClick={this.props.onNewIdentityClick}
+        active={this.state.active}
+        open={this.state.open}
+        onNameClick={::this.handleNameClick}
+        onSubmit={::this.handleSubmit}
       />
     )
   }

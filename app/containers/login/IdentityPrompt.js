@@ -11,19 +11,21 @@ class IdentityPromptContainer extends Component {
 
   props: {
     identity: Identity,
+    active: boolean,
     open: boolean,
     dispatch: (Action) => any,
     onNameClick: () => any,
-    onFinish: () => any,
+    onSubmit: (identity: Identity) => any,
   }
 
   async handleSubmit(values) {
     const { dispatch, identity } = this.props
     const { password } = values
 
+    this.props.onSubmit(identity)
+
     try {
       await dispatch(identyListActions.login(identity, password))
-      this.props.onFinish()
     } catch(err) {
       throw new SubmissionError({ _error: err })
     }
@@ -33,10 +35,10 @@ class IdentityPromptContainer extends Component {
     return (
       <IdentityPrompt
         identity={this.props.identity}
+        active={this.props.active}
         open={this.props.open}
         onNameClick={this.props.onNameClick}
         onSubmit={::this.handleSubmit}
-        onPasswordBlur={this.props.onFinish}
       />
     )
   }
