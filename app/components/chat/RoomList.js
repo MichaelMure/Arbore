@@ -65,7 +65,7 @@ class RoomList extends Component {
             <div
               key={contact.pubkey}
               onClick={onContactClickGenerator(contact)}
-              className={styles.item}
+              className={classes.item}
             >
               <AvatarWithStatus person={contact} status={contact.status} avatarClass={classes.avatar} rootClass={classes.status} />
               <Typography className={classes.identity} noWrap>{contact.identity}</Typography>
