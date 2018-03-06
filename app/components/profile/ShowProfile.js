@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
 import Profile from 'models/Profile'
-import Button from 'material-ui/Button'
+import IconButton from 'material-ui/IconButton'
 import Typography from 'material-ui/Typography'
 import FontAwesome from 'react-fontawesome'
 import Avatar from 'components/common/Avatar'
@@ -21,7 +21,11 @@ class ShowProfile extends Component {
 
     return (
       <div>
-        <Typography className={classes.identity}>{profile.identity}</Typography>
+        <div className={classes.header}>
+          <div className={classes.lateral} />
+          <Typography className={classes.identity}>{profile.identity}</Typography>
+          <IconButton className={classes.lateral} onClick={this.props.onEditClick}><FontAwesome name="pencil" /></IconButton>
+        </div>
 
         { profile.avatarUrl
           ? <Avatar person={profile} className={classes.avatar} />
@@ -34,13 +38,6 @@ class ShowProfile extends Component {
           Share your Arbore ID
         </Typography>
         <Pubkey pubkey={profile.pubkey} />
-
-        <div className={classes.buttons}>
-          <Button variant='raised' onClick={this.props.onEditClick}>
-            <FontAwesome name="pencil" />
-            Edit profile
-          </Button>
-        </div>
       </div>
     )
   }
@@ -51,7 +48,7 @@ const style = theme => ({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 5,
+    margin: '10px 0 20px',
   },
   avatar: {
     width: '200px !important',
@@ -71,19 +68,14 @@ const style = theme => ({
     alignItems: 'center',
   },
   identity: {
-    margin: '10px 10px 20px !important',
+    margin: '0 10px 0 !important',
     fontSize: '2em !important',
-    textAlign: 'center'
+    textAlign: 'center',
+    flexGrow: 1,
   },
-  buttons: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: '10px !important',
-    '& > *': {
-      minWidth: 100,
-    }
-  }
+  lateral: {
+    width: '20px !important',
+  },
 })
 
 export default withStyles(style)(ShowProfile)
