@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
 import Card, { CardHeader } from 'material-ui/Card'
 import { LinearProgress } from 'material-ui/Progress'
+import Typography from 'material-ui/Typography'
 import classNames from 'classnames'
 import Share from "models/Share"
 import Contact from 'models/Contact'
@@ -29,12 +30,21 @@ class CompactShare extends Component {
       [classes.cardSelected]: selected,
     })
 
+    const title = <Typography variant='body2' noWrap>
+      {share.title}
+    </Typography>
+
+    const subheader = <Typography variant='subheader' noWrap>
+      {author.identity}
+    </Typography>
+
     return (
       <Card className={cardClass} onClick={this.props.onClick}>
         <CardHeader
           avatar={<Avatar person={author} />}
-          title={share.title}
-          subheader={share.description}
+          title={title}
+          subheader={subheader}
+          classes={{ content: classes.content }}
         />
         { (share.isDownloading || share.isPaused) &&
           <LinearProgress
@@ -54,6 +64,10 @@ const style = theme => ({
   },
   cardSelected: {
     backgroundColor: theme.palette.background.dark,
+  },
+  content: {
+    minWidth: 0,
+    overflow: 'hidden',
   }
 })
 

@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
 import Card, { CardHeader } from 'material-ui/Card'
+import Typography from 'material-ui/Typography'
 import Contact from 'models/Contact'
 import classNames from 'classnames'
 import Avatar from 'components/common/Avatar'
@@ -25,12 +26,16 @@ class CompactContact extends Component {
       [classes.cardSelected]: selected,
     })
 
+    const title = <Typography variant='body2' noWrap>
+      {contact.identity}
+    </Typography>
+
     return (
       <Card className={cardClass} onClick={ ::this.props.onClick }>
         <CardHeader
           className={classes.header}
           avatar={<Avatar person={contact} />}
-          title={ contact.identity }
+          title={title}
         />
       </Card>
     )
@@ -48,6 +53,10 @@ const style = theme => ({
   header: {
     paddingBottom: '10px !important',
     paddingTop: '10px !important'
+  },
+  content: {
+    minWidth: 0,
+    overflow: 'hidden',
   }
 })
 
