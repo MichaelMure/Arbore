@@ -37,7 +37,7 @@ class SelectIdentity extends Component {
         )}
 
         <div className={classes.newIdentity} { ...a11yButton(::this.props.onNewIdentityClick) }>
-          <Typography type="subheading">Create a new identity</Typography>
+          <Typography variant="subheading">Create a new identity</Typography>
         </div>
       </div>
     )

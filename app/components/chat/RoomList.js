@@ -35,7 +35,7 @@ class RoomList extends Component {
 
     return (
       <div>
-        { roomsSeq.count() > 0 && <Typography type="subheading" gutterBottom>Conversations</Typography> }
+        { roomsSeq.count() > 0 && <Typography variant="subheading" gutterBottom>Conversations</Typography> }
         {
           roomsSeq.map(([pubkey, room]) => {
             const contact: Contact = contacts.findContactInPool(pubkey)
@@ -59,7 +59,7 @@ class RoomList extends Component {
           })
         }
         { roomsSeq.count() > 0 && <div className={classes.spacer} /> }
-        { contactsSeq.count() > 0 && <Typography type="subheading" gutterBottom>Contacts</Typography> }
+        { contactsSeq.count() > 0 && <Typography variant="subheading" gutterBottom>Contacts</Typography> }
         {
           contactsSeq.map((contact: Contact) => (
             <div

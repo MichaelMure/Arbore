@@ -25,7 +25,7 @@ class ChatPage extends Component {
           <SecondaryMenu />
 
           <div className={classes.noContact}>
-            <Typography type="subheading">Ho no !</Typography>
+            <Typography variant="subheading">Ho no !</Typography>
             <Typography>It seems that you have no contact yet.</Typography>
             <div className={classes.spacer} />
               <Button variant='raised' color='primary' onClick={onGoToContactClick}>Go to the contact management</Button>

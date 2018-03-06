@@ -30,7 +30,7 @@ class ShowProfile extends Component {
 
         <InsetText text={profile.bio} placeholder='No biography' />
 
-        <Typography align="center" type="body2">
+        <Typography align="center" variant="body2">
           Share your Arbore ID
         </Typography>
         <Pubkey pubkey={profile.pubkey} />

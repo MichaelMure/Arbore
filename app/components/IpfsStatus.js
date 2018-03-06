@@ -46,7 +46,7 @@ class IpfsStatus extends Component {
 
     return (
       <div className={classes.wrapper}>
-        <Typography type="subheading">Hold on !</Typography>
+        <Typography variant="subheading">Hold on !</Typography>
 
         <div className={classes.spacer} />
 

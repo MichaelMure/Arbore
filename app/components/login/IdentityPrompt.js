@@ -41,7 +41,7 @@ class IdentityPrompt extends Component {
           { hasPassword && (
             <div className={classes.identity} { ...a11yButton(onNameClick) }>
               <Avatar person={identity} />
-              <Typography type="subheading" noWrap>{identity.identity}</Typography>
+              <Typography variant="subheading" noWrap>{identity.identity}</Typography>
             </div>
           )}
 
@@ -49,7 +49,7 @@ class IdentityPrompt extends Component {
           { !hasPassword && (
             <button className={classes.identity}>
               <Avatar person={identity} />
-              <Typography type="subheading" noWrap>{identity.identity}</Typography>
+              <Typography variant="subheading" noWrap>{identity.identity}</Typography>
             </button>
           )}
 

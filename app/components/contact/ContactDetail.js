@@ -61,7 +61,7 @@ class ContactDetail extends Component {
           <AvatarWithStatus person={contact} status={contact.status} avatarClass={styles.avatar} rootClass={styles.status} />
           <div className={styles.headerContent}>
             <div className={styles.name}>
-              <Typography type="title">{contact.identity}</Typography>
+              <Typography variant="title">{contact.identity}</Typography>
             </div>
             <Pubkey pubkey={contact.pubkey} />
           </div>
