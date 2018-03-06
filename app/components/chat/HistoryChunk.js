@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react'
-import styles from './HistoryChunk.css'
+import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
 import ChatEntry from 'models/ChatEntry'
 import Contact from 'models/Contact'
@@ -19,20 +19,20 @@ class HistoryChunk extends Component {
   }
 
   render() {
-    const { chunk, person} = this.props
+    const { classes, chunk, person} = this.props
     const time = chunk[0].time
 
     return (
-      <div className={styles.cluster}>
-        <Avatar person={person} className={styles.clusterAvatar}/>
-        <div className={styles.clusterHistory}>
-          <div className={styles.clusterHeader}>
-            <span>{person.identity}</span>
-            <span><Moment locale={app.getLocale()} format="LT">{time}</Moment></span>
+      <div className={classes.cluster}>
+        <Avatar person={person} className={classes.clusterAvatar}/>
+        <div className={classes.clusterHistory}>
+          <div className={classes.clusterHeader}>
+            <Typography noWrap variant='caption' className={classes.identity}>{person.identity}</Typography>
+            <Typography><Moment locale={app.getLocale()} format="LT">{time}</Moment></Typography>
           </div>
           {
             chunk.map((entry: ChatEntry, index) => (
-              <div className={styles.entry} key={index}>
+              <div className={classes.entry} key={index}>
                 <Typography>{entry.message}</Typography>
                 { (entry.contactPubkey === null) &&
                   <Typography><FontAwesome name={ entry.ack ? 'check' : 'clock-o' } /></Typography>
@@ -46,4 +46,37 @@ class HistoryChunk extends Component {
   }
 }
 
-export default HistoryChunk
+const style = theme => ({
+  cluster:{
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: 10,
+  },
+  clusterHeader:{
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+  },
+  identity: {
+    minWidth: 0,
+    marginRight: 5,
+  },
+  clusterHistory:{
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    overflow: 'auto',
+  },
+  clusterAvatar:{
+    width: '40px !important',
+    height: '40px !important',
+    marginRight: 10,
+  },
+  entry:{
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+})
+
+export default withStyles(style)(HistoryChunk)
