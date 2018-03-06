@@ -52,10 +52,10 @@ const style = theme => ({
     height: '25%',
   },
   green: {
-    backgroundColor: 'green',
+    backgroundColor: '#00d300',
   },
   gray: {
-    backgroundColor: 'gray',
+    backgroundColor: '#a8a8a8',
   }
 })
 
