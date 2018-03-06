@@ -44,14 +44,16 @@ const style = theme => ({
     padding: 10,
     height: 60,
     backgroundColor: theme.palette.background.dark,
+    overflow: 'hidden',
   },
   item: {
     display: 'flex',
+    minWidth: 0,
     alignItems: 'center',
     cursor: 'pointer',
     '& > p': {
       paddingRight: 14,
-    }
+    },
   },
   identity: {
     fontSize: '1.2em !important',
