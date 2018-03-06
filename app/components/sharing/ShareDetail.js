@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styles from './ShareDetail.css'
+import { withStyles } from 'material-ui/styles'
 import { CardHeader } from 'material-ui/Card'
 import IconButton from 'material-ui/IconButton'
 import { LinearProgress } from 'material-ui/Progress'
@@ -28,27 +28,34 @@ class ShareDetail extends Component {
 
   render() {
     const share: Share = this.props.share
-    const { profile, contactList } = this.props
+    const { classes, profile, contactList } = this.props
 
     const author = share.isAuthor
       ? profile
       : contactList.findContactInDirectory(share.authorPubkey)
 
-    const avatar = (
-      <Avatar person={author} />
-    )
-    const header = (
-      <CardHeader
+    const avatar = <Avatar person={author} />
+
+    const title = <Typography variant='body2' noWrap>
+      {share.title}
+    </Typography>
+
+    const subheader = <Typography variant='subheader' noWrap>
+      {author.identity}
+    </Typography>
+
+    const header = <CardHeader
         avatar={avatar}
-        title={share.title}
-        subheader={share.description} />
-    )
+        title={title}
+        subheader={subheader}
+        classes={{ root: classes.overflow, content: classes.overflow }}
+    />
 
     return (
-      <div className={styles.wrapper} key={share.id}>
-        <div className={styles.header}>
+      <div className={classes.wrapper} key={share.id}>
+        <div className={classes.header}>
           {header}
-          <div className={styles.actions}>
+          <div className={classes.actions}>
             { (share.isAvailable || share.isPaused) &&
             <IconButton onClick={ this.props.onStartClickGenerator(share) }>
               <FontAwesome name='play' />
@@ -75,12 +82,11 @@ class ShareDetail extends Component {
         { (share.isDownloading || share.isPaused) &&
           <div>
             <LinearProgress variant="determinate" value={share.progress * 100}/>
-            <div className={styles.stats}>
+            <div className={classes.stats}>
               <Typography>{humanize.filesizeNoUnit(share.sizeLocal)} of {humanize.filesize(share.sizeTotal)} ({share.progressFormatted})</Typography>
             </div>
           </div>
         }
-
 
         <InsetText text={share.description} placeholder='No description' />
         <ShareRecipients recipients={share.recipients} />
@@ -90,4 +96,30 @@ class ShareDetail extends Component {
   }
 }
 
-export default ShareDetail;
+const style = theme => ({
+  wrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  header: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  stats: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+  },
+  actions: {
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  overflow: {
+    minWidth: 0,
+    overflow: 'hidden',
+  }
+})
+
+export default withStyles(style)(ShareDetail)
