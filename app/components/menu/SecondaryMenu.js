@@ -25,7 +25,7 @@ class SecondaryMenu extends Component {
     return (
       <div className={classnames(classes.wrapper, className)}>
         <div className={classes.item} onClick={onProfileClick}>
-          <Typography noWrap>{profile.identity}</Typography>
+          <Typography noWrap className={classes.identity}>{profile.identity}</Typography>
           { profile.avatarUrl && <Avatar src={profile.avatarUrl} /> }
         </div>
         <IconButton onClick={onLogoutClick}>
@@ -53,10 +53,9 @@ const style = theme => ({
       paddingRight: 14,
     }
   },
-  profile: {
-    fontSize: 40,
-    userSelect: 'none',
-  }
+  identity: {
+    fontSize: '1.2em !important',
+  },
 })
 
 export default withStyles(style)(SecondaryMenu)
