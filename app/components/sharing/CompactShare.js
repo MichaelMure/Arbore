@@ -60,10 +60,10 @@ class CompactShare extends Component {
 const style = theme => ({
   card: {
     marginTop: 10,
-    backgroundColor: theme.palette.background.light,
+    backgroundColor: theme.palette.background.dark,
   },
   cardSelected: {
-    backgroundColor: theme.palette.background.dark,
+    backgroundColor: theme.palette.background.light,
   },
   content: {
     minWidth: 0,
