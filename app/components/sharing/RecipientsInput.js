@@ -1,7 +1,8 @@
 // @flow
 import React, { Component } from 'react'
-import styles from './RecipientsInput.css'
+import { withStyles } from 'material-ui/styles'
 import Chip from 'material-ui/Chip'
+import Typography from 'material-ui/Typography'
 import { FormControl, FormLabel } from 'material-ui/Form'
 import Avatar from 'components/common/Avatar'
 import Contact from 'models/Contact'
@@ -37,18 +38,19 @@ class RecipientsInput extends Component {
   }
 
   render() {
-    const { contactList, label, input: { value }, meta: { touched, error } } = this.props
+    const { classes, contactList, label, input: { value }, meta: { touched, error } } = this.props
     return (
       <FormControl error={touched && (error != null)} style={{ marginTop: '10px' }} >
         <FormLabel>{label}</FormLabel>
-        <div className={styles.recipients} onClick={ () => this.recipientsInput.focus() }>
+        <div className={classes.recipients} onClick={ () => this.recipientsInput.focus() }>
           {
             (value || []).map((contact: Contact) => (
               <Chip
                 key={contact.pubkey}
                 avatar={<Avatar person={contact} />}
-                label={contact.identity}
+                label={<Typography noWrap>{contact.identity}</Typography>}
                 onDelete={ () => ::this.handleRemoveContact(contact.pubkey) }
+                classes={{root: classes.chip, label: classes.label}}
               />
             ))
           }
@@ -65,4 +67,24 @@ class RecipientsInput extends Component {
   }
 }
 
-export default RecipientsInput
+const style = theme => ({
+  recipients: {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    border: 'rgb(225, 225, 225) 1px solid',
+    minHeight: 100,
+    '& > *': {
+      margin: 5,
+    }
+  },
+  chip: {
+    maxWidth: 200,
+  },
+  label: {
+    minWidth: 0,
+    overflow: 'hidden',
+  }
+})
+
+export default withStyles(style)(RecipientsInput)
