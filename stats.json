@@ -24,10 +24,6 @@
       "component---src-pages-faq-js-61a4acf28728d6e2b665.js",
       "component---src-pages-faq-js-61a4acf28728d6e2b665.js.map"
     ],
-    "component---node-modules-gatsby-plugin-offline-app-shell-js": [
-      "component---node-modules-gatsby-plugin-offline-app-shell-js-5c4c5a0f7af9dc69d6d7.js",
-      "component---node-modules-gatsby-plugin-offline-app-shell-js-5c4c5a0f7af9dc69d6d7.js.map"
-    ],
     "component---src-layouts-index-js": [
       "component---src-layouts-index-js-5074b1a9674bd430996f.js",
       "component---src-layouts-index-js-5074b1a9674bd430996f.js.map"
@@ -56,14 +52,10 @@
       "path---releases-a0e39f21c11f6a62c5ab.js",
       "path---releases-a0e39f21c11f6a62c5ab.js.map"
     ],
-    "path---offline-plugin-app-shell-fallback": [
-      "path---offline-plugin-app-shell-fallback-a0e39f21c11f6a62c5ab.js",
-      "path---offline-plugin-app-shell-fallback-a0e39f21c11f6a62c5ab.js.map"
-    ],
     "app": [
-      "app-282b0f75c062630c3d99.js",
+      "app-270a7a896fe89e4108bb.js",
       "build-js-styles.css",
-      "app-282b0f75c062630c3d99.js.map",
+      "app-270a7a896fe89e4108bb.js.map",
       "build-js-styles.css.map"
     ],
     "path---404": [
