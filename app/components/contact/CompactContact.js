@@ -36,6 +36,7 @@ class CompactContact extends Component {
           className={classes.header}
           avatar={<Avatar person={contact} />}
           title={title}
+          classes={{ content: classes.content }}
         />
       </Card>
     )
