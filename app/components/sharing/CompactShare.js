@@ -34,7 +34,7 @@ class CompactShare extends Component {
       {share.title}
     </Typography>
 
-    const subheader = <Typography variant='subheader' noWrap>
+    const subheader = <Typography variant='body1' noWrap>
       {author.identity}
     </Typography>
 
