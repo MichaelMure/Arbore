@@ -127,7 +127,7 @@ export function isLocal(hash: string) {
 
     let stats
     try {
-      stats = await instance.api.apiClient.files.stat('/ipfs/' + hash, {'with-local': true})
+      stats = await instance.api.apiClient.files.stat('/ipfs/' + hash, {'withLocal': true})
     } catch(err) {
       console.error(err)
       dispatch(priv.isLocal(hash, false))
