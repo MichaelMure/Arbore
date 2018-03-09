@@ -1,7 +1,7 @@
 // @flow
 import { ipcRenderer } from 'electron'
 import { isServiceStarted } from './ipfsMain'
-import { ipfsEvents } from '@akashaproject/ipfs-connector'
+import { ipfsEvents } from '@michaelmure/ipfs-connector'
 
 let serviceStarted = undefined
 let initializing = false

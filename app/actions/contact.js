@@ -1,7 +1,7 @@
 // @flow
 import { createAction } from 'redux-actions'
 import Contact from 'models/Contact'
-import { IpfsConnector } from '@akashaproject/ipfs-connector'
+import { IpfsConnector } from '@michaelmure/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 import removeIpfsPrefix from 'utils/removeIpfsPrefix'
 

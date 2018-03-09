@@ -1,6 +1,6 @@
 // @flow
 import { createAction } from 'redux-actions'
-import { IpfsConnector } from '@akashaproject/ipfs-connector'
+import { IpfsConnector } from '@michaelmure/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 import * as identityActions from './identity'
 import Profile, { writable } from 'models/Profile'

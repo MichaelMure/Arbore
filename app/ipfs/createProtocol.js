@@ -1,5 +1,5 @@
 // @flow
-import { IpfsConnector } from '@akashaproject/ipfs-connector'
+import { IpfsConnector } from '@michaelmure/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 
 const PROTOCOL_VERSION = 1

@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
 import { LinearProgress } from 'material-ui/Progress'
-import { ConnectorState } from '@akashaproject/ipfs-connector'
+import { ConnectorState } from '@michaelmure/ipfs-connector'
 import Error from 'components/Error'
 import * as humanize from 'utils/humanize'
 

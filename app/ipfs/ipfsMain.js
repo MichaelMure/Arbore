@@ -1,6 +1,6 @@
 // @flow
 
-import { IpfsConnector, ipfsEvents, ConnectorState } from '@akashaproject/ipfs-connector'
+import { IpfsConnector, ipfsEvents, ConnectorState } from '@michaelmure/ipfs-connector'
 import { BrowserWindow, ipcMain, app } from 'electron'
 import path from 'path'
 
