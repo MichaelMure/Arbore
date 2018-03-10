@@ -4,6 +4,7 @@ import Contact from './Contact'
 import ShareList from 'models/ShareList'
 import ChatRoomList from 'models/ChatRoomList'
 import Share from 'models/Share'
+import Settings from 'models/Settings'
 
 export const LOCAL_DATA_VERSION = 1
 
@@ -170,7 +171,11 @@ export default class ContactList extends ContactListRecord {
   }
 
   // Return an array of pubkey that can be shared
-  get publicContacts(): Array<string> {
+  publicContacts(settings: Settings): Array<string> {
+    if(settings.directoryPrivacy) {
+      return []
+    }
+
     return this.directoryMapped
       .filter((contact: Contact) => !contact.privacyHidden)
       .valueSeq().map((contact: Contact) => contact.pubkey)

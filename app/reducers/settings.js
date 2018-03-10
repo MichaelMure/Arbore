@@ -11,6 +11,10 @@ export default handleActions({
 
   [actions.setTheme]: (state: Settings, action: Action<ThemeType>) => (
     state.set(writable.theme, action.payload)
-  )
+  ),
+
+  [actions.setDirectoryPrivacy]: (state: Settings, action: Action) => (
+    state.set(writable.directoryPrivacy, action.payload)
+  ),
 
 }, initialState )

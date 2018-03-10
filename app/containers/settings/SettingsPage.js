@@ -19,6 +19,9 @@ const mapDispatchToProps = dispatch => ({
     const loginStore = await getLoginStore()
     loginStore.dispatch(action)
   },
+  onDirectoryPrivacyChange: (event, value: string) => {
+    dispatch(settings.setDirectoryPrivacy(value === 'true'))
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsPage)

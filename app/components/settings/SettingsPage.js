@@ -4,7 +4,7 @@ import { withStyles } from 'material-ui/styles'
 import Settings, { Theme } from 'models/Settings'
 import SecondaryMenu from 'containers/menu/SecondaryMenu'
 import Radio, { RadioGroup } from 'material-ui/Radio'
-import { FormLabel, FormControl, FormControlLabel } from 'material-ui/Form'
+import { FormLabel, FormControl, FormControlLabel, FormHelperText } from 'material-ui/Form'
 import type { ThemeType } from 'models/Settings'
 
 class SettingsPage extends Component {
@@ -12,10 +12,11 @@ class SettingsPage extends Component {
   props: {
     settings: Settings,
     onThemeChange: (any, ThemeType) => void,
+    onDirectoryPrivacyChange: (any, string) => void,
   }
 
   render() {
-    const { classes, onThemeChange } = this.props
+    const { classes, onThemeChange, onDirectoryPrivacyChange } = this.props
     const settings: Settings = this.props.settings
 
     return (
@@ -23,18 +24,35 @@ class SettingsPage extends Component {
         <div className={classes.empty}/>
         <SecondaryMenu />
 
-        <FormControl className={classes.settings}>
-          <FormLabel>Theme</FormLabel>
-          <RadioGroup
-            aria-label='theme'
-            name='theme'
-            value={settings.theme}
-            onChange={onThemeChange}
-          >
-            <FormControlLabel value={Theme.LIGHT} control={<Radio />} label='Light' />
-            <FormControlLabel value={Theme.DARK} control={<Radio />} label='Dark' />
-          </RadioGroup>
-        </FormControl>
+        <div className={classes.settings}>
+          <FormControl>
+            <FormLabel>Theme</FormLabel>
+            <RadioGroup
+              aria-label='theme'
+              name='theme'
+              value={settings.theme}
+              onChange={onThemeChange}
+            >
+              <FormControlLabel value={Theme.LIGHT} control={<Radio />} label='Light' />
+              <FormControlLabel value={Theme.DARK} control={<Radio />} label='Dark' />
+            </RadioGroup>
+          </FormControl>
+
+          <FormControl>
+            <FormLabel>Privacy</FormLabel>
+            <FormHelperText>To help your contacts to find new people easily, Arbore will share your directory with them (and only them).
+              You can completely block sharing here.</FormHelperText>
+            <RadioGroup
+              aria-label='privacy'
+              name='privacy'
+              value={settings.directoryPrivacy ? 'true' : 'false'}
+              onChange={onDirectoryPrivacyChange}
+            >
+              <FormControlLabel value={'false'} control={<Radio />} label='Visible' />
+              <FormControlLabel value={'true'} control={<Radio />} label='Hidden' />
+            </RadioGroup>
+          </FormControl>
+        </div>
       </div>
     )
   }
@@ -55,9 +73,14 @@ const style = theme => ({
     backgroundColor: theme.palette.background.main,
     gridColumn: '1 / 3',
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     height: '100%',
+    flexWrap: 'wrap',
+    padding: 30,
+    '&>*': {
+      padding: 10,
+      width: 300,
+      minWidth: 300,
+    }
   },
 })
 

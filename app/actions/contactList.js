@@ -212,7 +212,8 @@ export function queryAllContactsList() {
 function handleQueryContacts(dispatch, getState, payload) {
   const { from } = payload
 
-  const contactList: ContactList = getState().contactList
+  const state : Store = getState()
+  const contactList: ContactList = state.contactList
   const contact = contactList.findContactInDirectory(from)
 
   if(!contact) {
@@ -222,7 +223,7 @@ function handleQueryContacts(dispatch, getState, payload) {
 
   const profile = getState().profile
 
-  const data = protocol.contactsReply(profile, contactList.publicContacts)
+  const data = protocol.contactsReply(profile, contactList.publicContacts(state.settings))
   dispatch(pubsub.send(contact.contactsPubsubTopic, data))
 }
 
