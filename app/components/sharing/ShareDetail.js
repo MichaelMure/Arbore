@@ -36,11 +36,11 @@ class ShareDetail extends Component {
 
     const avatar = <Avatar person={author} />
 
-    const title = <Typography variant='body2' noWrap>
+    const title = <Typography variant='title' noWrap>
       {share.title}
     </Typography>
 
-    const subheader = <Typography variant='subheader' noWrap>
+      const subheader = <Typography variant='caption' noWrap>
       {author.identity}
     </Typography>
 

@@ -21,7 +21,7 @@ class Pubkey extends Component {
     const { pubkey } = this.props
 
     return (
-      <Typography className={styles.pubkey} align="center" gutterBottom>
+      <Typography className={styles.pubkey} align="center" variant='caption' gutterBottom>
         {pubkey}
         <IconButton className={styles.copyToClipboard} onClick={::this.handlePubkeyToClipboard}>
           <FontAwesome name="clipboard" />
