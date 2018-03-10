@@ -76,10 +76,6 @@ class ContactDetail extends Component {
           label="Hidden"
         />
 
-        { contact.status === ContactStatus.ONLINE &&
-          <Typography>Last ping: { contact.lastPongDelay } ms</Typography>
-        }
-
         { this.props.isInDirectory &&
           <Button variant='raised' color='primary' onClick={::this.handleOpenConfirm}>
             Delete contact
