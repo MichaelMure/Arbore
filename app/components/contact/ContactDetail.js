@@ -71,21 +71,30 @@ class ContactDetail extends Component {
 
         <InsetText text={contact.bio} placeholder='No biography' />
 
-        <FormControlLabel
-          control={<Switch checked={contact.privacyHidden} onChange={::this.handlePrivacyChange}/>}
-          label="Hidden"
-        />
+        {this.props.isInDirectory &&
+          <Typography variant='caption' className={classes.privacy}>
+            To help your contacts to find new people easily, Arbore will share your directory with them (and only them).
+            You can hide a contact here.
+            <FormControlLabel
+              control={<Switch checked={contact.privacyHidden} onChange={::this.handlePrivacyChange}/>}
+              label={contact.privacyHidden ? 'Hidden' : 'Visible'}
+              className={classes.form}
+            />
+          </Typography>
+        }
 
         { this.props.isInDirectory &&
-          <Button variant='raised' color='primary' onClick={::this.handleOpenConfirm}>
-            Delete contact
-          </Button>
+          <div className={classes.buttons}>
+            <Button variant='raised' color='primary' onClick={::this.handleOpenConfirm}>Delete</Button>
+          </div>
         }
 
         { !this.props.isInDirectory &&
-          <Button variant='raised' color='primary' onClick={this.props.onAddClickGenerator(contact)}>
-            Add contact
-          </Button>
+          <div className={classes.buttons}>
+            <Button variant='raised' color='primary' onClick={this.props.onAddClickGenerator(contact)}>
+              Add contact
+            </Button>
+          </div>
         }
 
         { this.state.confirmOpen &&
@@ -133,6 +142,17 @@ const style = theme => ({
     display: 'flex',
     alignItems: 'center',
   },
+  privacy: {
+    display: 'inline-flex',
+    alignItems: 'center',
+  },
+  form: {
+    marginLeft: 5,
+  },
+  buttons: {
+    display: 'inline-flex',
+    justifyContent: 'flex-end',
+  }
 })
 
 export default withStyles(style)(ContactDetail)
