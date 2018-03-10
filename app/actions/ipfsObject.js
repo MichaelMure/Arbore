@@ -2,7 +2,7 @@
 import { createAction } from 'redux-actions'
 import { IpfsConnector } from '@michaelmure/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
-import { createWriteStream, mkdirSync } from 'fs'
+import { createWriteStream } from 'fs'
 import { join } from 'path'
 import { IpfsObject, ObjectType } from 'models/IpfsObject'
 
@@ -140,7 +140,7 @@ export function isLocal(hash: string) {
     console.log(`${hash} is ${isLocal ? 'local' : 'not local'}, ${sizeLocal}/${cumulativeSize} - ${100*sizeLocal/cumulativeSize}%`)
 
     if(sizeLocal === undefined) {
-      throw 'efrd'
+      throw 'local size is not present'
     }
 
     // Update redux

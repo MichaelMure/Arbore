@@ -11,7 +11,7 @@ import Dialog, {
   DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog'
-import Contact, { ContactStatus } from 'models/Contact'
+import Contact  from 'models/Contact'
 import Settings from 'models/Settings'
 import Pubkey from 'components/common/Pubkey'
 import InsetText from 'components/common/InsetText'
