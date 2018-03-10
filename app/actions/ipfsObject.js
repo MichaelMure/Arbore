@@ -134,17 +134,17 @@ export function isLocal(hash: string) {
       return false
     }
 
-    const {WithLocality, Local, SizeLocal, cumulativeSize} = stats
-    const isLocal = WithLocality && (Local === true)
+    const {withLocality, local, sizeLocal, cumulativeSize} = stats
+    const isLocal = withLocality && (local === true)
 
-    console.log(`${hash} is ${isLocal ? 'local' : 'not local'}, ${SizeLocal}/${cumulativeSize} - ${100*SizeLocal/cumulativeSize}%`)
+    console.log(`${hash} is ${isLocal ? 'local' : 'not local'}, ${sizeLocal}/${cumulativeSize} - ${100*sizeLocal/cumulativeSize}%`)
 
-    if(SizeLocal === undefined) {
+    if(sizeLocal === undefined) {
       throw 'efrd'
     }
 
     // Update redux
-    dispatch(priv.isLocal(hash, isLocal, SizeLocal, cumulativeSize))
+    dispatch(priv.isLocal(hash, isLocal, sizeLocal, cumulativeSize))
 
     return isLocal
   }
