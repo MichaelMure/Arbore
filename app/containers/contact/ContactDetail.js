@@ -8,6 +8,7 @@ import Contact from 'models/Contact'
 
 const mapStateToProps = (state: Store) => ({
   contact: state.contactList.selected,
+  settings: state.settings,
   isInDirectory: state.contactList.selectedInDirectory(),
 })
 

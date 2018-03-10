@@ -12,6 +12,7 @@ import Dialog, {
   DialogTitle,
 } from 'material-ui/Dialog'
 import Contact, { ContactStatus } from 'models/Contact'
+import Settings from 'models/Settings'
 import Pubkey from 'components/common/Pubkey'
 import InsetText from 'components/common/InsetText'
 import AvatarWithStatus from 'components/common/AvatarWithStatus'
@@ -20,6 +21,7 @@ class ContactDetail extends Component {
 
   props: {
     contact: Contact,
+    settings: Settings,
     isInDirectory: boolean,
     onPrivacyChange: (Contact, boolean) => any,
     onDeleteClickGenerator: (Contact) =>  any,
@@ -70,6 +72,10 @@ class ContactDetail extends Component {
         </div>
 
         <InsetText text={contact.bio} placeholder='No biography' />
+
+        {(this.props.isInDirectory && this.props.settings.directoryPrivacy) &&
+          <Typography color='secondary'>Privacy is already enabled globally in the settings</Typography>
+        }
 
         {this.props.isInDirectory &&
           <Typography variant='caption' className={classes.privacy}>
