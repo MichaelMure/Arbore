@@ -1,5 +1,6 @@
+// @flow
 import React, { Component } from 'react'
-import styles from './ContactDetail.css'
+import { withStyles } from 'material-ui/styles'
 import { FormControlLabel } from 'material-ui/Form'
 import Switch from 'material-ui/Switch'
 import Button from 'material-ui/Button'
@@ -54,13 +55,14 @@ class ContactDetail extends Component {
 
   render() {
     const contact: Contact = this.props.contact
+    const { classes } = this.props
 
     return (
-      <div className={styles.wrapper} key={contact.pubkey}>
-        <div className={styles.header}>
-          <AvatarWithStatus person={contact} status={contact.status} avatarClass={styles.avatar} rootClass={styles.status} />
-          <div className={styles.headerContent}>
-            <div className={styles.name}>
+      <div className={classes.wrapper} key={contact.pubkey}>
+        <div className={classes.header}>
+          <AvatarWithStatus person={contact} status={contact.status} avatarClass={classes.avatar} rootClass={classes.status} />
+          <div className={classes.headerContent}>
+            <div className={classes.name}>
               <Typography variant="title">{contact.identity}</Typography>
             </div>
             <Pubkey pubkey={contact.pubkey} />
@@ -109,4 +111,32 @@ class ContactDetail extends Component {
   }
 }
 
-export default ContactDetail
+const style = theme => ({
+  wrapper: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    height: 100,
+  },
+  headerContent: {
+    display: 'flex',
+    flexDirection: 'column',
+    flexShrink: 10000,
+  },
+  avatar: {
+    width: '90px !important',
+    height: '90px !important',
+  },
+  status: {
+    marginRight: 10,
+  },
+  name: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+})
+
+export default withStyles(style)(ContactDetail)
