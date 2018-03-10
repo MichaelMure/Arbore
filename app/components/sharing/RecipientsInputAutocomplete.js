@@ -35,6 +35,9 @@ class RecipientsInputAutocomplete extends Component {
   }
 
   handleSuggestionSelected(event, { suggestion }) {
+    event.preventDefault()
+    event.stopPropagation()
+
     this.props.onRecipientSelect(suggestion)
 
     this.setState({
