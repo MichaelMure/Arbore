@@ -6,6 +6,7 @@ import Contact from 'models/Contact'
 import IpfsDirectory from 'models/IpfsDirectory'
 import { IpfsConnector } from '@michaelmure/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
+import { ShareListFilter } from 'models/ShareList'
 import path from 'path'
 import * as shareList from 'actions/shareList'
 import * as ipfsObject from 'actions/ipfsObject'
@@ -197,6 +198,7 @@ export function start(share: Share) {
 
     dispatch(priv.setOutputPath(share, result[0]))
     dispatch(priv.start(share))
+    dispatch(shareList.setFilter(ShareListFilter.ACTIVE))
 
     await dispatch(ipfsObject.triggerDownload(share.content.hash))
 
