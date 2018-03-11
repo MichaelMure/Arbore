@@ -75,7 +75,7 @@ export default handleActions({
     )
   },
 
-  [contactList.addedAsContact]: (state: ContactList, action: Action) => {
+  [contactList.storeAddedAsContact]: (state: ContactList, action: Action) => {
     const { pubkey } = action.payload
     return state.set(writable.follower, state.follower.add(pubkey))
   },
