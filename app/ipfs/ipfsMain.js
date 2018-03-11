@@ -53,7 +53,8 @@ export const start = () => {
 
   instance.setOption('args', [
     'daemon',
-    '--enable-pubsub-experiment'
+    '--enable-pubsub-experiment',
+    '--enable-namesys-pubsub'
   ])
 
   instance.enableDownloadEvents()
