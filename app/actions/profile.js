@@ -17,6 +17,7 @@ export const priv = {
   setProfileHash: createAction('PROFILE_HASH_SET',
     (hash: string) => (hash)
   ),
+  profilePublish: createAction('PROFILE_PUBLISH'),
   profilePublished: createAction('PROFILE_PUBLISHED'),
 }
 
@@ -143,6 +144,8 @@ export function publish() {
     const {hash} = await ipfs.api.createNode(data, [])
     console.log('profile hash: ' + hash)
     await dispatch(priv.setProfileHash(hash))
+
+    await dispatch(priv.profilePublish())
 
     const result = await ipfs.api.apiClient.name.publish(hash, {
       'key': profile.storageKey,

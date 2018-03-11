@@ -22,6 +22,10 @@ export default handleActions({
       .set(writable.hash, null)
   ),
 
+  [profile.priv.profilePublish]: (state: Profile, action: Action) => (
+    state.set(writable.lastPublish, Date.now())
+  ),
+
   [profile.priv.profilePublished]: (state: Profile, action: Action) => (
     state.set(writable.lastPublished, Date.now())
   ),

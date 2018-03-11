@@ -18,6 +18,7 @@ export const writable = {
   pubkey: 'pubkey',
   password: 'password',
   avatarHash: 'avatarHash',
+  lastPublish: 'lastPublish',
   lastPublished: 'lastPublished',
 }
 
@@ -30,6 +31,7 @@ export const ProfileRecord = Record({
   pubkey: null,
   password: null,
   avatarHash: null,
+  lastPublish: null,
   lastPublished: null,
 }, 'Profile')
 
@@ -47,6 +49,8 @@ export default class Profile extends ProfileRecord {
   password: ?string
   // hash of the avatar file, if any
   avatarHash: ?string
+  // time when the profile last publish was attempted
+  lastPublish: ?number
   // time when the profile was last successfuly published
   lastPublished: ?number
 
