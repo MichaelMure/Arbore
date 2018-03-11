@@ -1,11 +1,11 @@
 // @flow
 import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
+import classnames from 'classnames'
 import Profile from 'models/Profile'
-import Avatar from 'material-ui/Avatar'
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
-import classnames from 'classnames'
+import AvatarWithConnectivity from 'components/common/AvatarWithConnectivity'
 
 import Logout from 'react-feather/dist/icons/log-out'
 
@@ -26,7 +26,7 @@ class SecondaryMenu extends Component {
       <div className={classnames(classes.wrapper, className)}>
         <div className={classes.item} onClick={onProfileClick}>
           <Typography noWrap className={classes.identity}>{profile.identity}</Typography>
-          { profile.avatarUrl && <Avatar src={profile.avatarUrl} /> }
+          <AvatarWithConnectivity profile={profile} />
         </div>
         <IconButton onClick={onLogoutClick}>
           <Logout/>

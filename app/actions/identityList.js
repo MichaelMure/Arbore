@@ -7,6 +7,7 @@ import * as chat from './chat'
 import * as contactList from './contactList'
 import * as settings from './settings'
 import * as shareList from './shareList'
+import { PROFILE_PUBLISH_PERIOD } from 'models/Profile'
 import { getLoginStore, getFullStore, dropFullStore } from 'store/index'
 
 
@@ -45,7 +46,7 @@ export function login(identity: Identity, password: ?string = null) {
     scheduler.startTimeBetween(fullStoreDispatch,
       'publishProfile',
       profile.publish(),
-      60 * 60 * 1000 // 1 hour
+      PROFILE_PUBLISH_PERIOD
     )
 
     // Start updating contacts persiodically

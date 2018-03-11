@@ -8,6 +8,14 @@ export const LOCAL_DATA_VERSION = 1
 export const PUBLISH_DATA_VERSION = 1
 
 const bcryptRound = 10
+export const PROFILE_PUBLISH_PERIOD = 2 * 60 * 1000 // 2 minutes
+
+export const ConnectivityStatus = {
+  BAD: 'BAD',
+  WARNING: 'WARNING',
+  GOOD: 'GOOD',
+}
+export type ConnectivityStatusType = $Keys<typeof ConnectivityStatus>
 
 export const writable = {
   dataVersion: 'dataVersion',
@@ -106,5 +114,21 @@ export default class Profile extends ProfileRecord {
 
   async checkPassword(password: string) {
     return bcrypt.compare(password, this.password)
+  }
+
+  // Return an approximative connectivity status based on the quality of the
+  // (ipns based) profile publish process
+  get connectivityStatus() : ConnectivityStatusType {
+    const now = Date.now()
+
+    if(now - this.lastPublished < 2 * PROFILE_PUBLISH_PERIOD) {
+      return ConnectivityStatus.GOOD
+    }
+
+    if(now - this.lastPublish > PROFILE_PUBLISH_PERIOD) {
+      return ConnectivityStatus.BAD
+    }
+
+    return ConnectivityStatus.WARNING
   }
 }
