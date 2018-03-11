@@ -51,7 +51,7 @@ class AddBySuggest extends Component {
         </div>
     )} else {
       content = (
-        <Typography>No suggestion available</Typography>
+        <Typography>No suggestion available yet. Add a contact with an Arbore ID first.</Typography>
     )}
 
     return (
