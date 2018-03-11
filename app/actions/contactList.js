@@ -138,6 +138,15 @@ export function garbageCollectPool() {
   // clean the contact pool for unused contact
 }
 
+// On a contact pong, inform the contact we have added him if needed
+function onContactAlive(contact: Contact) {
+  return async function (dispatch) {
+    if (!contact.addedAck) {
+      return dispatch(addedAsContact(contact))
+    }
+  }
+}
+
 /* Network messages */
 
 const protocol = {
@@ -274,9 +283,11 @@ function handlePing(dispatch, getState, payload) {
   const { from, token } = payload
 
   const contactList: ContactList = getState().contactList
-  const contact = contactList.findContactInDirectory(from)
+  const contact = contactList.findContactInPool(from)
 
   if(!contact) {
+    // fetch the profile in the background and drop the ping for now
+    dispatch(addContactInPool(from))
     console.log('Got a ping from unknow contact ' + from)
     return
   }
@@ -311,6 +322,7 @@ function handlePong(dispatch, getState, payload) {
   // trigger actions to be done when we find that a contact is online
   dispatch(shareListActions.onContactAlive(contact))
   dispatch(chatActions.onContactAlive(contact))
+  dispatch(onContactAlive(contact))
 }
 
 export function addedAsContact(contact: Contact) {
