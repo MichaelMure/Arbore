@@ -17,7 +17,8 @@ export const writable = {
   bio: 'bio',
   pubkey: 'pubkey',
   password: 'password',
-  avatarHash: 'avatarHash'
+  avatarHash: 'avatarHash',
+  lastPublished: 'lastPublished',
 }
 
 export const ProfileRecord = Record({
@@ -28,7 +29,8 @@ export const ProfileRecord = Record({
   bio: '',
   pubkey: null,
   password: null,
-  avatarHash: null
+  avatarHash: null,
+  lastPublished: null,
 }, 'Profile')
 
 export default class Profile extends ProfileRecord {
@@ -45,6 +47,8 @@ export default class Profile extends ProfileRecord {
   password: ?string
   // hash of the avatar file, if any
   avatarHash: ?string
+  // time when the profile was last successfuly published
+  lastPublished: ?number
 
   static create(identity: string, password: ?string, bio: string) {
     return new this().withMutations(profile => profile

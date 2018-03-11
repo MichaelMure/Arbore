@@ -17,6 +17,7 @@ export const priv = {
   setProfileHash: createAction('PROFILE_HASH_SET',
     (hash: string) => (hash)
   ),
+  profilePublished: createAction('PROFILE_PUBLISHED'),
 }
 
 export const setBio = createAction('PROFILE_BIO_SET',
@@ -148,6 +149,8 @@ export function publish() {
       'lifetime': '8760h', // profile record validity of 1 year
       'ttl': '24h' // profile record should be cached for 1 day (tradeoff between availability and time to propagate)
     })
+
+    dispatch(priv.profilePublished())
 
     console.log('profile published on IPNS: ', result)
   }
