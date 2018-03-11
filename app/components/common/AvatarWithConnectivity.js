@@ -1,10 +1,12 @@
 // @flow
 import React, { Component } from 'react'
 import { withStyles } from 'material-ui/styles'
+import classNames from 'classnames'
+import Tooltip from 'material-ui/Tooltip'
 import Profile, { ConnectivityStatus } from 'models/Profile'
 import type { ConnectivityStatusType } from 'models/Profile'
 import Avatar from 'components/common/Avatar'
-import classNames from 'classnames'
+import Moment from 'react-moment'
 
 class AvatarWithConnectivity extends Component {
 
@@ -27,10 +29,14 @@ class AvatarWithConnectivity extends Component {
       [classes.bad]:     status === ConnectivityStatus.BAD,
     })
 
+    const tooltip = <span>Profile published <Moment fromNow>{profile.lastPublished}</Moment></span>
+
     return (
-      <div className={classes.wrapper + ' ' + statusClass}>
-        <Avatar person={profile} className={avatarClass} />
-      </div>
+      <Tooltip id='connectivity' title={tooltip}>
+        <div className={classes.wrapper + ' ' + statusClass}>
+          <Avatar person={profile} className={avatarClass} />
+        </div>
+      </Tooltip>
     )
   }
 }
