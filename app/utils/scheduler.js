@@ -23,8 +23,6 @@ export const startTimeBetween = (dispatch, id: string, action, timeBetween: numb
     }
 
     do {
-      console.log('Run scheduled action ' + id)
-
       try {
         await dispatch(action)
       } catch (err) {
