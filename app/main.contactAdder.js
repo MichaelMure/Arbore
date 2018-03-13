@@ -22,7 +22,7 @@ async function run() {
     console.log('Generate new profile ...')
 
     await loginStore.dispatch(
-      profileActions.generate("Contact adder", 'blah', 'I\'m a bot! I help you to find other people.')
+      profileActions.generate("Contact adder", null, 'I\'m a bot! I help you to find other people.')
     )
   }
 
@@ -30,7 +30,7 @@ async function run() {
   const identity: Identity = identityList.identities.first()
   console.log('Login with identity ' + identity.identity)
 
-  await loginStore.dispatch(identityListActions.login(identity, 'blah'))
+  await loginStore.dispatch(identityListActions.login(identity, null))
 
   fullStore = await getFullStore(identity.storageKey, 'contactAdder')
 
@@ -40,7 +40,7 @@ async function run() {
   console.log('##########################################################')
 }
 
-run()
+run().catch(err => console.error(err))
 
 // Exit code
 let forceExit = false

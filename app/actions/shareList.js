@@ -14,9 +14,12 @@ import * as ipfsObjectActions from 'actions/ipfsObject'
 import Contact from 'models/Contact'
 import isIpfs from 'is-ipfs'
 import { Page } from 'models/UiState'
-import { ipcRenderer } from 'electron'
 import { showMainWindow } from 'utils/constants'
 import { updateLocality } from 'actions/share'
+
+/// #if isElectron
+import { ipcRenderer } from 'electron'
+/// #endif
 
 export const setFilter = createAction('SHARELIST_FILTER_SET',
   (filter: ShareListFilterType) => (filter)

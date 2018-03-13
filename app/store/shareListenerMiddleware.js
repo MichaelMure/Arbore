@@ -5,12 +5,15 @@ import * as ipfsObjectActions from 'actions/ipfsObject'
 import * as uiActions from 'actions/ui'
 import type { Store } from 'utils/types'
 import Share, { ShareState } from 'models/Share'
-import { ipcRenderer } from 'electron'
 import { showMainWindow } from 'utils/constants'
 import { Page } from 'models/UiState'
 import { ShareListFilter } from 'models/ShareList'
 import ContactList from 'models/ContactList'
 import Contact from 'models/Contact'
+
+/// #if isElectron
+import { ipcRenderer } from 'electron'
+/// #endif
 
 /**
  * Monitor status change for each Share to trigger a notification

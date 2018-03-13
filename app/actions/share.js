@@ -12,7 +12,9 @@ import * as shareList from 'actions/shareList'
 import * as ipfsObject from 'actions/ipfsObject'
 import bs58 from 'bs58'
 
+/// #if isElectron
 const dialog = require('electron').remote.dialog
+/// #endif
 
 export const toggleFavorite = createAction('SHARE_FAVORITE_TOGGLE',
   (share: Share) => ({id: share.id})
