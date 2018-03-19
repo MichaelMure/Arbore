@@ -84,6 +84,21 @@ export const start = () => {
   instance.start()
 }
 
+const connectToRelays = async () => {
+  console.log('Main: connect to relay ...')
+
+  const instance = IpfsConnector.getInstance()
+
+  const bootstrap = await instance.api.apiClient.config.get('Bootstrap')
+
+  await Promise.all(
+    bootstrap.map(
+      async addr => await instance.api.apiClient.swarm.connect(addr)
+        .then(() => console.log(addr + ' connected'), () => console.log(addr + ' failed'))
+    )
+  )
+}
+
 const onServiceStarting = async () => {
   console.log('Main: Ipfs service starting')
 
@@ -102,6 +117,12 @@ const onServiceStarted = async () => {
   // Inform all renderer process
   BrowserWindow.getAllWindows()
     .forEach(win => win.webContents.send(ipfsEvents.SERVICE_STARTED))
+
+  try {
+    await connectToRelays()
+  } catch(err) {
+    console.error(err)
+  }
 }
 
 const onServiceUpgrade = () => {
@@ -157,7 +178,6 @@ const onDownloadError = (error) => {
   BrowserWindow.getAllWindows()
     .forEach(win => win.webContents.send(ipfsEvents.DOWNLOAD_ERROR, error))
 }
-
 
 export const stop = () => {
   const instance = IpfsConnector.getInstance()
