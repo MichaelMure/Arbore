@@ -13,6 +13,7 @@ export default handleActions({
     return state.withMutations(old => old
       .set(writable.bio, contact.bio)
       .set(writable.avatarHash, contact.avatarHash)
+      .set(writable.peerID, contact.peerID)
     )
   },
 

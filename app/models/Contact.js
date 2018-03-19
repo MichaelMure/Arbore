@@ -15,6 +15,7 @@ export type ContactStatusType = $Keys<typeof ContactStatus>
 export const writable = {
   dataVersion: 'dataVersion',
   pubkey: 'pubkey',
+  peerID: 'peerID',
   avatarHash: 'avatarHash',
   identity: 'identity',
   bio: 'bio',
@@ -29,6 +30,7 @@ export const writable = {
 export const ContactRecord = Record({
   dataVersion: LOCAL_DATA_VERSION,
   pubkey: null,
+  peerID: null,
   avatarHash: null,
   identity: '',
   bio: '',
@@ -42,8 +44,10 @@ export const ContactRecord = Record({
 
 export default class Contact extends ContactRecord {
   dataVersion: number
-  // Arbore ID, or stringified public key of the user
+  // Arbore ID: stringified public key of the user
   pubkey: string
+  // IPFS node's peer ID from where the profile was published
+  peerID: string
   // hash of the avatar file, if any
   avatarHash: ?string
   // Displayed name of the user
@@ -71,7 +75,7 @@ export default class Contact extends ContactRecord {
   }
 
   static fromProfileData(expectedPubkey: string, data) {
-    const {dataVersion, identity, bio, pubkey, avatarHash} = data
+    const {dataVersion, identity, bio, pubkey, avatarHash, peerID} = data
 
     if(dataVersion !== PROFILE_VERSION) {
       throw 'Unexpected profile version'
@@ -86,6 +90,7 @@ export default class Contact extends ContactRecord {
       .set(writable.bio, bio)
       .set(writable.pubkey, pubkey)
       .set(writable.avatarHash, avatarHash)
+      .set(writable.peerID, peerID)
     )
   }
 
