@@ -3,6 +3,7 @@ import { createAction } from 'redux-actions'
 import { IpfsConnector } from '@michaelmure/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 import * as identityActions from './identity'
+import * as ipfsActions from './ipfs'
 import Profile, { writable } from 'models/Profile'
 import Identity from 'models/Identity'
 import { getLoginStore, getFullStore } from 'store/index'
@@ -139,7 +140,9 @@ export function publish() {
     await waitForIpfsReady()
 
     const profile: Profile = getState().profile
-    const data = profile.publishObject
+
+    const peerID = await dispatch(ipfsActions.getPeerID())
+    const data = profile.publishObject(peerID)
 
     const {hash} = await ipfs.api.createNode(data, [])
     console.log('profile hash: ' + hash)

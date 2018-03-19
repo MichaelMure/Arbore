@@ -71,6 +71,18 @@ export default class Profile extends ProfileRecord {
     )
   }
 
+  // Return the object to be published in IPFS
+  publishObject(peerID: string): {} {
+    return {
+      dataVersion: PUBLISH_DATA_VERSION,
+      identity: this.identity,
+      bio: this.bio,
+      pubkey: this.pubkey,
+      avatarHash: this.avatarHash,
+      peerID: peerID
+    }
+  }
+
   get avatarUrl(): ?string {
     return this.avatarHash ? gatewayRoot + this.avatarHash : null
   }
@@ -83,17 +95,6 @@ export default class Profile extends ProfileRecord {
       initials += names[names.length - 1].substring(0, 1).toUpperCase();
     }
     return initials;
-  }
-
-  // Return the object to be published in IPFS
-  get publishObject(): {} {
-    return {
-      dataVersion: PUBLISH_DATA_VERSION,
-      identity: this.identity,
-      bio: this.bio,
-      pubkey: this.pubkey,
-      avatarHash: this.avatarHash,
-    }
   }
 
   get chatPubsubTopic(): string {
