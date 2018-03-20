@@ -104,7 +104,7 @@ export function updateAllContacts() {
       )
     )
 
-    console.log(result)
+    console.log('Update all contacts', result)
   }
 }
 
@@ -148,6 +148,24 @@ function onContactAlive(contact: Contact) {
     if (!contact.addedAck) {
       return dispatch(addedAsContact(contact))
     }
+  }
+}
+
+// Dial a relay connection to all directory contacts
+export function relayConnectDirectoryContacts() {
+  return async function (dispatch, getState) {
+    const state: Store = getState()
+    const contactList: ContactList = state.contactList
+
+    const result = await Promise.all(
+      contactList.directoryMapped.map((contact: Contact) =>
+        dispatch(contactActions.relayConnect(contact))
+          .then(() => [contact.pubkey, 'ok'])
+          .catch(err => [contact.pubkey, err])
+      )
+    )
+
+    console.log('Relay connect contacts', result)
   }
 }
 

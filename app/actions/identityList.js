@@ -49,7 +49,15 @@ export function login(identity: Identity, password: ?string = null) {
       PROFILE_PUBLISH_PERIOD
     )
 
-    // Start updating contacts persiodically
+    // Start dialing relay connection to contacts periodically
+    scheduler.startTimeBetween(fullStoreDispatch,
+      'relayConnectDirectoryContacts',
+      contactList.relayConnectDirectoryContacts(),
+      60 * 60 * 1000, // 1 hour
+      2 * 1000 // 2 seconds delay
+    )
+
+    // Start updating contacts periodically
     scheduler.startTimeBetween(fullStoreDispatch,
       'updateAllContacts',
       contactList.updateAllContacts(),
@@ -61,7 +69,7 @@ export function login(identity: Identity, password: ?string = null) {
       'pingAllContacts',
       contactList.pingAllContacts(),
       2 * 60 * 1000, // 2 minutes,
-      2 * 1000 // 2 seconds delay
+      4 * 1000 // 4 seconds delay
     )
 
     scheduler.startTimeBetween(fullStoreDispatch,
