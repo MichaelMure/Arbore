@@ -112,17 +112,17 @@ const onServiceStarting = async () => {
 const onServiceStarted = async () => {
   console.log('Main: Ipfs service started')
 
-  serviceStarted = true
-
-  // Inform all renderer process
-  BrowserWindow.getAllWindows()
-    .forEach(win => win.webContents.send(ipfsEvents.SERVICE_STARTED))
-
   try {
     await connectToRelays()
   } catch(err) {
     console.error(err)
   }
+
+  serviceStarted = true
+
+  // Inform all renderer process
+  BrowserWindow.getAllWindows()
+    .forEach(win => win.webContents.send(ipfsEvents.SERVICE_STARTED))
 }
 
 const onServiceUpgrade = () => {
