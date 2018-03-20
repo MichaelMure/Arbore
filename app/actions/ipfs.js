@@ -26,7 +26,6 @@ export function getPeerID() {
   }
 }
 
-
 /**
  * Get the number of peer connected
  */

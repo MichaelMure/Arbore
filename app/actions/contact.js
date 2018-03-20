@@ -40,6 +40,11 @@ export function fetchProfile(pubkey: string) {
     const contact: Contact = Contact.fromProfileData(pubkey, data)
     await dispatch(fetchProfileAvatar(pubkey, contact.avatarHash))
 
+    // For temporary connectivity improvement until ipfs solve this,
+    // we dial an explicit relay connection (through a bootstrap node
+    // most likely)
+    dispatch(relayConnect(contact))
+
     return contact
   }
 }
@@ -58,5 +63,19 @@ export function fetchProfileAvatar(pubkey: string, avatarHash: ?string) {
 
     // TODO: limit the size of accepted avatar before pinning
     await ipfs.api.apiClient.pin.add(avatarHash)
+  }
+}
+
+/**
+ * Dial a relay connection to the known peer ID of the contact
+ */
+export function relayConnect(contact: Contact) {
+  return async function () {
+    console.log('Initiate relay connection to ' + contact.identity)
+    const ipfs = IpfsConnector.getInstance()
+
+    await waitForIpfsReady()
+
+    await ipfs.api.apiClient.swarm.connect('/p2p-circuit/ipfs/' + contact.peerID)
   }
 }
