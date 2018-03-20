@@ -20,6 +20,6 @@
     "releaseName": "%s",
     "preRelease": true,
     "draft": true,
-    "tokenRef": "GITHUB_TOKEN",
+    "tokenRef": "GITHUB_TOKEN"
   }
 }
