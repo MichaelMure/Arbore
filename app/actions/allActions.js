@@ -5,6 +5,7 @@ import * as contactListActions from './contactList'
 import * as globalErrorActions from './globalError'
 import * as identityActions from './identity'
 import * as identityListActions from './identityList'
+import * as ipfsActions from './ipfs'
 import * as ipfsObjectActions from './ipfsObject'
 import * as profileActions from './profile'
 import * as shareActions from './share'
@@ -18,6 +19,7 @@ export default {
   ...globalErrorActions,
   ...identityActions,
   ...identityListActions,
+  ...ipfsActions,
   ...ipfsObjectActions,
   ...profileActions,
   ...shareActions,

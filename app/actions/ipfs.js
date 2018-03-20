@@ -26,3 +26,19 @@ export function getPeerID() {
   }
 }
 
+
+/**
+ * Get the number of peer connected
+ */
+export function getSwarmCount() {
+  return async function () {
+    console.log('Get swarm count')
+    const ipfs: IpfsConnector = IpfsConnector.getInstance()
+
+    await waitForIpfsReady()
+
+    const data = await ipfs.api.apiClient.swarm.peers()
+
+    return data.length
+  }
+}
