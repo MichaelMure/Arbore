@@ -12,15 +12,12 @@ class AvatarWithConnectivity extends Component {
 
   props: {
     profile: Profile,
-  }
-
-  static defaultProps = {
-    rootClass: '',
-    avatarClass: ''
+    swarmCount: ?number,
+    onMouseEnter: () => any,
   }
 
   render() {
-    const { classes, profile, avatarClass } = this.props
+    const { classes, swarmCount, profile, onMouseEnter } = this.props
     const status: ConnectivityStatusType = profile.connectivityStatus
 
     const statusClass = classNames({
@@ -29,12 +26,17 @@ class AvatarWithConnectivity extends Component {
       [classes.bad]:     status === ConnectivityStatus.BAD,
     })
 
-    const tooltip = <span>Profile published <Moment fromNow>{profile.lastPublished}</Moment></span>
+    const swarmTooltip = <span><br/>{ swarmCount } { swarmCount > 1 ? 'peers' : 'peer' } connected</span>
+
+    const tooltip = <span>
+      Profile published <Moment fromNow>{profile.lastPublished}</Moment>
+      { swarmCount !== null && swarmTooltip}
+    </span>
 
     return (
       <Tooltip id='connectivity' title={tooltip}>
-        <div className={classes.wrapper + ' ' + statusClass}>
-          <Avatar person={profile} className={avatarClass} />
+        <div className={classes.wrapper + ' ' + statusClass} onMouseEnter={onMouseEnter}>
+          <Avatar person={profile} />
         </div>
       </Tooltip>
     )

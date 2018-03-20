@@ -5,7 +5,7 @@ import classnames from 'classnames'
 import Profile from 'models/Profile'
 import Typography from 'material-ui/Typography'
 import IconButton from 'material-ui/IconButton'
-import AvatarWithConnectivity from 'components/common/AvatarWithConnectivity'
+import AvatarWithConnectivity from 'containers/common/AvatarWithConnectivity'
 
 import Logout from 'react-feather/dist/icons/log-out'
 
