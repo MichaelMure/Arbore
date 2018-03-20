@@ -79,7 +79,7 @@ const style = theme => ({
     padding: 10,
   },
   details: {
-    overflow: 'hidden',
+    overflow: 'auto',
     backgroundColor: theme.palette.background.main,
     padding: 10,
   }
