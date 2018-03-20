@@ -3,6 +3,7 @@ import { Record } from 'immutable'
 import strContain from 'utils/strContain'
 import { gatewayRoot } from 'ipfs/index'
 import { PUBLISH_DATA_VERSION as PROFILE_VERSION } from 'models/Profile'
+import isIpfs from 'is-ipfs'
 
 const LOCAL_DATA_VERSION = 1
 
@@ -83,6 +84,10 @@ export default class Contact extends ContactRecord {
 
     if(expectedPubkey !== pubkey) {
       throw 'Received a different pubkey (' + pubkey + ') than expected (' + expectedPubkey + ')'
+    }
+
+    if(!isIpfs.multihash(peerID)) {
+      throw 'Invalid peer ID'
     }
 
     return new this().withMutations(contact => contact
