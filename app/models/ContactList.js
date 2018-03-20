@@ -60,7 +60,7 @@ export default class ContactList extends ContactListRecord {
 
   get directoryMapped() {
     return this.directory.valueSeq()
-      .map((pubkey: string) => this.findContactInDirectory(pubkey))
+      .map((pubkey: string) => this.pool.get(pubkey, null))
   }
 
   // Return a list of contacts that match the search pattern

@@ -57,6 +57,13 @@ export function addContactInDirectory(pubkey: string) {
 
     await dispatch(priv.storeContactInDirectory(contact))
 
+    // dial a relay connection for better connectivity
+    try {
+      await dispatch(contactActions.relayConnect(contact))
+    } catch (err) {
+      console.log('Relay dial to ', contact.identity, 'failed:', err)
+    }
+
     // Ping the contact
     dispatch(pingContact(contact))
 
