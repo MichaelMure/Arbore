@@ -7,6 +7,7 @@ import { ObjectType } from 'models/IpfsObject'
 import IpfsDirectory, { writable as dirWritable } from 'models/IpfsDirectory'
 import IpfsFile, { writable as fileWritable } from 'models/IpfsFile'
 import { Map } from 'immutable'
+import { priv } from 'actions/ipfsObject'
 
 const reducer = handleActions({
 
@@ -37,20 +38,22 @@ const reducer = handleActions({
 
     switch(state.type) {
       case ObjectType.FILE:
-        if(isLocal) {
-          if(state.sizeTotal !== 0 && sizeTotal !== state.sizeTotal) {
-            console.warn("size mismatch, something is wrong")
-          }
-
-          return state
-            .set(fileWritable.sizeLocal, sizeLocal)
-            .set(fileWritable.sizeTotal, sizeTotal)
-        } else {
-          return state.set(fileWritable.sizeLocal, 0)
+        if(state.sizeTotal !== 0 && sizeTotal !== 0 && sizeTotal !== state.sizeTotal) {
+          console.warn("size mismatch, something is wrong")
         }
+
+        return state
+          .set(fileWritable.sizeLocal, isLocal ? state.sizeTotal : sizeLocal)
+          .set(fileWritable.sizeTotal, state.sizeTotal > 0 ? state.sizeTotal : sizeTotal)
+
       case ObjectType.DIRECTORY:
         if(!isLocal) {
           return state
+        }
+
+        if(sizeLocal > 0) {
+          // We don't have size information for children so we relay a new action without sizes
+          action = priv.isLocal(action.payload.hash, true)
         }
 
         // If isLocal, recursively call the reducer on children to set them all as local
