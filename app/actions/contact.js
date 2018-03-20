@@ -72,6 +72,11 @@ export function fetchProfileAvatar(pubkey: string, avatarHash: ?string) {
 export function relayConnect(contact: Contact) {
   return async function () {
     console.log('Initiate relay connection to ' + contact.identity)
+
+    if(contact.peerID === null) {
+      throw 'No valid peer ID'
+    }
+
     const ipfs = IpfsConnector.getInstance()
 
     await waitForIpfsReady()
