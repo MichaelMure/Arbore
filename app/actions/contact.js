@@ -4,6 +4,7 @@ import Contact from 'models/Contact'
 import { IpfsConnector } from '@michaelmure/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 import removeIpfsPrefix from 'utils/removeIpfsPrefix'
+import * as ipfsActions from './ipfs'
 
 export const updateContact = createAction('CONTACTLIST_CONTACT_UPDATE',
   (contact: Contact) => (contact)
@@ -76,7 +77,14 @@ export function fetchProfileAvatar(pubkey: string, avatarHash: ?string) {
  * Dial a relay connection to the known peer ID of the contact
  */
 export function relayConnect(contact: Contact) {
-  return async function () {
+  return async function (dispatch) {
+
+    // ignore 'localhost' relay attempt
+    const peerID = await dispatch(ipfsActions.getPeerID())
+    if(peerID === contact.peerID) {
+      return
+    }
+
     console.log('Initiate relay connection to ' + contact.identity)
 
     if(contact.peerID === null) {
