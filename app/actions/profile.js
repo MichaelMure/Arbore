@@ -7,6 +7,7 @@ import * as ipfsActions from './ipfs'
 import Profile, { writable } from 'models/Profile'
 import Identity from 'models/Identity'
 import { getLoginStore, getFullStore } from 'store/index'
+import isipfs from 'is-ipfs'
 
 export const priv = {
   storeNewProfile: createAction('PROFILE_CREATE',
@@ -148,6 +149,9 @@ export function publish() {
     console.log('profile hash: ' + hash)
     await dispatch(priv.setProfileHash(hash))
 
+    // @HACK temporary fix around the bad double NAT connectivity
+    dispatch(fetchOnPublicNode('/ipfs/' + hash))
+
     await dispatch(priv.profilePublish())
 
     const result = await ipfs.api.apiClient.name.publish(hash, {
@@ -157,6 +161,9 @@ export function publish() {
     })
 
     dispatch(priv.profilePublished())
+
+    // @HACK temporary fix around the bad double NAT connectivity
+    dispatch(fetchOnPublicNode('/ipns/'+profile.pubkey))
 
     console.log('profile published on IPNS: ', result)
   }
@@ -205,5 +212,22 @@ export function checkPassword(password: ?string) {
     if(!correctPassword) {
       throw 'Invalid password'
     }
+  }
+}
+
+/**
+ * @HACK temporary fix around the bad double NAT connectivity
+ */
+function fetchOnPublicNode(ressource: string) {
+  return async function(dispatch) {
+    if(!isipfs.path(ressource)) {
+      throw 'invalid ressource path'
+    }
+
+    const url = 'https://ipfs.io' + ressource
+    console.log('Fetch on public node: ' + url)
+
+    const result = await fetch(url)
+    console.log(result)
   }
 }

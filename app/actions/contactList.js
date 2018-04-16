@@ -57,6 +57,7 @@ export function addContactInDirectory(pubkey: string) {
 
     await dispatch(priv.storeContactInDirectory(contact))
 
+    // @HACK temporary fix around the bad double NAT connectivity
     // dial a relay connection for better connectivity
     try {
       await dispatch(contactActions.relayConnect(contact))
@@ -86,6 +87,11 @@ function addContactInPool(pubkey: string) {
 
     const contact: Contact = await dispatch(contactActions.fetchProfile(pubkey))
     dispatch(priv.storeContactInPool(contact))
+
+    // @HACK temporary fix around the bad double NAT connectivity
+    if(contactList.follower.has(pubkey) || contactList.directory.has(pubkey)) {
+      dispatch(contactActions.relayConnect(contact))
+    }
   }
 }
 
@@ -94,6 +100,9 @@ export function updateContact(pubkey: string) {
   return async function (dispatch) {
     const contact = await dispatch(contactActions.fetchProfile(pubkey))
     await dispatch(contactActions.updateContact(contact))
+
+    // @HACK temporary fix around the bad double NAT connectivity
+    dispatch(contactActions.relayConnect(contact))
   }
 }
 
@@ -106,8 +115,10 @@ export function updateAllContacts() {
     const result = await Promise.all(
       contactList.pool.map((contact: Contact) =>
         dispatch(updateContact(contact.pubkey))
-          .then(() => [contact.pubkey, 'ok'])
-          .catch(err => [contact.pubkey, err])
+          .then(
+            () => [contact.pubkey, 'ok'],
+            err => [contact.pubkey, err]
+          )
       )
     )
 
@@ -155,9 +166,12 @@ function onContactAlive(contact: Contact) {
     if (!contact.addedAck) {
       return dispatch(addedAsContact(contact))
     }
+
+    dispatch(contactActions.relayConnect(contact))
   }
 }
 
+// @HACK temporary fix around the bad double NAT connectivity
 // Dial a relay connection to all directory contacts
 export function relayConnectDirectoryContacts() {
   return async function (dispatch, getState) {
@@ -167,8 +181,10 @@ export function relayConnectDirectoryContacts() {
     const result = await Promise.all(
       contactList.directoryMapped.map((contact: Contact) =>
         dispatch(contactActions.relayConnect(contact))
-          .then(() => [contact.pubkey, 'ok'])
-          .catch(err => [contact.pubkey, err])
+          .then(
+            () => [contact.pubkey, 'ok'],
+            err => [contact.pubkey, err]
+          )
       )
     )
 

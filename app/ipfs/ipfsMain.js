@@ -84,6 +84,10 @@ export const start = () => {
   instance.start()
 }
 
+/**
+ * @HACK temporary fix around the bad double NAT connectivity
+ * @returns {Promise<void>}
+ */
 const connectToRelays = async () => {
   console.log('Main: connect to relay ...')
 

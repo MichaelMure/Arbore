@@ -67,6 +67,7 @@ export function fetchProfileAvatar(pubkey: string, avatarHash: ?string) {
 }
 
 /**
+ * @HACK temporary fix around the bad double NAT connectivity
  * Dial a relay connection to the known peer ID of the contact
  */
 export function relayConnect(contact: Contact) {
