@@ -10,6 +10,7 @@ import type { Store } from 'utils/types'
 import { mainWindowVisible } from 'utils/constants'
 import createProtocol from 'ipfs/createProtocol'
 import { nextToken } from 'utils/tokenGenerator'
+import * as contactActions from 'actions/contact'
 
 /// #if isElectron
 import { ipcRenderer } from 'electron'
@@ -101,46 +102,6 @@ export function unsubscribe() {
   }
 }
 
-function handleMessage(dispatch, getState, payload) {
-  const {id, from, message} = payload
-
-  const contactList: ContactList = getState().contactList
-  const contact = contactList.findContactInDirectory(from)
-
-  if(!contact) {
-    console.log('Received message from unknow contact ' + from)
-    return
-  }
-
-  console.log('Received \'' + message + '\' from ' + contact.identity)
-  dispatch(priv.chatReceived(contact, id, message))
-  dispatch(sendChatAck(contact, id))
-
-/// #if isElectron
-  if(!ipcRenderer.sendSync(mainWindowVisible)) {
-    new Notification(contact.identity, {
-      icon: contact.avatarUrl,
-      body: message
-    })
-  }
-/// #endif
-}
-
-function handleAck(dispatch, getState, payload) {
-  const {id, from} = payload
-
-  const contactList: ContactList = getState().contactList
-  const contact = contactList.findContactInDirectory(from)
-
-  if(!contact) {
-    console.log('Received ACK from unknow contact ' + from)
-    return
-  }
-
-  console.log('Received ACK with id ' + id + ' from ' + from)
-  dispatch(priv.chatAckReceived(contact, id))
-}
-
 export function sendChat(contact: Contact, message: string) {
   return async function (dispatch, getState) {
     console.log('Sending \'' + message + '\' to ' + contact.identity)
@@ -159,6 +120,33 @@ export function sendChat(contact: Contact, message: string) {
   }
 }
 
+function handleMessage(dispatch, getState, payload) {
+  const {id, from, message} = payload
+
+  const contactList: ContactList = getState().contactList
+  const contact = contactList.findContactInDirectory(from)
+
+  if(!contact) {
+    console.log('Received message from unknow contact ' + from)
+    return
+  }
+
+  console.log('Received \'' + message + '\' from ' + contact.identity)
+  dispatch(priv.chatReceived(contact, id, message))
+  dispatch(sendChatAck(contact, id))
+
+  dispatch(contactActions.onAliveWithContact(contact))
+
+/// #if isElectron
+  if(!ipcRenderer.sendSync(mainWindowVisible)) {
+    new Notification(contact.identity, {
+      icon: contact.avatarUrl,
+      body: message
+    })
+  }
+/// #endif
+}
+
 export function sendChatAck(contact: Contact, id: string) {
   return async function (dispatch, getState) {
     console.log('Sending message ACK ' + id + ' to ' + contact.identity)
@@ -168,4 +156,21 @@ export function sendChatAck(contact: Contact, id: string) {
 
     await dispatch(pubsub.send(contact.chatPubsubTopic, data))
   }
+}
+
+function handleAck(dispatch, getState, payload) {
+  const {id, from} = payload
+
+  const contactList: ContactList = getState().contactList
+  const contact = contactList.findContactInDirectory(from)
+
+  if(!contact) {
+    console.log('Received ACK from unknow contact ' + from)
+    return
+  }
+
+  console.log('Received ACK with id ' + id + ' from ' + from)
+  dispatch(priv.chatAckReceived(contact, id))
+
+  dispatch(contactActions.onAliveWithContact(contact))
 }

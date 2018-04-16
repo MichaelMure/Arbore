@@ -95,7 +95,7 @@ async function handleLookup(dispatch, getState, payload) {
     return
   }
 
-  console.log('Got a contact lookup query from ' + from)
+  console.log('Got a contact lookup query from ' + from + ' for ' + pubkey)
 
   const state: Store = getState()
   const profile = state.profile

@@ -1,8 +1,6 @@
 // @flow
 import { createAction } from 'redux-actions'
 import * as contactActions from 'actions/contact'
-import * as chatActions from 'actions/chat'
-import * as shareListActions from 'actions/shareList'
 import * as contactResolver from 'actions/contactResolver'
 import type { Store } from 'utils/types'
 import ContactList from 'models/ContactList'
@@ -169,7 +167,7 @@ export function garbageCollectPool() {
 }
 
 // On a contact pong, inform the contact we have added him if needed
-function onContactAlive(contact: Contact) {
+export function onContactAlive(contact: Contact) {
   return async function (dispatch) {
     if (!contact.addedAck) {
       return dispatch(addedAsContact(contact))
@@ -287,6 +285,8 @@ function handleQueryContacts(dispatch, getState, payload) {
 
   const data = protocol.contactsReply(profile, contactList.publicContacts(state.settings))
   dispatch(pubsub.send(contact.contactsPubsubTopic, data))
+
+  dispatch(contactActions.onAliveWithContact(contact))
 }
 
 function handleContactsReply(dispatch, getState, payload) {
@@ -373,9 +373,7 @@ function handlePong(dispatch, getState, payload) {
   dispatch(contactActions.pingResult(contact.pubkey, true))
 
   // trigger actions to be done when we find that a contact is online
-  dispatch(shareListActions.onContactAlive(contact))
-  dispatch(chatActions.onContactAlive(contact))
-  dispatch(onContactAlive(contact))
+  dispatch(contactActions.onAliveWithContact(contact, true))
 }
 
 export function addedAsContact(contact: Contact) {
@@ -398,6 +396,8 @@ function handleAddedContactQuery(dispatch, getState, payload) {
   dispatch(storeAddedAsContact(from))
   dispatch(fetchContactIfMissing(from))
   dispatch(pubsub.send(Contact.contactsPubsubTopic(from), protocol.addedContactAck(profile)))
+
+  dispatch(contactActions.onAliveWithPubkey(from))
 }
 
 function handleAddedContactAck(dispatch, getState, payload) {
@@ -414,4 +414,6 @@ function handleAddedContactAck(dispatch, getState, payload) {
   console.log(contact.identity + ' is aware we have added him as a contact')
 
   dispatch(contactActions.addedAck(from))
+
+  dispatch(contactActions.onAliveWithContact(contact))
 }

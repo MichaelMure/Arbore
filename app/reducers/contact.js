@@ -39,6 +39,10 @@ export default handleActions({
       : newState
   },
 
+  [contact.priv.isAlive]: (state: Contact, action: Action) => (
+    state.set(writable.lastSeen, Date.now())
+  ),
+
   [contact.addedAck]: (state: Contact, action: Action) => {
     return state.set(writable.addedAck, true)
   },

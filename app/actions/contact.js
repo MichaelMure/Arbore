@@ -1,10 +1,20 @@
 // @flow
 import { createAction } from 'redux-actions'
 import Contact from 'models/Contact'
+import ContactList from 'models/ContactList'
 import { IpfsConnector } from '@michaelmure/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 import removeIpfsPrefix from 'utils/removeIpfsPrefix'
+import * as chatActions from 'actions/chat'
+import * as shareListActions from 'actions/shareList'
+import * as contactListActions from 'actions/contactList'
 import * as ipfsActions from './ipfs'
+
+export const priv = {
+  isAlive: createAction('CONTACT_ISALIVE',
+    (pubkey: string) => ({pubkey})
+  ),
+}
 
 export const updateContact = createAction('CONTACTLIST_CONTACT_UPDATE',
   (contact: Contact) => (contact)
@@ -24,6 +34,7 @@ export const pingResult = createAction('CONTACT_PING_RESULT',
 export const addedAck = createAction('CONTACT_ADDED_ACK',
   (pubkey: string) => ({pubkey})
 )
+
 
 export function fetchProfile(pubkey: string) {
   return async function (dispatch) {
@@ -69,6 +80,37 @@ export function fetchProfileAvatar(pubkey: string, avatarHash: ?string) {
 
     // TODO: limit the size of accepted avatar before pinning
     await ipfs.api.apiClient.pin.add(avatarHash)
+  }
+}
+
+export function onAliveWithPubkey(pubkey: string, wasPing: boolean = false) {
+  return async function(dispatch, getState) {
+    if(!wasPing) {
+      await dispatch(priv.isAlive(pubkey))
+    }
+
+    const contactList : ContactList = getState().contactList
+    const contact: ?Contact = contactList.findContactInPool(pubkey)
+
+    if(!contact) {
+      return
+    }
+
+    dispatch(shareListActions.onContactAlive(contact))
+    dispatch(chatActions.onContactAlive(contact))
+    dispatch(contactListActions.onContactAlive(contact))
+  }
+}
+
+export function onAliveWithContact(contact: Contact, wasPing: boolean = false) {
+  return async function(dispatch) {
+    if(!wasPing) {
+      await dispatch(priv.isAlive(contact.pubkey))
+    }
+
+    dispatch(shareListActions.onContactAlive(contact))
+    dispatch(chatActions.onContactAlive(contact))
+    dispatch(contactListActions.onContactAlive(contact))
   }
 }
 

@@ -19,6 +19,7 @@ import { updateLocality } from 'actions/share'
 
 /// #if isElectron
 import { ipcRenderer } from 'electron'
+import * as contactActions from './contact'
 /// #endif
 
 export const setFilter = createAction('SHARELIST_FILTER_SET',
@@ -203,6 +204,8 @@ function handleQueryShares(dispatch, getState, payload) {
 
   const data = protocol.sharesReply(profile, shares)
   dispatch(pubsub.send(contact.sharesPubsubTopic, data))
+
+  dispatch(contactActions.onAliveWithContact(contact))
 }
 
 async function handleSharesReply(dispatch, getState, payload) {
@@ -226,6 +229,8 @@ async function handleSharesReply(dispatch, getState, payload) {
   }))
 
   dispatch(contactListActions.fetchAllMissingContacts())
+
+  dispatch(contactActions.onAliveWithContact(contact))
 }
 
 export function sendShare(share: Share, pubkey: string) {
@@ -276,6 +281,7 @@ async function handleSharePush(dispatch, getState, payload) {
   await handleNewShare(dispatch, contact, hash)
 
   dispatch(contactListActions.fetchAllMissingContacts())
+  dispatch(contactActions.onAliveWithContact(contact))
 }
 
 // Helper to factorize the handling code for a new incoming Share
@@ -335,4 +341,5 @@ function handleShareAck(dispatch, getState, payload) {
   }
 
   dispatch(shareActions.setRecipientNotified(share, contact.pubkey))
+  dispatch(contactActions.onAliveWithContact(contact))
 }

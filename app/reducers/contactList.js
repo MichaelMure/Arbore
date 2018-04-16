@@ -83,6 +83,7 @@ export default handleActions({
     contact.setPingToken,
     contact.pingResult,
     contact.addedAck,
+    contact.priv.isAlive,
   )] : (state: ContactList, action) => contactByPubkey(state, action)
 
 }, initialState )
