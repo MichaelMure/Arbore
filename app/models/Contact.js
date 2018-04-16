@@ -6,6 +6,7 @@ import { PUBLISH_DATA_VERSION as PROFILE_VERSION } from 'models/Profile'
 import isIpfs from 'is-ipfs'
 
 const LOCAL_DATA_VERSION = 1
+const PUBLISH_DATA_VERSION = 1
 
 export const ContactStatus = {
   OFFLINE:  'OFFLINE',
@@ -75,18 +76,14 @@ export default class Contact extends ContactRecord {
     )
   }
 
-  static fromProfileData(expectedPubkey: string, data) {
+  static fromProfileData(data) {
     const {dataVersion, identity, bio, pubkey, avatarHash, peerID} = data
 
     if(dataVersion !== PROFILE_VERSION) {
       throw 'Unexpected profile version'
     }
 
-    if(expectedPubkey !== pubkey) {
-      throw 'Received a different pubkey (' + pubkey + ') than expected (' + expectedPubkey + ')'
-    }
-
-    if(!isIpfs.multihash(peerID)) {
+    if(peerID !== null && !isIpfs.multihash(peerID)) {
       throw 'Invalid peer ID'
     }
 
@@ -97,6 +94,18 @@ export default class Contact extends ContactRecord {
       .set(writable.avatarHash, avatarHash)
       .set(writable.peerID, peerID)
     )
+  }
+
+  // Return the object to be published in IPFS
+  publishObject(): {} {
+    return {
+      dataVersion: PUBLISH_DATA_VERSION,
+      identity: this.identity,
+      bio: this.bio,
+      pubkey: this.pubkey,
+      avatarHash: this.avatarHash,
+      peerID: this.peerID
+    }
   }
 
   // Return true if the contact match the pattern

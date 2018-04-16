@@ -3,6 +3,7 @@ import { createAction } from 'redux-actions'
 import * as contactActions from 'actions/contact'
 import * as chatActions from 'actions/chat'
 import * as shareListActions from 'actions/shareList'
+import * as contactResolver from 'actions/contactResolver'
 import type { Store } from 'utils/types'
 import ContactList from 'models/ContactList'
 import Contact from 'models/Contact'
@@ -46,14 +47,14 @@ export function addContactInDirectory(pubkey: string) {
   return async function (dispatch, getState) {
     const contactList: ContactList = getState().contactList
 
-    if(getState().profile.pubkey===pubkey) {
+    if(getState().profile.pubkey === pubkey) {
       throw "Cannot add yourself!"
     }
 
     // Use a cached contact if available, otherwise fetch the profile
     const contact: Contact = contactList.pool.has(pubkey)
       ? contactList.pool.get(pubkey)
-      : await dispatch(contactActions.fetchProfile(pubkey))
+      : await dispatch(contactResolver.resolveContact(pubkey))
 
     await dispatch(priv.storeContactInDirectory(contact))
 
@@ -85,7 +86,7 @@ function addContactInPool(pubkey: string) {
       return
     }
 
-    const contact: Contact = await dispatch(contactActions.fetchProfile(pubkey))
+    const contact: Contact = await dispatch(contactResolver.resolveContact(pubkey))
     dispatch(priv.storeContactInPool(contact))
 
     // @HACK temporary fix around the bad double NAT connectivity
@@ -98,7 +99,7 @@ function addContactInPool(pubkey: string) {
 // Fetch a contact's profile to update the local data
 export function updateContact(pubkey: string) {
   return async function (dispatch) {
-    const contact = await dispatch(contactActions.fetchProfile(pubkey))
+    const contact = await dispatch(contactResolver.resolveContact(pubkey))
     await dispatch(contactActions.updateContact(contact))
 
     // @HACK temporary fix around the bad double NAT connectivity

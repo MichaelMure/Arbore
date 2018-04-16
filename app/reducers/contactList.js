@@ -25,6 +25,11 @@ export default handleActions({
     return persisted
   },
 
+  [contactList.priv.storeContactInPool]: (state: ContactList, action: Action) => {
+    const { contact } = action.payload
+    return state.set(writable.pool, state.pool.set(contact.pubkey, contact))
+  },
+
   [contactList.priv.storeContactInDirectory]: (state: ContactList, action: Action<Contact>) => {
     const contact: Contact = action.payload
     if(state.directory.has(contact.pubkey)) {
@@ -68,11 +73,6 @@ export default handleActions({
 
   [contactList.rejectSuggestion]: (state: ContactList, action: Action<Contact>) => {
     return state.set(writable.rejected, state.rejected.add(action.payload.pubkey))
-  },
-
-  [contactList.priv.storeContactInPool]: (state: ContactList, action: Action) => {
-    const { contact } = action.payload
-    return state.set(writable.pool, state.pool.set(contact.pubkey, contact))
   },
 
 

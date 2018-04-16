@@ -7,6 +7,7 @@ import * as chat from './chat'
 import * as contactList from './contactList'
 import * as settings from './settings'
 import * as shareList from './shareList'
+import * as profileResolver from './contactResolver'
 import { PROFILE_PUBLISH_PERIOD } from 'models/Profile'
 import { getLoginStore, getFullStore, dropFullStore } from 'store/index'
 
@@ -41,6 +42,7 @@ export function login(identity: Identity, password: ?string = null) {
     fullStoreDispatch(chat.subscribe())
     fullStoreDispatch(contactList.subscribe())
     fullStoreDispatch(shareList.subscribe())
+    fullStoreDispatch(profileResolver.subscribe())
 
     // Start publishing the profile periodically
     scheduler.startTimeBetween(fullStoreDispatch,
@@ -117,5 +119,6 @@ export function logout() {
     dispatch(chat.unsubscribe())
     dispatch(contactList.unsubscribe())
     dispatch(shareList.unsubscribe())
+    dispatch(profileResolver.unsubscribe())
   }
 }

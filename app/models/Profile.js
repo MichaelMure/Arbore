@@ -109,6 +109,10 @@ export default class Profile extends ProfileRecord {
     return this.pubkey + '/shares'
   }
 
+  get contactDiscoveryPubsubTopic() : string {
+    return this.pubkey + '/contactDiscovery'
+  }
+
   static hashPassword(password: string) {
     return bcrypt.hashSync(password, bcryptRound)
   }

@@ -37,7 +37,12 @@ export function fetchProfile(pubkey: string) {
     const data = await ipfs.api.getObject(removeIpfsPrefix(path))
     console.log(data)
 
-    const contact: Contact = Contact.fromProfileData(pubkey, data)
+    const contact: Contact = Contact.fromProfileData(data)
+
+    if(pubkey !== contact.pubkey) {
+      throw 'Received a different pubkey (' + contact.pubkey + ') than expected (' + pubkey + ')'
+    }
+
     await dispatch(fetchProfileAvatar(pubkey, contact.avatarHash))
 
     // For temporary connectivity improvement until ipfs solve this,
