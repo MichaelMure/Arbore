@@ -79,10 +79,17 @@ export function addContactInDirectory(pubkey: string) {
 
 function addContactInPool(pubkey: string) {
   return async function(dispatch, getState) {
-    const contactList: ContactList = getState().contactList
+    const state : Store = getState()
+    const contactList: ContactList = state.contactList
+    const profile = state.profile
 
     // don't do anything if the contact is already there
     if(contactList.pool.has(pubkey)) {
+      return
+    }
+
+    // refuse to add self
+    if(profile.pubkey === pubkey) {
       return
     }
 
