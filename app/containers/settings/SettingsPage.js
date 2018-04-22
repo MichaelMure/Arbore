@@ -21,6 +21,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onDirectoryPrivacyChange: (event, value: string) => {
     dispatch(settings.setDirectoryPrivacy(value === 'true'))
+  },
+  onAutoAddContactBackChange: (event, value: string) => {
+    dispatch(settings.setAutoAddContactBack(value === 'true'))
   }
 })
 

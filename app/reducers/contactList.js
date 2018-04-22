@@ -32,9 +32,6 @@ export default handleActions({
 
   [contactList.priv.storeContactInDirectory]: (state: ContactList, action: Action<Contact>) => {
     const contact: Contact = action.payload
-    if(state.directory.has(contact.pubkey)) {
-      throw 'Contact already know'
-    }
     return state
       .set(writable.directory, state.directory.add(contact.pubkey))
       .set(writable.pool, state.pool.set(contact.pubkey, contact))
@@ -42,9 +39,7 @@ export default handleActions({
 
   [contactList.removeContact]: (state: ContactList, action: Action<Contact>) => {
     const contact: Contact = action.payload
-    if(!state.directory.has(contact.pubkey)) {
-      throw 'Contact unknow'
-    }
+
     return state
       .set(writable.directory, state.directory.remove(contact.pubkey))
       // a manually removed contact is considered rejected from future suggestion

@@ -17,4 +17,8 @@ export default handleActions({
     state.set(writable.directoryPrivacy, action.payload)
   ),
 
+  [actions.setAutoAddContactBack]: (state: Settings, action: Action) => (
+    state.set(writable.autoAddContactBack, action.payload)
+  ),
+
 }, initialState )

@@ -10,6 +10,7 @@ import ChatRoomList from 'models/ChatRoomList'
 import ShareList from 'models/ShareList'
 import createProtocol from 'ipfs/createProtocol'
 import { nextToken } from 'utils/tokenGenerator'
+import Settings from '../models/Settings'
 
 export const priv = {
   storeContactInDirectory: createAction('CONTACTLIST_CONTACT_STORE',
@@ -78,17 +79,19 @@ function addContactInPool(pubkey: string) {
     const contactList: ContactList = state.contactList
     const profile = state.profile
 
-    // don't do anything if the contact is already there
-    if(contactList.pool.has(pubkey)) {
-      return
-    }
-
     // refuse to add self
     if(profile.pubkey === pubkey) {
       return null
     }
 
-    const contact: Contact = await dispatch(contactResolver.resolveContact(pubkey))
+    let contact: ?Contact = contactList.findContactInPool(pubkey)
+
+    // don't do anything if the contact is already there
+    if(contact) {
+      return contact
+    }
+
+    contact = await dispatch(contactResolver.resolveContact(pubkey))
     dispatch(priv.storeContactInPool(contact))
 
     // @HACK temporary fix around the bad double NAT connectivity
@@ -96,6 +99,8 @@ function addContactInPool(pubkey: string) {
       // noinspection JSIgnoredPromiseFromCall
       backgroundRelayConnect(dispatch, contact)
     }
+
+    return contact
   }
 }
 
@@ -147,11 +152,13 @@ export function fetchContactIfMissing(pubkey: string) {
     const state: Store = getState()
     const contactList: ContactList = state.contactList
 
-    if(contactList.pool.has(pubkey)) {
-      return
+    const contact: ? Contact = contactList.findContactInPool(pubkey)
+
+    if(contact) {
+      return contact
     }
 
-    await dispatch(addContactInPool(pubkey))
+    return await dispatch(addContactInPool(pubkey))
   }
 }
 
@@ -396,15 +403,28 @@ export function addedAsContact(contact: Contact) {
   }
 }
 
-function handleAddedContactQuery(dispatch, getState, payload) {
+async function handleAddedContactQuery(dispatch, getState, payload) {
   const { from } = payload
 
   console.log(from + ' added us as a contact')
 
-  const profile: Profile = getState().profile
+  const state: Store = getState()
+  const profile: Profile = state.profile
+  const settings: Settings = state.settings
 
   dispatch(storeAddedAsContact(from))
-  dispatch(fetchContactIfMissing(from))
+
+  if(settings.autoAddContactBack) {
+    const contact: ?Contact = await dispatch(fetchContactIfMissing(from))
+    if(!contact) {
+      return
+    }
+
+    dispatch(priv.storeContactInDirectory(contact))
+  } else {
+    dispatch(fetchContactIfMissing(from))
+  }
+
   dispatch(pubsub.send(Contact.contactsPubsubTopic(from), protocol.addedContactAck(profile)))
 
   dispatch(contactActions.onAliveWithPubkey(from))

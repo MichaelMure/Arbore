@@ -8,3 +8,6 @@ export const setTheme = createAction('SETTINGS_THEME_SET',
 export const setDirectoryPrivacy = createAction('SETTINGS_DIRECTORYPRIVACY_SET',
   (privacy: boolean) => (privacy)
 )
+export const setAutoAddContactBack = createAction('SETTINGS_AUTOADDCONTACTBACK_SET',
+  (autoAddContactBack: boolean) => (autoAddContactBack)
+)

@@ -13,10 +13,16 @@ class SettingsPage extends Component {
     settings: Settings,
     onThemeChange: (any, ThemeType) => void,
     onDirectoryPrivacyChange: (any, string) => void,
+    onAutoAddContactBackChange: (any, string) => void,
   }
 
   render() {
-    const { classes, onThemeChange, onDirectoryPrivacyChange } = this.props
+    const {
+      classes,
+      onThemeChange,
+      onDirectoryPrivacyChange,
+      onAutoAddContactBackChange,
+    } = this.props
     const settings: Settings = this.props.settings
 
     return (
@@ -52,6 +58,20 @@ class SettingsPage extends Component {
               <FormControlLabel value={'true'} control={<Radio />} label='Hidden' />
             </RadioGroup>
           </FormControl>
+
+          <FormControl>
+            <FormLabel>Contacts</FormLabel>
+            <FormHelperText>Automatically add a contact in your directory when they add you.</FormHelperText>
+            <RadioGroup
+              aria-label='autoAddContactBack'
+              name='autoAddContactBack'
+              value={settings.autoAddContactBack ? 'true' : 'false'}
+              onChange={onAutoAddContactBackChange}
+            >
+              <FormControlLabel value={'true'} control={<Radio />} label='Active' />
+              <FormControlLabel value={'false'} control={<Radio />} label='Disabled' />
+            </RadioGroup>
+          </FormControl>
         </div>
       </div>
     )
@@ -75,6 +95,7 @@ const style = theme => ({
     display: 'flex',
     height: '100%',
     flexWrap: 'wrap',
+    alignContent: 'flex-start',
     padding: 30,
     '&>*': {
       padding: 10,
