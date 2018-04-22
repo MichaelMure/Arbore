@@ -49,6 +49,8 @@ export default handleActions({
       .set(writable.directory, state.directory.remove(contact.pubkey))
       // a manually removed contact is considered rejected from future suggestion
       .set(writable.rejected, state.rejected.add(contact.pubkey))
+      // unselect the contact if needed
+      .set(writable.selectedPubkey, state.selectedPubkey === contact.pubkey ? null : state.selectedPubkey)
   },
 
   [contactList.setSelected]: (state: ContactList, action: Action<string>) => (
