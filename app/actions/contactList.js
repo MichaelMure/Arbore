@@ -58,11 +58,8 @@ export function addContactInDirectory(pubkey: string) {
 
     // @HACK temporary fix around the bad double NAT connectivity
     // dial a relay connection for better connectivity
-    try {
-      await dispatch(contactActions.relayConnect(contact))
-    } catch (err) {
-      console.log('Relay dial to ', contact.identity, 'failed:', err)
-    }
+    // noinspection JSIgnoredPromiseFromCall
+    backgroundRelayConnect(dispatch, contact)
 
     // Ping the contact
     dispatch(pingContact(contact))
@@ -88,7 +85,7 @@ function addContactInPool(pubkey: string) {
 
     // refuse to add self
     if(profile.pubkey === pubkey) {
-      return
+      return null
     }
 
     const contact: Contact = await dispatch(contactResolver.resolveContact(pubkey))
@@ -96,8 +93,19 @@ function addContactInPool(pubkey: string) {
 
     // @HACK temporary fix around the bad double NAT connectivity
     if(contactList.follower.has(pubkey) || contactList.directory.has(pubkey)) {
-      dispatch(contactActions.relayConnect(contact))
+      // noinspection JSIgnoredPromiseFromCall
+      backgroundRelayConnect(dispatch, contact)
     }
+  }
+}
+
+// Wrap  RelayConnect in an async function + try/catch to allow non-blocking call
+// while still having error handling
+async function backgroundRelayConnect(dispatch, contact: Contact) {
+  try {
+    await dispatch(contactActions.relayConnect(contact))
+  } catch (err) {
+    console.log('Relay dial to ', contact.identity, 'failed:', err)
   }
 }
 
@@ -108,7 +116,8 @@ export function updateContact(pubkey: string) {
     await dispatch(contactActions.updateContact(contact))
 
     // @HACK temporary fix around the bad double NAT connectivity
-    dispatch(contactActions.relayConnect(contact))
+    // noinspection JSIgnoredPromiseFromCall
+    backgroundRelayConnect(dispatch, contact)
   }
 }
 
@@ -173,7 +182,8 @@ export function onContactAlive(contact: Contact) {
       return dispatch(addedAsContact(contact))
     }
 
-    dispatch(contactActions.relayConnect(contact))
+    // noinspection JSIgnoredPromiseFromCall
+    backgroundRelayConnect(dispatch, contact)
   }
 }
 
