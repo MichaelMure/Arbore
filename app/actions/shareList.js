@@ -331,10 +331,6 @@ function handleShareAck(dispatch, getState, payload) {
     return
   }
 
-  if(!share.isAuthor) {
-    console.log('Got a share notification ACK for a Share that we didn\'t authored')
-    return
-  }
   if(!share.hasRecipient(contact.pubkey)) {
     console.log('Got a share notification ack that does not match the recipients of the Share')
     return
