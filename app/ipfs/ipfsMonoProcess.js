@@ -1,6 +1,6 @@
 // @flow
 
-import { IpfsConnector, ipfsEvents, ConnectorState } from '@michaelmure/ipfs-connector'
+import { IpfsConnector, ipfsEvents, ConnectorState } from '@akashaproject/ipfs-connector'
 
 let serviceStarted = false
 

@@ -1,5 +1,5 @@
 // @flow
-import { IpfsConnector } from '@michaelmure/ipfs-connector'
+import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 
 const PROTOCOL_VERSION = 1
@@ -31,7 +31,7 @@ export default function createProtocol(name: string, topic: string, handlers: {}
 
       pubsubHandler = createHandler(dispatch, getState)
 
-      return await ipfs.api.apiClient.pubsub.subscribe(topic, {}, pubsubHandler)
+      return await ipfs.api.apiClient.pubsub.subscribe(topic, pubsubHandler)
     }
   }
 

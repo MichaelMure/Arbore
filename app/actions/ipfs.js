@@ -1,4 +1,4 @@
-import { IpfsConnector } from '@michaelmure/ipfs-connector'
+import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 
 /**

@@ -2,7 +2,7 @@
 import { createAction } from 'redux-actions'
 import Contact from 'models/Contact'
 import ContactList from 'models/ContactList'
-import { IpfsConnector } from '@michaelmure/ipfs-connector'
+import { IpfsConnector } from '@akashaproject/ipfs-connector'
 import { waitForIpfsReady } from 'ipfs/index'
 import removeIpfsPrefix from 'utils/removeIpfsPrefix'
 import * as chatActions from 'actions/chat'

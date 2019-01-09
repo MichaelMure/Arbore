@@ -43,9 +43,9 @@ const validate = (values, props) => {
     errors['pubkey'] = 'Required'
   }
 
-  if(!isIpfs.multihash(values['pubkey'])) {
+  /*if(!isIpfs.cid(values['pubkey'])) {
     errors['pubkey'] = 'Invalid Arbore ID'
-  }
+  }*/
 
   return errors
 }

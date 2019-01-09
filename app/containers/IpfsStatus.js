@@ -1,9 +1,9 @@
 // @flow
 import React, { Component } from 'react'
 import IpfsStatusComponent from 'components/IpfsStatus'
-import { ConnectorState } from '@michaelmure/ipfs-connector'
+import { ConnectorState } from '@akashaproject/ipfs-connector'
 import { ipcRenderer } from 'electron'
-import { ipfsEvents } from '@michaelmure/ipfs-connector'
+import { ipfsEvents } from '@akashaproject/ipfs-connector'
 import { getServiceStatus } from 'ipfs/ipfsMain'
 import { throttle } from 'throttle-debounce'
 
