@@ -1,0 +1,38 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.13.5
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-450202:
+    - '@akashaproject/ipfs-connector > ipfs-api > peer-id > libp2p-crypto > async > lodash':
+        patched: '2019-07-04T02:13:40.701Z'
+    - '@akashaproject/ipfs-connector > ipfs-api > lodash':
+        patched: '2019-07-04T02:13:40.701Z'
+    - '@akashaproject/ipfs-connector > ipfs-api > peer-info > peer-id > lodash':
+        patched: '2019-07-04T02:13:40.701Z'
+    - '@akashaproject/ipfs-connector > ipfs-api > multiaddr > ip-address > lodash':
+        patched: '2019-07-04T02:13:40.701Z'
+    - '@akashaproject/ipfs-connector > ipfs-api > libp2p-crypto > async > lodash':
+        patched: '2019-07-04T02:13:40.701Z'
+    - '@akashaproject/ipfs-connector > @akashaproject/ipfs-connector-utils > ipld-dag-pb > async > lodash':
+        patched: '2019-07-04T02:13:40.701Z'
+    - '@akashaproject/ipfs-connector > ipfs-api > ipld-dag-pb > async > lodash':
+        patched: '2019-07-04T02:13:40.701Z'
+    - '@akashaproject/ipfs-connector > ipfs-api > peer-id > async > lodash':
+        patched: '2019-07-04T02:13:40.701Z'
+    - '@akashaproject/ipfs-connector > ipfs-api > async > lodash':
+        patched: '2019-07-04T02:13:40.701Z'
+    - '@akashaproject/ipfs-connector > ipfs-api > peer-info > peer-id > async > lodash':
+        patched: '2019-07-04T02:13:40.701Z'
+    - '@akashaproject/ipfs-connector > ipfs-api > peer-info > multiaddr > ip-address > lodash':
+        patched: '2019-07-04T02:13:40.701Z'
+    - '@akashaproject/ipfs-connector > ipfs-api > libp2p-crypto > libp2p-crypto-secp256k1 > async > lodash':
+        patched: '2019-07-04T02:13:40.701Z'
+    - '@akashaproject/ipfs-connector > ipfs-api > peer-info > peer-id > libp2p-crypto > async > lodash':
+        patched: '2019-07-04T02:13:40.701Z'
+    - '@akashaproject/ipfs-connector > ipfs-api > peer-id > libp2p-crypto > libp2p-crypto-secp256k1 > async > lodash':
+        patched: '2019-07-04T02:13:40.701Z'
+    - '@akashaproject/ipfs-connector > ipfs-api > peer-info > peer-id > libp2p-crypto > libp2p-crypto-secp256k1 > async > lodash':
+        patched: '2019-07-04T02:13:40.701Z'
+    - '@akashaproject/ipfs-connector > ipfs-api > peer-info > peer-id > libp2p-crypto > multihashing-async > async > lodash':
+        patched: '2019-07-04T02:13:40.701Z'
