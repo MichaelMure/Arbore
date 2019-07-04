@@ -22,7 +22,9 @@
     "package-win": "npm run build && build --win --x64 --ia32",
     "package-linux": "npm run build && build --linux --x64 --ia32",
     "package-mac": "npm run build && build --mac --x64 --ia32 --publish never",
-    "package-all": "npm run build && build -mwl --x64 --ia32"
+    "package-all": "npm run build && build -mwl --x64 --ia32",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "browserslist": "electron 1.6",
   "build": {
@@ -195,10 +197,12 @@
     "redux-thunk": "^2.2.0",
     "roboto-fontface": "^0.8.0",
     "source-map-support": "^0.4.10",
-    "throttle-debounce": "^1.0.1"
+    "throttle-debounce": "^1.0.1",
+    "snyk": "^1.189.0"
   },
   "devEngines": {
     "node": ">=7.x",
     "npm": ">=4.x"
-  }
+  },
+  "snyk": true
 }
