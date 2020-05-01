@@ -11,6 +11,12 @@
   },
   "license": "GPL-3.0",
   "dependencies": {
-    "@akashaproject/ipfs-connector": "1.10.37"
-  }
+    "@akashaproject/ipfs-connector": "1.10.37",
+    "snyk": "^1.316.1"
+  },
+  "scripts": {
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "snyk": true
 }
