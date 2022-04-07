@@ -168,7 +168,7 @@
     "electron-window-state": "^4.1.1",
     "extract-text-webpack-plugin": "^2.0.0",
     "font-awesome": "^4.7.0",
-    "get-folder-size": "^1.0.0",
+    "get-folder-size": "^2.0.0",
     "immutable": "^3.8.1",
     "is-ipfs": "0.4.8",
     "material-ui": "1.0.0-beta.35",
